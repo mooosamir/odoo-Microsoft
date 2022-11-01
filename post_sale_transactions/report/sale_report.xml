@@ -1,0 +1,40 @@
+<odoo>
+    <data>
+        <template id="sale_report" inherit_id="ivis_order_grouping.sale_report">
+            <xpath expr="//div[hasclass('post_sale')]" position="after">
+                <t t-if="o.post_sale_reasons_id.id">
+                    <div class="pl-1 ml-2 mt-1 ">
+                        <div style="display: table; width: 100%; table-layout: fixed;">
+                            <div style="display: table-cell;">
+                                <div style="display: inline-block; width:28%; vertical-align:top;">
+                                    Post Sale Reason:
+                                </div>
+                                <div style="display: inline-block; width:68%;">
+                                    <t t-esc="o.post_sale_reasons_id.name"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </xpath>
+        </template>
+        <template id="multi_order_report" inherit_id="ivis_order_grouping.multi_order_report">
+            <xpath expr="//div[hasclass('post_sale')]" position="after">
+                <t t-if="o.post_sale_reasons_id.id">
+                    <div class="pl-1 ml-2 mt-1 ">
+                        <div style="display: table; width: 100%; table-layout: fixed;">
+                            <div style="display: table-cell;">
+                                <div style="display: inline-block; width:28%; vertical-align:top;">
+                                    Post Sale Reason:
+                                </div>
+                                <div style="display: inline-block; width:68%;">
+                                    <t t-esc="o.post_sale_reasons_id.name"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </xpath>
+        </template>
+    </data>
+</odoo>

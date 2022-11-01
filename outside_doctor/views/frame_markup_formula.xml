@@ -1,0 +1,66 @@
+<odoo>
+
+	<!-- Insurance Lens Main Menu -->
+	<!-- <menuitem id="outside_doctor_main_menu" parent="opt_custom.root_spectacles_menu" name="Settings" sequence="7"/> -->
+
+
+	<!-- Tree View of Frame Markup Formula-->
+	<record id="frame_markup_formula_tree_view" model="ir.ui.view">
+	    <field name="name">frame.markup.formula.tree.view</field>
+	    <field name="model">frame.markup.formula</field>
+	    <field name="arch" type="xml">
+	        <tree>
+	            <field name="collection_id" widget="many2many_tags"/>
+	            <field name="w_price_min"/>
+	            <field name="w_price_max"/>
+	            <field name="multiplier"/>
+	            <field name="additional_amt"/>
+	            <field name="next_ten"/>
+	            <field name="ends_with"/>
+	        </tree>
+	    </field>
+	</record>
+
+   <!-- Form View of Frame Markup Formula-->
+  <record id="frame_markup_formula_form_view" model="ir.ui.view">
+     <field name="name">frame.markup.formula.form.view</field>
+     <field name="model">frame.markup.formula</field>
+     <field name="arch" type="xml">
+        <form>
+          <sheet>
+            
+              <group>
+               <field name="collection_id" widget="many2many_tags" options="{'no_create_edit': True}"/>
+             </group>
+             <group>
+              <group>
+                <field name="w_price_min"/>
+                <field name="multiplier"/>
+                <field name="next_ten"/>
+              </group>
+              <group>
+                <field name="w_price_max"/>
+                <field name="additional_amt"/>
+                <field name="ends_with"/>
+              </group>
+            </group>
+          </sheet>
+        </form>
+    </field>
+
+   </record>
+
+   <!-- Action of Insurance Company-->
+   <record id="frame_markup_formula_action" model="ir.actions.act_window">
+       <field name="name">Frame Markup Formula</field>
+       <field name="res_model">frame.markup.formula</field>
+       <field name="view_mode">tree,form</field>
+   </record>
+
+    <menuitem id="frame_markup_formula_action_menu" action="frame_markup_formula_action"
+              parent="opt_custom.admin_configuration_menu" sequence="1" name="Frame Markup"/>
+   
+
+
+
+</odoo>

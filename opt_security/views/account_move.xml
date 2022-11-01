@@ -1,0 +1,15 @@
+<odoo>
+    <record id="invoice_security" model="ir.ui.view">
+	    <field name="name">invoice.security</field>
+	    <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+	    <field name="arch" type="xml">
+            <xpath expr="//button[@name='button_draft']" position="attributes">
+                <attribute name="groups">opt_security.opt_invoices_reset_to_draft</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_reverse']" position="attributes">
+                <attribute name="groups">opt_security.opt_invoices_add_credit_note</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

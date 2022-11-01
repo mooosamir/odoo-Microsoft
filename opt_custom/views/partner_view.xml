@@ -1,0 +1,190 @@
+<odoo>
+
+    <!-- Form view for Responsible Party -->
+    <record id="view_responsible_party_form" model="ir.ui.view">
+        <field name="name">view.responsible.party.form</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <form>
+                <div class="oe_title">
+                    <h2>
+                        <field name="name" required="0" invisible="1"/>
+                    </h2>
+                    <table>
+                        <tr>
+                            <td style="padding-right:10px;">
+                                <h4>
+                                    <field name="title"/>
+                                </h4>
+                            </td>
+                            <td style="padding-right:10px;">
+                                <h4>
+                                    <field name="first_name" placeholder="First Name" required="1"/>
+                                </h4>
+                            </td>
+                            <td style="padding-right:10px;">
+                                <h4>
+                                    <field name="middle_name" placeholder="Middle Name"/>
+                                </h4>
+                            </td>
+                            <td style="padding-right:10px;">
+                                <h4>
+                                    <field name="last_name" placeholder="Last Name" required="1"/>
+                                </h4>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <group colspan="4">
+                    <group>
+                        <field name="nick_name"/>
+                        <label for="" name="update_address">
+                            <b>Address</b>
+                        </label>
+                        <div class="o_address_format">
+                            <div class="o_row">
+                                <field name="family_street" placeholder="Street..." class="oe_inline" widget="gplaces_autocomplete"/>
+                                <field name="same_as_patient" class="oe_inline"/>
+                                <label for="same_as_patient" string="Same as Patient" class="oe_inline"/>
+                            </div>
+                            <field name="family_street2" placeholder="Street 2..." class="o_address_street"/>
+                            <field name="family_city" placeholder="City" class="o_address_city"/>
+                            <field name="family_state_id" class="o_address_state" placeholder="State"
+                                   options="{&quot;no_open&quot;: True}"
+                                   context="{'family_country_id': family_country_id, 'family_zip': family_zip}"/>
+                            <field name="family_zip" placeholder="ZIP" class="o_address_zip"/>
+                            <field name="family_country_id" placeholder="Country" class="o_address_country"
+                                   options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+                        </div>
+                        <field name="phone" widget="phone" string="Cell"/>
+                        <field name="other"/>
+                        <label for="email" string="Email"/>
+                        <div class="o_row">
+                            <field name="email" class="oe_inline"/>
+                            <field name="disabled_email" class="oe_inline"/>
+                            <label for="disabled_email" string="Declined" class="oe_inline"/>
+                            <field name="actual_patien_id" invisible="1"/>
+                        </div>
+                    </group>
+                    <group>
+                        <label for="date_of_birth"/>
+                        <div class="oe_row">
+                            <field name="date_of_birth" class="oe_inline"/>
+                       
+                         </div>
+                        <field name="ssn"/>
+                        <field name="gender" widget="radio" options="{'horizontal': true}"/>
+                        <field name="gender_identification"/>
+                        <field name="relationship_to_patient"/>
+                        <field name="actual_patien_id" invisible="1"/>
+                    </group>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <menuitem name="Patients"
+              id="root_patient_menu"
+              sequence="1"/>
+
+    <!-- Change action name of contact to Profile -->
+    <record id="contacts.action_contacts" model="ir.actions.act_window">
+        <field name="name">Profile</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">kanban,tree,form,activity</field>
+        <field name="search_view_id" ref="base.view_res_partner_filter"/>
+        <field name="context">{'default_is_company': True}</field>
+        <field name="domain">[('patient','!=', True)]</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a contact in your address book
+            </p>
+            <p>
+                Odoo helps you to easily track all activities related to a customer.
+            </p>
+        </field>
+    </record>
+
+    <!-- Inherit Menu Of Contacts and Change Menu name -->
+    <menuitem name="Profiles"
+              id="contacts.menu_contacts"
+              sequence="4"
+              web_icon="contacts,static/description/icon.png"
+              groups="base.group_user,base.group_partner_manager"/>
+
+    <menuitem id="contacts.res_partner_menu_contacts"
+              name="My Profile"
+              action="contacts.action_contacts"
+              parent="contacts.menu_contacts"
+              sequence="2"/>
+
+    <menuitem id="contacts.res_partner_menu_config"
+              name="Configuration"
+              action="contacts.action_contacts"
+              parent="contacts.menu_contacts"
+              sequence="4"/>
+
+
+    <!-- Tree View of Recall Type-->
+    <record id="recall_type_tree_view" model="ir.ui.view">
+        <field name="name">recall.type.tree.view</field>
+        <field name="model">spec.recall.type</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View of Recall Type-->
+    <record id="recall_type_form_view" model="ir.ui.view">
+        <field name="name">insurance.form.view</field>
+        <field name="model">spec.recall.type</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group colspan="4" col="4">
+                        <field name="name"/>
+                        <field name="months"/>
+                    </group>
+<!--                    <group string="Recall Schedule">-->
+<!--                        <field name="recall_schedule_ids" nolabel="1">-->
+<!--                            <tree editable="bottom">-->
+<!--                                <field name="number"/>-->
+<!--                                <field name="period"/>-->
+<!--                                <field name="when"/>-->
+<!--                                <field name="recall_type_id_2" invisible="0"/>-->
+<!--                                <field name="recall_type_id" invisible="1"/>-->
+<!--                                <field name="partner_id" invisible="1"/>-->
+<!--                            </tree>-->
+<!--                        </field>-->
+<!--                    </group>-->
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action of Recall Type-->
+    <record id="recall_type_action" model="ir.actions.act_window">
+        <field name="name">Recall Type</field>
+        <field name="res_model">spec.recall.type</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="recall_type_menu" action="recall_type_action" parent="contacts.res_partner_menu_config" sequence="7"/>
+
+    <!-- Invisible Partner Assign Tab In Contact -->
+    <record id="view_partner_form_inherit_partner_assign" model="ir.ui.view">
+        <field name="name">view.partner.form.inherit.partner.assign</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base_geolocalize.view_crm_partner_geo_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook/page[@name='geo_location']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+
+
+</odoo>

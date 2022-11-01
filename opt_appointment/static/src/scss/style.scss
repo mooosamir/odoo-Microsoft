@@ -1,0 +1,7 @@
+
+.layout_auto .o_list_view .o_list_table .o_list_record_remove button,
+.o_list_view .o_list_table .o_column_sortable:not(.o_handle_cell).o-sort-up,
+.o_list_view .o_list_table .o_column_sortable:not(.o_handle_cell).o-sort-down,
+{
+    color: #fff !important;
+}

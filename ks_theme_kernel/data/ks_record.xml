@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!--        <record model="res.company" id="base.main_company" >-->
+        <!--             <field name="background_image" type="base64" file="ks_theme_kernel/static/src/images/bg_image.png"/>-->
+        <!--        </record>-->
+
+        <record model="ks.home.view" id="ks_font_update">
+            <field name="current_font_id">font</field>
+            <field name="current_color_id">color</field>
+        </record>
+
+        <record model="ks.color.mode" id="ks_mode_update">
+            <field name="current_color_mode">light</field>
+        </record>
+
+        <record model="ks.color.company" id="ks_color_update">
+            <field name="current_font_id">font</field>
+            <field name="current_color_id">color</field>
+        </record>
+
+        <!--        <record model="ir.config_parameter" id="ks_res_config_settings">-->
+        <!--            <field name="key">menu_options</field>-->
+        <!--            <field name="value">Horizontal</field>-->
+        <!--        </record>-->
+
+        <record model="ir.module.category" id="ks_theme_kernel">
+            <field name="name">Backend Theme Configuration</field>
+            <field name="description">User access level for Backend Theme</field>
+            <field name="sequence">20</field>
+        </record>
+
+
+<!--        <record id="ks_theme_kernel_settings" model="res.groups">-->
+<!--            <field name="name">Settings</field>-->
+<!--            <field name="category_id" ref="ks_theme_kernel"/>-->
+<!--            <field name="comment">the user will have access to change the advance settings for Kernel Theme.</field>-->
+<!--        </record>-->
+
+        <record id="ks_theme_kernel_settings" model="res.groups">
+            <field name="name">Settings</field>
+            <field name="category_id" ref="ks_theme_kernel"/>
+            <field name="comment">the user will have access to change the mode, font styles, favourite menu and color
+                for Kernel Theme.
+            </field>
+        </record>
+
+        <record id="ks_theme_kernel_adv_settings" model="res.groups">
+            <field name="name">Advance Settings</field>
+            <field name="category_id" ref="ks_theme_kernel"/>
+            <field name="implied_ids" eval="[(4, ref('ks_theme_kernel_settings'))]"/>
+            <field name="comment">the user will have access to change the mode, font styles, favourite menu, color
+                 and advance settings for Kernel Theme.</field>
+        </record>
+
+    </data>
+
+
+</odoo>

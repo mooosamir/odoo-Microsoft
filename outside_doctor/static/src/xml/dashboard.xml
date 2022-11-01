@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="OutsideMain">
+        <div class="oh_dashboards">
+            <div class="container-fluid o_hr_dashboard">
+            </div>
+        </div>
+    </t>
+    <t t-name="OutSideDoctor">
+        <link rel="stylesheet" href="/hrms_dashboard/static/src/css/hrms_dashboard.css"/>
+        <div class="row main-section">
+            <div class="col-md-1 col-sm-1 dummy"></div>
+            
+            <div class="col-md-2 col-sm-6" style="margin-top:50px;">
+                <div class="oh-card">
+                    <div class="oh-card-body">
+                         <input style="text-transform: uppercase" type="text" id="last_name_api" t-att-value="widget.current_filter['last_name']" class="form-control" placeholder="Last Name"/>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="col-md-2 col-sm-6" style="margin-top:50px;">
+                <div class="oh-card">
+                    <div class="oh-card-body">
+                        <input type="text" id="first_name_api" t-att-value="widget.current_filter['first_name']" class="form-control" placeholder="First Name"/>
+                    </div>
+                </div>
+            </div> -->
+            <div class="col-md-2 col-sm-6" style="margin-top:50px;">
+                <div class="oh-card">
+                    <div class="oh-card-body">
+                        <input type="text" style="text-transform: uppercase" id="city_api" t-att-value="widget.current_filter['city']" class="form-control" placeholder="City"/>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 col-sm-6" style="margin-top:50px;">
+                <div class="oh-card">
+                    <div class="oh-card-body">
+                        <input type="text" style="text-transform: uppercase" id="state_api" t-att-value="widget.current_filter['state']" class="form-control" placeholder="State"/>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 col-sm-6" style="margin-top:50px;">
+                <div class="oh-card">
+                    <div class="oh-card-body">
+                        <button type="button"  class="btn btn-primary fetch_data_class"> Find</button>
+                    </div>
+                </div>
+                </div>
+                <div class="cols">
+                  <div class="col-md-12" >
+                    <!-- <button type="button"  class="btn btn-primary select_all" style="margin-left:110px;margin-top:25px;"> Select All</button> -->
+                      <div style="height:450px;overflow:auto;">
+                      <table id="emp_data_details" class="table table-bordered"  style="margin-left:110px;margin-top:30px;width:1000px;"
+                       >
+                          <thead class="bg-primary">
+                              <tr>
+                                <!-- <th>S.No</th> -->
+                                <th>Select</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Credential</th>
+                                <th>Taxonomy</th>
+                                <th>City</th>
+                                <th>State</th>
+                                <th>NPI Type</th>
+                                <th>NPI</th>
+                              </tr>
+                          </thead>
+                           <tbody>
+                            <t t-if="widget.address_data">
+                                <t t-set="i" t-value="1"/>
+                                <t t-foreach="widget.address_data" t-as="dt">
+                                    <tr class="api_tr">
+                                        <!-- <td> <span t-esc="i"/> </td> -->
+                                        <td class="checkbox_box" >
+                                          <input name="checked_boxs"
+                                            t-attf-last="{{ dt['last_name']}}"
+                                            t-attf-credential="{{ dt['credential']}}"
+                                            t-attf-taxonomies="{{ dt['taxonomies']}}"
+                                            t-attf-city="{{ dt['city']}}"
+                                            t-attf-npi_type="{{ dt['npi_type']}}"
+                                            t-attf-npi="{{ dt['npi']}}"
+                                            t-attf-first_name="{{ dt['first_name']}}"
+                                            t-attf-middle_name="{{ dt['middle_name']}}"
+                                            t-attf-street="{{ dt['street']}}"
+                                            t-attf-street2="{{ dt['street2']}}"
+                                            t-attf-license_doctor="{{ dt['license_doctor']}}"
+                                            t-attf-medicaid="{{ dt['medicaid']}}"
+                                            t-attf-phone="{{ dt['phone']}}"
+                                            t-attf-zip="{{ dt['zip']}}"
+                                            t-attf-prefix="{{ dt['prefix']}}"
+                                            t-attf-country="{{ dt['country']}}"
+                                            t-attf-id="comp_1_user_{{ dt['sequence_id'] }}" 
+                                            type="checkbox"/><t t-esc="dt['sequence']"></t>  
+                                        </td>
+                                        <td t-esc="dt['first_name']" t-att-class="dt['sequence']"></td>
+                                        <td t-esc="dt['last_name']" t-att-class="dt['sequence']"></td>
+                                        <td t-esc="dt['credential']"></td>
+                                        <td t-esc="dt['taxonomies']"></td>
+                                        <td t-esc="dt['city']"></td>
+                                        <td t-esc="dt['state']" t-att-class="dt['sequence']"></td>
+                                        <td t-esc="dt['npi_type']"></td>
+                                        <td t-esc="dt['npi']"></td>
+                                    </tr>
+                                     <t t-set="i" t-value="i+1"/>
+                                </t>
+                            </t>
+                          </tbody> 
+                      </table>
+                  </div>
+
+
+
+                  </div>
+                  <button type="button"  class="btn btn-primary import_data" style="margin-left:125px;">Import</button>
+              </div> 
+        </div>
+    </t>
+</templates>

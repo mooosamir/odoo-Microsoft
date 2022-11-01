@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <menuitem id="menu_dispensing_note" action="action_dispensing_note_tree" name="Dispensing Notes"
+            parent="opt_custom.sales_configuration_menu" sequence="5" />
+        <menuitem id="menu_order_status" action="action_order_status_tree" name="Order Status"
+            parent="opt_custom.sales_configuration_menu" sequence="6"/>
+        <menuitem id="menu_discount_reason" action="action_discount_reason_tree" name="Discount Reason"
+            parent="opt_custom.sales_configuration_menu" sequence="7"/>
+    </data>
+</odoo>

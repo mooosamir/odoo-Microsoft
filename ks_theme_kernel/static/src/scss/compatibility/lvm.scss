@@ -1,0 +1,157 @@
+.o_list_view .o_list_table tbody tr td.ks_word_break {
+    padding-left: 11px;
+}
+
+.ui-widget.ui-widget-content {
+    background: #fafafa;
+    overflow: auto !important;
+    max-height: 50vh;
+    @extend .scroll-style;
+}
+
+.ui-autocomplete .ui-menu-item > a.ui-state-active {
+    background-color: rgba(0, 0, 0, 0.25);
+    color: $sidebar-text-color;
+}
+
+.ks_inner_search {
+    background-color: $searchbar-bg-color !important;
+    border-color: $searchbar-border-color !important;
+    color: $sidebar-text-color;
+
+    .ks_remove_popup {
+        cursor: pointer;
+        margin-left: auto;
+    }
+}
+
+.ks_btn_middle_child {
+    margin-left: -6px;
+    margin-right: -10px;
+
+    .o_input {
+        height: auto;
+        padding: 0 !important;
+        margin-top: 2px;
+    }
+
+    .o_datepicker_button {
+        &:after {
+            display: none;
+        }
+    }
+}
+
+.ks_search.ks_date_main,
+.ks_date_inner,
+.ks_search {
+    .ks_inner_search {
+        width: calc(100% - 8px);
+
+        > .ks_date_chip_ellipsis,
+        > .ks_advance_chip_ellipsis {
+            max-width: calc(100% - 15px);
+            margin-right: 0;
+        }
+    }
+    .custom-control-searchbar-change:empty {
+        display: none !important;
+    }
+}
+
+.o_list_buttons {
+    .switch {
+        margin-top: -5px;
+        order: -1;
+        margin-right: 5px !important;
+
+        input:checked + .slider {
+            background-color: $primary;
+        }
+    }
+}
+
+.o_list_view .o_list_table {
+   .tableFloatingHeaderOriginal,
+   .tableFloatingHeader {
+        &,
+        .hide-on-modal:focus-within,
+        .ks_advance_search_row:focus-within {
+            background-color: rgb(238, 238, 238) !important;
+        }
+
+        th.bg-primary {
+            background-color: $primary !important;
+        }
+
+        + tbody {
+            .o_data_row {
+                th {
+                    background: $user-info-bg !important;
+                    border-color: $table-border-color !important;
+                    padding-left: 10px;
+                }
+            }
+
+            .o_datepicker_button {
+                top: 9px !important;
+            }
+        }
+   }
+}
+
+
+
+.ks_list_field_info {
+    .ks_switch {
+        input:checked + .ks_slider {
+            background-color: $primary-light;
+        }
+    }
+}
+
+.ks_columns_list {
+    margin-right: -10px;
+    @extend .scroll-style;
+}
+
+.o_list_view .o_list_table .o_data_row.o_selected_row > .o_data_cell:not(.o_readonly_modifier):not(.o_invisible_modifier).ks_word_break {
+    .o_input {
+       border: 1px solid #ccc;
+    }
+}
+
+.ks_advance_search_row .custom-control-searchbar-advance,
+.ks_advance_search_row .custom-control-searchbar-change {
+    background-color: $user-info-bg !important;
+    border-color: $searchbar-border-color !important;
+    color: $sidebar-text-color !important;
+
+    &::placeholder {
+        color: $placeholder-text;
+    }
+}
+
+body .custom-control.custom-checkbox .custom-control-input:not(:checked):not(:indeterminate) ~ .custom-control-label:before {
+    background: transparent ;
+}
+
+.ks_order {
+    filter: invert($invert);
+}
+
+body table.o_list_table tbody tr.ks_highlight_row {
+   color: $sidebar-text-color !important;
+}
+
+@media (max-width: $mobile-lg) {
+    .ks_columns {
+        width: auto;
+        min-width: 200px;
+        right: 0 !important;
+        left: auto !important;
+    }
+    .ks_editable {
+        max-width: calc(100% - 70px);
+    }
+}

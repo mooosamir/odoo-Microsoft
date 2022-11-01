@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data noupdate="1">
+	    <record id="opt_claims" model="ir.module.category">
+	        <field name="name">OPT Claims</field>
+	    </record>
+
+	    <record id="opt_claims_manager" model="res.groups">
+	        <field name="name">Claims Manager</field>
+	        <field name="category_id" ref="opt_security.opt_claims"/>
+	    </record>
+	    <record id="opt_claims_payments" model="res.groups">
+	        <field name="name">Claims Payments</field>
+	        <field name="category_id" ref="opt_security.opt_claims"/>
+	    </record>
+
+	    <record id="opt_claims_manager" model="res.groups">
+	        <field name="name">Manager</field>
+	        <field name="category_id" ref="opt_security.opt_claims"/>
+			<field name="implied_ids" eval="[(4, ref('opt_security.opt_claims_manager')), (4, ref('opt_security.opt_claims_payments')),
+				]"/>
+	    </record>
+	</data>
+</odoo>

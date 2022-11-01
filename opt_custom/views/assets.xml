@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_backend_opt" inherit_id="website.assets_frontend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/opt_custom/static/src/js/optical.js"></script>
+            <script type="text/javascript" src="/web/static/lib/select2/select2.js"></script>
+            <link rel="stylesheet" href="/web/static/lib/select2/select2.css"/>
+            <link rel="stylesheet" href="/web/static/lib/select2-bootstrap-css/select2-bootstrap.css"/>
+        </xpath>
+    </template>
+    <template id="assets_backend" name="opt_custom" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" href="/opt_custom/static/src/css/opt_custom.css"/>
+            <script type="text/javascript" src="/opt_custom/static/src/js/attachment_preview.js"></script>
+            <script type="text/javascript" src="/opt_custom/static/src/js/field_options.js"></script>
+            <script type="text/javascript" src="/opt_custom/static/src/js/force_save_o2m_record.js"></script>
+            <script type="text/javascript" src="/opt_custom/static/src/js/web_widget_timepicker.js"></script>
+            <script type="text/javascript" src="/opt_custom/static/src/js/search_bar/control_panel_renderer.js"></script>
+            <script type="text/javascript" src="/opt_custom/static/src/js/form_view/form_renderer.js"></script>
+            <script type="text/javascript" src="/opt_custom/static/src/js/widgets/switch_company_menu.js"></script>
+        </xpath>
+    </template>
+</odoo>

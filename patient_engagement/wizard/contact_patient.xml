@@ -1,0 +1,23 @@
+<odoo>
+    <data>
+        <record id="contact_patient_wizard_view" model="ir.ui.view">
+            <field name="name">contact.patient.wizard.view</field>
+            <field name="model">contact.patient.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Contact Patient">
+                    <sheet>
+                        <group>
+                            <field name="patient_id"/>
+                            <field name="patient_mobile"/>
+                            <field name="text_body"/>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="send_message" string="Send Message" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

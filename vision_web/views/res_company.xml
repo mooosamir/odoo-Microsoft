@@ -1,0 +1,22 @@
+<odoo>
+    <record model="ir.ui.view" id="res_company_frames_data_form_view">
+        <field name="name">res.company.frames_data.form</field>
+        <field name="model">res.company</field>
+        <field name="priority" eval="100"/>
+        <field name="inherit_id" ref="company_registration.company_registration_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page/group[@name='frame']" position="inside">
+                <group>
+                    <div class="app_settings_block" string="VisionWeb">
+                        <h2>Vision Web</h2>
+                        <div class="col-12 o_setting_box" >
+                            <group colspan="4">
+                                <field name="vw_ship_account"/>
+                            </group>
+                        </div>
+                    </div>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

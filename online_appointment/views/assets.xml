@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <template id="assets_frontend" name="Online Appointment Assets" inherit_id="website.assets_frontend">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" href="/online_appointment/static/src/css/style.css"/>
+                <script type="text/javascript" src="/online_appointment/static/src/js/tabs.js"></script>
+                <script type="text/javascript" src="/online_appointment/static/src/lib/jquery.inputmask.bundle.js"></script>
+                <script type="text/javascript" src="/online_appointment/static/src/js/google_maps.js"></script>
+                <script type="text/javascript" src="/online_appointment/static/src/js/google_maps_script.js"></script>
+<!--                <script type="text/javascript" src="/patient_engagement/static/src/js/sms_count.js"></script>-->
+            </xpath>
+        </template>
+        <template id="assets_backend" name="Online Appointment Assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" href="/online_appointment/static/src/css/style.css"/>
+            </xpath>
+        </template>
+    </data>
+</odoo>

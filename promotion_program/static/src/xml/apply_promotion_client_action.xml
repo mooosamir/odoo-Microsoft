@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates>
+
+    <div t-name="apply_promotion_client_action" class="apply_promotion_client_action">
+
+        <div class="container promo-code-box" style="heigh:100%; display:none;">
+            <div class="row">
+                <div class="col-8">
+                    <label class="code-heading">Enter Promo Code</label>
+                    <input type="text" class="promo-code" placeholder="Enter PROMO"/>
+                </div>
+                <div class="col-4">
+                    <button class="codeApplied" name="code_applied_btn">Apply</button>
+                    <button data-dismiss="modal">Close</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div t-name="apply_promotion_template">
+        <div class="container main-container" style="height: 100%;">
+            <t t-foreach="data" t-as="promo">
+                <h3 class="promo-heading">
+                    <t t-esc="promo"/>
+                </h3>
+                <t t-foreach="data[promo].promotions" t-as="pro">
+
+                    <div class="row">
+                        <div class="col-8">
+                            <h6 class="promo-text">
+                                <t t-esc="pro.promo_name"/>
+                            </h6>
+                        </div>
+
+                        <t t-if="pro.ot_id != undefined &amp;&amp; pro.ot_id.includes(data[promo].id)">
+                        <div class="col-4">
+                            <button t-att-id="pro.promo_id" t-att-data="data[promo].id"
+                                        t-att-amount="pro.discounted_amount" class="ApplyPromo" disabled="disabled" style="background-color:green;">Applied.
+                            </button>
+                        </div>
+                        </t>
+                        <t t-else="">
+                            <div class="col-4">
+                            <button t-att-id="pro.promo_id" t-att-data="data[promo].id"
+                                        t-att-amount="pro.discounted_amount" class="ApplyPromo">Apply
+                            </button>
+                        </div>
+                        </t>
+
+                    </div>
+
+                </t>
+            </t>
+        </div>
+    </div>
+
+
+</templates>

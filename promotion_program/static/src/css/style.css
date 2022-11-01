@@ -1,0 +1,39 @@
+.main-container{
+    padding:20px;
+}
+
+.promo-heading{
+    color:#0f69c1;
+    margin-bottom:15px;
+
+
+}
+
+.code-heading{
+    color:#0f69c1;
+
+}
+
+.promo-text{
+    border-bottom:1px solid black;
+    margin-bottom:5px;
+}
+
+.ApplyPromo{
+    background-color:#0f69c1;
+    color:white;
+    border:none;
+    padding:10px;
+    margin-bottom:20px;
+    margin-top:-20px;
+
+}
+
+.apply-code{
+    background-color:#0f69c1;
+    color:white;
+    border:none;
+    padding:10px;
+    margin-top:15px;
+
+}

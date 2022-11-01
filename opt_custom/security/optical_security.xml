@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<function name="write" model="ir.model.data">
+	        <function name="search" model="ir.model.data">
+	        <value eval="[('module', '=', 'base'), ('name', '=', 'group_user')]"/>
+	        </function>
+	        <value eval="{'noupdate': False}" />
+	    </function>
+	    
+	    <!-- Replace to avoid implied_ids group_product_variant for internal user. -->
+		<record id="base.group_user" model="res.groups">
+			<field name="implied_ids" eval="[]"/>
+		</record>
+	   
+	    <record model="ir.module.category" id="optical_erp_category">
+	        <field name="name">Optical ERP</field>
+	        <field name="sequence">120</field>
+	    </record>
+
+	    <record id="group_information" model="res.groups">
+	        <field name="name">Information</field>
+	        <field name="category_id" ref="optical_erp_category"/>
+	        <field name="users" eval="[(4, ref('base.user_admin'))]"/>
+	    </record>
+
+	    <record id="product.group_product_variant" model="res.groups">
+	        <field name="name">Manage Product Variants</field>
+	        <field name="category_id" ref="optical_erp_category"/>
+	        <field name="users" eval="[(4, ref('base.user_admin'))]"/>
+    	</record>
+    </data>
+</odoo>

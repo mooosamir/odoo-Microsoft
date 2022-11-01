@@ -1,0 +1,9 @@
+<odoo>
+  <data>
+    <record model="ir.actions.act_window" id="post_sale_reasons_action_window">
+      <field name="name">post sale reasons</field>
+      <field name="res_model">post.sale.reasons</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+  </data>
+</odoo>

@@ -1,0 +1,123 @@
+<odoo>
+	<data>
+		<!-- Manufacturer Data-->
+	    <record id="manufacturer_1" model="spec.contact.lens.manufacturer">
+	        <field name="name">ABB OPTICAL GROUP</field>
+	    </record>
+	    
+	    <record id="manufacturer_2" model="spec.contact.lens.manufacturer">
+	        <field name="name">Alcon</field>
+	    </record>
+	    <record id="manufacturer_3" model="spec.contact.lens.manufacturer">
+	        <field name="name">Alden Optical</field>
+	    </record>
+	    
+	    <record id="manufacturer_4" model="spec.contact.lens.manufacturer">
+	        <field name="name">Art Optical</field>
+	    </record>
+	    
+	    <record id="manufacturer_5" model="spec.contact.lens.manufacturer">
+	        <field name="name">Bausch + Lomb</field>
+	    </record>
+	    
+	    <record id="manufacturer_6" model="spec.contact.lens.manufacturer">
+	        <field name="name">Blanchard</field>
+	    </record>
+	    
+	    <record id="manufacturer_7" model="spec.contact.lens.manufacturer">
+	        <field name="name">BluTech</field>
+	    </record>
+	    
+	    <record id="manufacturer_8" model="spec.contact.lens.manufacturer">
+	        <field name="name">BostonSight</field>
+	    </record>
+	    
+	    <record id="manufacturer_9" model="spec.contact.lens.manufacturer">
+	        <field name="name">Clerio Vision</field>
+	    </record>
+	    
+	    <record id="manufacturer_10" model="spec.contact.lens.manufacturer">
+	        <field name="name">CooperVision</field>
+	    </record>
+	    
+	    <record id="manufacturer_11" model="spec.contact.lens.manufacturer">
+	        <field name="name">Custom Craft</field>
+	    </record>
+	    
+	    <record id="manufacturer_12" model="spec.contact.lens.manufacturer">
+	        <field name="name">Essilor</field>
+	    </record>
+	    
+	    <record id="manufacturer_13" model="spec.contact.lens.manufacturer">
+	        <field name="name">Euclid Systems Corporation</field>
+	    </record>
+	    
+	    <record id="manufacturer_14" model="spec.contact.lens.manufacturer">
+	        <field name="name">Fused / Diversified</field>
+	    </record>
+	    
+	    <record id="manufacturer_15" model="spec.contact.lens.manufacturer">
+	        <field name="name">HOYA</field>
+	    </record>
+	    
+	    <record id="manufacturer_16" model="spec.contact.lens.manufacturer">
+	        <field name="name">Johnson &amp; Johnson Vision Care</field>
+	    </record>
+	    
+	    <record id="manufacturer_17" model="spec.contact.lens.manufacturer">
+	        <field name="name">Menicon</field>
+	    </record>
+	    
+	    <record id="manufacturer_18" model="spec.contact.lens.manufacturer">
+	        <field name="name">Paragon</field>
+	    </record>
+	    
+	    <record id="manufacturer_19" model="spec.contact.lens.manufacturer">
+	        <field name="name">PolyVue</field>
+	    </record>
+	    
+	    <record id="manufacturer_20" model="spec.contact.lens.manufacturer">
+	        <field name="name">Seiko</field>
+	    </record>
+	    
+	    <record id="manufacturer_21" model="spec.contact.lens.manufacturer">
+	        <field name="name">Shamir</field>
+	    </record>
+	    
+	    <record id="manufacturer_22" model="spec.contact.lens.manufacturer">
+	        <field name="name">SOMO</field>
+	    </record>
+	    
+	    <record id="manufacturer_23" model="spec.contact.lens.manufacturer">
+	        <field name="name">SynergEyes</field>
+	    </record>
+	    
+	    <record id="manufacturer_24" model="spec.contact.lens.manufacturer">
+	        <field name="name">Tangible Science</field>
+	    </record>
+	    
+	    <record id="manufacturer_25" model="spec.contact.lens.manufacturer">
+	        <field name="name">The LifeStyle Co.</field>
+	    </record>
+	    
+	    <record id="manufacturer_26" model="spec.contact.lens.manufacturer">
+	        <field name="name">Unity</field>
+	    </record>
+	    
+	    <record id="manufacturer_27" model="spec.contact.lens.manufacturer">
+	        <field name="name">VISION EASE</field>
+	    </record>
+	    
+	    <record id="manufacturer_28" model="spec.contact.lens.manufacturer">
+	        <field name="name">Visionary Optics</field>
+	    </record>
+	    
+	    <record id="manufacturer_29" model="spec.contact.lens.manufacturer">
+	        <field name="name">VSP</field>
+	    </record>
+	    
+	    <record id="manufacturer_30" model="spec.contact.lens.manufacturer">
+	        <field name="name">X-Cel Specialty Contacts</field>
+	    </record>
+	</data>
+</odoo>

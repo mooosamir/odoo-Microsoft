@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <template id="assets_backend" name="Assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" href="/patient_profile_revisions/static/src/css/style.css"/>
+                <script type="text/javascript" src="/patient_profile_revisions/static/src/js/dialog.js"></script>
+                <script type="text/javascript" src="/patient_profile_revisions/static/src/js/view_dialog.js"></script>
+                <script type="text/javascript" src="/patient_profile_revisions/static/src/js/relational_fields.js"></script>
+                <script type="text/javascript" src="/patient_profile_revisions/static/src/js/list_editable_renderer.js"></script>
+            </xpath>
+        </template>
+    </data>
+</odoo>

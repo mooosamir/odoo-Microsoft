@@ -1,0 +1,15 @@
+<odoo>
+    <record id="view_patent_profile_form_inheritance" model="ir.ui.view">
+        <field name="name">view.patent.profile.form.inheritance</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="opt_custom.view_patent_profile_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook/page[@name='rx_glasses']/field/form/group[@class='provider']" position="after">
+                <group colspan="4" col="4" attrs="{'invisible':[('provide', '=', 'provide')]}">
+                    <field name="outside_provider"/>
+                    <button name="import_doctor" string="Import Doctor" type="object" class="oe_highlight oe_inline"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

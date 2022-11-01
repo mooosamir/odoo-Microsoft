@@ -1,0 +1,441 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates>
+    <t t-extend="ListView.buttons">
+        <t t-jquery="div.o_list_buttons" t-operation='append'>
+            <t t-if="widget.modelName == 'product.template' &amp; widget._title == 'Frame'">
+                <button type="button" class="frames_data_import_client_action btn btn-primary"
+                        style="margin-left:10px;">
+                    Frames Data import
+                </button>
+            </t>
+        </t>
+    </t>
+
+    <div t-name="frames_data_wizard" class="frames_data_wizard" style="height: 100%;">
+        <div class="fluid-container" style="height: inherit;padding: 0px 40px 0px 40px;">
+            <div class="row" style="padding: 5px 0px 5px 0px;height: 5%;">
+                <div class="col-lg-12 left">
+                    <p id="select_all" style="cursor: pointer;width: max-content;">
+                        <i class="fa fa-pencil-square-o"/>
+                        Select All
+                    </p>
+                </div>
+            </div>
+            <div class="row" style="height: 85%;overflow-y: scroll;">
+                <div class="col-lg-12 add_manufacturer_collections">
+                    <!--                    <table id="style_configurations">-->
+                    <!--                        <thead>-->
+                    <!--                            <tr style="background-color: #59b74a;color: white;">-->
+                    <!--                                <td></td>-->
+                    <!--                                <td style="width:2%"></td> &lt;!&ndash; main checkbox &ndash;&gt;-->
+                    <!--                                <td style="width:2%"></td> &lt;!&ndash; main checkbox &ndash;&gt;-->
+                    <!--                                <td style="width:2%"></td> &lt;!&ndash; sub checkbox &ndash;&gt;-->
+                    <!--                                <td class="heading">Manufacturer</td>-->
+                    <!--                                <td class="heading">Brand</td>-->
+                    <!--                                <td class="heading">Collection</td>-->
+                    <!--                                <td class="heading">Model</td>-->
+                    <!--                                &lt;!&ndash;                            <td class="heading">Vendor</td>&ndash;&gt;-->
+                    <!--                                <td class="heading">Wholesale</td>-->
+                    <!--                                <td class="heading">Retail</td>-->
+                    <!--                                <td></td>-->
+                    <!--                                <td></td>-->
+                    <!--                                <td></td>-->
+                    <!--                                <td></td>-->
+                    <!--                            </tr>-->
+                    <!--                        </thead>-->
+                    <!--                        <tbody class="details">-->
+                    <!--                        </tbody>-->
+                    <!--                    </table>-->
+                    <table style="width:100%">
+                        <thead>
+                            <tr style="background-color: #59b74a;color: white;">
+                                <th></th>
+                                <th>Manufacturer</th>
+                                <th>Collection</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="widget.manufacturer_collections or []" t-as="manufacturer_collection">
+                                <td>
+                                    <input type="checkbox"
+                                           class="checkbox"
+                                           t-attf-data-mfmid="#{manufacturer_collection.ManufacturerFramesMasterID}"
+                                           t-attf-data-bfmid="#{manufacturer_collection.BrandFramesMasterID}"
+                                           t-attf-data-cfmid="#{manufacturer_collection.CollectionFramesMasterID}"
+                                           t-attf-data-market="#{manufacturer_collection.Market}"
+                                           t-attf-data-status="#{manufacturer_collection.Status}"/>
+<!--                                    <p style='visibility: hidden; display: none;'></p>-->
+                                </td>
+                                <td>
+                                    <t t-esc="manufacturer_collection.ManufacturerName"/>
+                                </td>
+                                <td>
+                                    <t t-esc="manufacturer_collection.CollectionName"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row " style="padding: 5px 0px 5px 0px;height: 10%;">
+                <div class="col-lg-12 right">
+                    <select id="vendor" style="width: 30%;display: inline;">
+                        <option t-att-data-id="0">Vendor</option>
+                        <t t-foreach="widget.vendors or []" t-as="vendor">
+                            <option t-attf-data-id="#{vendor.id}">
+                                <t t-esc="vendor.name"/>
+                            </option>
+                        </t>
+                    </select>
+                    <button id="fd_import" style="background-color: #59b74a;color: white;">Import</button>
+                    <button id="fd_synchronize" style="background-color: #59b74a;color: white;">Synchronize</button>
+                    <button id="fd_synchronize_existing" style="background-color: #59b74a;color: white;">Synchronize Existing</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <t t-name="frames_data.add_collections_by_mfmid">
+        <option t-att-data-mfmid="0"
+                t-att-data-bfmid="0"
+                t-att-data-cfmid="0"
+                t-att-data-market="0"
+                t-att-data-status="0">
+            collection
+        </option>
+        <t t-foreach="collections" t-as="collection">
+            <option t-attf-data-mfmid="#{collection.ManufacturerFramesMasterID}"
+                    t-attf-data-bfmid="#{collection.BrandFramesMasterID}"
+                    t-attf-data-cfmid="#{collection.CollectionFramesMasterID}"
+                    t-attf-data-market="#{collection.Market}"
+                    t-attf-data-status="#{collection.Status}">
+                <t t-esc="collection.CollectionName"/>
+            </option>
+        </t>
+    </t>
+
+    <t t-name="frames_data.add_styles_dropdown">
+        <option t-att-data-mfmid="0"
+                t-att-data-bfmid="0"
+                t-att-data-cfmid="0"
+                t-att-data-sfmid="0">
+            model
+        </option>
+        <t t-foreach="styles" t-as="style">
+            <option t-attf-data-mfmid="#{style.ManufacturerFramesMasterID}"
+                    t-attf-data-bfmid="#{style.BrandFramesMasterID}"
+                    t-attf-data-cfmid="#{style.CollectionFramesMasterID}"
+                    t-attf-data-sfmid="#{style.StyleFramesMasterID}">
+                <t t-esc="style.StyleName"/>
+            </option>
+        </t>
+    </t>
+
+    <t t-name="frames_data.add_styles">
+        <t t-foreach="styles or []" t-as="style">
+            <tr>
+                <td>
+                    <input type="hidden" t-attf-value="#{style.json}" class="json"/>
+                </td>
+                <td></td>
+                <td>
+                    <center>
+                        <input type="checkbox"
+                               class="checkbox main_style #{style.StyleFramesMasterID}"
+                               t-attf-data-mfmid="#{style.ManufacturerFramesMasterID}"
+                               t-attf-data-bfmid="#{style.BrandFramesMasterID}"
+                               t-attf-data-cfmid="#{style.CollectionFramesMasterID}"
+                               t-attf-data-sfmid="#{style.StyleFramesMasterID}"
+                        />
+                    </center>
+                </td>
+                <td></td>
+                <td>
+                    <t t-esc="style.ManufacturerName"/>
+                </td>
+                <td>
+                    <t t-esc="style.BrandName"/>
+                </td>
+                <td>
+                    <t t-esc="style.CollectionName"/>
+                </td>
+                <td>
+                    <t t-esc="style.StyleName"/>
+                </td>
+                <!--                <td>-->
+                <!--                    <select>-->
+                <!--                        <option t-att-data-id="0">Vendor</option>-->
+                <!--                        <t t-foreach="vendors or []" t-as="vendor">-->
+                <!--                            <option t-attf-data-id="#{vendor.id}">-->
+                <!--                                <t t-esc="vendor.name" />-->
+                <!--                            </option>-->
+                <!--                        </t>-->
+                <!--                    </select>-->
+                <!--                </td>-->
+                <td>
+                    <input type="text" class="wholesale"/>
+                </td>
+                <td>
+                    <input type="text" class="retail"/>
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="right" style="padding-right: 10px;">
+                    <i class="fa arrow fa-arrow-down" style="cursor: pointer;display:none;"
+                       t-attf-data-sfmid="#{style.StyleFramesMasterID}"/>
+                </td>
+            </tr>
+        </t>
+    </t>
+
+    <t t-name="frames_data.add_configurations_by_sfmid">
+        <tr t-if="configurations.length" style="display:none;" class="table_heading">
+            <td class="heading" style="background-color:rgb(238, 238, 238);"/>
+            <td class="heading" style="background-color:rgb(238, 238, 238);"/>
+            <td class="heading" style="background-color:rgb(238, 238, 238);">
+                <center>
+                    <input type="hidden"
+                           class="style_configurations"
+                           t-attf-data-sfmid="#{configurations[0].StyleFramesMasterID}"
+                    />
+                </center>
+            </td>
+            <td class="heading" style="background-color:rgb(238, 238, 238);"></td>
+            <td class="heading" style="background-color:rgb(238, 238, 238);">UPC</td>
+            <td class="heading" style="background-color:rgb(238, 238, 238);">SKU</td>
+            <td class="heading" style="background-color:rgb(238, 238, 238);">Eye</td>
+            <td class="heading" style="background-color:rgb(238, 238, 238);">Bridge</td>
+            <td class="heading" style="background-color:rgb(238, 238, 238);">Temple</td>
+            <td class="heading" style="background-color:rgb(238, 238, 238);">Color</td>
+            <td class="heading" style="background-color:rgb(238, 238, 238);">Wholesale</td>
+            <td class="heading" style="background-color:rgb(238, 238, 238);">Retail</td>
+            <td class="heading" style="background-color:rgb(238, 238, 238);">Min Qty</td>
+            <td class="heading" style="background-color:rgb(238, 238, 238);">Max Qty</td>
+        </tr>
+        <t t-foreach="configurations or []" t-as="configuration">
+            <tr style="display:none;">
+                <!--                display content hoga -->
+                <td>
+                    <input type="hidden" class="json" t-attf-value="#{configuration.json}"/>
+                </td>
+                <td/>
+                <td>
+                    <center>
+                        <input type="hidden"
+                               t-attf-class="style_configurations #{configuration.StyleFramesMasterID} checkbox"
+                               t-attf-data-cffmid="#{configuration.ConfigurationFramesMasterID}"
+                               t-attf-data-sfmid="#{configuration.StyleFramesMasterID}"
+                        />
+                    </center>
+                </td>
+                <td></td>
+                <td class="upc">
+                    <t t-esc="configuration.UPC"/>
+                </td>
+                <td>
+                    <input type="text" t-attf-value="#{configuration.SKU}" class="sku"/>
+                </td>
+                <td class="eye">
+                    <t t-esc="configuration.Eye"/>
+                </td>
+                <td class="bridge">
+                    <t t-esc="configuration.Bridge"/>
+                </td>
+                <td class="temple">
+                    <t t-esc="configuration.Temple"/>
+                </td>
+                <td class="color">
+                    <t t-esc="configuration.Color"/>
+                </td>
+                <td>
+                    <input type="text" t-attf-value="#{configuration.SalePrice}" class="wholesale"/>
+                </td>
+                <td>
+                    <input type="text" class="retail" t-attf-value="#{configuration.Retail}"/>
+                </td>
+                <td>
+                    <input type="number" class="min_qty"/>
+                </td>
+                <td>
+                    <input type="number" class="max_qty"/>
+                </td>
+            </tr>
+        </t>
+    </t>
+
+    <t t-name="frames_data.add_style_configurations_by_upc">
+        <t t-foreach="style_configurations or []" t-as="style">
+            <tr class="add_style_configurations_by_upc">
+                <td>
+                    <input type="hidden" t-attf-value="#{style.json}" class="json"/>
+                </td>
+                <td>
+                    <center>
+                        <input type="hidden"
+                               class="main_style upc checkbox"
+                               t-attf-data-mfmid="#{style.ManufacturerFramesMasterID}"
+                               t-attf-data-bfmid="#{style.BrandFramesMasterID}"
+                               t-attf-data-cfmid="#{style.CollectionFramesMasterID}"
+                               t-attf-data-sfmid="#{style.StyleFramesMasterID}"
+                        />
+                    </center>
+                </td>
+                <td></td>
+                <td>
+                    <t t-esc="style.ManufacturerName"/>
+                </td>
+                <td>
+                    <t t-esc="style.BrandName"/>
+                </td>
+                <td>
+                    <t t-esc="style.CollectionName"/>
+                </td>
+                <td>
+                    <t t-esc="style.StyleName"/>
+                </td>
+                <!--                <td>-->
+                <!--                    <select>-->
+                <!--                        <option t-att-data-id="0">Vendor</option>-->
+                <!--                        <t t-foreach="vendors or []" t-as="vendor">-->
+                <!--                            <option t-attf-data-id="#{vendor.id}">-->
+                <!--                                <t t-esc="vendor.name" />-->
+                <!--                            </option>-->
+                <!--                        </t>-->
+                <!--                    </select>-->
+                <!--                </td>-->
+                <td>
+                    <input type="text" class="wholesale upc" t-attf-value="#{style.SalePrice}"/>
+                </td>
+                <td>
+                    <input type="text" class="retail upc" t-attf-value="#{style.Retail}"/>
+                </td>
+                <td></td>
+                <td class="right">
+                    <i class="fa fa-trash"/>
+                </td>
+            </tr>
+            <tr class="table_heading">
+                <td class="heading" style="background-color:rgb(238, 238, 238);"/>
+                <td class="heading" style="background-color:rgb(238, 238, 238);"/>
+                <td class="heading" style="background-color:rgb(238, 238, 238);">
+                    <center>
+                        <input type="hidden"
+                               t-attf-data-sfmid="#{style.StyleFramesMasterID}"
+                        />
+                    </center>
+                </td>
+                <td class="heading" style="background-color:rgb(238, 238, 238);"></td>
+                <td class="heading" style="background-color:rgb(238, 238, 238);">UPC</td>
+                <td class="heading" style="background-color:rgb(238, 238, 238);">SKU</td>
+                <td class="heading" style="background-color:rgb(238, 238, 238);">Eye</td>
+                <td class="heading" style="background-color:rgb(238, 238, 238);">Bridge</td>
+                <td class="heading" style="background-color:rgb(238, 238, 238);">Temple</td>
+                <td class="heading" style="background-color:rgb(238, 238, 238);">Color</td>
+                <td class="heading" style="background-color:rgb(238, 238, 238);">Min Qty</td>
+                <td class="heading" style="background-color:rgb(238, 238, 238);">Max Qty</td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="hidden" t-attf-value="#{style.json}" class="json"/>
+                </td>
+                <td/>
+                <td>
+                    <center>
+                        <input type="hidden"
+                               t-attf-class="style_configurations #{style.StyleFramesMasterID} upc checkbox"
+                               t-attf-data-cffmid="#{style.ConfigurationFramesMasterID}"
+                               t-attf-data-sfmid="#{style.StyleFramesMasterID}"
+                        />
+                    </center>
+                </td>
+                <td></td>
+                <td class="UPC">
+                    <t t-esc="style.UPC"/>
+                </td>
+                <td>
+                    <input type="text" t-attf-value="#{style.SKU}" class="sku"/>
+                </td>
+                <td class="eye">
+                    <t t-esc="style.Eye"/>
+                </td>
+                <td class="bridge">
+                    <t t-esc="style.Bridge"/>
+                </td>
+                <td class="temple">
+                    <t t-esc="style.Temple"/>
+                </td>
+                <td class="color">
+                    <t t-esc="style.Color"/>
+                </td>
+                <td>
+                    <input type="number" class="min_qty"/>
+                </td>
+                <td>
+                    <input type="number" class="max_qty"/>
+                </td>
+            </tr>
+        </t>
+    </t>
+
+    <t t-name="frames_data.add_vendors">
+        <select>
+            <option t-att-data-id="0">Vendor</option>
+            <t t-foreach="vendors or []" t-as="vendor">
+                <option t-attf-data-id="#{vendor.id}">
+                    <t t-esc="vendor.name"/>
+                </option>
+            </t>
+        </select>
+    </t>
+
+    <t t-name="frames_data.manufacturer_collection">
+        <div role="dialog" class="modal fade" tabindex="-1">
+            <div class="modal-dialog modal-lg add_manufacturer_collections">
+                <div class="modal-content">
+                    <header class="modal-header">
+                        <h4 class="modal-title">Select Manufacturer/Collection</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                                style="font-size: 20px;padding: 0px;margin: 0px;">x
+                        </button>
+                    </header>
+                    <main class="modal-body">
+                        <table>
+                            <thead>
+                                <tr style="background-color: #59b74a;color: white;">
+                                    <th></th>
+                                    <th>Manufacturer</th>
+                                    <th>Collection</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="manufacturer_collections or []" t-as="manufacturer_collection">
+                                    <td>
+                                        <input type="checkbox"
+                                               class="checkbox"
+                                               t-attf-data-mfmid="#{manufacturer_collection.ManufacturerFramesMasterID}"
+                                               t-attf-data-bfmid="#{manufacturer_collection.BrandFramesMasterID}"
+                                               t-attf-data-cfmid="#{manufacturer_collection.CollectionFramesMasterID}"
+                                               t-attf-data-market="#{manufacturer_collection.Market}"
+                                               t-attf-data-status="#{manufacturer_collection.Status}"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="manufacturer_collection.ManufacturerName"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="manufacturer_collection.CollectionName"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </main>
+                    <footer class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Search</button>
+                    </footer>
+                </div>
+            </div>
+        </div>
+    </t>
+
+
+</templates>

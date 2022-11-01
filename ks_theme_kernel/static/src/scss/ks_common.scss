@@ -1,0 +1,33 @@
+* {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    text-rendering: geometricPrecision;
+    font-smooth: always;
+
+    @media (max-width: $hd-tab) {
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+.ks-no-after {
+    &:after {
+        display: none !important;
+    }
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.ui-menu-item {
+    &:hover {
+        .ui-menu-item-wrapper {
+            background-color: rgba(0, 0, 0, 0.1) !important;
+        }
+    }
+}
+
+input[type="search"] {
+    -webkit-appearance: none !important;
+}

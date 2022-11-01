@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <template id="assets_frontend" name="Online Appointment Assets" inherit_id="website.assets_frontend">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" href="/patient_portal/static/src/css/style.css"/>
+                <link rel="stylesheet" href="/patient_portal/static/src/css/prescription.css"/>
+                <link rel="stylesheet" href="/patient_portal/static/src/css/message.css"/>
+                <link rel="stylesheet" href="/patient_portal/static/src/css/form.css"/>
+                <script type="text/javascript" src="/patient_portal/static/src/js/script.js"></script>
+                <script type="text/javascript" src="/patient_portal/static/src/js/buttons.js"></script>
+                <script type="text/javascript" src="/patient_portal/static/src/js/image.js"></script>
+
+
+
+            </xpath>
+        </template>
+    </data>
+</odoo>

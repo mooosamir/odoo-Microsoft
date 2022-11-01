@@ -1,0 +1,15 @@
+<odoo>
+    <record id="patient_security" model="ir.ui.view">
+	    <field name="name">patient.security</field>
+	    <field name="model">res.partner</field>
+        <field name="inherit_id" ref="opt_custom.view_patent_profile_form"/>
+	    <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_send_mail_user']" position="attributes">
+                <attribute name="groups">opt_security.opt_patient_reset_password</attribute>
+            </xpath>
+            <xpath expr="//button[@name='334']" position="attributes">
+                <attribute name="groups">opt_security.opt_patient_payment_data</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_promotion_form,access.promotion.form,model_promotion_form,,1,1,1,1
+access_category_discount,access.category.discount,model_category_discount,,1,1,1,1
+access_item_discount,access.item.discount,model_item_discount,,1,1,1,1
+access_contact_lens_annual_supply,access.contact.lens.annual.supply,model_contact_lens_annual_supply,,1,1,1,1
+access_order_amount_discount,access.order.amount.discount,model_order_amount_discount,,1,1,1,1
+access_package_discount,access.package.discount,model_package_discount,,1,1,1,1
+access_buyx_gety,access.buyx.gety,model_buyx_gety,,1,1,1,1

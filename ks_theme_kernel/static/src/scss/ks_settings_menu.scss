@@ -1,0 +1,373 @@
+.ks_font_icon_div {
+    width: 90px;
+    height: 90px;
+    display: flex;
+
+    .fa-camera  {
+        color: #cccccc !important;
+    }
+
+    .fa {
+        margin: auto;
+    }
+}
+
+.o_form_view .oe_avatar {
+    &[name="ks_custom_image"],
+    &[name="ks_search_icons"],
+    &[name="ks_special_icons"] {
+        float: none;
+    }
+    > img {
+        width: 90px;
+        height: 90px;
+        object-fit: cover;
+
+        &[name="ks_special_icons"],
+        &[name="ks_search_icons"]{
+            border: none;
+        }
+    }
+}
+
+.o_we_search {
+    + .input-group-append {
+        .o_we_search_icon {
+            box-shadow: none !important;
+            border-radius: 0 4px 4px 0 !important;
+            height: 100%;
+        }
+    }
+}
+
+.btn-group {
+    .o_upload_media_button,
+    .o_we_quick_upload {
+        box-shadow: none !important;
+    }
+
+    .o_we_quick_upload {
+        border-radius: 0 4px 4px 0 !important;
+        margin-left: -2px !important;
+    }
+}
+
+#ks_kernel_icon_container_modal_id,
+.o_technical_modal.show {
+    background: rgba(0, 0, 0, 0.4);
+
+    .modal-dialog {
+        @media (min-width: 992px) {
+            max-width: 980px;
+        }
+    }
+}
+
+.ks_special_icon_list {
+    cursor: pointer;
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+
+    img {
+        transition: 0.3s ease-in-out;
+    }
+
+    &:hover {
+        img {
+            transform: scale(1.1);
+        }
+    }
+}
+
+.ks_icon_selected,
+.ks_special_icon_list:hover {
+    outline: 2px solid rgba($primary-light,0.5);
+    outline-offset: 3px;
+}
+
+@media (min-width: $mobile-lg) {
+    #ks_kernel_icon_container_modal_id {
+        .modal-dialog {
+            max-width: 50vw;
+            margin: inherit;
+            padding: 0;
+        }
+
+        .modal-content {
+            border-radius: 0px !important;
+            height: 100%;
+        }
+
+        .modal-header {
+            padding: 8px 18px;
+            border-radius: 0;
+
+            .close {
+                margin-top: -12px;
+            }
+        }
+
+        .modal-footer {
+            border-radius: 0;
+        }
+    }
+
+    .ks-icons-selector {
+        > nav {
+            .nav {
+                background: $primary-light;
+                color: #fff;
+                flex-direction: column;
+                border: none;
+                box-shadow: 0px 19px 12px -7px rgba($primary, 0.5);
+
+                .nav-item {
+                    color: #fff;
+                    border: none;
+                    width: 150px;
+                    text-align: center;
+                    font-weight: 700;
+                    font-size: 18px;
+
+                    &:not(:last-child) {
+                        border-bottom: 1px solid rgba(255, 255, 255, 0.22);
+                    }
+
+                    &.active {
+                        background: $primary;
+                        border-radius: 0;
+                    }
+                }
+            }
+        }
+
+        #nav-tabContent {
+            width: 100%;
+            margin-top: -16px;
+            margin-bottom: -16px;
+            margin-right: -16px;
+        }
+    }
+}
+
+#nav-tabContent {
+    @extend .scroll-style;
+    height: calc(100vh - 112px);
+    overflow: auto;
+
+    @media (max-width: $mobile-lg) {
+        height: calc(100vh - 200px);
+    }
+}
+
+.ks_special_icon_list {
+    img {
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
+        margin: auto;
+    }
+}
+
+.ks_icon_model {
+    .color_picker_wrapper {
+        margin-left: 150px
+    }
+
+    .sp-replacer.sp-light {
+        margin-left: 20px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+        border: none;
+    }
+}
+
+.o_base_settings .o_setting_container .settings > .app_settings_block  {
+    .settingSearchHeader {
+        + div {
+            h2 {
+                margin-top: 0 !important;
+            }
+        }
+
+        + h2 {
+           margin-top: 0 !important;
+        }
+    }
+}
+
+.o_act_window {
+    .custom-control.custom-radio.o_radio_item {
+        .o_form_label {
+            color: $sidebar-text-color;
+        }
+    }
+}
+
+.custom-radio .custom-control-input:checked ~ .custom-control-label::after {
+    background-image: none;
+    background-color: $primary;
+    border-radius: 50%;
+    width: 4px;
+    height: 4px;
+    top: 8px;
+    right: auto;
+    left: -14px;
+}
+
+.o_radio_input:checked + label::before {
+    border-color: $primary !important;
+}
+
+.text-primary {
+    color: $primary !important;
+}
+
+.setting-heading {
+    width: calc(100% + 58px);
+    margin: 0 -38px 20px !important;
+}
+
+.oe_stat_button {
+    i {
+        margin-right: 5px;
+    }
+}
+
+.o_field_widget.o_field_many2one .o_external_button {
+    color: $label-color;
+}
+
+.close:not(:disabled):not(.disabled):hover, .close:not(:disabled):not(.disabled):focus {
+    color: $sidebar-text-color;
+}
+
+.o_base_settings .o_setting_container .settings_tab .selected {
+    box-shadow: inset 3px 0 0 $label-color;
+}
+
+.badge-primary {
+    background-color: $primary-light;
+}
+
+.ks-theme-settings,
+.ks_icon_model {
+    @media (max-width: $mobile-lg) {
+        .o_form_image_controls {
+            display: flex;
+            flex-direction: column;
+            background-color: transparent !important;
+            width: 180px !important;
+        }
+
+        .oe_stat_button {
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+        }
+    }
+}
+@media (max-width: $mobile-lg) {
+    .ks_font_icon_div {
+        .o_form_image_controls {
+            position: absolute !important;
+            background-color: $primary !important;
+            width: 90px !important;
+            position: absolute !important;
+            bottom: -50px !important;
+            border-radius: 0 !important;
+            left: -1px !important;
+
+            button.fa {
+                width: 100% !important;
+            }
+        }
+    }
+
+    .modal.o_technical_modal.o_modal_full .modal-dialog {
+        max-width: 100% !important;
+    }
+
+    .ks_icon_model .color_picker_wrapper {
+        margin-left: 0;
+        margin-top: 50px;
+    }
+
+    .ks-icons-selector {
+        flex-wrap: wrap;
+
+        nav {
+            margin: auto;
+        }
+    }
+
+    .ks_special_icon_list {
+        width: 60px;
+        height: 60px;
+    }
+}
+
+body .modal .o_select_media_dialog .modal-body .font-icons-icons > span.font-icons-icon {
+    margin: 0;
+    width: auto;
+    height: auto;
+    padding: 0;
+    display: inline-flex;
+
+    &:before {
+        margin: 5px;
+        width: 50px;
+        height: 50px;
+        padding: 15px;
+    }
+}
+
+.o_we_image_optimize_dialog {
+    .form-row.align-items-center {
+        .col-auto {
+            .fa {
+                display: none;
+            }
+        }
+    }
+}
+
+.ks-search-values .ks-menu-search-value.dropdown-item {
+    margin-top: 5px;
+}
+
+.custom-checkbox {
+    &[name="ks_show_clock"],
+    &[name="ks_click_edit"] {
+        + .o_form_label {
+            font-weight: 700;
+        }
+    }
+}
+
+.o_base_settings .o_setting_container .settings > .app_settings_block  {
+    .settingSearchHeader {
+        margin-top: 0;
+
+        + div {
+            h2 {
+                margin-top: 0 !important;
+            }
+        }
+
+        + h2 {
+           margin-top: 0 !important;
+        }
+    }
+}
+
+#editor-media-image {
+    .btn {
+        border: none;
+        min-height: 31px;
+    }
+}
+
+.x {
+    color: $primary;
+}

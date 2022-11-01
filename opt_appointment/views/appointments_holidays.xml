@@ -1,0 +1,92 @@
+<odoo>
+    <record id="appointments_holidays_tree" model="ir.ui.view">
+        <field name="name">appointments.holidays.tree</field>
+        <field name="model">appointments.holidays</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="date"/>
+                <field name="holiday_open" class="oe_inline" options="{'datepicker': {'stepping': 15}}" widget="timepicker"/>
+                <field name="holiday_close" class="oe_inline" options="{'datepicker': {'stepping': 15}}" widget="timepicker"/>
+                <field name="holiday_closed"/>
+<!--                <field name="branch_id"/>-->
+                <field name="company_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="appointments_holidays_form" model="ir.ui.view">
+        <field name="name">appointments.holidays.form</field>
+        <field name="model">appointments.holidays</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+<!--                            <field name="branch_id" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>-->
+                            <field name="company_id" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+                            <field name="date"/>
+                        </group>
+                        <group>
+                            <field name="holiday_open" class="oe_inline" options="{'datepicker': {'stepping': 15}}" widget="timepicker"
+                                   attrs="{'required': [('holiday_closed', '=', False)], 'invisible': [('holiday_closed', '=', True)]}"/>
+                            <field name="holiday_close" class="oe_inline" options="{'datepicker': {'stepping': 15}}" widget="timepicker"
+                                   attrs="{'required': [('holiday_closed', '=', False)], 'invisible': [('holiday_closed', '=', True)]}"/>
+                            <field name="holiday_closed"/>
+                            <field name="opening_time" invisible="1"/>
+                            <field name="closing_time" invisible="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="recurrency"/>
+                    </group>
+                    <group attrs="{'invisible': [('recurrency', '=', False)]}">
+                        <group>
+                            <label for="interval"/>
+                            <div class="o_row">
+                                <field name="interval" attrs="{'required': [('recurrency', '=', True)]}"/>
+                                <field name="rrule_type" attrs="{'required': [('recurrency', '=', True)]}"/>
+                            </div>
+                            <label string="Until" for="end_type"/>
+                            <div class="o_row">
+                                <field name="end_type" attrs="{'required': [('recurrency', '=', True)]}"/>
+                                <field name="count" attrs="{'invisible': [('end_type', '!=', 'count')], 'required': [('recurrency', '=', True)]}"/>
+                                <field name="final_date" attrs="{'invisible': [('end_type', '!=', 'end_date')], 'required': [('end_type', '=', 'end_date'), ('recurrency', '=', True)]}"/>
+                            </div>
+                        </group>
+                        <group attrs="{'invisible': [('rrule_type', '!=', 'weekly')]}" name="weekdays">
+                            <field name="mo"/>
+                            <field name="tu"/>
+                            <field name="we"/>
+                            <field name="th"/>
+                            <field name="fr"/>
+                            <field name="sa"/>
+                            <field name="su"/>
+                        </group>
+                        <group attrs="{'invisible': [('rrule_type', '!=', 'monthly')]}">
+                            <label string="Day of Month" for="month_by"/>
+                            <div class="o_row">
+                                <field name="month_by"/>
+                                <field name="day" attrs="{'required': [('month_by', '=', 'date'), ('rrule_type', '=', 'monthly')],                                             'invisible': [('month_by', '!=', 'date')]}"/>
+                                <field name="byday" string="The" attrs="{'required': [('recurrency', '=', True), ('month_by', '=', 'day'), ('rrule_type', '=', 'monthly')],                                             'invisible': [('month_by', '!=', 'day')]}"/>
+                                <field name="week_list" nolabel="1" attrs="{'required': [('recurrency', '=', True), ('month_by', '=', 'day'), ('rrule_type', '=', 'monthly')],                                             'invisible': [('month_by', '!=', 'day')]}"/>
+                            </div>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="appointments_holidays_action" model="ir.actions.act_window">
+        <field name="name">Appointments Holidays</field>
+        <field name="res_model">appointments.holidays</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('is_original','=',False)]</field>
+    </record>
+
+    <menuitem id="appointments_holidays_menuitem" action="appointments_holidays_action" name='Holidays'
+              parent="appointment_menu_appointment" sequence="2"/>
+
+</odoo>

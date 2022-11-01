@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="tag_appointment_book">
+    <!--BookAppointment SHOULD BE REMOVED START-->
+    <div t-name="BookAppointment" style="width:100%">
+            <div class="row mt16">
+                <div class="col-md-6 col-sm-6">
+                    <div class="o_calendar_buttons">
+                        <button class="o_calendar_button_nav_day btn btn-primary" data-key="prev" aria-label="Previous" title="Previous"><span class="fa fa-arrow-left"></span></button>
+                        <button class="o_calendar_button_nav_day btn btn-primary" data-key="today">Today</button>
+                        <button class="o_calendar_button_nav_day btn btn-primary" data-key="next" aria-label="Next" title="Next"><span class="fa fa-arrow-right"/></button>
+
+                        <div class="btn-group">
+                            <button type="button" class="o_calendar_button_day btn btn-secondary active" data-key="day">Day</button>
+                            <button type="button" class="o_calendar_button_week btn btn-secondary" data-key="week">Week</button>
+                            <button type="button" class="o_calendar_button_month btn btn-secondary" data-key="month">Month</button>
+                        </div>
+                        <button type="button" class="o_calendar_button_calendar btn btn-secondary">
+                            <input type="input" id="select_date" class="datepicker"
+                               style="float:right;display:none;margin-right:5px; padding:0"/>
+                        </button>
+                        <button type="button" class="o_calendar_button_months_add btn btn-secondary" data-month="3">+ 3</button>
+                        <button type="button" class="o_calendar_button_months_add btn btn-secondary" data-month="6">+ 6</button>
+                        <button type="button" class="o_calendar_button_months_add btn btn-secondary" data-month="12">+ 12 </button>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-3">
+                    <div class="form-group">
+                        <input type="text" id="cal_cust_search" class="pull-right form-control"
+                               placeholder="Search" style="width:50%"/>
+                    </div>
+                </div>
+
+                <div class="col-md-3 col-sm-3">
+                    <input type="input" id="select_date" class="datepicker" style="float:right;display:none;margin-right:5px; padding:0"/>
+                    <button type="button" class="o_calendar_button_filter btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Filter..
+                    </button>
+                    <div class="dropdown-menu">
+                        <div class="o_menu_item">
+                            <a role="menuitemcheckbox" aria-checked="true" href="#" class="dropdown-item selected ">
+                                My Company Main
+                            </a>
+                        </div>
+                        <div class="o_menu_item">
+                            <a role="menuitemcheckbox" aria-checked="true" href="#" class="dropdown-item">
+                                Framework
+                            </a>
+                        </div>
+                        <div class="o_menu_item">
+                            <a role="menuitemcheckbox" aria-checked="true" href="#" class="dropdown-item">
+                                Kondooit
+                            </a>
+                        </div>
+                        <div class="dropdown-divider"></div>
+                        <div class="o_menu_item">
+                            <a role="menuitemcheckbox" aria-checked="true" href="#" class="dropdown-item">
+                                Dr.Barry Smith
+                            </a>
+                        </div>
+                        <div class="o_menu_item">
+                            <a role="menuitemcheckbox" aria-checked="true" href="#" class="dropdown-item">
+                                Dr.John Doe
+                            </a>
+                        </div>
+                        <div class="o_menu_item">
+                            <a role="menuitemcheckbox" aria-checked="true" href="#" class="dropdown-item">
+                                Dr.Marsha Pang
+                            </a>
+                        </div>
+                        <div class="dropdown-divider"></div>
+                        <div class="o_menu_item">
+                            <a role="menuitemcheckbox" aria-checked="true" href="#" class="dropdown-item">
+                                None
+                            </a>
+                        </div>
+                        <div class="o_menu_item">
+                            <a role="menuitemcheckbox" aria-checked="true" href="#" class="dropdown-item">
+                                Left Message
+                            </a>
+                        </div>
+                        <div class="o_menu_item">
+                            <a role="menuitemcheckbox" aria-checked="true" href="#" class="dropdown-item">
+                                Not Available
+                            </a>
+                        </div>
+                        <div class="o_menu_item">
+                            <a role="menuitemcheckbox" aria-checked="true" href="#" class="dropdown-item">
+                                Confirmed
+                            </a>
+                        </div>
+                    </div>
+                </div>
+             </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div id='calendar'> </div>
+
+                </div>
+            </div>
+    </div>
+    <!--BookAppointment SHOULD BE REMOVED END-->
+    <t t-name="CalenderPopover">
+        <div style="width:250px;text-align:center">
+            <div class="o_event_title">
+                <t t-log="'event', event"/>
+                <div>
+                    <t t-esc="moment(record.start).format('HH:mm A')"/> -
+                    <t t-esc="moment(record.start).format('HH:mm A')"/>
+                </div>
+                <div>
+                    <t t-esc="record.patient_id?record.patient_id[1]: ''"/>
+                </div>
+                <div>
+                    <t t-esc="record.service_type?record.service_type[1]: ''"/>
+                </div>
+                <div>
+                    <t t-esc="record.insurance_id ? record.insurance_id[1]: 'No Insurance'"/>
+                </div>
+                <div>
+                    <t t-esc="record.employee_id ? record.employee_id[1]: ''"/>
+                </div>
+                <div>
+                    <t t-esc="record.confirmation_status || 'N/A'"/>
+                </div>
+            </div>
+        </div>
+    </t>
+    <t t-name="CustomFilter">
+<!--        <div role="separator" class="dropdown-divider" data-removable="1"></div>-->
+<!--        <div t-foreach="company" class="resource o_menu_item" t-as='com' t-att-data-id="com.id" t-att-data-name="1">-->
+<!--            <t t-if="select_company == com.id">-->
+<!--                <a role="menuitemcheckbox" aria-checked="false" href="#" class="dropdown-item selected">-->
+<!--                    <t t-esc="com.name"/>-->
+<!--                </a>-->
+<!--            </t>-->
+<!--            <a t-else="" role="menuitemcheckbox" aria-checked="false" href="#" class="dropdown-item">-->
+<!--                <t t-esc="com.name"/>-->
+<!--            </a>-->
+<!--        </div>-->
+        <div role="separator" class="dropdown-divider" data-removable="1"></div>
+        <div t-foreach="employee" class="resource o_menu_item" t-as='emp' t-att-data-id="emp.id">
+            <a role="menuitemcheckbox" aria-checked="false" href="#" class="dropdown-item">
+                <t t-esc="emp.title"/>
+            </a>
+        </div>
+        <div role="separator" class="dropdown-divider" data-removable="1"></div>
+        <div class="resource o_menu_item" data-id="none">
+            <a role="menuitemcheckbox" aria-checked="false" href="#" class="dropdown-item">
+                None
+            </a>
+        </div>
+        <div class="resource o_menu_item" data-id="left_message">
+            <a role="menuitemcheckbox" aria-checked="false" href="#" class="dropdown-item">
+                Left Message
+            </a>
+        </div>
+        <div class="resource o_menu_item" data-id="not_available">
+            <a role="menuitemcheckbox" aria-checked="false" href="#" class="dropdown-item">
+                Not Available
+            </a>
+        </div>
+        <div class="resource o_menu_item" t-as='o' data-id="confirmed">
+            <a role="menuitemcheckbox" aria-checked="false" href="#" class="dropdown-item">
+                Confirmed
+            </a>
+        </div>
+    </t>
+
+    <div t-name="ResourceView">
+            <div class=" o_resource_calendar">
+                <div id="o_resource_calendar_widget" class="o_resource_calendar_widget"/>
+            </div>
+    </div>
+
+    <t t-name="ResourceView.buttons">
+        <div class="o_calendar_buttons">
+            <t t-if="!isMobile">
+                <button class="o_calendar_button_prev btn btn-primary" aria-label="Previous" title="Previous">
+                    <span class="fa fa-arrow-left"/>
+                </button>
+                <button class="o_calendar_button_today btn btn-primary">Today</button>
+                <button class="o_calendar_button_next btn btn-primary" aria-label="Next" title="Next"><span class="fa fa-arrow-right"/></button>
+            </t>
+            <div class="btn-group">
+                <button type="button" class="o_calendar_button_day btn btn-secondary">Day</button>
+                <button type="button" class="o_calendar_button_week btn btn-secondary">Week</button>
+                <button type="button" class="o_calendar_button_month btn btn-secondary">Month</button>
+                <button type="button"  class="o_calendar_button_calendar btn btn-secondary">
+                    <input type="input" id="select_date" class="datepicker"
+                           style="float:right;display:none;margin-right:5px; padding:0"/>
+                </button>
+            </div>
+            <button type="button" data-month="3" class="o_calendar_button_month_change btn btn-primary">+3</button>
+            <button type="button" data-month="9" class="o_calendar_button_month_change btn btn-primary">+9</button>
+            <button type="button" data-month="12" class="o_calendar_button_month_change btn btn-primary">+12</button>
+            <a type="button" class="print_appointment_report fa fa-print fa-lg" style="margin-left:25px;"></a>
+            <button class="o_filters_menu_button o_dropdown_toggler_btn btn btn-secondary dropdown-toggle " data-toggle="dropdown" aria-expanded="true" tabindex="-1" data-flip="false" data-boundary="viewport">
+                <span class="fa fa-filter"></span> Filters
+            </button>
+            <div class="custom dropdown-menu o_dropdown_menu o_filters_menu" role="menu" x-placement="bottom-start" style="will-change: transform; top: 0px; left: 0px; transform: translate3d(683px, 120px, 0px);">
+            </div>
+        </div>
+    </t>
+
+    <t t-name="ResourceEventBox">
+        <div class="event-box">
+            <div class="float-left event-box"  t-esc="record.display_name"/>
+            <div class="float-right event-box padding-left" style="padding-right:5px;">
+                <span  class="float-right green padding-left">
+                    <t t-if="record.confirmation_status == 'confirmed'">
+                        <i class="fa fa-check-square"/>
+                    </t>
+                </span>
+                <span t-att-class="record.appointment_status">
+                    <i t-att-class="record.appointment_status == 'no_show' ? 'fa fa-ban' :  'fa fa-map-marker'"/></span>
+            </div>
+<!--            <br/>-->
+<!--            <div class="o_event_title float-right event-box">-->
+<!--                <t t-esc="event.time_duration"/>-->
+<!--            </div>-->
+<!--            <br></br>-->
+<!--            <div class="float-left event-box" t-esc="record.service_type[1]" style=" font-size:15px !important;"/>-->
+        </div>
+    </t>
+
+    <t t-name="BackgroundResourceEventBox">
+        <div class="event-box">
+            <div style="overflow: hidden;font-size: 12px;color:white;background-color: rgba(0, 0, 0, 0.9);opacity: 0.4;" class="background_text"  t-esc="event.title"/>
+            <div style="font-size: 12px;" class="background_hide" t-esc="event.title"/>
+        </div>
+    </t>
+
+
+    <t t-name="ResourceView.event.popover.placeholder">
+        <div t-attf-class="o_cw_popover popover card shadow #{typeof color === 'number' ? _.str.sprintf('o_calendar_color_%s', color) : ''}" role="tooltip">
+            <div class="arrow"/>
+<!--            <div class="card-header d-flex justify-content-between py-2 pr-2">-->
+<!--                <h4 class="popover-header border-0 p-0 pt-1"/>-->
+<!--                <span class="o_cw_popover_close ml-4"><i class="fa fa-close small"/></span>-->
+<!--            </div>-->
+            <div class="o_cw_body">
+            </div>
+        </div>
+    </t>
+
+    <t t-name="ResourceView.event.popover">
+        <div class="o_cw_body">
+            <t t-set="status" t-value="{'none': 'None', 'left_message': 'Left Message', 'no_message' : 'No Message', 'confirmed': 'Confirmed'}"/>
+            <t t-log="'STATUS::::', status"/>
+            <div t-if="!widget.hideTime and widget.eventTime.time" class="list-group-item">
+                <i class="fa fa-fw fa-clock-o"/>
+                <t t-esc="widget.eventStart"/> -
+                <t t-esc="widget.eventEnd"/> <small t-if="widget.eventTime.duration">
+                <t t-esc="_.str.sprintf('(%s)', widget.eventTime.duration)"/></small>
+            </div>
+            <div class="list-group-item">
+                <t t-esc="widget.record.patient_id ? widget.record.patient_id[1] : ''"/>
+                <t t-esc="widget.record.age ? '(' + widget.record.age + ')' : ''"/>
+            </div>
+            <div class="list-group-item">
+                <t t-esc="widget.record.service_type ? widget.record.service_type[1] : ''"/>
+            </div>
+            <div class="list-group-item">
+                <t t-esc="widget.record.insurance_id ? widget.record.insurance_id[1] : 'No Insurance'"/>
+            </div>
+            <div class="list-group-item">
+                <i class="fa fa-stethoscope"/>
+                <t t-esc="widget.record.employee_id ? widget.record.employee_id[1] : ''"/>
+            </div>
+            <div class="list-group-item">
+                <t t-esc="status[widget.record.confirmation_status]"/>
+            </div>
+        </div>
+    </t>
+</templates>

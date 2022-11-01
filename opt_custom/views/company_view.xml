@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="account_tax_extend_got2" model="ir.ui.view">
+		<field name="name">account.tax.extend.got2</field>
+		<field name="model">account.tax</field>
+		<field name="inherit_id" ref="account.view_tax_form"/>
+		<field name="arch" type="xml">
+			<label for="amount" position="before">
+                <field name='is_sale'/>
+				<field name='is_purchase'/>
+           </label>
+		</field>
+	</record>
+
+
+	<record id="res_company_extend_got2" model="ir.ui.view">
+		<field name="name">res.company.extend.got2</field>
+		<field name="model">res.company</field>
+		<field name="inherit_id" ref="base.view_company_form"/>
+		<field name="arch" type="xml">
+           <xpath expr="//field[@name='company_registry']" position="before">
+           		<field name="npi"/>
+           		<field name="contact_person"/>
+           		<field name="provide"/>
+           		<field name="timezone"/>
+           		<field name="dst_observed"/>
+              <field name="region_ids" widget="many2many_tags" options="{'no_open':True,'no_create': True}"/>
+           		<field name="main"/>
+           </xpath>
+            <xpath expr="//notebook[last()]" position="inside">
+           		<page name="hours" string="Hours">
+           			<group>
+           				<field name="hours"/>
+           			</group>
+           		</page>           
+            </xpath>
+           <field name="company_registry" position="attributes">
+                <attribute name="invisible">1</attribute>
+           </field>
+           <field name="currency_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+           </field>
+           <field name="parent_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+           </field>
+           <field name="favicon" position="attributes">
+                <attribute name="invisible">1</attribute>
+           </field>
+           <field name="social_github" position="attributes">
+                <attribute name="invisible">1</attribute>
+           </field>
+		</field>
+	</record>
+
+  <!-- Inherite wroking time form view -->
+  <record id="resource_calendar_form_extend_got2" model="ir.ui.view">
+    <field name="name">resource.calendar.form.extend.got2</field>
+    <field name="model">resource.calendar</field>
+    <field name="inherit_id" ref="resource.resource_calendar_form"/>
+    <field name="arch" type="xml">
+        <xpath expr="//button[@name='switch_calendar_type']" position="attributes">
+          <attribute name="invisible">1</attribute>
+        </xpath>
+        <xpath expr="//notebook/page[@name='global_leaves']" position="attributes">
+          <attribute name="string">Holidays</attribute>
+        </xpath>
+    </field>
+  </record>
+
+  <!-- Inherite tree view of attendance_ids field  -->
+  <record id="view_resource_attendance_tree_extend_got2" model="ir.ui.view">
+    <field name="name">resource.attendance.tree.extend.got2</field>
+    <field name="model">resource.calendar.attendance</field>
+    <field name="inherit_id" ref="resource.view_resource_calendar_attendance_tree"/>
+    <field name="arch" type="xml">
+        <xpath expr="//field[@name='week_type']" position="attributes">
+          <attribute name="invisible">1</attribute>
+        </xpath>
+        <xpath expr="//field[@name='date_from']" position="attributes">
+          <attribute name="invisible">1</attribute>
+        </xpath>
+        <xpath expr="//field[@name='date_to']" position="attributes">
+          <attribute name="invisible">1</attribute>
+        </xpath>
+    </field>
+  </record>
+
+</odoo>

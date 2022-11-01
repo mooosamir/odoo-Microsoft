@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <report
+            id="action_report_cms_1500"
+            string="CMS 1500 Form"
+            model="claim.manager"
+            report_type="qweb-html"
+            file="opt_insurance.report_cms_1500_new"
+            name="opt_insurance.report_cms_1500_new"
+            print_report_name="'CMS 1500 Form'"
+            paperformat="opt_custom.report_cms_1500_water_mark_paperformat"
+            menu='False'
+    />
+    <report
+            id="action_report_cms_1500_pdf"
+            string="Print Claim"
+            model="claim.manager"
+            report_type="qweb-pdf"
+            file="opt_insurance.report_cms_1500_new"
+            name="opt_insurance.report_cms_1500_new"
+            print_report_name="'CMS 1500 Form'"
+            paperformat="opt_custom.report_cms_1500_water_mark_paperformat"
+    />
+    <!--     <report -->
+    <!--             id="action_report_cms_1500_pdf" -->
+    <!--             string="Print Claim" -->
+    <!--             model="claim.manager" -->
+    <!--             report_type="qweb-pdf" -->
+    <!--             file="opt_insurance.report_cms_1500" -->
+    <!--             name="opt_insurance.report_cms_1500" -->
+    <!--             print_report_name="'CMS 1500 Form'" -->
+    <!--             paperformat="opt_custom.report_cms_1500_paperformat" -->
+    <!--     /> -->
+
+</odoo>

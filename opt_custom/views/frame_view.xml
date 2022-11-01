@@ -1,0 +1,1311 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<!-- Main Spectacles Menu -->
+<!--        <menuitem id="root_spectacles_menu" name="Got2" sequence="1" web_icon="opt_custom,static/description/icon.png"/>-->
+
+        <!-- Main Order-->
+        <!-- <menuitem id="root_order_menu" parent="root_spectacles_menu" name="Order Dashboard" sequence="4"/> -->
+
+
+        <!-- Main Reporting-->
+        <!-- <menuitem id="root_reporting_menu" parent="root_spectacles_menu" name="Reporting" sequence="7"/> -->
+
+
+        <!-- Child Menu Of Frame-->
+        <menuitem id="configuration_menu" name="Configurations" parent="root_frame_configuration_menu" sequence="1"/>
+
+        <menuitem id="admin_configuration_menu" name="Admin Configuration" parent="root_frame_configuration_menu" sequence="2"/>
+
+        <!-- Main Product/Transaction-->
+        <menuitem id="root_product_service_menu" name="Inventory" sequence="5"/>
+
+		<!--Product/Transaction child menus-->
+		<menuitem id="stock_picking_type_menu" parent="root_product_service_menu" name="Overview" sequence="1"
+			action="stock.stock_picking_type_action"/>
+		<menuitem id="product_service_child_product" parent="root_product_service_menu" name="Products" sequence="2"/>
+		<menuitem id="product_service_child_transaction" parent="root_product_service_menu" name="Transactions" sequence="3"/>
+
+		<!-- Tree View of brand -->
+	    <record id="brand_tree_view" model="ir.ui.view">
+	        <field name="name">brand.tree.view</field>
+	        <field name="model">spec.brand.brand</field>
+	        <field name="arch" type="xml">
+	            <tree>
+	                <field name="name"/>
+					<field name='brand_type' invisible="1"/>
+	            </tree>
+	        </field>
+	    </record>
+
+        <!-- Form View of brand -->
+	    <record id="brand_from_view" model="ir.ui.view">
+	        <field name="name">brand.from.view</field>
+	        <field name="model">spec.brand.brand</field>
+	        <field name="arch" type="xml">
+	            <form>
+	                <sheet>
+	                    <group>
+		                    <group>
+		                        <field name="name" required="1"/>
+								<field name='brand_type' invisible="1"/>
+		                    </group>
+		                    <group>
+		                		<field name="image_1920" widget="image" nolabel="1" class="oe_avatar" options="{'preview_image': 'image_128'}"/>
+		                    </group>
+	                    </group>
+	                </sheet>
+	            </form>
+	        </field>
+	    </record>
+
+	    <!-- Action of brand -->
+	    <record id="brand_action" model="ir.actions.act_window">
+	        <field name="name">Brands</field>
+	        <field name="res_model">spec.brand.brand</field>
+			<field name="context">{'default_brand_type': 'frame'}</field>
+	        <field name="domain">[('brand_type','=','frame')]</field>
+	        <field name="view_mode">tree,form</field>
+	    </record>
+
+	    <!-- Brand Menu -->
+	    <menuitem id="menu_brand" name="Brands" action="brand_action" parent="admin_configuration_menu" sequence="1"/>
+
+	    <!-- Tree View of collection -->
+	    <record id="collection_tree_view" model="ir.ui.view">
+	        <field name="name">collection.tree.view</field>
+	        <field name="model">spec.collection.collection</field>
+	        <field name="arch" type="xml">
+	            <tree>
+	                <field name="name"/>
+	                <field name="brand_id"/>
+	            </tree>
+	        </field>
+	    </record>
+
+		<!-- Search View Of collection -->
+		<record id="collection_search_view" model="ir.ui.view">
+            <field name="name">collection.search.view</field>
+            <field name="model">spec.collection.collection</field>
+            <field name="arch" type="xml">
+                <search string="Search Collection">
+                    <field name="name"/>
+                    <field name="brand_id"/>
+               </search>
+            </field>
+        </record>
+
+        <!-- Form View of collection -->
+	    <record id="collection_form_view" model="ir.ui.view">
+	        <field name="name">collection.form.view</field>
+	        <field name="model">spec.collection.collection</field>
+	        <field name="arch" type="xml">
+	            <form>
+	                <sheet>
+	                	<group>
+		                    <group>
+		                        <field name="name" required="1"/>
+		                        <field name="brand_id" options="{'no_open':True,'no_create': True}" context="{'default_brand_type': 'frame'}"/>
+		                    </group>
+		                    <group>
+		                    	<field name="image_1920" widget="image" nolabel="1" class="oe_avatar" options="{'preview_image': 'image_128'}"/>
+		                    </group>
+	                    </group>
+	                </sheet>
+	            </form>
+	        </field>
+	    </record>
+
+	    <!-- Action of collection -->
+	    <record id="collection_action" model="ir.actions.act_window">
+	        <field name="name">Collections</field>
+	        <field name="res_model">spec.collection.collection</field>
+	        <field name="view_mode">tree,form</field>
+	    </record>
+
+	    <menuitem id="menu_collection" name="Collections" action="collection_action" parent="admin_configuration_menu" sequence="2"/>
+
+	    <!-- Tree View of Part -->
+	    <record id="part_category_tree_view" model="ir.ui.view">
+	        <field name="name">spec.part.category.tree.view</field>
+	        <field name="model">spec.part.category</field>
+	        <field name="arch" type="xml">
+	            <tree>
+	                <field name="name"/>
+	            </tree>
+	        </field>
+	    </record>
+
+        <!-- Form View of part category -->
+	    <record id="part_category_form_view" model="ir.ui.view">
+	        <field name="name">spec.part.category.form.view</field>
+	        <field name="model">spec.part.category</field>
+	        <field name="arch" type="xml">
+	            <form>
+	                <sheet>
+	                    <group>
+	                        <field name="name" required="1"/>
+	                    </group>
+	                </sheet>
+	            </form>
+	        </field>
+	    </record>
+
+	    <!-- Action of part category -->
+	    <record id="part_category_action" model="ir.actions.act_window">
+	        <field name="name">Part Categories</field>
+	        <field name="res_model">spec.part.category</field>
+	        <field name="view_mode">tree,form</field>
+	    </record>
+
+	    <!-- <menuitem id="menu_part_category" name="Part Categories" action="part_category_action" parent="configuration_menu" sequence="3"/> -->
+
+
+	    <!-- Search View Of Part -->
+		<record id="part_search_view" model="ir.ui.view">
+            <field name="name">part.search.view</field>
+            <field name="model">spec.part.part</field>
+            <field name="arch" type="xml">
+                <search string="Search Part">
+                    <field name="part_category_id"/>
+	                <field name="brand_id"/>
+	                <field name="collection_ids"/>
+               </search>
+            </field>
+        </record>
+
+	    <!-- Tree View of Part -->
+	    <record id="part_tree_view" model="ir.ui.view">
+	        <field name="name">part.tree.view</field>
+	        <field name="model">spec.part.part</field>
+	        <field name="arch" type="xml">
+	            <tree>
+	            	<field name="part_category_id"/>
+	                <field name="brand_id"/>
+	                <!-- <field name="collection_id"/> -->
+	            </tree>
+	        </field>
+	    </record>
+
+        <!-- Form View of part -->
+	    <record id="part_form_view" model="ir.ui.view">
+	        <field name="name">part.form.view</field>
+	        <field name="model">spec.part.part</field>
+	        <field name="arch" type="xml">
+	            <form>
+	                <sheet>
+	                	<group>
+		                    <group>
+		                        <field name="part_category_id" options="{'no_open':True,'no_create': True}"/>
+		                        <field name="brand_id" options="{'no_open':True,'no_create': True}" context="{'default_brand_type': 'frame'}"/>
+		                        <field name="collection_ids" widget="many2many_tags" domain="[('brand_id', '=', brand_id)]" options="{'no_open':True,'no_create': True}"/>
+		                    </group>
+		                    <group></group>
+	                    </group>
+	                    <field name="part_item_ids">
+	                    	<tree editable="bottom">
+	                    		<field name="name" required="1"/>
+	                    		<field name="color_id" options="{'no_open':True,'no_create': True}"/>
+	                    		<field name="size"/>
+	                    		<field name="price"/>
+	                    		<field name="part_id" invisible="1"/>
+	                    	</tree>
+	                    </field>
+	                </sheet>
+	            </form>
+	        </field>
+	    </record>
+
+	    <!-- Action of part -->
+	    <record id="part_action" model="ir.actions.act_window">
+	        <field name="name">Parts Listing</field>
+	        <field name="res_model">spec.part.part</field>
+	        <field name="view_mode">tree,form</field>
+	    </record>
+
+	    <!-- <menuitem id="menu_parts" name="Parts Listing" action="part_action" parent="admin_configuration_menu_new" sequence="4"/>	     -->
+
+	    <!-- Tree View of Frame Material -->
+	    <record id="frame_material_tree_view" model="ir.ui.view">
+	        <field name="name">spec.frame.material.tree.view</field>
+	        <field name="model">spec.frame.material</field>
+	        <field name="arch" type="xml">
+	            <tree>
+	                <field name="name"/>
+	            </tree>
+	        </field>
+	    </record>
+
+        <!-- Form View of Frame Material -->
+	    <record id="frame_material_form_view" model="ir.ui.view">
+	        <field name="name">spec.frame.material.form.view</field>
+	        <field name="model">spec.frame.material</field>
+	        <field name="arch" type="xml">
+	            <form>
+	                <sheet>
+	                    <group>
+	                        <field name="name" required="1"/>
+	                    </group>
+	                </sheet>
+	            </form>
+	        </field>
+	    </record>
+
+	    <!-- Action of Frame Material -->
+	    <record id="frame_material_action" model="ir.actions.act_window">
+	        <field name="name">Frame Material</field>
+	        <field name="res_model">spec.frame.material</field>
+	        <field name="view_mode">tree,form</field>
+	    </record>
+
+	    <!-- Frame Material Menu -->
+	    <menuitem id="menu_frame_material" name="Frame Material" action="frame_material_action" parent="admin_configuration_menu" sequence="1"/>
+
+	    <!-- Tree View of Temple Material -->
+	    <record id="temple_material_tree_view" model="ir.ui.view">
+	        <field name="name">spec.temple.material.tree.view</field>
+	        <field name="model">spec.temple.material</field>
+	        <field name="arch" type="xml">
+	            <tree>
+	                <field name="name"/>
+	            </tree>
+	        </field>
+	    </record>
+
+        <!-- Form View of Temple Material -->
+	    <record id="temple_material_form_view" model="ir.ui.view">
+	        <field name="name">spec.temple.material.form.view</field>
+	        <field name="model">spec.temple.material</field>
+	        <field name="arch" type="xml">
+	            <form>
+	                <sheet>
+	                    <group>
+	                        <field name="name" required="1"/>
+	                    </group>
+	                </sheet>
+	            </form>
+	        </field>
+	    </record>
+
+	    <!-- Action of Temple Material -->
+	    <record id="temple_material_action" model="ir.actions.act_window">
+	        <field name="name">Temple Material</field>
+	        <field name="res_model">spec.temple.material</field>
+	        <field name="view_mode">tree,form</field>
+	    </record>
+
+	    <!-- Temple Material Menu -->
+	    <menuitem id="menu_temple_material" name="Temple Material" action="temple_material_action" parent="admin_configuration_menu" sequence="2"/>
+
+	    <!-- Tree View of Shape -->
+	    <record id="shape_tree_view" model="ir.ui.view">
+	        <field name="name">spec.shape.tree.view</field>
+	        <field name="model">spec.shape.shape</field>
+	        <field name="arch" type="xml">
+	            <tree>
+	                <field name="name"/>
+	            </tree>
+	        </field>
+	    </record>
+
+        <!-- Form View of Shape -->
+	    <record id="shape_form_view" model="ir.ui.view">
+	        <field name="name">spec.shape.form.view</field>
+	        <field name="model">spec.shape.shape</field>
+	        <field name="arch" type="xml">
+	            <form>
+	                <sheet>
+	                    <group>
+	                        <field name="name" required="1"/>
+	                    </group>
+	                </sheet>
+	            </form>
+	        </field>
+	    </record>
+
+	    <!-- Action of Shape -->
+	    <record id="shape_action" model="ir.actions.act_window">
+	        <field name="name">Shape</field>
+	        <field name="res_model">spec.shape.shape</field>
+	        <field name="view_mode">tree,form</field>
+	    </record>
+
+	    <!--Shap Menu -->
+	    <menuitem id="menu_shap" name="Shape" action="shape_action" parent="configuration_menu" sequence="3"/>
+
+	    <!-- Tree View of Color Family -->
+	    <record id="color_family_tree_view" model="ir.ui.view">
+	        <field name="name">spec.color.family.tree.view</field>
+	        <field name="model">spec.color.family</field>
+	        <field name="arch" type="xml">
+	            <tree>
+	                <field name="name"/>
+	            </tree>
+	        </field>
+	    </record>
+
+        <!-- Form View of Color Family -->
+	    <record id="color_family_form_view" model="ir.ui.view">
+	        <field name="name">spec.color.family.form.view</field>
+	        <field name="model">spec.color.family</field>
+	        <field name="arch" type="xml">
+	            <form>
+	                <sheet>
+	                    <group>
+	                        <field name="name" required="1"/>
+	                    </group>
+	                </sheet>
+	            </form>
+	        </field>
+	    </record>
+
+	    <!-- Action of Color Family -->
+	    <record id="color_family_action" model="ir.actions.act_window">
+	        <field name="name">Color Family</field>
+	        <field name="res_model">spec.color.family</field>
+	        <field name="view_mode">tree,form</field>
+	    </record>
+
+	    <!-- Color Family Menu -->
+	    <menuitem id="menu_color_family" name="Color Family" action="color_family_action" parent="admin_configuration_menu" sequence="4"/>
+
+		<!-- Tree View of Color Code Family -->
+	    <record id="color_family_code_tree_view" model="ir.ui.view">
+	        <field name="name">spec.color.code.family.tree.view</field>
+	        <field name="model">spec.color.code.family</field>
+	        <field name="arch" type="xml">
+	            <tree>
+	                <field name="name"/>
+	            </tree>
+	        </field>
+	    </record>
+
+        <!-- Form View of Color code Family -->
+	    <record id="color_family_code_form_view" model="ir.ui.view">
+	        <field name="name">spec.color.code.family.form.view</field>
+	        <field name="model">spec.color.code.family</field>
+	        <field name="arch" type="xml">
+	            <form>
+	                <sheet>
+	                    <group>
+	                        <field name="name" required="1"/>
+	                    </group>
+	                </sheet>
+	            </form>
+	        </field>
+	    </record>
+
+	    <!-- Action of Color code Family -->
+	    <record id="color_family_code_action" model="ir.actions.act_window">
+	        <field name="name">Color Code</field>
+	        <field name="res_model">spec.color.code.family</field>
+	        <field name="view_mode">tree,form</field>
+	    </record>
+
+	    <!-- Color Family code Menu -->
+	    <menuitem id="menu_color_code_family" name="Color Code" action="color_family_code_action" parent="admin_configuration_menu" sequence="9"/>
+
+
+	    <!-- Tree View of Geo Fit/Bridge -->
+	    <record id="geo_fit_tree_view" model="ir.ui.view">
+	        <field name="name">spec.geo.fit.tree.view</field>
+	        <field name="model">spec.geo.fit</field>
+	        <field name="arch" type="xml">
+	            <tree>
+	                <field name="name"/>
+	            </tree>
+	        </field>
+	    </record>
+
+        <!-- Form View of Geo Fit / Bridge -->
+	    <record id="geo_fit_form_view" model="ir.ui.view">
+	        <field name="name">spec.geo.fit.form.view</field>
+	        <field name="model">spec.geo.fit</field>
+	        <field name="arch" type="xml">
+	            <form>
+	                <sheet>
+	                    <group>
+	                        <field name="name" required="1"/>
+	                    </group>
+	                </sheet>
+	            </form>
+	        </field>
+	    </record>
+
+	    <!-- Action of Geo Fit / Bridge -->
+	    <record id="geo_fit_action" model="ir.actions.act_window">
+	        <field name="name">Geo Fit / Bridge</field>
+	        <field name="res_model">spec.geo.fit</field>
+	        <field name="view_mode">tree,form</field>
+	    </record>
+
+	    <!-- Geo Fit / Bridge Menu -->
+	    <menuitem id="menu_geo_fit" name="Geo Fit / Bridge" action="geo_fit_action" parent="admin_configuration_menu" sequence="5"/>
+
+	    <!-- Tree View of Hinge Type -->
+	    <record id="hinge_type_tree_view" model="ir.ui.view">
+	        <field name="name">spec.hinge.type.tree.view</field>
+	        <field name="model">spec.hinge.type</field>
+	        <field name="arch" type="xml">
+	            <tree>
+	                <field name="name"/>
+	            </tree>
+	        </field>
+	    </record>
+
+        <!-- Form View of Hinge Type -->
+	    <record id="hinge_type_form_view" model="ir.ui.view">
+	        <field name="name">spec.hinge.type.form.view</field>
+	        <field name="model">spec.hinge.type</field>
+	        <field name="arch" type="xml">
+	            <form>
+	                <sheet>
+	                    <group>
+	                        <field name="name" required="1"/>
+	                    </group>
+	                </sheet>
+	            </form>
+	        </field>
+	    </record>
+
+	    <!-- Action of Hinge Type -->
+	    <record id="hinge_type_action" model="ir.actions.act_window">
+	        <field name="name">Hinge Type</field>
+	        <field name="res_model">spec.hinge.type</field>
+	        <field name="view_mode">tree,form</field>
+	    </record>
+
+	    <!-- Geo Fit / Bridge Menu -->
+	    <menuitem id="menu_hinge_type" name="Hinge Type" action="hinge_type_action" parent="admin_configuration_menu" sequence="6"/>
+
+		<!-- Tree View of Edge Type -->
+	    <record id="edge_type_tree_view" model="ir.ui.view">
+	        <field name="name">spec.edge.type.tree.view</field>
+	        <field name="model">spec.edge.type</field>
+	        <field name="arch" type="xml">
+	            <tree>
+	                <field name="name"/>
+	            </tree>
+	        </field>
+	    </record>
+
+        <!-- Form View of Edge Type -->
+	    <record id="edge_type_from_view" model="ir.ui.view">
+	        <field name="name">edge.type.from.view</field>
+	        <field name="model">spec.edge.type</field>
+	        <field name="arch" type="xml">
+	            <form>
+	                <sheet>
+	                    <group>
+	                        <field name="name" required="1"/>
+	                    </group>
+	                </sheet>
+	            </form>
+	        </field>
+	    </record>
+
+	    <!-- Action of Edge Type -->
+	    <record id="edge_type_action" model="ir.actions.act_window">
+	        <field name="name">Edge Type</field>
+	        <field name="res_model">spec.edge.type</field>
+	        <field name="view_mode">tree,form</field>
+	    </record>
+
+	    <!-- Edge Type Menu -->
+	    <menuitem id="menu_edge_type" name="Edge Type" action="edge_type_action" parent="configuration_menu" sequence="7"/>
+
+		<!-- Tree View of Business Type -->
+	    <record id="business_type_tree_view" model="ir.ui.view">
+	        <field name="name">spec.business.type.tree.view</field>
+	        <field name="model">spec.business.type</field>
+	        <field name="arch" type="xml">
+	            <tree>
+	                <field name="name"/>
+	            </tree>
+	        </field>
+	    </record>
+
+        <!-- Form View of Business Type -->
+	    <record id="business_type_form_view" model="ir.ui.view">
+	        <field name="name">spec.business.type.form.view</field>
+	        <field name="model">spec.business.type</field>
+	        <field name="arch" type="xml">
+	            <form>
+	                <sheet>
+	                    <group>
+	                        <field name="name"/>
+	                    </group>
+	                </sheet>
+	            </form>
+	        </field>
+	    </record>
+
+	    <!-- Action of Business Type -->
+	    <record id="business_type_action" model="ir.actions.act_window">
+	        <field name="name">Business Type</field>
+	        <field name="res_model">spec.business.type</field>
+	        <field name="view_mode">tree,form</field>
+	    </record>
+
+	    <!-- Business Type Menu -->
+	    <!-- <menuitem id="menu_business_type" action="business_type_action" parent="admin_configuration_menu" sequence="8"/>		 -->
+
+	    <!-- Frame Tree view -->
+	    <record id="frame_tree_view" model="ir.ui.view">
+	        <field name="name">frame.tree.view</field>
+	        <field name="model">product.template</field>
+	        <field name="priority">17</field>
+	        <field name="arch" type="xml">
+	            <tree>
+					<field name="frame_manufacturer_id"/>
+	                <field name="brand_id"/>
+	                <field name="collection_id"/>
+	                <field name="model_number" string='Model'/>
+					<field name="list_price" string="Retail" widget='monetary'/>
+					<field name="currency_id" invisible='1'/>
+					<field name="variant_on_hand" string="On Hand"/>
+	            </tree>
+	        </field>
+	    </record>
+
+	    <!-- Inherit product template search view -->
+
+	    <record id="product_search_inherit_frame" model="ir.ui.view">
+            <field name="name">product.search.inherit.frame</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_search_view"/>
+            <field name="arch" type="xml">
+                <field name="categ_id" position="after">
+                    <field name="model_number"/>
+                    <field name="brand_id"/>
+                    <field name="collection_id"/>
+                    <field name="color_name"/>
+                    <field name="color"/>
+                    <field name="frame_upc"/>
+                    <field name="size"/>
+                    <field name="bridge"/>
+                    <field name="temple"/>
+                    <field name="fpc"/>
+                </field>
+            </field>
+        </record>
+
+		<!-- Tree View of Frame Tag -->
+	    <record id="frame_tag_tree_view" model="ir.ui.view">
+	        <field name="name">spec.frame.tag.tree.view</field>
+	        <field name="model">spec.frame.tag</field>
+	        <field name="arch" type="xml">
+	            <tree>
+	                <field name="name"/>
+	            </tree>
+	        </field>
+	    </record>
+
+        <!-- Form View of Frame Tag -->
+	    <record id="frame_tag_form_view" model="ir.ui.view">
+	        <field name="name">spec.frame.tag.form.view</field>
+	        <field name="model">spec.frame.tag</field>
+	        <field name="arch" type="xml">
+	            <form>
+	                <sheet>
+	                    <group>
+	                        <field name="name" required="1"/>
+	                    </group>
+	                </sheet>
+	            </form>
+	        </field>
+	    </record>
+
+	    <!-- Action of Frame Tag -->
+	    <record id="frame_tag_action" model="ir.actions.act_window">
+	        <field name="name">Frame Tag</field>
+	        <field name="res_model">spec.frame.tag</field>
+	        <field name="view_mode">tree,form</field>
+	    </record>
+
+	    <!--Frame Tag Menu -->
+	    <menuitem id="menu_frame_tag" name="Tags" action="frame_tag_action" parent="admin_configuration_menu" sequence="7"/>
+
+
+		<!-- Tree View of Lens Shape Catalog -->
+	    <record id="lens_shape_catalog_tree_view" model="ir.ui.view">
+	        <field name="name">lens.shape.catalog.tree.view</field>
+	        <field name="model">spec.lens.shape.catalog</field>
+	        <field name="arch" type="xml">
+	            <tree>
+	                <field name="name"/>
+	                <field name="brand_id"/>
+	                <field name="collection_id"/>
+	            </tree>
+	        </field>
+	    </record>
+
+        <!-- Form View of Lens Shape Catalog -->
+	    <record id="lens_shape_catalog_form_view" model="ir.ui.view">
+	        <field name="name">lens.shape.catalog.form.view</field>
+	        <field name="model">spec.lens.shape.catalog</field>
+	        <field name="arch" type="xml">
+	            <form>
+	                <sheet>
+	                	<group>
+	                		<field name="name" required="1"/>
+	                		<field name="brand_id" options="{'no_open':True,'no_create': True}" context="{'default_brand_type': 'frame'}"/>
+	                		<field name="collection_id" options="{'no_open':True,'no_create': True}"/>
+	                	</group>
+	                    <group>
+	                		<field name='datas' filename="datas_fname"/>
+	                		<field name='datas_fname' invisible="1"/>
+                		</group>
+                		<group string='Lens Trace Information'>
+                			<field name='a'/>
+                			<field name='b'/>
+                			<field name='ed'/>
+                			<field name='ed_axis'/>
+                			<field name='demo_lens_base'/>
+                			<field name='edge_id' options="{'no_open':True,'no_create': True}"/>
+                		</group>
+	                </sheet>
+	            </form>
+	        </field>
+	    </record>
+
+	    <!-- Action of Lens shape catalog -->
+	    <record id="lens_shape_catalog_action" model="ir.actions.act_window">
+	        <field name="name">Lens Shape Catalog</field>
+	        <field name="res_model">spec.lens.shape.catalog</field>
+	        <field name="view_mode">tree,form</field>
+	    </record>
+
+	    <!--Frame Tag Menu -->
+	    <menuitem id="menu_lens_shape_catalog" name="Lens Shape Catalog" action="lens_shape_catalog_action" parent="admin_configuration_menu" sequence="8"/>
+
+	    <!-- Inherit Res.users -->
+<!-- 	    <record id="view_users_form_extended_opt" model="ir.ui.view"> -->
+<!--             <field name="name">res.users.form.extended.opt</field> -->
+<!--             <field name="model">res.users</field> -->
+<!--             <field name="type">form</field> -->
+<!--             <field name="inherit_id" ref="base.view_users_form"/> -->
+<!--             <field name="arch" type="xml"> -->
+<!--                 <xpath expr="//notebook/page[3]/group/group[1]" position="inside"> -->
+<!--                 	<field name="business_type"/> -->
+<!--                 	<field name="collection_ids" widget="many2many_tags"/> -->
+<!--                 </xpath> -->
+<!--             </field> -->
+<!--         </record> -->
+
+	    <!-- Inherit product template form Frame view  -->
+		<record id="product_template_frame_view_form" model="ir.ui.view">
+	        <field name="name">product.template.form.frame.view.form</field>
+	        <field name="model">product.template</field>
+	        <field name="arch" type="xml">
+				<form>
+					<sheet>
+						<div class="oe_button_box" name="button_box">
+<!--							<field name="is_published" widget="website_redirect_button" attrs="{'invisible': [('sale_ok','=',False)]}"/>-->
+							<button name="138" type="action" icon="fa-sitemap" class="oe_stat_button" attrs="{'invisible': [('product_variant_count', '&lt;=', 1)]}">
+								<div class="o_field_widget o_stat_info">
+									<span class="o_stat_value" widget="statinfo">
+										<field name="product_variant_count" nolabel='1' class="mr4" widget="statinfo"/>
+									</span>
+									<span class="o_stat_text">
+										Variants
+									</span>
+								</div>
+							</button>
+							<button type="object" name="action_open_quants" attrs="{'invisible':[('type', '!=', 'product')]}" class="oe_stat_button" icon="fa-cubes">
+								<div class="o_field_widget o_stat_info">
+									<span class="o_stat_value" widget="statinfo">
+										<field name="qty_available" widget="statinfo" nolabel="1" class="mr4"/>
+										<field name="uom_name"/>
+									</span>
+									<span class="o_stat_text">
+										On Hand
+									</span>
+								</div>
+							</button>
+							<button type="object" name="action_product_tmpl_forecast_report" attrs="{'invisible':[('type', '!=', 'product')]}" context="{'default_product_tmpl_id': id}" class="oe_stat_button" icon="fa-cubes">
+								<div class="o_field_widget o_stat_info">
+									<span class="o_stat_value">
+										<field name="virtual_available" widget="statinfo" nolabel="1" class="mr4"/>
+										<field name="uom_name"/>
+									</span>
+									<span class="o_stat_text">
+										Forecasted
+									</span>
+								</div>
+							</button>
+							<button string="Traceability" type="object" name="action_view_stock_move_lines" attrs="{'invisible':[('type', 'not in', ['product', 'consu'])]}" class="oe_stat_button" icon="fa-exchange"/>
+							<button type="object" name="action_view_orderpoints" attrs="{'invisible':['|',('type', '!=', 'product'),('nbr_reordering_rules', '!=', 1)]}" class="oe_stat_button" icon="fa-refresh">
+								<div class="o_field_widget o_stat_info mr4">
+									<span class="o_stat_text">
+										Min:
+									</span>
+									<span class="o_stat_text">
+										Max:
+									</span>
+								</div>
+								<div class="o_field_widget o_stat_info">
+									<span class="o_stat_value">
+										<field name="reordering_min_qty"/>
+									</span>
+									<span class="o_stat_value">
+										<field name="reordering_max_qty"/>
+									</span>
+								</div>
+							</button>
+							<button type="object" name="action_view_orderpoints" attrs="{'invisible':['|',('type', '!=', 'product'),('nbr_reordering_rules', '==', 1)]}" class="oe_stat_button" icon="fa-refresh" >
+								<field name="nbr_reordering_rules" widget="statinfo"/>
+							</button>
+							<button string="Lot/Serial Numbers" type="object" name="action_open_product_lot" class="oe_stat_button" icon="fa-bars" invisible="1"/>
+							<button string="Routes" type="action" name="194" class="oe_stat_button" icon="fa-cogs" context="{'default_product_tmpl_id': id}" invisible="1"/>
+							<button string="Putaway Rules" type="object" name="action_view_related_putaway_rules" class="oe_stat_button" icon="fa-random" context="{'invisible_handle': True, 'single_product': product_variant_count == 1,}" invisible="1"/>
+							<button class="oe_stat_button" name="action_view_po" type="object" icon="fa-shopping-cart" attrs="{'invisible': [('purchase_ok', '=', False)]}" help="Purchased in the last 365 days">
+								<div class="o_field_widget o_stat_info">
+									<span class="o_stat_value">
+										<field name="purchased_product_qty" widget="statinfo" nolabel="1" class="mr4"/>
+										<field name="uom_name"/>
+									</span>
+									<span class="o_stat_text">
+										Purchased
+									</span>
+								</div>
+							</button>
+							<button class="oe_stat_button" name="action_view_sales" type="object" icon="fa-signal" help="Sold in the last 365 days" attrs="{'invisible': [('sale_ok', '=', False)]}">
+								<div class="o_field_widget o_stat_info">
+									<span class="o_stat_value">
+										<field name="sales_count" widget="statinfo" nolabel="1" class="mr4"/>
+										<field name="uom_name"/>
+									</span>
+									<span class="o_stat_text">
+										Sold
+									</span>
+								</div>
+							</button>
+						</div>
+
+						<field name='product_variant_count' invisible='1'/>
+						<field name='is_product_variant' invisible='1'/>
+						<field name='prd_categ_name' invisible='1'/>
+						<field name='spec_product_type' invisible='1'/>
+						<field name='attribute_line_ids' invisible='1'/>
+						<div class="oe_button_box" name="button_box"/>
+						<widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
+						<field name="id" invisible="True"/>
+						<group>
+						<table  width='100%'>
+							<tr>
+								<td width='60%'>
+									<div class="oe_title">
+										<!-- <label class="oe_edit_only" for="name" string="Product Name"/> -->
+										<h1><field name="name" placeholder="Product Name" class='oe_inline'/></h1>
+										<div name="options" invisible='1'>
+											<div>
+												<field name="sale_ok"/>
+												<label for="sale_ok"/>
+											</div>
+											<div>
+												<field name="purchase_ok"/>
+												<label for="purchase_ok"/>
+											</div>
+										</div>
+									</div>
+								</td>
+								<td width='7%'/>
+								<td width='33%'>
+									<field name="image_1920" class='image_fortmat_change' nolabel='1' widget="image"/>
+								</td>
+							</tr>
+						</table>
+						</group>
+
+						<group col='6' colspan='6'>
+							<group col='2' colspan='2'>
+					           	<field name="frame_manufacturer_id" attrs="{'required':['|', ('prd_categ_name','=','Frames'), ('spec_product_type','=','frame')]}"/>
+                                <field name="brand_id" attrs="{'required':['|', ('prd_categ_name','=','Frames'), ('spec_product_type','=','frame')]}" context="{'default_brand_type': 'frame'}"/>
+							</group>
+							<group col='2' colspan='2'>
+								<field name="collection_id" attrs="{'required':['|', ('prd_categ_name','=','Frames'), ('spec_product_type','=','frame')]}"/>
+	                			<field name="model_number" string='Model' attrs="{'required':['|', ('prd_categ_name','=','Frames'), ('spec_product_type','=','frame')]}"/>
+	                			<field name="sfmid" readonly="1" groups="base.group_no_one"/>
+<!--								<field name="branch_id"/>-->
+							</group>
+							<group col='2' colspan='2'>
+								<label for="discontinue"/>
+								<div class="o_row">
+									<field name="discontinue" class="oe_inline"/>
+									<field name="discont_date" class="oe_inline" attrs="{'invisible':[('discontinue', '=', False)], 'required':[('discontinue', '!=', False)]}" nolabel="1"/>
+								</div>
+								<field name="frames_data_last_sync"/>
+							</group>
+						</group>
+						<notebook>
+							<page string="General" name="information">
+								<group>
+									<group name="group_general">
+										<field name="active" invisible="1"/>
+										<field name="type" invisible="1"/>
+										<field name="categ_id" string="Product Category"/>
+										<field name="company_id" options="{'no_create': True}"/>
+										<field name="taxes_id" string='Tax' widget='many2many_tags'/>
+									</group>
+									<group name="group_standard_price">
+
+										<label for="list_price" string='Retail Price'/>
+										<div name="pricing">
+											<field name="list_price" class="oe_inline" widget='monetary'
+												options="{'currency_field': 'currency_id', 'field_digits': True}"/>
+											<button name="open_pricelist_rules" icon="fa-arrow-right" type="object"
+												groups="product.group_product_pricelist" class="oe_inline">
+												<field name="pricelist_item_count" attrs="{'invisible': [('pricelist_item_count', '=', 0)]}"/>
+												<span attrs="{'invisible': [('pricelist_item_count', '=', 1)]}">
+												Extra Prices
+												</span>
+												<span attrs="{'invisible': [('pricelist_item_count', '!=', 1)]}">
+												Extra Price
+												</span>
+											</button>
+										</div>
+										<field name="wholesale_cost" widget='monetary'/>
+										<field name="valuation" invisible="1" readonly="1"/>
+										<field name="cost_method" invisible="1" readonly="1"/>
+										<label for="standard_price"/>
+										<div class="o_row" name="update_cost_price">
+											<field name="standard_price"
+												attrs="{'readonly':[('cost_method', '!=', 'fifo')]}"
+												widget='monetary' options="{'currency_field': 'cost_currency_id', 'field_digits': True}"
+												class="oe_inline"/>
+											<button string="Update Cost" type="action"
+												name="%(stock_account.action_view_change_standard_price)d"
+												attrs="{'invisible':[('cost_method', '=', 'fifo')]}"
+												class="oe_link oe_inline"/>
+										</div>
+										<field name="uom_id" required='0' invisible="1" options="{'no_create': True}"/>
+										<field name="uom_po_id" required='0' invisible="1" options="{'no_create': True}"/>
+										<field name="currency_id" invisible="1"/>
+										<field name="cost_currency_id" invisible="1"/>
+										<field name="product_variant_id" invisible="1"/>
+									</group>
+								</group>
+								<group string="Internal Notes">
+									<field name="description" nolabel="1" placeholder="This note is only for internal purposes."/>
+								</group>
+							</page>
+							<page string='Frame Elements' name='frame_elements'>
+								<group col='6' colspan='6'>
+									<group col='2' colspan='2'>
+										<field name="material_frame_id" string="Material" options="{'no_open':True,'no_create': True}"/>
+										<field name="shap_id" options="{'no_open':True,'no_create': True}"/>
+<!--		                        		<field name="gender_ids" widget="many2many_tags" options="{'no_open':True,'no_create': True}"/>-->
+		                        		<field name="gender_ids" options="{'no_open':True,'no_create': True}"/>
+										<field name="age"/>
+										<field name="frame_type_id" options="{'no_open':True,'no_create': True}"/>
+									</group>
+									<group col='2' colspan='2'>
+										<field name="rim"/>
+										<field name="edge_type"/>
+										<field name="bridge_fix"/>
+										<field name="hinge"/>
+										<field name="lenses"/>
+									</group>
+									<group col='2' colspan='2'>
+										<field name="rx"/>
+										<field name="clip_on_option"/>
+										<field name="side_shields"/>
+										<field name="warranty"/>
+										<field name="is_sunclass"/>
+									</group>
+								</group>
+							</page>
+							<page string="Variations" attrs="{'invisible':['&amp;', ('prd_categ_name','!=','Frames'), ('spec_product_type','=','frame')]}">
+								<field name='product_variant_ids' context="{'default_type': 'product', 'default_name': name, 'default_list_price': list_price}">
+									<tree>
+										<field name="image_variant_1920" string=" "  widget="image" options='{"size": [40, 100]}'/>
+										<field name="default_code" string="SKU"/>
+										<field name="color_id"/>
+										<field name="color_code_id"/>
+										<field name="eye"/>
+										<field name="b"/>
+										<field name="ed"/>
+										<field name="bridge"/>
+										<field name="temple"/>
+										<field name="lens_color_id"/>
+										<field name="lens_discontinue"/>
+										<field name="qty_available" string='On Hand'/>
+										<field name="list_price" widget='monetary' string="Retail"/>
+										<field name="barcode" string="UPC"/>
+										<field name="product_tag_ids" widget="many2many_tags"/>
+									</tree>
+									<form increase_dialog_size="1" string='Add Variations'>
+										<field name="company_id" invisible="1"/>
+										<field name="type" invisible="1"/>
+										<field name="sale_ok" invisible="1"/>
+										<field name="purchase_ok" invisible="1"/>
+										<field name="tracking" invisible="1"/>
+										<div class="oe_button_box" name="button_box">
+											<field name="is_published" widget="website_redirect_button" attrs="{'invisible': [('sale_ok','=',False)]}"/>
+											<button class="oe_stat_button" name="action_open_quants" icon="fa-cubes" type="object" attrs="{'invisible':[('type', '!=', 'product')]}" >
+												<div class="o_field_widget o_stat_info">
+													<span class="o_stat_value">
+														<field name="qty_available" widget="statinfo" nolabel="1" class="mr4"/>
+														<field name="uom_name"/>
+													</span>
+													<span class="o_stat_text">
+														On Hand
+													</span>
+												</div>
+											</button>
+											<button type="object" name="action_product_forecast_report" attrs="{'invisible':[('type', '!=', 'product')]}" context="{'default_product_id': id}" class="oe_stat_button" icon="fa-cubes" >
+												<div class="o_field_widget o_stat_info">
+													<span class="o_stat_value">
+														<field name="virtual_available" widget="statinfo" nolabel="1" class="mr4"/>
+														<field name="uom_name"/>
+													</span>
+													<span class="o_stat_text">
+														Forecasted
+													</span>
+												</div>
+											</button>
+											<button string="Traceability" type="object" name="action_view_stock_move_lines" attrs="{'invisible':[('type', 'not in', ['product', 'consu'])]}" class="oe_stat_button" icon="fa-exchange" />
+											<button name="232" type="action" attrs="{'invisible':['|',('type', 'not in', ['product', 'consu']),('nbr_reordering_rules', '!=', 1)]}" class="oe_stat_button" icon="fa-refresh" >
+												<div class="o_field_widget o_stat_info mr4">
+													<span class="o_stat_text">
+														Min :
+													</span>
+													<span class="o_stat_text">
+														Max:
+													</span>
+												</div>
+												<div class="o_field_widget o_stat_info">
+													<span class="o_stat_value">
+														<field name="reordering_min_qty"/>
+													</span>
+													<span class="o_stat_value">
+														<field name="reordering_max_qty"/>
+													</span>
+												</div>
+											</button>
+											<button type="action" name="232" attrs="{'invisible':['|',('type', '!=', 'product'),('nbr_reordering_rules', '==', 1)]}" class="oe_stat_button" icon="fa-refresh" >
+												<field name="nbr_reordering_rules" widget="statinfo"/>
+											</button>
+											<button string="Lot/Serial Numbers" type="object" name="action_open_product_lot" attrs="{'invisible': [('tracking', '=', 'none')]}" class="oe_stat_button" icon="fa-bars"/>
+											<button string="Routes" type="action" name="227" class="oe_stat_button" icon="fa-cogs" context="{'default_product_id': id}" invisible="1"/>
+											<button string="Putaway Rules" type="object" name="action_view_related_putaway_rules" class="oe_stat_button" icon="fa-random" context="{'invisible_handle': True, 'single_product': True}" invisible="1"/>
+											<button class="oe_stat_button" name="action_view_sales" type="object" icon="fa-signal" help="Sold in the last 365 days" attrs="{'invisible': [('sale_ok', '=', False)]}">
+												<div class="o_field_widget o_stat_info">
+													<span class="o_stat_value">
+														<field name="sales_count" widget="statinfo" nolabel="1" class="mr4"/>
+														<field name="uom_name"/>
+													</span>
+													<span class="o_stat_text">
+														Sold
+													</span>
+												</div>
+											</button>
+											<button class="oe_stat_button" name="action_view_po" type="object" icon="fa-shopping-cart" attrs="{'invisible': [('purchase_ok', '=', False)]}" help="Purchased in the last 365 days" >
+												<div class="o_field_widget o_stat_info">
+													<span class="o_stat_value">
+														<field name="purchased_product_qty" widget="statinfo" nolabel="1" class="mr4"/>
+														<field name="uom_name"/>
+													</span>
+													<span class="o_stat_text">
+														Purchased
+													</span>
+												</div>
+											</button>
+										</div>
+										<group>
+											<field name="name" invisible='1'/>
+										</group>
+										<group string="General" col="6" colspan="6">
+											<group col="2" colspan="2">
+												<field name="eye" options="{'number_only_with_two_digit_rounding': True}"/>
+												<field name="bridge" options="{'number_only_with_two_digit_rounding': True}"/>
+												<field name="temple" options="{'number_only_with_three_digit_rounding': True}"/>
+											</group>
+											<group col="2" colspan="2">
+												<field name="color_id"/>
+												<field name="color_code_id"/>
+												<field name="lens_color_id"/>
+											</group>
+											<group col="2" colspan="2">
+												<field name="product_tag_ids" widget="many2many_tags"/>
+												<label for="lens_discontinue"/>
+												<div class="o_row">
+													<field name="lens_discontinue" class="oe_inline"/>
+													<field name="lens_discont_date" class="oe_inline" attrs="{'invisible':[('lens_discontinue', '=', False)], 'required':[('lens_discontinue', '!=', False)]}" nolabel="1"/>
+												</div>
+												<field name="configurations_last_modified_on"/>
+											</group>
+										</group>
+										<group string='Lab Trace' col="6" colspan="6">
+											<group col="2" colspan="2">
+												<field name="a"/>
+												<field name="b"/>
+											</group>
+											<group col="2" colspan="2">
+												<field name="dbl"/>
+												<field name="ed"/>
+											</group>
+											<group col="2" colspan="2">
+												<field name="ed_angle"/>
+												<field name="trace_file"/>
+											</group>
+										</group>
+										<separator string="Point Of Sale" class="oe_inline"/>
+										<div class="row"  width='100%' style="margin-left: 20px">
+											<div width='25%'>
+												<group>
+													<field name="barcode" string="UPC" required='1'/>
+												</group>
+											</div>
+											<div width='25%'>
+												<group>
+													<field name="currency_id" invisible="1"/>
+													<field name="list_price" string="Retail" widget='monetary' options="{'currency_field': 'currency_id', 'field_digits': True}"/>
+												</group>
+											</div>
+											<div width='25%'>
+												<group>
+													<field name="product_min_qty"/>
+												</group>
+											</div>
+											<div width='25%'>
+												<group>
+													<field name="product_max_qty"/>
+												</group>
+											</div>
+										</div>
+										<div class="row"  width='100%' style="margin-left: 20px">
+											<div width='25%'>
+												<group>
+													<field name="default_code" string="SKU"/>
+												</group>
+											</div>
+										</div>
+									</form>
+								</field>
+							</page>
+							<page name="shop" string="eCommerce" invisible="1">
+<!--							<page name="shop" string="eCommerce" attrs="{'invisible': [('sale_ok','=',False)]}">-->
+								<group name="shop">
+									<group string="Shop">
+										<field name="website_url" invisible="1"/>
+										<field name="website_id" options="{'no_create': True}" groups="website.group_multi_website"/>
+										<field name="website_sequence" groups="base.group_no_one"/>
+										<field name="public_categ_ids" widget="many2many_tags" string="Categories"/>
+										<field name="alternative_product_ids" widget="many2many_tags" domain="[('id', '!=', active_id), '|', ('company_id', '=', company_id), ('company_id', '=', False)]"/>
+										<field name="accessory_product_ids" widget="many2many_tags"/>
+										<field name="website_style_ids" widget="many2many_tags" groups="base.group_no_one"/>
+									</group>
+								</group>
+								<group name="product_template_images" string="Extra Product Media">
+									<field name="product_template_image_ids" class="o_website_sale_image_list" context="{'default_name': name}" mode="kanban" options="{'create_text':'Add a Media'}" nolabel="1"/>
+								</group>
+							</page>
+							<page name="vendors" string="Vendors">
+								<field name="seller_ids" context="{'default_product_tmpl_id':context.get('product_tmpl_id',active_id), 'product_template_invisible_variant': True, 'default_wholesale_cost':wholesale_cost}" nolabel="1">
+									<tree>
+										<field name="name"/>
+										<field name="company_id"/>
+										<field name="price" string='Cost' widget='monetary'/>
+										<field name="wholesale_cost" widget='monetary'/>
+										<field name="currency_id" invisible='1'/>
+									</tree>
+									<form>
+										<sheet>
+											<group>
+												<group name="vendor" string="Vendor">
+													<field name="currency_id" invisible='1'/>
+													<field name="product_variant_count" invisible="1"/>
+													<field name="name" context="{'res_partner_search_mode': 'supplier'}" domain="[('supplier_rank', '>=', 1)]"/>
+													<field name="product_id" domain="[('product_tmpl_id', '=', product_tmpl_id)]" options="{'no_create_edit': True}"/>
+													<label for="delay"/>
+													<div>
+														<field name="delay" class="oe_inline"/> days
+													</div>
+												</group>
+												<group string="Price List">
+													<label for="min_qty"/>
+													<div class="o_row">
+														<field name="min_qty"/>
+														<field name="product_uom" groups="uom.group_uom"/>
+													</div>
+													<field name="wholesale_cost" widget='monetary'/>
+													<field name="product_tmpl_id" string="Product" invisible="context.get('visible_product_tmpl_id', True)"/>
+													<label for="price" string='Cost'/>
+													<div class="o_row">
+														<field name="price" widget='monetary'/>
+													</div>
+													<label for="date_start" string="Validity"/>
+													<div class="o_row"><field name="date_start"/> to <field name="date_end"/></div>
+												</group>
+												<group string="Other Information" groups="base.group_multi_company">
+													<field name="company_id" options="{'no_create': True}"/>
+												</group>
+											</group>
+										</sheet>
+									</form>
+								</field>
+								<group name="purchase">
+									<group string="Vendor Bills" name="bill">
+										<field name="supplier_taxes_id" widget="many2many_tags" context="{'default_type_tax_use':'purchase'}"/>
+										<field name="purchase_method" widget="radio"/>
+									</group>
+								</group>
+								<group string="Purchase Description">
+									<field name="description_purchase" nolabel="1"
+										placeholder="This note is added to purchase orders."/>
+								</group>
+							</page>
+							<page string="Inventory" name="inventory" attrs="{'invisible':[('type', '=', 'service')]}">
+								<group name="inventory">
+									<group string="Operations" name="operations">
+										<field name="route_ids" widget="many2many_checkboxes" attrs="{'invisible': [('type', 'in', ['service', 'digital'])]}" can_create="true" can_write="true" />
+
+										<field name="route_from_categ_ids" widget="many2many_tags" readonly="1" attrs="{'invisible': [('route_from_categ_ids', '=', [])]}" can_create="true" can_write="true"/>
+<!--										<label for="sale_delay" attrs="{'invisible': [('sale_ok', '=', False)]}" />-->
+<!--										<div attrs="{'invisible': [('sale_ok', '=', False)]}" >-->
+<!--											<field name="sale_delay" class="oe_inline" style="vertical-align:baseline"/>-->
+<!--											days-->
+<!--										-->
+<!--										</div>-->
+									</group>
+<!--									<group string="Traceability" name="traceability" attrs="{'invisible': [('type', '=', 'consu')]}" >-->
+<!--										<field name="tracking" widget="radio" attrs="{'invisible': [('type', 'in', ['service', 'digital'])]}" on_change="1" />-->
+<!--									</group>-->
+									<group string="Counterpart Locations" name="stock_property">
+<!--										<field name="property_stock_production" can_create="true" can_write="true"/>-->
+										<field name="property_stock_inventory" can_create="true" can_write="true"/>
+									</group>
+								</group>
+<!--								<group string="Description for Delivery Orders">-->
+<!--									<field name="description_pickingout" nolabel="1" placeholder="This note is added to delivery orders."/>-->
+<!--								</group>-->
+<!--								<group string="Description for Receipts">-->
+<!--									<field name="description_pickingin" nolabel="1" placeholder="This note is added to receipt orders (e.g. where to store the product in the warehouse)."/>-->
+<!--								</group>-->
+								<group string="Description for Internal Transfers">
+									<field name="description_picking" placeholder="This note is added to internal transfer orders (e.g. where to pick the product in the warehouse)." nolabel="1"/>
+								</group>
+							</page>
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+    	<!-- Inherit search view of product template -->
+    	<record id="product_template_inherit_search_view" model="ir.ui.view">
+	        <field name="name">view.product.template.inherits.search</field>
+	        <field name="model">product.template</field>
+	        <field name="inherit_id" ref="product.product_template_search_view"/>
+        	<field name="arch" type="xml">
+	            <xpath expr="//filter[@name='services']" position="before">
+	            	<separator/>
+                    <filter string="Male" name="gender_ids" domain="[('gender_ids', '=', 'Male')]"/>
+                    <filter string="Female" name="gender_ids" domain="[('gender_ids', '=', 'Female')]"/>
+                    <filter string="Unisex" name="gender_ids" domain="[('gender_ids', '=', 'Unisex')]"/>
+                    <filter string="Youth" name="gender_ids" domain="[('gender_ids', '=', 'Youth')]"/>
+                    <filter string="Adult" name="gender_ids" domain="[('gender_ids', '=', 'Adult')]"/>
+                </xpath>
+	        </field>
+	    </record>
+
+
+        <!-- Overwritten action of product template for display only frame type product -->
+        <record id="product_template_action_frame" model="ir.actions.act_window">
+	        <field name="name">Frame</field>
+	        <field name="type">ir.actions.act_window</field>
+	        <field name="res_model">product.template</field>
+	        <field name="view_mode">kanban,tree,form</field>
+	        <field name="search_view_id" ref="stock.product_template_search_form_view_stock"/>
+	        <field name="context">{'default_spec_product_type': 'frame', 'default_prd_categ_name': 'Frames', 'default_type':'product',  'create_product_product':False, 'disable_varients':True}</field>
+	        <field name="domain">['|', ('prd_categ_name','=','Frames'), ('spec_product_type','=','frame')]</field>
+	        <field name="help" type="html">
+	            <p class="o_view_nocontent_smiling_face">
+	                Create a new product
+	            </p>
+	        </field>
+    	</record>
+
+        <!-- Display custom tree view instead of product template tree view -->
+        <record id="frame_action_tree_view" model="ir.actions.act_window.view">
+	        <field name="sequence" eval="17"/>
+	        <field name="view_mode">tree</field>
+	        <field name="view_id" ref="frame_tree_view"/>
+	        <field name="act_window_id" ref="product_template_action_frame"/>
+    	</record>
+
+		<record id="frame_action_form_view" model="ir.actions.act_window.view">
+	        <field name="sequence" eval="18"/>
+	        <field name="view_mode">form</field>
+	        <field name="view_id" ref="product_template_frame_view_form"/>
+	        <field name="act_window_id" ref="product_template_action_frame"/>
+    	</record>
+
+        <!-- Frame Menu -->
+	    <menuitem id="create_frame_menu" name="Frames" action="product_template_action_frame" parent="product_service_child_product" sequence="1"/>
+
+
+		<!-- Tree View of collection -->
+	    <record id="frame_type_view_tree" model="ir.ui.view">
+	        <field name="name">frame.type.view.tree</field>
+	        <field name="model">spec.frame.type</field>
+	        <field name="arch" type="xml">
+	            <tree>
+	                <field name="vw_code"/>
+	                <field name="name"/>
+					<field name="frames_data"/>
+	            </tree>
+	        </field>
+	    </record>
+
+		<!-- Search View Of collection -->
+		<record id="frame_type_view_search" model="ir.ui.view">
+            <field name="name">frame.type.view.search</field>
+            <field name="model">spec.frame.type</field>
+            <field name="arch" type="xml">
+                <search string="Search Frame Type">
+                    <field name="vw_code"/>
+	                <field name="name"/>
+					<field name="frames_data"/>
+               </search>
+            </field>
+        </record>
+
+        <!-- Form View of collection -->
+	    <record id="frame_type_view_form" model="ir.ui.view">
+	        <field name="name">frame.type.view.form</field>
+	        <field name="model">spec.frame.type</field>
+	        <field name="arch" type="xml">
+	            <form>
+	                <sheet>
+	                	<group>
+		                    <group>
+		                        <field name="name" required="1"/>
+		                    </group>
+						</group>
+						<group>
+		                    <group>
+		                    	<field name="vw_code"/>
+							</group>
+							<group>
+								<field name="frames_data"/>
+		                    </group>
+	                    </group>
+	                </sheet>
+	            </form>
+	        </field>
+	    </record>
+
+	    <!-- Action of collection -->
+	    <record id="frame_type_action" model="ir.actions.act_window">
+	        <field name="name">Frame Type</field>
+	        <field name="res_model">spec.frame.type</field>
+	        <field name="view_mode">tree,form</field>
+	    </record>
+
+	    <menuitem id="menu_frame_type" name="Frame Type" action="frame_type_action" parent="configuration_menu" sequence="13"/>
+
+	</data>
+</odoo>

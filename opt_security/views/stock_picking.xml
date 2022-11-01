@@ -1,0 +1,21 @@
+<odoo>
+    <record id="patient_inventory" model="ir.ui.view">
+	    <field name="name">patient.inventory</field>
+	    <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="opt_custom.opt_view_picking_form"/>
+	    <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_toggle_is_locked']" position="attributes">
+                <attribute name="groups">opt_security.opt_inventory_unlock</attribute>
+            </xpath>
+            <xpath expr="//button[@name='%(stock.act_stock_return_picking)d']" position="attributes">
+                <attribute name="groups">opt_security.opt_inventory_return</attribute>
+            </xpath>
+            <xpath expr="//button[@name='button_scrap']" position="attributes">
+                <attribute name="groups">opt_security.opt_inventory_scrap</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_generate_vendor_bill']" position="attributes">
+                <attribute name="groups">opt_security.opt_inventory_generate_vendor_bill</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

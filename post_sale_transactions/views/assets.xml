@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <template id="assets_backend" name="Post Sale Transactions Assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" href="/post_sale_transactions/static/src/css/style.css"/>
+                <script type="text/javascript" src="/post_sale_transactions/static/src/js/session_widget.js"></script>
+                <script type="text/javascript" src="/post_sale_transactions/static/src/js/stripe_wizard.js"></script>
+                <script type="text/javascript" src="/post_sale_transactions/static/src/js/sale_order_many2many_tags_link.js"></script>
+                <script type="text/javascript" src="/post_sale_transactions/static/src/js/section_and_note_backend.js"></script>
+                <script type="text/javascript" src="/post_sale_transactions/static/src/js/list_renderer.js"></script>
+            </xpath>
+        </template>
+    </data>
+</odoo>

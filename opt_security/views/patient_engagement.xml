@@ -1,0 +1,32 @@
+<odoo>
+    <record model="ir.ui.menu" id="patient_engagement.pe_setting_menuitem">
+      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_patient_engagement_setting')])]"/>
+    </record>
+<!--    <record model="ir.ui.menu" id="patient_engagement.delivery_restrictions_menuitem">-->
+<!--      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_patient_engagement_delivery_restrictions')])]"/>-->
+<!--    </record>-->
+    <record model="ir.ui.menu" id="patient_engagement.patient_engagement_history_menu_item">
+      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_patient_engagement_messaging_history')])]"/>
+    </record>
+    <record model="ir.ui.menu" id="patient_engagement.log_log_menuitem">
+      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_patient_engagement_messaging_logs')])]"/>
+    </record>
+    <record model="ir.ui.menu" id="patient_engagement.online_requests_menuitem">
+      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_patient_engagement_appointments_online')])]"/>
+    </record>
+<!--    <menuitem id="pe_setting_menuitem" action="patient_engagement.pe_setting_action" name='Setting'-->
+<!--              parent="patient_engagement.setting_menuitem" sequence="2"-->
+<!--              groups="opt_security.opt_patient_engagement_setting"/>-->
+<!--    <menuitem id="delivery_restrictions_menuitem" action="patient_engagement.delivery_restrictions_action"-->
+<!--              name='Delivery Restrictions' parent="patient_engagement.setting_menuitem" sequence="1"-->
+<!--              groups="opt_security.opt_patient_engagement_delivery_restrictions"/>-->
+<!--    <menuitem id="messaging_history_menuitem" action="patient_engagement.messaging_history_action" name='History'-->
+<!--              parent="patient_engagement.messaging_menuitem" sequence="1"-->
+<!--              groups="opt_security.opt_patient_engagement_messaging_history"/>-->
+<!--    <menuitem id="log_log_menuitem" action="patient_engagement.log_log_action" name='Logs'-->
+<!--              parent="patient_engagement.messaging_menuitem" sequence="1"-->
+<!--              groups="opt_security.opt_patient_engagement_messaging_logs"/>-->
+<!--    <menuitem id="online_requests_menuitem" action="patient_engagement.online_requests_action" name='Online Requests'-->
+<!--              parent="patient_engagement.patient_engagement_menu" sequence="2"-->
+<!--              groups="opt_security.opt_patient_engagement_appointments_online"/>-->
+</odoo>

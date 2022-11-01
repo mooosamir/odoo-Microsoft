@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <menuitem id="got_2_invoice_main_menu" name="Invoice"/>
+        <menuitem id="got_2_invoice_main_menu_dashboard" name="Dashboard" sequence="1"
+            action="account.action_move_out_invoice_type" parent="got_2_invoice_main_menu"/>
+        <menuitem id="got_2_invoice_main_menu_payments" name="Payments" sequence="2"
+            action="account.action_account_payments" parent="got_2_invoice_main_menu"/>
+        <menuitem id="got_2_credit_notes_main_menu_payments" name="Credit Notes" sequence="3"
+            action="account.action_move_out_refund_type" parent="got_2_invoice_main_menu"/>
+
+<!--        <menuitem id="root_product_receipt_menu" parent="root_spectacles_menu" name="Product Receipt" sequence="7"/>-->
+<!--            <menuitem id="root_purchase_manu" name="Purchase" parent="root_product_receipt_menu" sequence="0"/>-->
+<!--            <menuitem id="opti_erp_menu_stock_warehouse_mgmt" name="Inventory" parent="root_product_receipt_menu" sequence="2"/>-->
+                <menuitem id="ks_multi_company_inventory_transfer.vehicle_soft_transfer_menu"
+                        name="Company Transfer" action="ks_multi_company_inventory_transfer.ks_action_ks_multi_company_inventory_transfer"
+                        parent="product_service_child_transaction" sequence="6"/>
+<!--                <menuitem id="menu_valuation_inherit" name="Inventory Report"-->
+<!--                          parent="opti_erp_menu_stock_warehouse_mgmt" sequence="1" action="stock.action_view_quants"/>-->
+<!--                <menuitem id="menu_forecast_inventory_inherit" name="Forecasted Inventory"-->
+<!--                          parent="opti_erp_menu_stock_warehouse_mgmt" sequence="2" action="stock.report_stock_quantity_action"/>-->
+<!--                <menuitem id="menu_purchase_report" name="RFQ PO Analysis" action="action_purchase_order_report"-->
+<!--                          parent="opti_erp_menu_stock_warehouse_mgmt" sequence="2"/>-->
+<!--                <menuitem id="menu_valuation_inventory_inherit" name="Inventory Valuation"-->
+<!--                          parent="opti_erp_menu_stock_warehouse_mgmt" sequence="3" action="stock_account.action_stock_inventory_valuation"/>-->
+<!--                <menuitem action="stock.stock_move_action" id="stock_move_menu_inherit"-->
+<!--                          parent="opti_erp_menu_stock_warehouse_mgmt" sequence="4"/>-->
+<!--                <menuitem action="stock.action_procurement_compute" id="opt_menu_procurement_compute"-->
+<!--                          parent="opti_erp_menu_stock_warehouse_mgmt" sequence="4"/>-->
+
+        <menuitem id="sales_configuration_menu" name="Sales" parent="root_configrastion_menu" sequence="10"/>
+            <menuitem id="root_shipping_methods_manu" name="Shipping Methods" action="action_shipping_methods_views"
+                parent="opt_custom.sales_configuration_menu" sequence="3"/>
+        <menuitem id="appointment_configuration_menu" name="Appointment" parent="root_configrastion_menu" sequence="11"/>
+        <menuitem id="inventory_configuration_menu" name="Inventory" parent="root_configrastion_menu" sequence="12"/>
+            <menuitem id="menu_product_category" name="Product Categories" action="product.product_category_action_form"
+                      parent="inventory_configuration_menu" sequence="2"/>
+
+        <menuitem id="patient_configuration_menu" name="Patient" parent="root_configrastion_menu" sequence="13"/>
+            <menuitem id="spec_rx_usage_menu" action="spec_rx_usage_action" sequence="1"
+                      parent="patient_configuration_menu" string="add Rx Usage"/>
+            <menuitem id="rx_discontinue_reason_menuitem" action="rx_discontinue_reason_action"
+                      parent="opt_custom.patient_configuration_menu" sequence="2"/>
+
+        <menuitem id="general_configuration_menu" name="General" parent="root_configrastion_menu" sequence="14"/>
+            <menuitem id="root_purchase_conf_manu" name="Vendors" action="account.res_partner_action_supplier"
+                      parent="general_configuration_menu" sequence="3"/>
+            <menuitem id="journal" name="Payment Type" action="account.action_account_journal_form"
+                      parent="general_configuration_menu" sequence="4"/>
+            <menuitem id="open_view_employee_list_my" name="Employees" action="hr.open_view_employee_list_my"
+                      parent="general_configuration_menu" sequence="5"/>
+            <menuitem id="open_action_hr_contract" name="Contracts" action="hr_contract.action_hr_contract"
+                      parent="general_configuration_menu" sequence="6"/>
+<!--            <menuitem id="open_hr_employee_public_action" name="Employee Directory" action="hr.hr_employee_public_action"-->
+<!--                      parent="general_configuration_menu" sequence="7"/>-->
+            <menuitem id="open_action_hr_job" name="Job Positions" action="hr.action_hr_job"
+                      parent="general_configuration_menu" sequence="8"/>
+            <menuitem id="open_open_module_tree_department" name="Departments" action="hr.open_module_tree_department"
+                      parent="general_configuration_menu" sequence="9"/>
+            <menuitem id="open_hr_plan_action" name="Plans" action="hr.hr_plan_action"
+                      parent="general_configuration_menu" sequence="10"/>
+
+<!--        has been moved to opt_insurance-->
+<!--        <menuitem id="insurance_configuration_menu" name="Insurance" parent="root_configrastion_menu" sequence="15"/>-->
+<!--            <menuitem id="procedure_code_menu" action="procedure_code_action" parent="insurance_configuration_menu" sequence="1"/>-->
+<!--            <menuitem id="modifier_code_menu" action="modifier_action" parent="insurance_configuration_menu" sequence="2"/>-->
+        <menuitem id="patient_engagement_configuration_menu" name="Patient Engagement" parent="root_configrastion_menu" sequence="17"/>
+        <menuitem id="menu_config" name="Settings" parent="root_configrastion_menu" sequence="0"
+                  action="base_setup.action_general_configuration" groups="base.group_system"/>
+        <!--admin_configuration_menu_new-->
+    </data>
+</odoo>

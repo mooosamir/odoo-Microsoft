@@ -1,0 +1,104 @@
+<odoo>
+	<data>
+		<!-- activities Data-->
+	    <record id="activities_data_1" model="spec.activities.list">
+	        <field name	="name">Archery</field>
+	    </record>
+	    
+	    <record id="activities_data_2" model="spec.activities.list">
+	        <field name	="name">Arts</field>
+	    </record>
+	    
+	    <record id="activities_data_3" model="spec.activities.list">
+	        <field name	="name">Badminton</field>
+	    </record>
+	    
+	    <record id="activities_data_4" model="spec.activities.list">
+	        <field name	="name">Baseball</field>
+	    </record>
+	    
+	    <record id="activities_data_5" model="spec.activities.list">
+	        <field name	="name">Dancing</field>
+	    </record>
+
+	    <record id="activities_data_6" model="spec.activities.list">
+	        <field name	="name">Fishing</field>
+	    </record>
+	    
+	    <record id="activities_data_7" model="spec.activities.list">
+	        <field name	="name">Flying</field>
+	    </record>
+	    
+	    <record id="activities_data_8" model="spec.activities.list">
+	        <field name	="name">Football</field>
+	    </record>
+	    
+	    <record id="activities_data_9" model="spec.activities.list">
+	        <field name	="name">Gardening</field>
+	    </record>
+	    
+	    <record id="activities_data_10" model="spec.activities.list">
+	        <field name	="name">Gold</field>
+	    </record>
+
+	    <record id="activities_data_11" model="spec.activities.list">
+	        <field name	="name">Hockey</field>
+	    </record>
+
+	    <record id="activities_data_12" model="spec.activities.list">
+	        <field name	="name">Horseback</field>
+	    </record>
+	    
+	    <record id="activities_data_13" model="spec.activities.list">
+	        <field name	="name">Hunting</field>
+	    </record>
+	    
+	    <record id="activities_data_14" model="spec.activities.list">
+	        <field name	="name">Lacrosse</field>
+	    </record>
+	    
+	    <record id="activities_data_15" model="spec.activities.list">
+	        <field name	="name">Mountain Climbing</field>
+	    </record>
+
+	    <record id="activities_data_16" model="spec.activities.list">
+	        <field name	="name">Music</field>
+	    </record>
+
+	    <record id="activities_data_17" model="spec.activities.list">
+	        <field name	="name">Racquetball</field>
+	    </record>
+
+	    <record id="activities_data_18" model="spec.activities.list">
+	        <field name	="name">Roller Blading</field>
+	    </record>
+
+	    <record id="activities_data_19" model="spec.activities.list">
+	        <field name	="name">Scuba/Snorkel/Water Skii</field>
+	    </record>
+	    
+	    <record id="activities_data_20" model="spec.activities.list">
+	        <field name	="name">Skating</field>
+	    </record>
+	    
+	    <record id="activities_data_21" model="spec.activities.list">
+	        <field name	="name">Snow Skiing/Mobiling</field>
+	    </record>
+	    
+	    <record id="activities_data_22" model="spec.activities.list">
+	        <field name	="name">Soccer</field>
+	    </record>
+
+	    <record id="activities_data_23" model="spec.activities.list">
+	        <field name	="name">Squash</field>
+	    </record>
+
+	    <record id="activities_data_24" model="spec.activities.list">
+	        <field name	="name">Surfing</field>
+	    </record>
+
+	    <record id="activities_data_25" model="spec.activities.list">
+	        <field name	="name">Woodworking</field>
+	    </record>
+	</data>
+</odoo>

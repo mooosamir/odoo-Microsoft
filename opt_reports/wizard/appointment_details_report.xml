@@ -1,0 +1,42 @@
+<odoo>
+    <record id="appointment_details_report_wizard" model="ir.ui.view">
+        <field name="name">appointment.report.wizard</field>
+        <field name="model">appointment.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Report Print">
+                <sheet>
+                    <group invisible="1">
+                        <field name="is_details_reports" invisible="1"/>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="from_date" required="1"/>
+                            <field name="to_date" required="1"/>
+                            <field name="hr_employee_id" widget="many2many_tags"/>
+                        </group>
+                        <group>
+                            <field name="service_type" options='{"no_open": True, "no_create": True}' widget="many2many_tags"/>
+                            <field name="appointment_status" options='{"no_open": True, "no_create": True}' widget="many2many_tags"/>
+                            <field name="company_id" required="1" options='{"no_open": True, "no_create": True}'/>
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="print_report" string="Print" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_appointment_details_report" model="ir.actions.act_window">
+        <field name="name">Report</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">appointment.report.wizard</field>
+        <field name="context">{'default_is_details_reports': 1}</field>
+        <field name="view_id" ref="appointment_details_report_wizard"/>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

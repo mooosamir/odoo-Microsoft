@@ -1,0 +1,36 @@
+<odoo>
+	<data>
+		<!-- activities Data-->
+	    <record id="rx_usage_1" model="spec.rx.usage">
+	        <field name	="name">Distance</field>
+	    </record>
+
+	    <record id="rx_usage_2" model="spec.rx.usage">
+	        <field name	="name">Computer</field>
+	    </record>
+
+	    <record id="rx_usage_3" model="spec.rx.usage">
+	        <field name	="name">Reading</field>
+	    </record>
+
+	    <record id="rx_usage_4" model="spec.rx.usage">
+	        <field name	="name">Computer Over Contacts</field>
+	    </record>
+
+	    <record id="rx_usage_5" model="spec.rx.usage">
+	        <field name	="name">Occupational</field>
+	    </record>
+
+	    <record id="rx_usage_6" model="spec.rx.usage">
+	        <field name	="name">Ready Over Contacts</field>
+	    </record>
+
+	    <record id="rx_usage_7" model="spec.rx.usage">
+	        <field name	="name">Full Time Wea</field>
+	    </record>
+
+	    <record id="rx_usage_8" model="spec.rx.usage">
+	        <field name	="name">Sports/Hobby</field>
+	    </record>
+	</data>
+</odoo>

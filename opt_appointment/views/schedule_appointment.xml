@@ -1,0 +1,91 @@
+<odoo>
+    <record id="schedule_appointment_tree" model="ir.ui.view">
+        <field name="name">schedule.appointment.tree</field>
+        <field name="model">schedule.appointment</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="employee_id"/>
+                <field name="date"/>
+                <field name="holiday_open" class="oe_inline" options="{'datepicker': {'stepping': 15}}" widget="timepicker"/>
+                <field name="holiday_close" class="oe_inline" options="{'datepicker': {'stepping': 15}}" widget="timepicker"/>
+<!--                <field name="branch_id"/>-->
+                <field name="company_id"/>
+                <field name="reason"/>
+                <field name="color" widget='color'/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="schedule_appointment_form" model="ir.ui.view">
+        <field name="name">schedule.appointment.form</field>
+        <field name="model">schedule.appointment</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="employee_id" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+                            <field name="date"/>
+                            <field name="holiday_open" class="oe_inline" options="{'datepicker': {'stepping': 5}}" widget="timepicker"/>
+                            <field name="holiday_close" class="oe_inline" options="{'datepicker': {'stepping': 5}}" widget="timepicker"/>
+                            <field name="opening_time" invisible="1"/>
+                            <field name="closing_time" invisible="1"/>
+                            <field name="is_available"/>
+                            <field name="recurrency"/>
+                        </group>
+                        <group>
+<!--                            <field name="branch_id"  options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>-->
+                            <field name="company_id" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+                            <field name="color" widget="color" attrs="{'invisible': [('is_available', '=', True)]}"/>
+                            <field name="reason" string="Reason"/>
+                        </group>
+                    </group>
+                    <group attrs="{'invisible': [('recurrency', '=', False)]}">
+                        <group>
+                            <label for="interval"/>
+                            <div class="o_row">
+                                <field name="interval" attrs="{'required': [('recurrency', '=', True)]}"/>
+                                <field name="rrule_type" attrs="{'required': [('recurrency', '=', True)]}"/>
+                            </div>
+                            <label string="Until" for="end_type"/>
+                            <div class="o_row">
+                                <field name="end_type" attrs="{'required': [('recurrency', '=', True)]}"/>
+                                <field name="count" attrs="{'invisible': [('end_type', '!=', 'count')], 'required': [('recurrency', '=', True)]}"/>
+                                <field name="final_date" attrs="{'invisible': [('end_type', '!=', 'end_date')], 'required': [('end_type', '=', 'end_date'), ('recurrency', '=', True)]}"/>
+                            </div>
+                        </group>
+                        <group attrs="{'invisible': [('rrule_type', '!=', 'weekly')]}" name="weekdays">
+                            <field name="mo"/>
+                            <field name="tu"/>
+                            <field name="we"/>
+                            <field name="th"/>
+                            <field name="fr"/>
+                            <field name="sa"/>
+                            <field name="su"/>
+                        </group>
+                        <group attrs="{'invisible': [('rrule_type', '!=', 'monthly')]}">
+                            <label string="Day of Month" for="month_by"/>
+                            <div class="o_row">
+                                <field name="month_by"/>
+                                <field name="day" attrs="{'required': [('month_by', '=', 'date'), ('rrule_type', '=', 'monthly')],                                             'invisible': [('month_by', '!=', 'date')]}"/>
+                                <field name="byday" string="The" attrs="{'required': [('recurrency', '=', True), ('month_by', '=', 'day'), ('rrule_type', '=', 'monthly')],                                             'invisible': [('month_by', '!=', 'day')]}"/>
+                                <field name="week_list" nolabel="1" attrs="{'required': [('recurrency', '=', True), ('month_by', '=', 'day'), ('rrule_type', '=', 'monthly')],                                             'invisible': [('month_by', '!=', 'day')]}"/>
+                            </div>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_schedule_appointment" model="ir.actions.act_window">
+        <field name="name">Schedule Adjustment</field>
+        <field name="res_model">schedule.appointment</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('is_original','=',False)]</field>
+    </record>
+
+    <menuitem id="schedule_appointment_menuitem" action="action_schedule_appointment" name='Schedule Adjustment'
+              parent="appointment_menu_appointment" sequence="3"/>
+
+</odoo>

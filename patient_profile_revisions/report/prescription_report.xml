@@ -1,0 +1,659 @@
+<odoo>
+    <data>
+        <report
+
+                id="action_prescription_report"
+                model="spec.contact.lenses"
+                string="Patients Prescription Report!"
+                name="patient_profile_revisions.patients_prescription_template"
+                file="patient_profile_revisions.patients_prescription_template"
+                report_type='qweb-pdf'
+
+        />
+
+        <template id="patients_prescription_template">
+            <t t-call="web.html_container">
+                <!--            <t t-call="web.internal_layout">-->
+                <t t-call="web.basic_layout">
+                    <div class="page">
+                        <div class="oe_structure"/>
+                        <div class="header">
+                            <br/>
+                            <br/>
+                            <div class="row">
+                                <div class="col-8">
+                                    <h5>
+                                        <span>
+                                            <t t-esc="docs.partner_id.company_id.name"/>
+                                            <br/>
+                                            <t t-esc="docs.partner_id.company_id.street"/>
+                                            <t t-esc="docs.partner_id.company_id.street2"/>
+                                            <br/>
+                                            <t t-esc="docs.partner_id.company_id.city"/> ,
+                                            <t t-esc="docs.partner_id.company_id.state_id.name"/>
+                                            <t t-esc="docs.partner_id.company_id.zip"/>
+                                            <br/>
+                                            <t t-esc="docs.partner_id.company_id.phone"/>
+                                             <br/>
+                                            <t t-esc="docs.partner_id.company_id.email"/>
+                                        </span>
+                                    </h5>
+
+                                </div>
+
+<!--                                <div class="col-4" style="display: block;text-align: -webkit-right;">-->
+<!--                                    <img t-att-src="'data:image/png;base64,%s' % to_text(docs.partner_id.company_id.image_1920)"-->
+<!--                                                 style="width: 150px; height: 150px"-->
+<!--                                            />-->
+
+<!--                                </div>-->
+                            </div>
+                        </div>
+
+
+                        <t t-foreach="docs" t-as="doc">
+                            <br/>
+                            <div style="border-bottom:solid 1px black;">
+
+
+                            </div>
+                            <br/>
+                            <!--                             <t t-if="doc.check_box">-->
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="row">
+                                        <div class="col-3">
+                                            Patient :
+                                        </div>
+
+                                        <div class="col-9" style="padding-left:0px;">
+                                            <span>
+                                                <t t-esc="docs.partner_id.first_name"/>
+                                                <t t-esc="docs.partner_id.last_name"/>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-3">
+                                            DOB :
+                                        </div>
+                                        <div class="col-9" style="padding-left:0px;">
+                                            <span t-field="docs.partner_id.date_of_birth"
+                                                  t-options='{"format": "MM/dd/YYYY"}'/>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-3">
+                                            Address :
+                                        </div>
+                                        <div class="col-9" style="padding-left:0px;">
+                                            <span>
+                                                <t t-esc="docs.partner_id.street"/>
+                                                <t t-esc="docs.partner_id.street2"/>
+                                                <br/>
+                                                <t t-esc="docs.partner_id.city"/> ,
+                                                <t t-esc="docs.partner_id.state_id.name"/>
+                                                <t t-esc="docs.partner_id.zip"/>
+                                            </span>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                                <div class="col-6">
+
+                                    <div class="row">
+                                        <div class="col-5">
+                                            Prescription Date :
+                                        </div>
+                                        <div class="col-7" style="padding-left:0px;">
+                                            <span t-field="doc.exam_date" t-options='{"format": "MM/dd/YYYY"}'/>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-5">
+                                            Expiration Date :
+                                        </div>
+                                        <div class="col-7" style="padding-left:0px;">
+                                            <span t-field="doc.expiration_date" t-options='{"format": "MM/dd/YYYY"}'/>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-5">
+                                            Rx Type :
+                                        </div>
+                                        <div class="col-7" style="padding-left:0px;">
+                                            <span t-esc="doc.rx_type_char"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-5">
+                                            Provider :
+                                        </div>
+                                        <div class="col-7" style="padding-left:0px;">
+                                            <span t-esc="doc.name.name"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-5">
+                                            Provider License:
+                                        </div>
+                                        <div class="col-7" style="padding-left:0px;">
+                                            <span t-esc="doc.name.license"/>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <br/>
+
+                            <div style="border-bottom:solid 1px black;">
+
+
+                            </div>
+
+
+                            <t t-if="doc.rx == 'soft'">
+
+                                <br/>
+
+                                <h3>
+                                    <center>Contact Lens Prescription</center>
+                                </h3>
+
+                                <br/>
+                                <br/>
+                                <table class="table table-borderless" style="border:solid 2px black;">
+
+
+                                    <thead style="border:solid 4px transparent; border-bottom:solid 2px black">
+                                        <tr>
+                                            <th scope="" style="width:10px;"></th>
+                                            <th scope="col">Manufacturer/Brand</th>
+                                            <th scope="col">BC</th>
+                                            <th scope="col">DIA</th>
+                                            <th scope="col">Sph</th>
+                                            <th scope="col">Cyl</th>
+                                            <th scope="col">Axis</th>
+                                            <th scope="col">Add</th>
+                                            <th scope="col">MultiF</th>
+                                            <th scope="col">Color</th>
+                                        </tr>
+                                    </thead>
+                                    <br/>
+                                    <tbody style="border:solid 2px black;">
+
+                                        <tr style="border:solid 2px black;">
+
+                                            <td style="border:solid 2px black;">
+                                                <label>OD</label>
+                                            </td>
+
+
+                                            <td class="text-center" style="border:solid 2px black;">
+                                                <t t-if="doc.soft_manufacturer_id != 'No Value'">
+                                                    <span t-field="doc.soft_manufacturer_id"/>
+                                                </t>
+                                            </td>
+
+
+                                            <td class="text-center" style="border:solid 2px black;">
+                                                <t t-if="doc.select_soft_base_curve != 'No Value'">
+                                                    <span t-field="doc.select_soft_base_curve"/>
+                                                </t>
+                                            </td>
+
+
+                                            <td class="text-center" style="border:solid 2px black;">
+                                                <t t-if="doc.select_soft_diameter != 'No Value'">
+                                                    <span t-field="doc.select_soft_diameter"/>
+                                                </t>
+                                            </td>
+
+
+                                            <td class="text-center" style="border:solid 2px black;">
+                                                <t t-if="doc.select_soft_sphere != 'No Value'">
+                                                    <span t-field="doc.select_soft_sphere"/>
+                                                </t>
+                                            </td>
+
+
+                                            <td class="text-center" style="border:solid 2px black;">
+                                                <t t-if="doc.select_soft_cylinder != 'No Value'">
+                                                    <span t-field="doc.select_soft_cylinder"/>
+                                                </t>
+                                            </td>
+
+                                            <td class="text-center" style="border:solid 2px black;">
+                                                <t t-if="doc.select_soft_axis != 'No Value'">
+                                                    <span t-field="doc.select_soft_axis"/>
+                                                </t>
+                                            </td>
+
+                                            <td class="text-center" style="border:solid 2px black;">
+                                                <t t-if="doc.select_soft_add_power != 'No Value'">
+                                                    <span t-field="doc.select_soft_add_power"/>
+                                                </t>
+                                            </td>
+
+                                            <td class="text-center" style="border:solid 2px black;">
+                                                <t t-if="doc.select_soft_multifocal != 'No Value'">
+                                                    <span t-field="doc.select_soft_multifocal"/>
+                                                </t>
+                                            </td>
+
+                                            <td class="text-center" style="border:solid 2px black;">
+                                                <t t-if="doc.select_soft_color != 'No Value'">
+                                                    <span t-field="doc.select_soft_color"/>
+                                                </t>
+                                            </td>
+
+
+                                        </tr>
+
+                                        <tr style="border:solid 2px black;">
+
+                                            <td style="border:solid 2px black;">
+                                                <label>OS</label>
+                                            </td>
+
+
+                                            <td class="text-center" style="border:solid 2px black;">
+                                                <span t-field="doc.soft_left_manufacturer_id"/>
+                                            </td>
+
+
+                                            <td class="text-center" style="border:solid 2px black;">
+                                                <span t-field="doc.soft_left_base_curve"/>
+                                            </td>
+
+
+                                            <td class="text-center" style="border:solid 2px black;">
+                                                <t t-if="doc.soft_left_diameter != 'No Value'">
+                                                    <span t-field="doc.soft_left_diameter"/>
+                                                </t>
+                                            </td>
+
+
+                                            <td class="text-center" style="border:solid 2px black;">
+                                                <t t-if="doc.soft_left_sphere != 'No Value'">
+                                                    <span t-field="doc.soft_left_sphere"/>
+                                                </t>
+                                            </td>
+
+
+                                            <td class="text-center" style="border:solid 2px black;">
+                                                <t t-if="doc.soft_left_cylinder != 'No Value'">
+                                                    <span t-field="doc.soft_left_cylinder"/>
+                                                </t>
+                                            </td>
+
+                                            <td class="text-center" style="border:solid 2px black;">
+                                                <t t-if="doc.soft_left_axis != 'No Value'">
+                                                    <span class="a" t-field="doc.soft_left_axis"/>
+                                                </t>
+                                            </td>
+
+
+                                            <td class="text-center" style="border:solid 2px black;">
+                                                <t t-if="doc.soft_left_add_power != 'No Value'">
+                                                    <span t-field="doc.soft_left_add_power"/>
+                                                </t>
+                                            </td>
+
+                                            <td class="text-center" style="border:solid 2px black;">
+                                                <t t-if="doc.soft_left_multifocal != 'No Value'">
+                                                    <span t-field="doc.soft_left_multifocal"/>
+                                                </t>
+                                            </td>
+
+                                            <td class="text-center" style="border:solid 2px black;">
+                                                <t t-if="doc.soft_left_color != 'No Value'">
+                                                    <span t-field="doc.soft_left_color"/>
+                                                </t>
+                                            </td>
+
+
+                                        </tr>
+
+
+
+                                    </tbody>
+
+
+                                </table>
+
+                                <div class="row">
+                                    <div class="col-6">
+                                        <b>Wearing Period :</b>
+                                        <span t-esc="doc.wearing_schedulen.name"/>
+                                    </div>
+                                    <div class="col-6">
+                                        <b>Notes :</b>
+                                        <span t-esc="doc.rx_notes"/>
+                                    </div>
+                                </div>
+                                <br/>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <b>Replacement :</b>
+                                        <span t-esc="doc.replcement.name"/>
+                                    </div>
+                                </div>
+
+                            </t>
+
+                            <t t-if="doc.rx == 'hard'">
+
+                                <br/>
+
+                                <h3>
+                                    <center>Contact Lens Prescription</center>
+                                </h3>
+
+                                <br/>
+                                <br/>
+                                <table class="table table-borderless" style="border:solid 2px black;">
+
+
+                                    <thead style="border:solid 4px transparent; border-bottom:solid 2px black">
+                                        <tr>
+                                            <th scope="" style="width:10px;"></th>
+                                            <th scope="col">Manufacturer/Brand</th>
+                                            <th scope="col">BC</th>
+                                            <th scope="col">DIA</th>
+                                            <th scope="col">Sph</th>
+                                            <th scope="col">Cyl</th>
+                                            <th scope="col">Axis</th>
+                                            <th scope="col">Add</th>
+                                            <th scope="col">MultiF</th>
+                                            <th scope="col">Color</th>
+                                        </tr>
+                                    </thead>
+                                    <br/>
+                                    <tbody style="border:solid 2px black;">
+                                        <tr style="border:solid 2px black;">
+
+                                            <td style="border:solid 2px black;">
+                                                <label>OS</label>
+                                            </td>
+
+
+                                            <td class="text-center" style="border:solid 2px black;">
+                                                <span t-field="doc.left_manufacturer_id"/>
+                                            </td>
+
+
+                                            <td class="text-center" style="border:solid 2px black;">
+                                                <span t-field="doc.left_base_curve"/>
+                                            </td>
+
+
+                                            <td class="text-center" style="border:solid 2px black;">
+                                                <span t-field="doc.left_diameter"/>
+                                            </td>
+
+
+                                            <td class="text-center" style="border:solid 2px black;">
+                                                <span t-field="doc.left_sphere"/>
+                                            </td>
+
+
+                                            <td class="text-center" style="border:solid 2px black;">
+                                                <span t-field="doc.left_cylinder"/>
+                                            </td>
+
+                                            <td class="text-center" style="border:solid 2px black;">
+                                                <span t-field="doc.left_axis"/>
+                                            </td>
+
+
+                                            <td class="text-center" style="border:solid 2px black;">
+                                                <span t-field="doc.left_add"/>
+                                            </td>
+
+                                            <td class="text-center" style="border:solid 2px black;">
+                                                <span t-field="doc.soft_left_multifocal"/>
+                                            </td>
+
+                                            <td class="text-center" style="border:solid 2px black;">
+                                                <span t-field="doc.left_color"/>
+                                            </td>
+
+
+                                        </tr>
+                                        <tr style="border:solid 2px black;">
+
+                                            <td style="border:solid 2px black;">
+                                                <label>OD</label>
+                                            </td>
+
+
+                                            <td class="text-center" style="border:solid 2px black;">
+                                                <span t-field="doc.soft_manufacturer_id"/>
+                                            </td>
+
+
+                                            <td class="text-center" style="border:solid 2px black;">
+                                                <span t-field="doc.soft_base_curve"/>
+                                            </td>
+
+
+                                            <td class="text-center" style="border:solid 2px black;">
+                                                <span t-field="doc.soft_diameter"/>
+                                            </td>
+
+
+                                            <td class="text-center" style="border:solid 2px black;">
+                                                <span t-field="doc.soft_sphere"/>
+                                            </td>
+
+
+                                            <td class="text-center" style="border:solid 2px black;">
+                                                <span t-field="doc.soft_cylinder"/>
+                                            </td>
+
+                                            <td class="text-center" style="border:solid 2px black;">
+                                                <span t-field="doc.soft_axis"/>
+                                            </td>
+
+                                            <td class="text-center" style="border:solid 2px black;">
+                                                <span t-field="doc.soft_add_power"/>
+                                            </td>
+
+                                            <td class="text-center" style="border:solid 2px black;">
+                                                <span t-field="doc.soft_multifocal"/>
+                                            </td>
+
+                                            <td class="text-center" style="border:solid 2px black;">
+                                                <span t-field="doc.soft_color"/>
+                                            </td>
+
+
+                                        </tr>
+
+                                    </tbody>
+
+
+                                </table>
+
+                                <div class="row">
+                                    <div class="col-6">
+                                        <b>Wearing Period :</b>
+                                        <span t-esc="doc.wearing_schedulen.name"/>
+                                    </div>
+                                    <div class="col-6">
+                                        <b>Notes :</b>
+                                        <span t-esc="doc.rx_notes"/>
+                                    </div>
+                                </div>
+                                <br/>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <b>Replacement :</b>
+                                        <span t-esc="doc.replcement.name"/>
+                                    </div>
+                                </div>
+
+                            </t>
+
+
+                            <t t-if="doc.rx == 'glasses'">
+                                <br/>
+
+                                <h3>
+                                    <center>Prescription</center>
+                                </h3>
+
+                                <br/>
+                                <br/>
+                                <table class="table table-borderless" style="border:solid 2px black;">
+
+
+                                    <thead style="border:solid 4px transparent; border-bottom:solid 2px black">
+                                        <tr>
+                                            <th scope="" style="width:10px;"></th>
+                                            <th scope="col">Sphere</th>
+                                            <th scope="col">Cylinder</th>
+                                            <th scope="col">Axis</th>
+                                            <th scope="col">Add</th>
+                                            <th scope="col">Prism</th>
+
+                                        </tr>
+                                    </thead>
+                                    <br/>
+                                    <tbody style="border:solid 2px black;">
+
+                                        <tr style="border:solid 2px black;">
+
+                                            <td style="border:solid 2px black;">
+                                                <label>OD</label>
+                                            </td>
+
+
+                                            <td class="text-center"  style="border:solid 2px black;">
+                                                <span t-field="doc.gls_sphere"/>
+                                            </td>
+
+
+                                            <td class="text-center" style="border:solid 2px black;">
+                                                <span t-field="doc.gls_cylinder"/>
+                                            </td>
+
+
+                                            <td class="text-center" style="border:solid 2px black;">
+                                                <span t-field="doc.gls_axis"/>
+                                            </td>
+
+
+                                            <td class="text-center" style="border:solid 2px black;">
+                                                <span t-field="doc.gls_add"/>
+                                            </td>
+
+
+                                            <td class="text-center" style="border:solid 2px black;">
+                                                <span style="text-transform:uppercase;">
+                                                    <t t-esc="doc.gls_h_prism"/>
+                                                    <t t-esc="doc.gls_h_base"/>
+                                                    <t t-esc="doc.gls_v_prism"/>
+                                                    <t t-esc="doc.gls_v_base"/>
+                                                </span>
+                                            </td>
+
+
+                                        </tr>
+
+                                        <tr style="border:solid 2px black;">
+
+                                            <td style="border:solid 2px black;">
+                                                <label>OS</label>
+                                            </td>
+
+
+                                            <td class="text-center" style="border:solid 2px black;">
+                                                <span t-field="doc.gls_left_lens_sphere"/>
+                                            </td>
+
+
+                                            <td class="text-center" style="border:solid 2px black;">
+                                                <span t-field="doc.gls_left_lens_cylinder"/>
+                                            </td>
+
+
+                                            <td class="text-center" style="border:solid 2px black;">
+                                                <span t-field="doc.gls_left_lens_axis"/>
+                                            </td>
+
+
+                                            <td class="text-center" style="border:solid 2px black;">
+                                                <span t-field="doc.gls_left_lens_add"/>
+                                            </td>
+
+
+                                            <td style="border:solid 2px black; text-transform:uppercase;" class="text-center prism_upper">
+                                                <span style="text-transform:uppercase;" >
+                                                    <t t-esc="doc.gls_left_lens_h_prism" />
+                                                    <t t-esc="doc.gls_left_h_base" />
+                                                    <t t-esc="doc.gls_left_lens_v_prism" />
+                                                    <t t-esc="doc.gls_left_v_base" />
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <div class="row">
+                                    <div class="col-12">
+                                        <b>Recommendations :</b>
+                                        <span t-esc="docs.provider_recommendation"/>
+                                        <br/>
+                                        <span t-esc="doc.rx_notes"/>
+                                    </div>
+                                </div>
+                                <br/>
+
+
+                            </t>
+
+                            <div style="width:30%">
+
+                                <br/>
+                                <br/>
+                                <br/>
+                                <img t-att-src="'data:image/png;base64,%s' % to_text(doc.name.signature)"
+                                                 style="width: 250px; height: 120px"
+                                            />
+                                <div style="border-bottom:solid 1px black">
+
+                                </div>
+                                <div>
+                                    <span t-esc="doc.name.name"/>
+                                    <br/>
+                                    License: <span t-esc="doc.name.license"/>
+                                </div>
+
+                                <div style="page-break-before: always;">
+                                </div>
+
+                            </div>
+                            <!--                             </t>-->
+                        </t>
+
+                    </div>
+
+
+                </t>
+
+            </t>
+
+        </template>
+    </data>
+</odoo>

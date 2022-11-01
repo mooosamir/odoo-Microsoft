@@ -1,0 +1,2001 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="order_group_wizard_form" model="ir.ui.view">
+            <field name="name">multi.order.type.form</field>
+            <field name="model">multi.order.type</field>
+            <field name="arch" type="xml">
+                <form create="false" context="{'new_size':'max-width_1180px'}">
+                    <group>
+                        <field name="order_type_name" invisible="1"/>
+                        <field name="partner_id" invisible="1"/>
+                        <field name="order_type_name" invisible="1"/>
+                        <field name="rx" invisible="1"/>
+                        <field name="insurance_id" invisible="1"/>
+                        <field name="authorization_id" invisible="1"/>
+
+                        <!--                    ===================================================================================
+                                                Insurance and Authorization fields (they will be added back during once we go live)
+                                                ===================================================================================
+                        -->
+                        <field name="sale_id" invisible="1"/>
+
+                        <group invisible="1">
+                            <field name="insurance_id"
+                                   context="{'partner_id': partner_id, 'form_view_ref':'ivis_order_grouping.spec_insurance_form_many2one'}"
+                                   widget="selection"/>
+                        </group>
+                        <group invisible="1">
+                            <field name="authorization_id"
+                                   context="{'form_view_ref':'ivis_order_grouping.authorization_form_many2one','default_partner_id':partner_id}"
+                                   attrs="{'readonly': [('insurance_id','=',False)],'required': [('insurance_id','!=',False)]}"/>
+                        </group>
+                        <group invisible="1">
+                            <label for="authorization_id"/>
+                            <select disabled="true" style="height: 40px;padding: 6px 12px !important;"></select>
+                        </group>
+                    </group>
+                    <div class="row"
+                         attrs="{'invisible':[('order_type_name','in',['Frame Only','Services','Accessory', 'Miscellaneous'])]}">
+                        <div class="o2m_form_field_inline" style="min-width: 100%;">
+                            <label for="prescription_id"/>
+                            <br/>
+                            <field name="prescription_id" style="width: 96%;"
+                                   context="{'default_partner_id' : partner_id, 'partner_id' : partner_id, 'form_view_ref':'opt_custom.spec_contact_lenses_form', 'tree_view_ref':'opt_custom.spec_contact_lenses_tree'}"
+                                   attrs="{'required':[('order_type_name','not in',['Frame Only','Services','Accessory', 'Miscellaneous'])]}"
+                            />
+                        </div>
+                    </div>
+                    <group attrs="{'invisible':[('order_type_name','in',['Frame Only','Services','Accessory', 'Miscellaneous'])]}">
+                        <group>
+                            <div class="row" attrs="{'invisible':[('rx', '=', False)]}">
+                                <div style="padding-left: 30px;">
+                                    <!--                                <h4>Glasses Over Contacts</h4>-->
+                                    <label for="rx_usage_id" string="Rx Usage:"/>
+                                    <field name="rx_usage_id" style="font-size:10.0pt" options="{'no_open':True}"/>
+                                </div>
+                                <div style="padding-left: 400px;">
+                                    <field name="is_expired" invisible="1"/>
+                                    <label for="expired_prescription_date"
+                                           attrs="{'invisible':[('is_expired','=',False)]}"
+                                           style="color:#ff0000;padding: 0px 15px;"/>
+                                    <field name="expired_prescription_date"
+                                           attrs="{'invisible':[('is_expired','=',False)]}"
+                                           style="color:#ff0000;padding: 0px 15px;"/>
+                                </div>
+                            </div>
+                        </group>
+                        <group col="1" colspan="2">
+                            <div class="row" attrs="{'invisible':[('rx', '!=', 'glasses')]}" style="width: 100%;">
+                                <div class="col-md-6 col-lg-6 col-6">
+                                    <label for="gls_sphere" string="Recommendations: "/>
+                                    <div attrs="{'invisible':[('gls_lens_style_id', '=', False)]}"
+                                         style="padding-left:20px;">
+                                        <label for="gls_lens_style_id" string="Lens Style:" style="width: auto;"/>
+                                        <field name="gls_lens_style_id" options="{'no_open':True}"
+                                               style="font-size:10.0pt"/>
+                                    </div>
+                                    <div attrs="{'invisible':[('gls_lens_material_id', '=', False)]}"
+                                         style="padding-left:20px;">
+                                        <label for="gls_lens_material_id" string="Lens Material:" style="width: auto;"/>
+                                        <field name="gls_lens_material_id" options="{'no_open':True}"
+                                               style="font-size:10.0pt"/>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-6 col-lg-6 col-6">
+                                    <div attrs="{'invisible':[('gls_ar_coating', '=', False)]}" style="padding-left:20px;">
+                                        <label for="gls_ar_coating" string="AR Coating:" style="width: auto;"/>
+                                        <field name="gls_ar_coating"/>
+                                    </div>
+                                    <div attrs="{'invisible':[('gls_photochromic', '=', False)]}"
+                                         style="padding-left:20px;">
+                                        <label for="gls_photochromic" string="Photochromic" style="width: auto;"/>
+                                        <field name="gls_photochromic"/>
+                                    </div>
+                                    <div attrs="{'invisible':[('gls_polarized', '=', False)]}" style="padding-left:20px;">
+                                        <label for="gls_polarized" string="Polarized" style="width: auto;"/>
+                                        <field name="gls_polarized"/>
+                                    </div>
+                                    <div attrs="{'invisible':[('gls_tint', '=', False)]}" style="padding-left:20px;">
+                                        <label for="gls_tint" string="Tint" style="width: auto;"/>
+                                        <field name="gls_tint"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </group>
+                    </group>
+                    <group name="prescription_data_od"
+                           attrs="{'invisible':[('order_type_name','in',['Frame Only','Services','Accessory', 'Miscellaneous'])]}">
+                        <div class="row" attrs="{'invisible':[('rx', '!=', 'glasses')]}">
+                            <div style="padding-right: 20px; padding-left: 20px;">
+                                <label for="gls_sphere" string=" "/>
+                                <br/>
+                                <label for="gls_sphere" string="OD"
+                                       style="background-color:#bcffbc;color:#495057;padding: 0px 15px;"/>
+                                <br/>
+                            </div>
+                            <div class="o2m_form_field_inline">
+                                <label for="gls_sphere"/>
+                                <br/>
+                                <field name="gls_sphere" force_save="1" readonly="1"/>
+                            </div>
+                            <div class="o2m_form_field_inline">
+                                <label for="gls_cylinder"/>
+                                <br/>
+                                <field name="gls_cylinder" widget="selection" readonly="1"/>
+                            </div>
+                            <div class="o2m_form_field_inline">
+                                <label for="gls_axis"/>
+                                <br/>
+                                <field name="gls_axis" readonly="1"/>
+                            </div>
+                            <div class="o2m_form_field_inline">
+                                <label for="gls_add"/>
+                                <br/>
+                                <field name="gls_add" force_save="1" readonly="1"/>
+                            </div>
+                            <div class="o2m_form_field_inline">
+                                <label for="gls_h_prism"/>
+                                <br/>
+                                <field name="gls_h_prism"/>
+                            </div>
+                            <div class="o2m_form_field_inline">
+                                <label for="gls_h_base"/>
+                                <br/>
+                                <field name="gls_h_base"/>
+                            </div>
+                            <div class="o2m_form_field_inline">
+                                <label for="gls_v_prism"/>
+                                <br/>
+                                <field name="gls_v_prism"/>
+                            </div>
+                            <div class="o2m_form_field_inline">
+                                <label for="gls_v_base"/>
+                                <br/>
+                                <field name="gls_v_base" widget="selection"/>
+                            </div>
+                            <div class="o2m_form_field_inline">
+                                <label for="gls_balance"/>
+                                <br/>
+                                <field name="gls_balance"/>
+                            </div>
+                        </div>
+                    </group>
+                    <group name="prescription_data_os"
+                           attrs="{'invisible':[('order_type_name','in',['Frame Only','Services','Accessory', 'Miscellaneous'])]}">
+                        <div class="row" attrs="{'invisible':[('rx', '!=', 'glasses')]}">
+                            <div style="padding-right: 20px; padding-left: 20px;">
+                                <label for="gls_sphere" string=" "/>
+                                <br/>
+                                <label for="gls_sphere" string="OS"
+                                       style="background-color:#b8b8fd;color:#495057;padding: 0px 15px;"/>
+                                <br/>
+                            </div>
+                            <div class="o2m_form_field_inline">
+                                <br/>
+                                <field name="gls_left_lens_sphere" force_save="1"
+                                       attrs="{'required':[('gls_left_lens_sphere', '!=', False)]}" readonly="1"/>
+                            </div>
+                            <div class="o2m_form_field_inline">
+                                <br/>
+                                <field name="gls_left_lens_cylinder" widget="selection" readonly="1"/>
+                            </div>
+                            <div class="o2m_form_field_inline">
+                                <br/>
+                                <field name="gls_left_lens_axis" readonly="1"/>
+                            </div>
+                            <div class="o2m_form_field_inline">
+                                <br/>
+                                <field name="gls_left_lens_add" force_save="1" readonly="1"/>
+                            </div>
+                            <div class="o2m_form_field_inline">
+                                <br/>
+                                <field name="gls_left_lens_h_prism"/>
+                            </div>
+                            <div class="o2m_form_field_inline">
+                                <br/>
+                                <field name="gls_left_h_base"/>
+                            </div>
+                            <div class="o2m_form_field_inline">
+                                <br/>
+                                <field name="gls_left_lens_v_prism"/>
+                            </div>
+                            <div class="o2m_form_field_inline">
+                                <br/>
+                                <field name="gls_left_v_base" widget="selection"/>
+                            </div>
+                            <div class="o2m_form_field_inline">
+                                <br/>
+                                <field name="gls_left_balance"/>
+                            </div>
+                        </div>
+                    </group>
+                    <div class="row" attrs="{'invisible':[('rx', '!=', 'soft')]}">
+                        <div style="padding-right: 20px; padding-left: 20px;">
+                            <label for="gls_sphere" string=" "/>
+                            <br/>
+                            <label for="gls_sphere" string="OD"
+                                   style="background-color:#bcffbc;color:#495057;padding: 0px 15px;"/>
+                            <br/>
+                        </div>
+                        <div class="o2m_form_field_inline" style="width: auto !important;">
+                            <label for="soft_manufacturer_id"/>
+                            <br/>
+                            <field name="soft_manufacturer_id" options="{'no_open':True,'no_create': True}"
+                                   attrs="{'required':[('rx', '=', 'soft')]}"/>
+                        </div>
+                    </div>
+                    <div class="row" attrs="{'invisible':[('rx', '!=', 'soft')]}">
+                        <div class="o2m_form_field_inline">
+                            <label for="select_soft_base_curve"/>
+                            <br/>
+                            <field name="select_soft_base_curve" class="soft_manufacturer_id_base_curve"/>
+                        </div>
+                        <div class="o2m_form_field_inline">
+                            <label for="select_soft_diameter"/>
+                            <br/>
+                            <field name="select_soft_diameter" class="soft_manufacturer_id_diameter"/>
+                        </div>
+                        <div class="o2m_form_field_inline">
+                            <label for="select_soft_color"/>
+                            <br/>
+                            <field name="select_soft_color" class="soft_manufacturer_id_color"/>
+                        </div>
+                        <div class="o2m_form_field_inline">
+                            <label for="select_soft_sphere"/>
+                            <br/>
+                            <field name="select_soft_sphere" class="soft_manufacturer_id_sphere"/>
+                        </div>
+                        <div class="o2m_form_field_inline">
+                            <label for="select_soft_cylinder"/>
+                            <br/>
+                            <field name="select_soft_cylinder" class="soft_manufacturer_id_cylinder"/>
+                        </div>
+                        <div class="o2m_form_field_inline">
+                            <label for="select_soft_axis"/>
+                            <br/>
+                            <field name="select_soft_axis" class="soft_manufacturer_id_axis"/>
+                        </div>
+                        <div class="o2m_form_field_inline">
+                            <label for="select_soft_add_power"/>
+                            <br/>
+                            <field name="select_soft_add_power" class="soft_manufacturer_id_add_power"/>
+                        </div>
+                        <div class="o2m_form_field_inline">
+                            <label for="select_soft_multifocal"/>
+                            <br/>
+                            <field name="select_soft_multifocal" class="soft_manufacturer_id_multi_focal"/>
+                        </div>
+                        <!--                        <div class="o2m_form_field_inline">-->
+                        <!--                            <label for="soft_va"/>-->
+                        <!--                            <br/>-->
+                        <!--                            <field name="soft_va"/>-->
+                        <!--                        </div>-->
+                    </div>
+                    <!--  OS  -->
+                    <div class="row" attrs="{'invisible':[('rx', '!=', 'soft')]}">
+                        <div style="padding-right: 20px; padding-left: 20px;">
+                            <label for="gls_sphere" string=" "/>
+                            <br/>
+                            <label for="gls_sphere" string="OS"
+                                   style="background-color:#b8b8fd;color:#495057;padding: 0px 15px;"/>
+                            <br/>
+                        </div>
+                        <div class="o2m_form_field_inline" style="width: auto !important;">
+                            <label for="soft_left_manufacturer_id"/>
+                            <br/>
+                            <field name="soft_left_manufacturer_id" options="{'no_open':True,'no_create': True}"
+                                   attrs="{'required':[('rx', '=', 'soft'), ('soft_left_manufacturer_id', '!=', False)]}"/>
+                        </div>
+                    </div>
+                    <div class="row" attrs="{'invisible':[('rx', '!=', 'soft')]}">
+                        <div class="o2m_form_field_inline">
+                            <label for="soft_left_base_curve"/>
+                            <br/>
+                            <field name="soft_left_base_curve" class="soft_left_manufacturer_id_base_curve"/>
+                        </div>
+                        <div class="o2m_form_field_inline">
+                            <label for="soft_left_diameter"/>
+                            <br/>
+                            <field name="soft_left_diameter" class="soft_left_manufacturer_id_diameter"/>
+                        </div>
+                        <div class="o2m_form_field_inline">
+                            <label for="soft_left_color"/>
+                            <br/>
+                            <field name="soft_left_color" class="soft_left_manufacturer_id_color"/>
+                        </div>
+                        <div class="o2m_form_field_inline">
+                            <label for="soft_left_sphere"/>
+                            <br/>
+                            <field name="soft_left_sphere" class="soft_left_manufacturer_id_sphere"/>
+                        </div>
+                        <div class="o2m_form_field_inline">
+                            <label for="soft_left_cylinder"/>
+                            <br/>
+                            <field name="soft_left_cylinder" class="soft_left_manufacturer_id_cylinder"/>
+                        </div>
+                        <div class="o2m_form_field_inline">
+                            <label for="soft_left_axis"/>
+                            <br/>
+                            <field name="soft_left_axis" class="soft_left_manufacturer_id_axis"/>
+                        </div>
+                        <div class="o2m_form_field_inline">
+                            <label for="soft_left_add_power"/>
+                            <br/>
+                            <field name="soft_left_add_power" class="soft_left_manufacturer_id_add_power"/>
+                        </div>
+                        <div class="o2m_form_field_inline">
+                            <label for="soft_left_multifocal"/>
+                            <br/>
+                            <field name="soft_left_multifocal" class="soft_left_manufacturer_id_multi_focal"/>
+                        </div>
+                        <!--                        <div class="o2m_form_field_inline">-->
+                        <!--                            <label for="soft_left_va"/>-->
+                        <!--                            <br/>-->
+                        <!--                            <field name="soft_left_va"/>-->
+                        <!--                        </div>-->
+                    </div>
+                    <!--                     Hard -->
+                    <group colspan="4" attrs="{'invisible':[('rx', '!=', 'hard')]}">
+                        <!--  OS  -->
+                        <separator string="OD" class="oe_inline"
+                                   style="background-color:#bcffbc;color:#495057;padding: 0px 15px;"/>
+                        <group colspan="4" col="6">
+                            <div class="row" attrs="{'invisible':[('rx', '!=', 'hard')]}">
+                                <div class="o2m_form_field_inline">
+                                    <label for="manufacturer_id"/>
+                                    <br/>
+                                    <field name="manufacturer_id" options="{'no_open':True,'no_create': True}"
+                                           attrs="{'required':[('rx', '=', 'hard')]}"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="style"/>
+                                    <br/>
+                                    <field name="style" attrs="{'required':[('rx', '=', 'hard')]}"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="material"/>
+                                    <br/>
+                                    <field name="material"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="base_curve"/>
+                                    <br/>
+                                    <field name="base_curve" options="{'number_only_with_single_precision':True}"
+                                           attrs="{'required':[('rx', '=', 'hard')]}"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="diameter"/>
+                                    <br/>
+                                    <field name="diameter" options="{'number_only_with_double_precision':True}"
+                                           attrs="{'required':[('rx', '=', 'hard')]}"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="sphere"/>
+                                    <br/>
+                                    <field name="sphere" options="{'number_only_with_double_precision_sign':True}"
+                                           attrs="{'required':[('rx', '=', 'hard')]}"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="cylinder"/>
+                                    <br/>
+                                    <field name="cylinder" options="{'number_only_with_double_precision_sign':True}"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="axis"/>
+                                    <br/>
+                                    <field name="axis" options="{'number_only_with_three_digit':True}"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="add"/>
+                                    <br/>
+                                    <field name="add" options="{'number_only_with_single_precision_plus_sign':True}"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="seg_height"/>
+                                    <br/>
+                                    <field name="seg_height" options="{'number_only_with_single_precision':True}"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="pc_radius"/>
+                                    <br/>
+                                    <field name="pc_radius" options="{'number_only_with_single_precision':True}"/>
+                                </div>
+                            </div>
+                        </group>
+                        <group colspan="4" col="6">
+                            <div class="row" attrs="{'invisible':[('rx', '!=', 'hard')]}">
+                                <div class="o2m_form_field_inline">
+                                    <label for="pc_width"/>
+                                    <br/>
+                                    <field name="pc_width" options="{'number_only_with_single_precision':True}"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="ct"/>
+                                    <br/>
+                                    <field name="ct" options="{'number_only_with_single_precision':True}"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="oz"/>
+                                    <br/>
+                                    <field name="oz" options="{'number_only_with_two_digit_single_precision':True}"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="base_curve_2"/>
+                                    <br/>
+                                    <field name="base_curve_2" options="{'number_only_with_single_precision':True}"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="color"/>
+                                    <br/>
+                                    <field name="color"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="sphere_2"/>
+                                    <br/>
+                                    <field name="sphere_2" options="{'number_only_with_double_precision_sign':True}"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="cylinder_2"/>
+                                    <br/>
+                                    <field name="cylinder_2" options="{'number_only_with_double_precision_sign':True}"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="axis_2"/>
+                                    <br/>
+                                    <field name="axis_2" options="{'number_only_with_three_digit':True}"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="add_diam_2"/>
+                                    <br/>
+                                    <field name="add_diam_2"
+                                           options="{'number_only_with_two_digit_single_precision':True}"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="dot"/>
+                                    <br/>
+                                    <field name="dot"/>
+                                </div>
+                            </div>
+                        </group>
+                        <!--  OD  -->
+                        <separator string="OS" class="oe_inline"
+                                   style="background-color:#b8b8fd;color:#495057;padding: 0px 15px;"/>
+                        <group colspan="4" col="6">
+                            <div class="row" attrs="{'invisible':[('rx', '!=', 'hard')]}">
+                                <div class="o2m_form_field_inline">
+                                    <label for="left_manufacturer_id"/>
+                                    <br/>
+                                    <field name="left_manufacturer_id" options="{'no_open':True,'no_create': True}"
+                                           attrs="{'required':[('rx', '=', 'hard'), ('left_manufacturer_id', '!=', False)]}"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="left_style"/>
+                                    <br/>
+                                    <field name="left_style"
+                                           attrs="{'required':[('rx', '!=', 'hard'), ('left_manufacturer_id', '!=', False)]}"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="left_material"/>
+                                    <br/>
+                                    <field name="left_material"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="left_base_curve"/>
+                                    <br/>
+                                    <field name="left_base_curve"
+                                           attrs="{'required':[('rx', '=', 'hard'), ('left_manufacturer_id', '!=', False)]}"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="left_diameter"/>
+                                    <br/>
+                                    <field name="left_diameter"
+                                           attrs="{'required':[('rx', '=', 'hard'), ('left_manufacturer_id', '!=', False)]}"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="left_sphere"/>
+                                    <br/>
+                                    <field name="left_sphere"
+                                           attrs="{'required':[('rx', '=', 'hard'), ('left_manufacturer_id', '!=', False)]}"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="left_cylinder"/>
+                                    <br/>
+                                    <field name="left_cylinder"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="left_axis"/>
+                                    <br/>
+                                    <field name="left_axis"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="left_add"/>
+                                    <br/>
+                                    <field name="left_add"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="left_seg_height"/>
+                                    <br/>
+                                    <field name="left_seg_height"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="left_pc_radius"/>
+                                    <br/>
+                                    <field name="left_pc_radius"/>
+                                </div>
+                            </div>
+                        </group>
+                        <group colspan="4" col="6">
+                            <div class="row" attrs="{'invisible':[('rx', '!=', 'hard')]}">
+                                <div class="o2m_form_field_inline">
+                                    <label for="left_pc_width"/>
+                                    <br/>
+                                    <field name="left_pc_width"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="left_ct"/>
+                                    <br/>
+                                    <field name="left_ct"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="left_oz"/>
+                                    <br/>
+                                    <field name="left_oz"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="left_base_curve_2"/>
+                                    <br/>
+                                    <field name="left_base_curve_2"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="left_color"/>
+                                    <br/>
+                                    <field name="left_color"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="left_sphere_2"/>
+                                    <br/>
+                                    <field name="left_sphere_2"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="left_cylinder_2"/>
+                                    <br/>
+                                    <field name="left_cylinder_2"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="left_axis_2"/>
+                                    <br/>
+                                    <field name="left_axis_2"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="left_add_diam_2"/>
+                                    <br/>
+                                    <field name="left_add_diam_2"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="left_dot"/>
+                                    <br/>
+                                    <field name="left_dot"/>
+                                </div>
+                            </div>
+                        </group>
+                    </group>
+                    <group attrs="{'invisible':[('rx', '=', False)]}">
+                        <field name="rx_notes"/>
+                        <div>
+                            <div class="ck-button" attrs="{'invisible':[('gls_add', '=', False)]}">
+                                <label for="reading_rx"/>
+                                <field name="reading_rx"/>
+                            </div>
+                            <div class="ck-button" attrs="{'invisible':[('lens_type_add', '=', False)]}">
+                                <label for="distance_rx"/>
+                                <field name="distance_rx"/>
+                            </div>
+                        </div>
+                        <!--                        <div id="ck-button" attrs="{'invisible':[('lens_type_add', '=', True)]}">-->
+                        <!--                        </div>-->
+                    </group>
+
+                    <span attrs="{'invisible': [('order_type_name','in',['Lenses Only','Contact Lens','Services','Accessory', 'Miscellaneous'])]}">
+                        _________________________________________________________________________________________________________________________________________________
+                    </span>
+
+                    <group name="frames"
+                           attrs="{'invisible': [('order_type_name','in',['Lenses Only','Contact Lens','Services','Accessory', 'Miscellaneous'])]}">
+                        <h2>Frames</h2>
+                        <field name="frames_products_variants" nolabel="0"
+                               attrs="{'required':[('order_type_name','in',['Complete Pair','Frame Only'])]}"
+                               context="{'form_view_ref': 'opt_custom.product_template_frame_view_form',
+                               'tree_view_ref': 'ivis_order_grouping.frame_tree_view',
+                               'new_size': 'max-width_1200px', 'group_by': 'employee_id'}"/>
+                        <br/>
+                    </group>
+                    <span attrs="{'invisible': [('order_type_name','not in',['Lenses Only'])]}">
+                        _________________________________________________________________________________________________________________________________________________
+                    </span>
+                    <group name="patients_own_frame"
+                           attrs="{'invisible': [('order_type_name','not in',['Lenses Only'])]}">
+                        <h2>Patient's Own Frame</h2>
+                        <group colspan="4" col="2">
+                            <field name="model_number" string="Model"/>
+                            <field name="color_patient_frame"/>
+                        </group>
+                        <group colspan="4" col="7">
+                            <field name="a"/>
+                            <field name="b"/>
+                            <field name="dbl"/>
+                            <field name="ed"/>
+                            <field name="temple"/>
+                        </group>
+                        <group colspan="4" col="4">
+                            <field name="edge_id"/>
+                            <field name="frame_id"/>
+                        </group>
+                        <br/>
+                    </group>
+                    <span attrs="{'invisible': [('order_type_name','in',['Contact Lens','Frame Only','Services','Accessory', 'Miscellaneous'])]}">
+                        _________________________________________________________________________________________________________________________________________________
+                    </span>
+                    <group name="lens"
+                           attrs="{'invisible': [('order_type_name','in',['Contact Lens','Frame Only','Services','Accessory', 'Miscellaneous'])]}">
+                        <h2>Lens</h2>
+                        <field name="lens_type_add" invisible="1"/>
+
+                        <field name="lens_products"
+                               attrs="{'required':[('order_type_name','in',['Complete Pair', 'Lenses Only'])]}"
+                               nolabel="0" domain="[('lens_type_id','=','4')]"
+                               context="{'form_view_ref': 'opt_custom.product_template_lens_view_form',
+                                           'tree_view_ref': 'ivis_order_grouping.frame_tree_view',
+                                           'new_size': 'max-width_1200px', 'group_by': 'style_id'}"/>
+
+                        <br/>
+                    </group>
+                    <!--                    <field name="vcodes_lens" context="{'tree_view_ref':'ivis_order_grouping.tree_hcpcs'}" readonly="1" attrs="{'invisible': [('order_type_name','in',['Contact Lens','Frame Only','Services','Accessory', 'Miscellaneous'])]}"/>-->
+                    <span attrs="{'invisible': [('order_type_name','not in',['Contact Lens'])]}">
+                        _________________________________________________________________________________________________________________________________________________
+                    </span>
+                    <group name="contact_lens" attrs="{'invisible': [('order_type_name','not in',['Contact Lens'])]}">
+                        <div style="position: relative;">
+                            <h2 style="display: -webkit-inline-box;">Contact Lens</h2>
+                            <label for="copy_contact_lens"
+                                   attrs="{'invisible': [('od_contact_lens_visibility','=',False),('os_contact_lens_visibility','=',False)]}"
+                                   style="text-align: center;display: inline-block;background-color: #0f69c1;border-color: #0f69c1;color: #FFFFFF;position: absolute;margin-left: 400px;width: 75px;cursor: pointer;"/>
+                            <field name="copy_contact_lens"
+                                   attrs="{'invisible': [('od_contact_lens_visibility','=',False),('os_contact_lens_visibility','=',False)]}"
+                                   style="padding-left:430px;display: unset;display: none;"/>
+                            <!--                            <button style="position: absolute; right: 0;" class="oe_highlight" type="object" string="OS = OD" attrs="{'invisible': [('od_contact_lens_visibility','=',False),('os_contact_lens_visibility','=',False)]}" name="equate_lensses"/>-->
+                        </div>
+                        <field name="od_contact_lens_visibility" invisible="1"/>
+                        <field name="os_contact_lens_visibility" invisible="1"/>
+                        <br/>
+                        <group attrs="{'invisible': [('od_contact_lens_visibility','=',False)]}">
+                            <h4>OD</h4>
+                            <br/>
+                            <field name="contact_lens_products_od" options="{'no_create':True}"
+                                   attrs="{'required':[('order_type_name','=','Contact Lens')]}" nolabel="0"/>
+                            <br/>
+                            <!--                            <field name="od_color" placeholder="Color" nolabel="1"/>-->
+                            <!--                            <br/>-->
+                            <field name="od_qty" string="OS Qty" placeholder="Qty" nolabel="0"/>
+                            <br/>
+                            <field name="package_od" invisible="1" options="{'no_open': True}"/>
+                            <field name="uom_id_od" options="{'no_open': True}"/>
+                            <field name="list_price_od"/>
+                        </group>
+                        <!--                        <group attrs="{'invisible': [('od_contact_lens_visibility','=',False)]}">-->
+                        <!--                            <field name="package_od" options="{'no_open': True}"/>-->
+                        <!--                            <field name="list_price_od"/>-->
+                        <!--                        </group>-->
+                        <group attrs="{'invisible': [('os_contact_lens_visibility','=',False)]}">
+                            <h4>OS</h4>
+                            <br/>
+                            <field name="contact_lens_products_os" options="{'no_create':True}"
+                                   attrs="{'required':[('order_type_name','=','Contact Lens')]}" nolabel="0"/>
+                            <br/>
+                            <!--                            <field name="os_color" placeholder="Color" nolabel="1"/>-->
+                            <!--                            <br/>-->
+                            <field name="os_qty" string="OS Qty" placeholder="Qty" nolabel="0"/>
+                            <field name="package_os" invisible="1" options="{'no_open': True}"/>
+                            <field name="uom_id_os" options="{'no_open': True}"/>
+                            <field name="list_price_os"/>
+                        </group>
+                        <!--                        <group attrs="{'invisible': [('os_contact_lens_visibility','=',False)]}">-->
+                        <!--                            <field name="package_os" options="{'no_open': True}"/>-->
+                        <!--                            <field name="list_price_os"/>-->
+                        <!--                        </group>-->
+                    </group>
+                    <span attrs="{'invisible': [('order_type_name','in',['Contact Lens','Frame Only','Services','Accessory', 'Miscellaneous'])]}">
+                        _________________________________________________________________________________________________________________________________________________
+                    </span>
+                    <span name="lens_treatment"
+                          attrs="{'invisible': [('order_type_name','in',['Contact Lens','Frame Only','Services','Accessory', 'Miscellaneous'])]}">
+                        <br/>
+                        <h2>Lens Treatment</h2>
+                        <!--                        widget="many2many_kanban" mode="kanban"-->
+                        <field name="lenstreatment_products"
+                               options="{'no_create':True}"
+                               context="{'tree_view_ref':'ivis_order_grouping.product_tree_lenstreatment_products'}">
+                            <tree>
+                                <field name="category_id" string="Category"/>
+                                <field name="name"/>
+                            </tree>
+                        </field>
+
+                    </span>
+                    <span attrs="{'invisible': [('order_type_name','in',['Services'])]}">
+                        _________________________________________________________________________________________________________________________________________________
+                    </span>
+                    <span name="miscellaneous" attrs="{'invisible': [('order_type_name','in',['Services'])]}">
+                        <br/>
+                        <h2>Miscellaneous</h2>
+                        <field name="miscellaneous_products" options="{'no_create':True}">
+                            <tree editable="bottom">
+                                <field name="miscellaneous_products" options="{'no_create':True}"/>
+                                <field name="qty"/>
+                            </tree>
+                        </field>
+                    </span>
+                    <span attrs="{'invisible': [('order_type_name','in',['Accessory', 'Miscellaneous'])]}">
+                        _________________________________________________________________________________________________________________________________________________
+                    </span>
+                    <span name="service" attrs="{'invisible': [('order_type_name','in',['Accessory', 'Miscellaneous'])]}">
+                        <br/>
+                        <h2>Services</h2>
+                        <field name="service_products" options="{'no_create':True}">
+                            <tree editable="bottom">
+                                <field name="service_products" options="{'no_create':True}"/>
+                                <field name="qty"/>
+                            </tree>
+                        </field>
+                    </span>
+                    <span>
+                        _________________________________________________________________________________________________________________________________________________
+                    </span>
+                    <div attrs="{'invisible': [('order_type_name','in',['Lenses Only','Services'])]}">
+                        <h2>Lab Details</h2>
+                    </div>
+                    <group name="measurements_group" string="Measurements"
+                           attrs="{'invisible':['|', ('rx','!=','glasses'),('order_type_name','in',['Frame Only','Services','Accessory', 'Miscellaneous'])]}">
+                        <div attrs="{'invisible':[('order_type_name','in',['Frame Only','Services','Accessory', 'Miscellaneous'])]}">
+                            <div class="row">
+                                <div style="padding-right: 20px; padding-left: 20px;">
+                                    <label for="gls_sphere" string=" "/>
+                                    <br/>
+                                    <label for="gls_sphere" string="OD"
+                                           style="background-color:#bcffbc;color:#495057;padding: 0px 15px;"/>
+                                    <br/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="dist_pd_lab_details"/>
+                                    <br/>
+                                    <field name="dist_pd_lab_details" class="soft_left_manufacturer_id_base_curve"
+                                           attrs="{'required':[('order_type_name','in',['Complete Pair', 'Lenses Only'])]}"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="near_pd_lab_details"/>
+                                    <br/>
+                                    <field name="near_pd_lab_details" class="soft_left_manufacturer_id_diameter"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="oc_hit_lab_details"/>
+                                    <br/>
+                                    <field name="oc_hit_lab_details" class="soft_left_manufacturer_id_color"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="seg_ht_lab_details"/>
+                                    <br/>
+                                    <field name="seg_ht_lab_details" class="soft_left_manufacturer_id_sphere"
+                                           attrs="{'required': [('lens_type_add','=', True), ('lens_products','not in', [False,0,None])]}"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="bc_lab_details"/>
+                                    <br/>
+                                    <field name="bc_lab_details" class="soft_left_manufacturer_id_cylinder"/>
+                                </div>
+                                <div style="padding-left: 890px;margin-left:80px;" class="o2m_form_field_inline">
+                                    <label for="panto_lab_details"/>
+                                    <field name="panto_lab_details"
+                                           class="soft_left_manufacturer_id_sphere"/>
+                                </div>
+                                <div style="padding-left: 890px;" class="o2m_form_field_inline">
+                                    <label for="thickness_lab_details"/>
+                                    <field name="thickness_lab_details" class="soft_left_manufacturer_id_sphere"/>
+                                </div>
+                            </div>
+                        </div>
+                    </group>
+                    <group attrs="{'invisible':[('rx','!=','glasses')]}">
+                        <div attrs="{'invisible':[('order_type_name','in',['Frame Only','Services','Accessory', 'Miscellaneous'])]}">
+                            <div class="row">
+                                <div style="padding-right: 20px; padding-left: 20px;">
+                                    <label for="gls_sphere" string=" "/>
+                                    <label for="gls_sphere" string="OS"
+                                           style="background-color:#b8b8fd;color:#495057;padding: 0px 15px;"/>
+                                    <br/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <br/>
+                                    <field name="dist_pd_lab_details_os" class="soft_left_manufacturer_id_base_curve"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <br/>
+                                    <field name="near_pd_lab_details_os" class="soft_left_manufacturer_id_diameter"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <br/>
+                                    <field name="oc_hit_lab_details_os" class="soft_left_manufacturer_id_color"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <br/>
+                                    <field name="seg_ht_lab_details_os" class="soft_left_manufacturer_id_sphere"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <br/>
+                                    <field name="bc_lab_details_os" class="soft_left_manufacturer_id_cylinder"/>
+                                </div>
+                                <div style="padding-left: 890px;margin-left:80px;" class="o2m_form_field_inline">
+                                    <label for="wrap_lab_details"/>
+                                    <field name="wrap_lab_details" class="soft_left_manufacturer_id_sphere"/>
+                                </div>
+                                <div style="padding-left: 890px;" class="o2m_form_field_inline">
+                                    <label for="vertex_mlab_details"/>
+                                    <field name="vertex_mlab_details" class="soft_left_manufacturer_id_sphere"/>
+                                </div>
+                            </div>
+                        </div>
+                    </group>
+                    <group attrs="{'invisible': [('order_type_name','in',['Contact Lens','Frame Only','Services','Accessory', 'Miscellaneous'])]}"
+                           string="Lens">
+                        <field name="eye_lab_details" class="soft_left_manufacturer_id_diameter"
+                               style="margin-left:28px;margin-top:-2px;height:30px;width:200px;"/>
+                    </group>
+                    <group string="Treatment"
+                           attrs="{'invisible': [('order_type_name','in',['Contact Lens','Frame Only','Services','Accessory', 'Miscellaneous'])]}">
+                        <div class="row">
+                            <div class="o2m_form_field_inline" style="display:flex;flex-direction:row">
+                                <label for="tint_color_lab_details"
+                                       style="height:30px;width:80px;margin-top:10px;padding-left:20px;"/>
+                                <br/>
+                                <field name="tint_color_lab_details" class="soft_left_manufacturer_id_base_curve"
+                                       style="margin-left:15px;width:120px"/>
+                            </div>
+                            <div class="o2m_form_field_inline"
+                                 style="display:flex;flex-direction:row;margin-left:80px;padding-left:20px;">
+                                <label for="tint_sample_lab_details" style="height:30px;width:80px;margin-top:10px;"/>
+                                <br/>
+                                <field name="tint_sample_lab_details" class="soft_left_manufacturer_id_diameter"
+                                       style="margin-left:15px;width:40px;width:120px"/>
+                            </div>
+                            <div class="o2m_form_field_inline"
+                                 style="display:flex;flex-direction:row;margin-left:100px;">
+                                <label for="by_lab_details" style="height:30px;width:80px;margin-top:10px;"/>
+                                <br/>
+                                <field name="by_lab_details" class="soft_left_manufacturer_id_color"
+                                       style="margin-left:15px;width:80px;"/>
+                            </div>
+                            <span class="mt-2">%</span>
+                        </div>
+                    </group>
+                    <group string="Frames"
+                           attrs="{'invisible': [('order_type_name','in',['Lenses Only','Frame Only','Contact Lens','Services','Accessory', 'Miscellaneous'])]}">
+                        <div class="row">
+                            <div class="o2m_form_field_inline" style="display:flex;flex-direction:row;">
+                                <label for="edge_type" options="{'no_open':True,'no_create': True}"
+                                       style="white-space: nowrap;margin-top:6px;"/>
+                                <br/>
+                                <field name="edge_type" options="{'no_open':True,'no_create': True}"
+                                       class="soft_left_manufacturer_id_base_curve mt-2"
+                                       attrs="{'readonly':[('order_type_name','!=','Complete Pair')]}"
+                                       style="margin-left:8px;width:120px"/>
+                            </div>
+                            <div class="o2m_form_field_inline"
+                                 style="display:flex;flex-direction:row;margin-left: 90px;">
+                                <label for="frame_type" options="{'no_open':True,'no_create': True}"
+                                       style="white-space: nowrap;margin-top:6px;"/>
+                                <br/>
+                                <field name="frame_type" options="{'no_open':True,'no_create': True}"
+                                       class="ivis_frame_type mt-2"
+                                       attrs="{'readonly':[('order_type_name','!=','Complete Pair')]}"
+                                       style="margin-left:8px;width:120px"/>
+                            </div>
+                            <div class="o2m_form_field_inline"
+                                 style="display:flex;flex-direction:row;margin-left:150px">
+                                <label for="a_lab_details" style="margin-top:6px"/>
+                                <br/>
+                                <field name="a_lab_details" readonly="0" class="soft_left_manufacturer_id_diameter mt-2"
+                                       style="font-size:9.0pt;margin-left:8px;height:30px;width:80px;"/>
+                            </div>
+                            <div class="o2m_form_field_inline" style="display:flex;flex-direction:row">
+                                <label for="b_lab_details" style="margin-top:6px"/>
+                                <br/>
+                                <field name="b_lab_details" readonly="0" class="soft_left_manufacturer_id_color mt-2"
+                                       style="margin-left:8px;font-size:9.0pt;height:30px;width:80px;"/>
+                            </div>
+                            <div class="o2m_form_field_inline" style="display:flex;flex-direction:row;margin-left: 10px;">
+                                <label for="dbl_lab_details" style="margin-top:6px"/>
+                                <br/>
+                                <field name="dbl_lab_details" readonly="0" class="soft_left_manufacturer_id_sphere mt-2"
+                                       style="margin-left:8px;height:30px;font-size:9.0pt;width:80px;"/>
+                            </div>
+                            <div class="o2m_form_field_inline" style="display:flex;flex-direction:row;margin-left: 30px;">
+                                <label for="ed_lab_details" style="margin-top:6px"/>
+                                <br/>
+                                <field name="ed_lab_details" readonly="0"
+                                       class="soft_left_manufacturer_id_cylinder mt-2"
+                                       style="margin-left:8px;height:30px;width:80px;font-size:9.0pt;"/>
+                            </div>
+                        </div>
+                    </group>
+                    <group string="Lab Information" attrs="{'invisible': [('order_type_name','in',['Services'])]}">
+                        <group>
+                            <field name="lab_details"
+                                   context="{'default_is_lab' : 1}"
+                                   attrs="{'invisible':[('order_type_name','in',['Frame Only','Accessory', 'Miscellaneous'])]}"/>
+                            <field name="lab_instructions"/>
+                            <field name="finishing_status"
+                                   attrs="{'invisible':[('order_type_name','in',['Contact Lens','Frame Only','Accessory', 'Miscellaneous'])]}"/>
+                            <field name="tray_no"/>
+                        </group>
+                        <group>
+                            <field name="physician_id" options="{'no_create':True}" invisible="1"/>
+                            <!--                            <field name="outside_physician_id" attrs="{'invisible':[('physician_id','!=',False)]}"/>-->
+                            <field name="order_status"/>
+                            <field name="dispensing_notes"/>
+                            <field name="promised_date"/>
+                            <field name="ship_to"
+                                   context="{'form_view_ref':'ivis_order_grouping.ship_to_form_many2one', 'default_type':'delivery'}"/>
+                        </group>
+                    </group>
+
+                    <span name="hcpcs" invisible="0">
+                        <br/>
+                        <h2>HCPCS Details</h2>
+
+                        <field name="hcpcs_id" widget="section_and_note_one2many" mode="tree"
+                               attrs="{'readonly': [('insurance_id', '=', False)]}" force_save="1">
+
+                            <tree editable="bottom" readonly="0" delete="0" create="0">
+                                <control>
+                                    <create name="add_product_control" string="Add a product"/>
+                                    <create name="add_section_control" string="Add a section"
+                                            context="{'default_display_type': 'line_section'}"/>
+                                    <create name="add_note_control" string="Add a note"
+                                            context="{'default_display_type': 'line_note'}"/>
+                                </control>
+                                <field name="display_type" invisible="1"/>
+                                <field name="currency_id" invisible="1"/>
+                                <field name="order_line_id" invisible="1" force_save="1"/>
+                                <field name="categ_id" invisible="1" force_save="1"/>
+                                <field name="name" widget="section_and_note_text" optional="show" readonly="1"
+                                       force_save="1"/>
+                                <field name="product_id" force_save="1" invisible="1"/>
+                                <field name="hcpcs_code" widget="many2many_tags" readonly="1" force_save="1"/>
+                                <field name="hcpcs_modifier" readonly="1" force_save="1"/>
+                                <field name="qty" readonly="1" force_save="1"/>
+                                <field name="retail_price" widget="monetary" readonly="0" force_save="1"/>
+                                <field name="copay" widget="monetary" force_save="1"/>
+                                <field name="pt_resp" widget="monetary" force_save="1"/>
+                                <field name="pt_total" widget="monetary" readonly="1" force_save="1"/>
+                                <field name="insurance" widget="monetary" readonly="1" force_save="1"/>
+                                <field name="insurance_id" invisible="1"/>
+                            </tree>
+                            <form>
+                                <p>Please select an Insurance to edit HCPCS codes.</p>
+                            </form>
+                        </field>
+                    </span>
+                    <footer>
+                        <button name="create_lines" string="Done" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="lab_details_form" model="ir.ui.view">
+            <field name="name">multi.order.type.form</field>
+            <field name="model">multi.order.type</field>
+            <field name="arch" type="xml">
+                <form create="false" context="{'new_size':'max-width_1180px'}">
+                    <group class="invisible">
+                        <field name="order_type_name" invisible="1"/>
+                        <field name="partner_id" invisible="1"/>
+                        <field name="order_type_name" invisible="1"/>
+                        <field name="rx" invisible="1"/>
+                        <field name="lens_products" invisible="1"/>
+                        <field name="lens_type_add" invisible="1"/>
+                        <field name="insurance_id" invisible="1"/>
+                        <field name="authorization_id" invisible="1"/>
+                        <field name="is_expired" invisible="1"/>
+                        <field name="od_contact_lens_visibility" invisible="1"/>
+                        <field name="os_contact_lens_visibility" invisible="1"/>
+                    </group>
+                    <div class="lab_details">
+                        <div class="row">
+                            <div class="col-4 col-md-4 col-lg-4 offset-8">
+                                Update Order Status <field name="order_status" style="padding-left: 20px;text-align: -webkit-right;"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4 col-md-4 col-lg-4">
+                                Patient Name <field name="partner_name" context="{'name_dob':1, 'form_view_ref':'opt_custom.view_patent_profile_form'}" readonly="1"/><br/>
+                                Order Date <field name="sale_order_date_order" readonly="1"/>
+                            </div>
+                            <div class="col-4 col-md-4 col-lg-4">
+                                Patient Cell # <field name="partner_cell" readonly="1"/><br/>
+                                Sales Order Type <field name="display_name" readonly="1"/>
+                            </div>
+                        </div>
+                    </div>
+                    <br/>
+
+                    <group>
+                        <!--                    ===================================================================================
+                                                Insurance and Authorization fields (they will be added back during once we go live)
+                                                ===================================================================================
+                        -->
+                        <group>
+                            <field name="insurance_id"
+                                   context="{'partner_id': partner_id, 'form_view_ref':'ivis_order_grouping.spec_insurance_form_many2one'}"
+                                   widget="selection"/>
+                        </group>
+
+                        <div class="row o_group o_inner_group o_group_col_6"
+                             attrs="{'invisible':[('insurance_id','&lt;=',0)]}">
+                            <div class="o_td_label" style="min-width: 100%;border-right: none;">
+                                <label for="authorization_id"/>
+                                <br/>
+                                <field name="authorization_id"
+                                       context="{'form_view_ref':'ivis_order_grouping.authorization_form_many2one','default_partner_id':partner_id}"
+                                       attrs="{'readonly': [('insurance_id','=',False)],'required': [('insurance_id','!=',False)]}"/>
+                            </div>
+                        </div>
+                        <div class="row o_group o_inner_group o_group_col_6"
+                             attrs="{'invisible':[('insurance_id','&gt;',0)]}">
+                            <div class="o_td_label" style="min-width: 100%;border-right: none;">
+                                <label for="authorization_id"/>
+                                <br/>
+                                <select disabled="true" style="height: 40px;padding: 6px 12px !important;"></select>
+                            </div>
+                        </div>
+                    </group>
+                    <div class="row"
+                         attrs="{'invisible':[('order_type_name','in',['Frame Only','Services','Accessory', 'Miscellaneous'])]}">
+                        <div class="o2m_form_field_inline" style="min-width: 100%;">
+                            <label for="prescription_id"/>
+                            <br/>
+                            <field name="prescription_id" style="width: 96%;" readonly="1"
+                                   context="{'default_partner_id' : partner_id, 'partner_id' : partner_id, 'form_view_ref':'opt_custom.spec_contact_lenses_form', 'tree_view_ref':'opt_custom.spec_contact_lenses_tree'}"
+                                   attrs="{'required':[('order_type_name','not in',['Frame Only','Services','Accessory', 'Miscellaneous'])]}"
+                            />
+                        </div>
+                    </div>
+                    <group attrs="{'invisible':[('order_type_name','in',['Frame Only','Services','Accessory', 'Miscellaneous'])]}">
+                        <group>
+                            <div class="row" attrs="{'invisible':[('rx', '=', False)]}">
+                                <div style="padding-left: 30px;">
+                                    <!--                                <h4>Glasses Over Contacts</h4>-->
+                                    <label for="rx_usage_id" string="Rx Usage:"/>
+                                    <field name="rx_usage_id" style="font-size:10.0pt" options="{'no_open':True}" readonly="1"/>
+                                </div>
+                                <div style="padding-left: 400px;">
+                                    <label for="expired_prescription_date"
+                                           attrs="{'invisible':[('is_expired','=',False)]}"
+                                           style="color:#ff0000;padding: 0px 15px;"/>
+                                    <field name="expired_prescription_date" readonly="1"
+                                           attrs="{'invisible':[('is_expired','=',False)]}"
+                                           style="color:#ff0000;padding: 0px 15px;"/>
+                                </div>
+                            </div>
+                        </group>
+                        <group col="1" colspan="2">
+                            <div class="row" attrs="{'invisible':[('rx', '!=', 'glasses')]}" style="width: 100%;">
+                                <div class="col-md-6 col-lg-6 col-6">
+                                    <label for="gls_sphere" string="Recommendations: "/>
+                                    <div attrs="{'invisible':[('gls_lens_style_id', '=', False)]}"
+                                         style="padding-left:20px;">
+                                        <label for="gls_lens_style_id" string="Lens Style:" style="width: auto;"/>
+                                        <field name="gls_lens_style_id" options="{'no_open':True}"
+                                               style="font-size:10.0pt" readonly="1"/>
+                                    </div>
+                                    <div attrs="{'invisible':[('gls_lens_material_id', '=', False)]}"
+                                         style="padding-left:20px;">
+                                        <label for="gls_lens_material_id" string="Lens Material:" style="width: auto;"/>
+                                        <field name="gls_lens_material_id" options="{'no_open':True}" readonly="1"
+                                               style="font-size:10.0pt"/>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-6 col-lg-6 col-6">
+                                    <div attrs="{'invisible':[('gls_ar_coating', '=', False)]}" style="padding-left:20px;">
+                                        <label for="gls_ar_coating" string="AR Coating:" style="width: auto;"/>
+                                        <field name="gls_ar_coating" readonly="1"/>
+                                    </div>
+                                    <div attrs="{'invisible':[('gls_photochromic', '=', False)]}"
+                                         style="padding-left:20px;">
+                                        <label for="gls_photochromic" string="Photochromic" style="width: auto;"/>
+                                        <field name="gls_photochromic" readonly="1"/>
+                                    </div>
+                                    <div attrs="{'invisible':[('gls_polarized', '=', False)]}" style="padding-left:20px;">
+                                        <label for="gls_polarized" string="Polarized" style="width: auto;"/>
+                                        <field name="gls_polarized" readonly="1"/>
+                                    </div>
+                                    <div attrs="{'invisible':[('gls_tint', '=', False)]}" style="padding-left:20px;">
+                                        <label for="gls_tint" string="Tint" style="width: auto;"/>
+                                        <field name="gls_tint" readonly="1"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </group>
+                    </group>
+                    <group name="prescription_data_od"
+                           attrs="{'invisible':[('order_type_name','in',['Frame Only','Services','Accessory', 'Miscellaneous'])]}">
+                        <div class="row" attrs="{'invisible':[('rx', '!=', 'glasses')]}" readonly="1">
+                            <div style="padding-right: 20px; padding-left: 20px;">
+                                <label for="gls_sphere" string=" "/>
+                                <br/>
+                                <label for="gls_sphere" string="OD"
+                                       style="background-color:#bcffbc;color:#495057;padding: 0px 15px;"/>
+                                <br/>
+                            </div>
+                            <div class="o2m_form_field_inline">
+                                <label for="gls_sphere"/>
+                                <br/>
+                                <field name="gls_sphere" force_save="1" readonly="1"/>
+                            </div>
+                            <div class="o2m_form_field_inline">
+                                <label for="gls_cylinder"/>
+                                <br/>
+                                <field name="gls_cylinder" widget="selection" readonly="1"/>
+                            </div>
+                            <div class="o2m_form_field_inline">
+                                <label for="gls_axis"/>
+                                <br/>
+                                <field name="gls_axis" readonly="1"/>
+                            </div>
+                            <div class="o2m_form_field_inline">
+                                <label for="gls_add"/>
+                                <br/>
+                                <field name="gls_add" force_save="1" readonly="1"/>
+                            </div>
+                            <div class="o2m_form_field_inline">
+                                <label for="gls_h_prism"/>
+                                <br/>
+                                <field name="gls_h_prism" readonly="1"/>
+                            </div>
+                            <div class="o2m_form_field_inline">
+                                <label for="gls_h_base"/>
+                                <br/>
+                                <field name="gls_h_base" readonly="1"/>
+                            </div>
+                            <div class="o2m_form_field_inline">
+                                <label for="gls_v_prism"/>
+                                <br/>
+                                <field name="gls_v_prism" readonly="1"/>
+                            </div>
+                            <div class="o2m_form_field_inline">
+                                <label for="gls_v_base"/>
+                                <br/>
+                                <field name="gls_v_base" widget="selection" readonly="1"/>
+                            </div>
+                            <div class="o2m_form_field_inline">
+                                <label for="gls_balance"/>
+                                <br/>
+                                <field name="gls_balance" readonly="1"/>
+                            </div>
+                        </div>
+                    </group>
+                    <group name="prescription_data_os"
+                           attrs="{'invisible':[('order_type_name','in',['Frame Only','Services','Accessory', 'Miscellaneous'])]}">
+                        <div class="row" attrs="{'invisible':[('rx', '!=', 'glasses')]}" readonly="1">
+                            <div style="padding-right: 20px; padding-left: 20px;">
+                                <label for="gls_sphere" string=" "/>
+                                <br/>
+                                <label for="gls_sphere" string="OS"
+                                       style="background-color:#b8b8fd;color:#495057;padding: 0px 15px;"/>
+                                <br/>
+                            </div>
+                            <div class="o2m_form_field_inline">
+                                <br/>
+                                <field name="gls_left_lens_sphere" force_save="1"
+                                       attrs="{'required':[('gls_left_lens_sphere', '!=', False)]}" readonly="1"/>
+                            </div>
+                            <div class="o2m_form_field_inline">
+                                <br/>
+                                <field name="gls_left_lens_cylinder" widget="selection" readonly="1"/>
+                            </div>
+                            <div class="o2m_form_field_inline">
+                                <br/>
+                                <field name="gls_left_lens_axis" readonly="1"/>
+                            </div>
+                            <div class="o2m_form_field_inline">
+                                <br/>
+                                <field name="gls_left_lens_add" force_save="1" readonly="1"/>
+                            </div>
+                            <div class="o2m_form_field_inline">
+                                <br/>
+                                <field name="gls_left_lens_h_prism" readonly="1"/>
+                            </div>
+                            <div class="o2m_form_field_inline">
+                                <br/>
+                                <field name="gls_left_h_base" readonly="1"/>
+                            </div>
+                            <div class="o2m_form_field_inline">
+                                <br/>
+                                <field name="gls_left_lens_v_prism" readonly="1"/>
+                            </div>
+                            <div class="o2m_form_field_inline">
+                                <br/>
+                                <field name="gls_left_v_base" widget="selection" readonly="1"/>
+                            </div>
+                            <div class="o2m_form_field_inline">
+                                <br/>
+                                <field name="gls_left_balance" readonly="1"/>
+                            </div>
+                        </div>
+                    </group>
+                    <div class="row" attrs="{'invisible':[('rx', '!=', 'soft')]}" readonly="1">
+                        <div style="padding-right: 20px; padding-left: 20px;">
+                            <label for="gls_sphere" string=" "/>
+                            <br/>
+                            <label for="gls_sphere" string="OD"
+                                   style="background-color:#bcffbc;color:#495057;padding: 0px 15px;"/>
+                            <br/>
+                        </div>
+                        <div class="o2m_form_field_inline" style="width: auto !important;">
+                            <label for="soft_manufacturer_id"/>
+                            <br/>
+                            <field name="soft_manufacturer_id" options="{'no_open':True,'no_create': True}"
+                                   attrs="{'required':[('rx', '=', 'soft')]}"/>
+                        </div>
+                    </div>
+                    <div class="row" attrs="{'invisible':[('rx', '!=', 'soft')]}" readonly="1">
+                        <div class="o2m_form_field_inline">
+                            <label for="select_soft_base_curve"/>
+                            <br/>
+                            <field name="select_soft_base_curve" class="soft_manufacturer_id_base_curve" readonly="1"/>
+                        </div>
+                        <div class="o2m_form_field_inline">
+                            <label for="select_soft_diameter"/>
+                            <br/>
+                            <field name="select_soft_diameter" class="soft_manufacturer_id_diameter" readonly="1"/>
+                        </div>
+                        <div class="o2m_form_field_inline">
+                            <label for="select_soft_color"/>
+                            <br/>
+                            <field name="select_soft_color" class="soft_manufacturer_id_color" readonly="1"/>
+                        </div>
+                        <div class="o2m_form_field_inline">
+                            <label for="select_soft_sphere"/>
+                            <br/>
+                            <field name="select_soft_sphere" class="soft_manufacturer_id_sphere" readonly="1"/>
+                        </div>
+                        <div class="o2m_form_field_inline">
+                            <label for="select_soft_cylinder"/>
+                            <br/>
+                            <field name="select_soft_cylinder" class="soft_manufacturer_id_cylinder" readonly="1"/>
+                        </div>
+                        <div class="o2m_form_field_inline">
+                            <label for="select_soft_axis"/>
+                            <br/>
+                            <field name="select_soft_axis" class="soft_manufacturer_id_axis" readonly="1"/>
+                        </div>
+                        <div class="o2m_form_field_inline">
+                            <label for="select_soft_add_power"/>
+                            <br/>
+                            <field name="select_soft_add_power" class="soft_manufacturer_id_add_power" readonly="1"/>
+                        </div>
+                        <div class="o2m_form_field_inline">
+                            <label for="select_soft_multifocal"/>
+                            <br/>
+                            <field name="select_soft_multifocal" class="soft_manufacturer_id_multi_focal" readonly="1"/>
+                        </div>
+                        <!--                        <div class="o2m_form_field_inline">-->
+                        <!--                            <label for="soft_va"/>-->
+                        <!--                            <br/>-->
+                        <!--                            <field name="soft_va"/>-->
+                        <!--                        </div>-->
+                    </div>
+                    <!--  OS  -->
+                    <div class="row" attrs="{'invisible':[('rx', '!=', 'soft')]}" readonly="1">
+                        <div style="padding-right: 20px; padding-left: 20px;">
+                            <label for="gls_sphere" string=" "/>
+                            <br/>
+                            <label for="gls_sphere" string="OS"
+                                   style="background-color:#b8b8fd;color:#495057;padding: 0px 15px;"/>
+                            <br/>
+                        </div>
+                        <div class="o2m_form_field_inline" style="width: auto !important;">
+                            <label for="soft_left_manufacturer_id"/>
+                            <br/>
+                            <field name="soft_left_manufacturer_id" options="{'no_open':True,'no_create': True}" readonly="1"
+                                   attrs="{'required':[('rx', '=', 'soft'), ('soft_left_manufacturer_id', '!=', False)]}"/>
+                        </div>
+                    </div>
+                    <div class="row" attrs="{'invisible':[('rx', '!=', 'soft')]}" readonly="1">
+                        <div class="o2m_form_field_inline">
+                            <label for="soft_left_base_curve"/>
+                            <br/>
+                            <field name="soft_left_base_curve" class="soft_left_manufacturer_id_base_curve" readonly="1"/>
+                        </div>
+                        <div class="o2m_form_field_inline">
+                            <label for="soft_left_diameter"/>
+                            <br/>
+                            <field name="soft_left_diameter" class="soft_left_manufacturer_id_diameter" readonly="1"/>
+                        </div>
+                        <div class="o2m_form_field_inline">
+                            <label for="soft_left_color"/>
+                            <br/>
+                            <field name="soft_left_color" class="soft_left_manufacturer_id_color" readonly="1"/>
+                        </div>
+                        <div class="o2m_form_field_inline">
+                            <label for="soft_left_sphere"/>
+                            <br/>
+                            <field name="soft_left_sphere" class="soft_left_manufacturer_id_sphere" readonly="1"/>
+                        </div>
+                        <div class="o2m_form_field_inline">
+                            <label for="soft_left_cylinder"/>
+                            <br/>
+                            <field name="soft_left_cylinder" class="soft_left_manufacturer_id_cylinder" readonly="1"/>
+                        </div>
+                        <div class="o2m_form_field_inline">
+                            <label for="soft_left_axis"/>
+                            <br/>
+                            <field name="soft_left_axis" class="soft_left_manufacturer_id_axis" readonly="1"/>
+                        </div>
+                        <div class="o2m_form_field_inline">
+                            <label for="soft_left_add_power"/>
+                            <br/>
+                            <field name="soft_left_add_power" class="soft_left_manufacturer_id_add_power" readonly="1"/>
+                        </div>
+                        <div class="o2m_form_field_inline">
+                            <label for="soft_left_multifocal"/>
+                            <br/>
+                            <field name="soft_left_multifocal" class="soft_left_manufacturer_id_multi_focal" readonly="1"/>
+                        </div>
+                        <!--                        <div class="o2m_form_field_inline">-->
+                        <!--                            <label for="soft_left_va"/>-->
+                        <!--                            <br/>-->
+                        <!--                            <field name="soft_left_va"/>-->
+                        <!--                        </div>-->
+                    </div>
+                    <!--                     Hard -->
+                    <group colspan="4" attrs="{'invisible':[('rx', '!=', 'hard')]}" readonly="1">
+                        <!--  OS  -->
+                        <separator string="OD" class="oe_inline"
+                                   style="background-color:#bcffbc;color:#495057;padding: 0px 15px;"/>
+                        <group colspan="4" col="6">
+                            <div class="row" attrs="{'invisible':[('rx', '!=', 'hard')]}">
+                                <div class="o2m_form_field_inline">
+                                    <label for="manufacturer_id"/>
+                                    <br/>
+                                    <field name="manufacturer_id" options="{'no_open':True,'no_create': True}"
+                                           attrs="{'required':[('rx', '=', 'hard')]}" readonly="1"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="style"/>
+                                    <br/>
+                                    <field name="style" attrs="{'required':[('rx', '=', 'hard')]}" readonly="1"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="material"/>
+                                    <br/>
+                                    <field name="material" readonly="1"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="base_curve"/>
+                                    <br/>
+                                    <field name="base_curve" options="{'number_only_with_single_precision':True}"
+                                           attrs="{'required':[('rx', '=', 'hard')]}" readonly="1"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="diameter"/>
+                                    <br/>
+                                    <field name="diameter" options="{'number_only_with_double_precision':True}"
+                                           attrs="{'required':[('rx', '=', 'hard')]}" readonly="1"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="sphere"/>
+                                    <br/>
+                                    <field name="sphere" options="{'number_only_with_double_precision_sign':True}"
+                                           attrs="{'required':[('rx', '=', 'hard')]}" readonly="1"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="cylinder"/>
+                                    <br/>
+                                    <field name="cylinder" options="{'number_only_with_double_precision_sign':True}" readonly="1"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="axis"/>
+                                    <br/>
+                                    <field name="axis" options="{'number_only_with_three_digit':True}" readonly="1"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="add"/>
+                                    <br/>
+                                    <field name="add" options="{'number_only_with_single_precision_plus_sign':True}" readonly="1"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="seg_height"/>
+                                    <br/>
+                                    <field name="seg_height" options="{'number_only_with_single_precision':True}" readonly="1"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="pc_radius"/>
+                                    <br/>
+                                    <field name="pc_radius" options="{'number_only_with_single_precision':True}" readonly="1"/>
+                                </div>
+                            </div>
+                        </group>
+                        <group colspan="4" col="6">
+                            <div class="row" attrs="{'invisible':[('rx', '!=', 'hard')]}">
+                                <div class="o2m_form_field_inline">
+                                    <label for="pc_width"/>
+                                    <br/>
+                                    <field name="pc_width" options="{'number_only_with_single_precision':True}"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="ct"/>
+                                    <br/>
+                                    <field name="ct" options="{'number_only_with_single_precision':True}"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="oz"/>
+                                    <br/>
+                                    <field name="oz" options="{'number_only_with_two_digit_single_precision':True}"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="base_curve_2"/>
+                                    <br/>
+                                    <field name="base_curve_2" options="{'number_only_with_single_precision':True}"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="color"/>
+                                    <br/>
+                                    <field name="color"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="sphere_2"/>
+                                    <br/>
+                                    <field name="sphere_2" options="{'number_only_with_double_precision_sign':True}"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="cylinder_2"/>
+                                    <br/>
+                                    <field name="cylinder_2" options="{'number_only_with_double_precision_sign':True}"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="axis_2"/>
+                                    <br/>
+                                    <field name="axis_2" options="{'number_only_with_three_digit':True}"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="add_diam_2"/>
+                                    <br/>
+                                    <field name="add_diam_2"
+                                           options="{'number_only_with_two_digit_single_precision':True}"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="dot"/>
+                                    <br/>
+                                    <field name="dot"/>
+                                </div>
+                            </div>
+                        </group>
+                        <!--  OD  -->
+                        <separator string="OS" class="oe_inline"
+                                   style="background-color:#b8b8fd;color:#495057;padding: 0px 15px;"/>
+                        <group colspan="4" col="6">
+                            <div class="row" attrs="{'invisible':[('rx', '!=', 'hard')]}">
+                                <div class="o2m_form_field_inline">
+                                    <label for="left_manufacturer_id"/>
+                                    <br/>
+                                    <field name="left_manufacturer_id" options="{'no_open':True,'no_create': True}"
+                                           attrs="{'required':[('rx', '=', 'hard'), ('left_manufacturer_id', '!=', False)]}"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="left_style"/>
+                                    <br/>
+                                    <field name="left_style"
+                                           attrs="{'required':[('rx', '!=', 'hard'), ('left_manufacturer_id', '!=', False)]}"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="left_material"/>
+                                    <br/>
+                                    <field name="left_material"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="left_base_curve"/>
+                                    <br/>
+                                    <field name="left_base_curve"
+                                           attrs="{'required':[('rx', '=', 'hard'), ('left_manufacturer_id', '!=', False)]}"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="left_diameter"/>
+                                    <br/>
+                                    <field name="left_diameter"
+                                           attrs="{'required':[('rx', '=', 'hard'), ('left_manufacturer_id', '!=', False)]}"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="left_sphere"/>
+                                    <br/>
+                                    <field name="left_sphere"
+                                           attrs="{'required':[('rx', '=', 'hard'), ('left_manufacturer_id', '!=', False)]}"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="left_cylinder"/>
+                                    <br/>
+                                    <field name="left_cylinder"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="left_axis"/>
+                                    <br/>
+                                    <field name="left_axis"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="left_add"/>
+                                    <br/>
+                                    <field name="left_add"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="left_seg_height"/>
+                                    <br/>
+                                    <field name="left_seg_height"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="left_pc_radius"/>
+                                    <br/>
+                                    <field name="left_pc_radius"/>
+                                </div>
+                            </div>
+                        </group>
+                        <group colspan="4" col="6">
+                            <div class="row" attrs="{'invisible':[('rx', '!=', 'hard')]}">
+                                <div class="o2m_form_field_inline">
+                                    <label for="left_pc_width"/>
+                                    <br/>
+                                    <field name="left_pc_width"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="left_ct"/>
+                                    <br/>
+                                    <field name="left_ct"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="left_oz"/>
+                                    <br/>
+                                    <field name="left_oz"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="left_base_curve_2"/>
+                                    <br/>
+                                    <field name="left_base_curve_2"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="left_color"/>
+                                    <br/>
+                                    <field name="left_color"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="left_sphere_2"/>
+                                    <br/>
+                                    <field name="left_sphere_2"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="left_cylinder_2"/>
+                                    <br/>
+                                    <field name="left_cylinder_2"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="left_axis_2"/>
+                                    <br/>
+                                    <field name="left_axis_2"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="left_add_diam_2"/>
+                                    <br/>
+                                    <field name="left_add_diam_2"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="left_dot"/>
+                                    <br/>
+                                    <field name="left_dot"/>
+                                </div>
+                            </div>
+                        </group>
+                    </group>
+                    <group attrs="{'invisible':[('rx', '=', False)]}" readonly="1">
+                        <field name="rx_notes" readonly="1"/>
+                        <div>
+                            <div class="ck-button" attrs="{'invisible':[('gls_add', '=', False)]}">
+                                <label for="reading_rx"/>
+                                <field name="reading_rx"/>
+                            </div>
+                            <div class="ck-button" attrs="{'invisible':[('lens_type_add', '=', False)]}">
+                                <label for="distance_rx"/>
+                                <field name="distance_rx"/>
+                            </div>
+                        </div>
+                    </group>
+                    <span attrs="{'invisible': [('order_type_name','in',['Lenses Only','Contact Lens','Services','Accessory', 'Miscellaneous'])]}">
+                        _________________________________________________________________________________________________________________________________________________
+                    </span>
+                    <group name="frames" readonly="1"
+                           attrs="{'invisible': [('order_type_name','in',['Lenses Only','Contact Lens','Services','Accessory', 'Miscellaneous'])]}">
+                        <h2>Frames</h2>
+                        <field name="frames_products_variants" nolabel="0" readonly="1"
+                               attrs="{'required':[('order_type_name','in',['Complete Pair','Frame Only'])]}"
+                               context="{'form_view_ref': 'opt_custom.product_template_frame_view_form',
+                               'tree_view_ref': 'ivis_order_grouping.frame_tree_view',
+                               'new_size': 'max-width_1200px', 'group_by': 'employee_id'}"/>
+                        <br/>
+                    </group>
+                    <span attrs="{'invisible': [('order_type_name','not in',['Lenses Only'])]}">
+                        _________________________________________________________________________________________________________________________________________________
+                    </span>
+                    <group name="patients_own_frame" readonly="1"
+                           attrs="{'invisible': [('order_type_name','not in',['Lenses Only'])]}">
+                        <h2>Patient's Own Frame</h2>
+                        <group colspan="4" col="2">
+                            <field name="model_number" string="Model" readonly="1"/>
+                            <field name="color_patient_frame" readonly="1"/>
+                        </group>
+                        <group colspan="4" col="7">
+                            <field name="a" readonly="1"/>
+                            <field name="b" readonly="1"/>
+                            <field name="dbl" readonly="1"/>
+                            <field name="ed" readonly="1"/>
+                            <field name="temple" readonly="1"/>
+                        </group>
+                        <group colspan="4" col="4">
+                            <field name="edge_id" readonly="1"/>
+                            <field name="frame_id" readonly="1"/>
+                        </group>
+                        <br/>
+                    </group>
+                    <span attrs="{'invisible': [('order_type_name','in',['Contact Lens','Frame Only','Services','Accessory', 'Miscellaneous'])]}">
+                        _________________________________________________________________________________________________________________________________________________
+                    </span>
+                    <group name="lens" readonly="1"
+                           attrs="{'invisible': [('order_type_name','in',['Contact Lens','Frame Only','Services','Accessory', 'Miscellaneous'])]}">
+                        <h2>Lens</h2>
+                        <field name="lens_products" readonly="1"
+                               attrs="{'required':[('order_type_name','in',['Complete Pair', 'Lenses Only'])]}"
+                               nolabel="0" domain="[('lens_type_id','=','4')]"
+                               context="{'form_view_ref': 'opt_custom.product_template_lens_view_form',
+                                           'tree_view_ref': 'ivis_order_grouping.frame_tree_view',
+                                           'new_size': 'max-width_1200px', 'group_by': 'style_id'}"/>
+
+                        <br/>
+                    </group>
+                    <span attrs="{'invisible': [('order_type_name','not in',['Contact Lens'])]}">
+                        _________________________________________________________________________________________________________________________________________________
+                    </span>
+                    <group name="contact_lens" attrs="{'invisible': [('order_type_name','not in',['Contact Lens'])]}" readonly="1">
+                        <div style="display: flex; position: relative;">
+                            <h2>Contact Lens</h2>
+                            <label for="copy_contact_lens"
+                                   attrs="{'invisible': [('od_contact_lens_visibility','=',False),('os_contact_lens_visibility','=',False)]}"
+                                   style="text-align:center;display:inline-block;background-color:#0f69c1;border-color:#0f69c1;color:#FFFFFF;position: absolute; right: 0;"/>
+                            <field name="copy_contact_lens" readonly="1"
+                                   attrs="{'invisible': [('od_contact_lens_visibility','=',False),('os_contact_lens_visibility','=',False)]}"
+                                   style="padding-left:430px;"/>
+                            <!--                            <button style="position: absolute; right: 0;" class="oe_highlight" type="object" string="OS = OD" attrs="{'invisible': [('od_contact_lens_visibility','=',False),('os_contact_lens_visibility','=',False)]}" name="equate_lensses"/>-->
+                        </div>
+                        <br/>
+                        <group attrs="{'invisible': [('od_contact_lens_visibility','=',False)]}" col="1" colspan="2">
+                            <h4>OD</h4>
+                            <br/>
+                            <field name="contact_lens_products_od" readonly="1" options="{'no_create':True}"
+                                   attrs="{'required':[('order_type_name','=','Contact Lens')]}" nolabel="1"/>
+                            <br/>
+                            <!--                            <field name="od_color" placeholder="Color" nolabel="1"/>-->
+                            <!--                            <br/>-->
+                            <field name="od_qty" placeholder="Qty" nolabel="1" readonly="1"/>
+                        </group>
+                        <group attrs="{'invisible': [('od_contact_lens_visibility','=',False)]}">
+                            <field name="package_od" options="{'no_open': True}" invisible="1"/>
+                            <field name="uom_id_od" options="{'no_open': True}" readonly="1"/>
+                            <field name="list_price_od" readonly="1"/>
+                        </group>
+                        <group attrs="{'invisible': [('os_contact_lens_visibility','=',False)]}" col="1" colspan="2">
+                            <h4>OS</h4>
+                            <br/>
+                            <field name="contact_lens_products_os" readonly="1" options="{'no_create':True}"
+                                   attrs="{'required':[('order_type_name','=','Contact Lens')]}" nolabel="1"/>
+                            <br/>
+                            <!--                            <field name="os_color" placeholder="Color" nolabel="1"/>-->
+                            <!--                            <br/>-->
+                            <field name="os_qty" placeholder="Qty" nolabel="1" readonly="1"/>
+                        </group>
+                        <group attrs="{'invisible': [('os_contact_lens_visibility','=',False)]}">
+                            <field name="package_os" options="{'no_open': True}" invisible="1"/>
+                            <field name="uom_id_os" options="{'no_open': True}" readonly="1"/>
+                            <field name="list_price_os" readonly="1"/>
+                        </group>
+                    </group>
+                    <span attrs="{'invisible': [('order_type_name','in',['Contact Lens','Frame Only','Services','Accessory', 'Miscellaneous'])]}">
+                        _________________________________________________________________________________________________________________________________________________
+                    </span>
+                    <span name="lens_treatment" readonly="1"
+                          attrs="{'invisible': [('order_type_name','in',['Contact Lens','Frame Only','Services','Accessory', 'Miscellaneous'])]}">
+                        <br/>
+                        <h2>Lens Treatment</h2>
+                        <!--                        widget="many2many_kanban" mode="kanban"-->
+                        <field name="lenstreatment_products" readonly="1"
+                               options="{'no_create':True}"
+                               context="{'tree_view_ref':'ivis_order_grouping.product_tree_lenstreatment_products'}">
+                            <tree>
+                                <field name="category_id" string="Category"/>
+                                <field name="name"/>
+                            </tree>
+                        </field>
+
+                    </span>
+                    <span attrs="{'invisible': [('order_type_name','in',['Services'])]}">
+                        _________________________________________________________________________________________________________________________________________________
+                    </span>
+                    <span name="miscellaneous" attrs="{'invisible': [('order_type_name','in',['Services'])]}" readonly="1">
+                        <br/>
+                        <h2>Miscellaneous</h2>
+                        <field name="miscellaneous_products" options="{'no_create':True}" readonly="1">
+                            <tree editable="bottom">
+                                <field name="miscellaneous_products" options="{'no_create':True}"/>
+                                <field name="qty"/>
+                            </tree>
+                        </field>
+                    </span>
+                    <span attrs="{'invisible': [('order_type_name','in',['Accessory', 'Miscellaneous'])]}">
+                        _________________________________________________________________________________________________________________________________________________
+                    </span>
+                    <span name="service" attrs="{'invisible': [('order_type_name','in',['Accessory', 'Miscellaneous'])]}" readonly="1">
+                        <br/>
+                        <h2>Services</h2>
+                        <field name="service_products" options="{'no_create':True}" readonly="1">
+                            <tree editable="bottom">
+                                <field name="service_products" options="{'no_create':True}"/>
+                                <field name="qty"/>
+                            </tree>
+                        </field>
+                    </span>
+
+                    <br/>
+                    <div>
+                        <h2>Lab Details</h2>
+                    </div>
+                    <group name="measurements_group" string="Measurements"
+                           attrs="{'invisible':['|', ('rx','!=','glasses'),('order_type_name','in',['Frame Only','Services','Accessory', 'Miscellaneous'])]}">
+                        <div attrs="{'invisible':[('order_type_name','in',['Frame Only','Services','Accessory', 'Miscellaneous'])]}">
+                            <div class="row">
+                                <div style="padding-right: 20px; padding-left: 20px;">
+                                    <label for="gls_sphere" string=" "/>
+                                    <br/>
+                                    <label for="gls_sphere" string="OD"
+                                           style="background-color:#bcffbc;color:#495057;padding: 0px 15px;"/>
+                                    <br/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="dist_pd_lab_details"/>
+                                    <br/>
+                                    <field name="dist_pd_lab_details" class="soft_left_manufacturer_id_base_curve"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="near_pd_lab_details"/>
+                                    <br/>
+                                    <field name="near_pd_lab_details" class="soft_left_manufacturer_id_diameter"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="oc_hit_lab_details"/>
+                                    <br/>
+                                    <field name="oc_hit_lab_details" class="soft_left_manufacturer_id_color"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="seg_ht_lab_details"/>
+                                    <br/>
+                                    <field name="seg_ht_lab_details" class="soft_left_manufacturer_id_sphere"
+                                           attrs="{'required': [('lens_type_add','=', True), ('lens_products','not in', [False,0,None])]}"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <label for="bc_lab_details"/>
+                                    <br/>
+                                    <field name="bc_lab_details" class="soft_left_manufacturer_id_cylinder"/>
+                                </div>
+                                <div style="padding-left: 890px;margin-left:80px;" class="o2m_form_field_inline">
+                                    <label for="panto_lab_details"/>
+                                    <field name="panto_lab_details"
+                                           class="soft_left_manufacturer_id_sphere"/>
+                                </div>
+                                <div style="padding-left: 890px;" class="o2m_form_field_inline">
+                                    <label for="thickness_lab_details"/>
+                                    <field name="thickness_lab_details" class="soft_left_manufacturer_id_sphere"/>
+                                </div>
+                            </div>
+                        </div>
+                    </group>
+                    <group attrs="{'invisible':[('rx','!=','glasses')]}">
+                        <div attrs="{'invisible':[('order_type_name','in',['Frame Only','Services','Accessory', 'Miscellaneous'])]}">
+                            <div class="row">
+                                <div style="padding-right: 20px; padding-left: 20px;">
+                                    <label for="gls_sphere" string=" "/>
+                                    <label for="gls_sphere" string="OS"
+                                           style="background-color:#b8b8fd;color:#495057;padding: 0px 15px;"/>
+                                    <br/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <br/>
+                                    <field name="dist_pd_lab_details_os" class="soft_left_manufacturer_id_base_curve"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <br/>
+                                    <field name="near_pd_lab_details_os" class="soft_left_manufacturer_id_diameter"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <br/>
+                                    <field name="oc_hit_lab_details_os" class="soft_left_manufacturer_id_color"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <br/>
+                                    <field name="seg_ht_lab_details_os" class="soft_left_manufacturer_id_sphere"/>
+                                </div>
+                                <div class="o2m_form_field_inline">
+                                    <br/>
+                                    <field name="bc_lab_details_os" class="soft_left_manufacturer_id_cylinder"/>
+                                </div>
+                                <div style="padding-left: 890px;margin-left:80px;" class="o2m_form_field_inline">
+                                    <label for="wrap_lab_details"/>
+                                    <field name="wrap_lab_details" class="soft_left_manufacturer_id_sphere"/>
+                                </div>
+                                <div style="padding-left: 890px;" class="o2m_form_field_inline">
+                                    <label for="vertex_mlab_details"/>
+                                    <field name="vertex_mlab_details" class="soft_left_manufacturer_id_sphere"/>
+                                </div>
+                            </div>
+                        </div>
+                    </group>
+                    <group attrs="{'invisible': [('order_type_name','in',['Contact Lens','Frame Only','Services','Accessory', 'Miscellaneous'])]}"
+                           string="Lens">
+                        <field name="eye_lab_details" class="soft_left_manufacturer_id_diameter"
+                               style="margin-left:28px;margin-top:-2px;height:30px;width:200px;"/>
+                    </group>
+                    <group string="Treatment"
+                           attrs="{'invisible': [('order_type_name','in',['Contact Lens','Frame Only','Services','Accessory', 'Miscellaneous'])]}">
+                        <div class="row">
+                            <div class="o2m_form_field_inline" style="display:flex;flex-direction:row">
+                                <label for="tint_color_lab_details"
+                                       style="height:30px;width:80px;margin-top:10px;padding-left:20px;"/>
+                                <br/>
+                                <field name="tint_color_lab_details" class="soft_left_manufacturer_id_base_curve"
+                                       style="margin-left:15px;width:120px"/>
+                            </div>
+                            <div class="o2m_form_field_inline"
+                                 style="display:flex;flex-direction:row;margin-left:80px;padding-left:20px;">
+                                <label for="tint_sample_lab_details" style="height:30px;width:80px;margin-top:10px;"/>
+                                <br/>
+                                <field name="tint_sample_lab_details" class="soft_left_manufacturer_id_diameter"
+                                       style="margin-left:15px;width:40px;width:120px"/>
+                            </div>
+                            <div class="o2m_form_field_inline"
+                                 style="display:flex;flex-direction:row;margin-left:100px;">
+                                <label for="by_lab_details" style="height:30px;width:80px;margin-top:10px;"/>
+                                <br/>
+                                <field name="by_lab_details" class="soft_left_manufacturer_id_color"
+                                       style="margin-left:15px;width:80px;"/>
+                            </div>
+                            <span class="mt-2">%</span>
+                        </div>
+                    </group>
+                    <group string="Frames"
+                           attrs="{'invisible': [('order_type_name','in',['Lenses Only','Frame Only','Contact Lens','Services','Accessory', 'Miscellaneous'])]}">
+                        <div class="row">
+                            <div class="o2m_form_field_inline" style="display:flex;flex-direction:row;">
+                                <label for="edge_type" options="{'no_open':True,'no_create': True}"
+                                       style="white-space: nowrap;margin-top:6px;"/>
+                                <br/>
+                                <field name="edge_type" options="{'no_open':True,'no_create': True}"
+                                       class="soft_left_manufacturer_id_base_curve mt-2"
+                                       attrs="{'readonly':[('order_type_name','!=','Complete Pair')]}"
+                                       style="margin-left:8px;width:120px"/>
+                            </div>
+                            <div class="o2m_form_field_inline"
+                                 style="display:flex;flex-direction:row;margin-left: 90px;">
+                                <label for="frame_type" options="{'no_open':True,'no_create': True}"
+                                       style="white-space: nowrap;margin-top:6px;"/>
+                                <br/>
+                                <field name="frame_type" options="{'no_open':True,'no_create': True}"
+                                       class="ivis_frame_type mt-2"
+                                       attrs="{'readonly':[('order_type_name','!=','Complete Pair')]}"
+                                       style="margin-left:8px;width:120px"/>
+                            </div>
+                            <div class="o2m_form_field_inline"
+                                 style="display:flex;flex-direction:row;margin-left:150px">
+                                <label for="a_lab_details" style="margin-top:6px"/>
+                                <br/>
+                                <field name="a_lab_details" readonly="0" class="soft_left_manufacturer_id_diameter mt-2"
+                                       style="font-size:9.0pt;margin-left:8px;height:30px;width:80px;"/>
+                            </div>
+                            <div class="o2m_form_field_inline" style="display:flex;flex-direction:row">
+                                <label for="b_lab_details" style="margin-top:6px"/>
+                                <br/>
+                                <field name="b_lab_details" readonly="0" class="soft_left_manufacturer_id_color mt-2"
+                                       style="margin-left:8px;font-size:9.0pt;height:30px;width:80px;"/>
+                            </div>
+                            <div class="o2m_form_field_inline" style="display:flex;flex-direction:row;margin-left: 10px;">
+                                <label for="dbl_lab_details" style="margin-top:6px"/>
+                                <br/>
+                                <field name="dbl_lab_details" readonly="0" class="soft_left_manufacturer_id_sphere mt-2"
+                                       style="margin-left:8px;height:30px;font-size:9.0pt;width:80px;"/>
+                            </div>
+                            <div class="o2m_form_field_inline" style="display:flex;flex-direction:row;margin-left: 30px;">
+                                <label for="ed_lab_details" style="margin-top:6px"/>
+                                <br/>
+                                <field name="ed_lab_details" readonly="0"
+                                       class="soft_left_manufacturer_id_cylinder mt-2"
+                                       style="margin-left:8px;height:30px;width:80px;font-size:9.0pt;"/>
+                            </div>
+                        </div>
+                    </group>
+                    <group string="Lab Information" attrs="{'invisible': [('order_type_name','in',['Services'])]}">
+                        <group>
+                            <field name="lab_details"
+                                   context="{'default_is_lab' : 1}"
+                                   attrs="{'invisible':[('order_type_name','in',['Frame Only','Accessory', 'Miscellaneous'])]}"/>
+                            <field name="lab_instructions"/>
+                            <field name="finishing_status"
+                                   attrs="{'invisible':[('order_type_name','in',['Contact Lens','Frame Only','Accessory', 'Miscellaneous'])]}"/>
+                            <field name="tray_no"/>
+                        </group>
+                        <group>
+                            <field name="physician_id" options="{'no_create':True}" invisible="1"/>
+                            <!--                            <field name="outside_physician_id" attrs="{'invisible':[('physician_id','!=',False)]}"/>-->
+                            <field name="order_status"/>
+                            <field name="dispensing_notes"/>
+                            <field name="promised_date"/>
+                            <field name="ship_to"
+                                   context="{'form_view_ref':'ivis_order_grouping.ship_to_form_many2one', 'default_type':'delivery'}"/>
+                        </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+        <record id="lab_details_tree" model="ir.ui.view">
+            <field name="name">order.group.tree</field>
+            <field name="model">multi.order.type</field>
+            <field name="arch" type="xml">
+                <tree decoration-danger="promised_date and promised_date &lt; current_date"
+                      decoration-muted="promised_date and ((promised_date == current_date) or (promised_date == promised_date_1)
+                                        or (promised_date == promised_date_2) or (promised_date == promised_date_3))"
+                      class="lab_details_tree_view" export_xlsx="false">
+                    <field name="promised_date_1" invisible="1"/>
+                    <field name="promised_date_2" invisible="1"/>
+                    <field name="promised_date_3" invisible="1"/>
+                    <field name="display_name" readonly="1" string="Order"/>
+                    <field name="sale_order_id" readonly="1" string="Sale Order"/>
+                    <field name="create_date" readonly="1" string="Order Date"/>
+                    <field name="lab_details" readonly="1"/>
+                    <field name="current_datetime" invisible="1"/>
+                    <field name="promised_date"/>
+                    <field name="order_status"/>
+                    <button name="show_multi_order_type_historical_tree" string="" icon="fa-history" type="object"/>
+                    <field name="patient_name" readonly="1"/>
+                    <field name="patient_phone" readonly="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="lab_details_action" model="ir.actions.act_window">
+            <field name="name">Lab Details</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">multi.order.type</field>
+            <field name="domain">[('order_type_name', '!=', 'Services')]</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_ids"
+                   eval="[(5, 0, 0),
+                          (0, 0, {'view_mode': 'tree', 'view_id': ref('lab_details_tree')}),
+                          (0, 0, {'view_mode': 'form', 'view_id': ref('lab_details_form')}),
+                          ]"/>
+        </record>
+        <menuitem id="lab_details_menu_item" name="Lab Details"
+                  parent="ivis_order_grouping.pos_root_order_menu" sequence="3" action="lab_details_action"/>
+    </data>
+</odoo>

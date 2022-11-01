@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data noupdate="1">
+	    <record id="opt_patient_engagement" model="ir.module.category">
+	        <field name="name">OPT Patient Engagement</field>
+	    </record>
+
+	    <record id="opt_patient_engagement_setting" model="res.groups">
+	        <field name="name">Setting</field>
+	        <field name="category_id" ref="opt_security.opt_patient_engagement"/>
+	    </record>
+	    <record id="opt_patient_engagement_delivery_restrictions" model="res.groups">
+	        <field name="name">Delivery Restrictions</field>
+	        <field name="category_id" ref="opt_security.opt_patient_engagement"/>
+	    </record>
+	    <record id="opt_patient_engagement_messaging_history" model="res.groups">
+	        <field name="name">Messaging History</field>
+	        <field name="category_id" ref="opt_security.opt_patient_engagement"/>
+	    </record>
+	    <record id="opt_patient_engagement_messaging_logs" model="res.groups">
+	        <field name="name">Messaging Logs</field>
+	        <field name="category_id" ref="opt_security.opt_patient_engagement"/>
+	    </record>
+	    <record id="opt_patient_engagement_appointments_online" model="res.groups">
+	        <field name="name">Appointments Online</field>
+	        <field name="category_id" ref="opt_security.opt_patient_engagement"/>
+	    </record>
+
+	    <record id="opt_patient_engagement_manager" model="res.groups">
+	        <field name="name">Manager</field>
+	        <field name="category_id" ref="opt_security.opt_patient_engagement"/>
+			<field name="implied_ids" eval="[(4, ref('opt_security.opt_patient_engagement_setting')), (4, ref('opt_security.opt_patient_engagement_delivery_restrictions')),
+				(4, ref('opt_security.opt_patient_engagement_messaging_history')), (4, ref('opt_security.opt_patient_engagement_messaging_logs')),
+				(4, ref('opt_security.opt_patient_engagement_appointments_online')),
+			]"/>
+	    </record>
+	</data>
+</odoo>

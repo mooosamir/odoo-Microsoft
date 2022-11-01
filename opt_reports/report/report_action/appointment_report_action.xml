@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="report_action_appointment_schedule_report" model="ir.actions.report">
+        <field name="name">Appointment Schedule Report</field>
+        <field name="model">appointment.report.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">opt_reports.appointment_schedule_report</field>
+        <field name="report_file">opt_reports.appointment_schedule_report</field>
+        <field name="print_report_name">'Appointment Schedule Report - %s to %s' % (object.from_date, object.to_date)</field>
+        <field name="paperformat_id" ref="opt_reports.portrait_paper_general_format"/>
+    </record>
+
+    <record id="report_action_appointment_services_count" model="ir.actions.report">
+        <field name="name">Appointment Services Report</field>
+        <field name="model">appointment.report.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">opt_reports.appointment_services_count</field>
+        <field name="report_file">opt_reports.appointment_services_count</field>
+        <field name="print_report_name">'Appointment Services Count (by provider %s, by service %s)- %s to %s' % (object.group_by_physician, object.group_by_service,object.from_date, object.to_date)</field>
+        <field name="paperformat_id" ref="opt_reports.portrait_paper_general_format"/>
+    </record>
+
+    <record id="report_action_appointment_details_report" model="ir.actions.report">
+        <field name="name">Appointment Details Report</field>
+        <field name="model">appointment.report.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">opt_reports.appointment_details_report</field>
+        <field name="report_file">opt_reports.appointment_details_report</field>
+        <field name="print_report_name">'Appointment Details Report for  %s' % (object.from_date)</field>
+        <field name="paperformat_id" ref="opt_reports.portrait_paper_general_format"/>
+    </record>
+
+</odoo>

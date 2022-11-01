@@ -1,0 +1,419 @@
+<odoo>
+    <!-- Tree View of Insurance Network-->
+    <record id="insurance_network_tree_view" model="ir.ui.view">
+        <field name="name">insurance.network.tree.view</field>
+        <field name="model">spec.insurance.network</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="insurance_company_id"/>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View of Insurance Network-->
+    <record id="insurance_network_form_view" model="ir.ui.view">
+        <field name="name">insurance.network.view</field>
+        <field name="model">spec.insurance.network</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group colspan="4" col="4">
+                        <field name="name"/>
+                        <field name="insurance_company_id" options="{'no_open':True,'no_create': True}"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action of Insurance Network-->
+    <record id="insurance_network_action" model="ir.actions.act_window">
+        <field name="name">Insurance Network</field>
+        <field name="res_model">spec.insurance.network</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Tree View of Insurance Plan-->
+    <record id="insurance_plan_tree_view" model="ir.ui.view">
+        <field name="name">insurance.plan.tree.view</field>
+        <field name="model">spec.insurance.plan</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="insurance_company_id"/>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View of Insurance Plan-->
+    <record id="insurance_plan_form_view" model="ir.ui.view">
+        <field name="name">insurance.network.view</field>
+        <field name="model">spec.insurance.plan</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group colspan="4" col="4">
+                        <field name="name" required="1"/>
+                        <field name="classification"/>
+                        <field name="insurance_company_id" options="{'no_open':True,'no_create': True}"/>
+                        <field name="pcp_referral_required" widget="radio" options="{'horizontal': true}"/>
+                        <field name="activation_date"/>
+                        <field name="prior_authorization_required" widget="radio" options="{'horizontal': true}"/>
+                        <field name="termination_date"/>
+                        <field name="active"/>
+                    </group>
+                    <group>
+                        <field name="notes"/>
+                    </group>
+                    <notebook>
+                        <page name="regions" string="Regions">
+                            <group>
+                                <field name="region_ids" nolabel="1"
+                                       options="{'no_open':True,'no_create':True,'no_create_edit': True}"/>
+                            </group>
+                        </page>
+                        <page name="fee_schedule" string="Fee Schedule">
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action of Insurance Plan-->
+    <record id="insurance_plan_action" model="ir.actions.act_window">
+        <field name="name">Insurance Plan</field>
+        <field name="res_model">spec.insurance.plan</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Tree View of Insurance ChargeBack-->
+    <record id="insurance_chargeback_tree_view" model="ir.ui.view">
+        <field name="name">insurance.chargeback.tree.view</field>
+        <field name="model">spec.insurance.chargeback</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="insurance_company_id"/>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View of Insurance Chargeback-->
+    <record id="insurance_chargeback_form_view" model="ir.ui.view">
+        <field name="name">insurance.chargeback.view</field>
+        <field name="model">spec.insurance.chargeback</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group colspan="4" col="4">
+                        <field name="name"/>
+                        <field name="insurance_company_id" options="{'no_open':True,'no_create': True}"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action of Insurance Chargeback-->
+    <record id="insurance_chargeback_action" model="ir.actions.act_window">
+        <field name="name">Insurance Chargeback</field>
+        <field name="res_model">spec.insurance.chargeback</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Tree View of Group Allowance-->
+    <record id="insurance_group_allowance_tree_view" model="ir.ui.view">
+        <field name="name">insurance.group.allowance.tree.view</field>
+        <field name="model">spec.insurance.group.allowance</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="pro_code_ids"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View of Group Allowance-->
+    <record id="insurance_group_allowance_form_view" model="ir.ui.view">
+        <field name="name">insurance.group.allowance.view</field>
+        <field name="model">spec.insurance.group.allowance</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group colspan="4" col="4">
+                        <field name="name"/>
+                        <field name="pro_code_ids" options="{'no_open':True,'no_create': True}"
+                               widget="many2many_tags"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action of Group Allowance-->
+    <record id="insurance_group_allowance_action" model="ir.actions.act_window">
+        <field name="name">Group Allowance</field>
+        <field name="res_model">spec.insurance.group.allowance</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Tree View of Dispensing Fees-->
+    <record id="insurance_dispensing_fee_tree_view" model="ir.ui.view">
+        <field name="name">insurance.dispensing.fee.tree.view</field>
+        <field name="model">spec.insurance.dispensing.fee</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="pro_code_ids"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View of Dispensing Fees-->
+    <record id="insurance_dispensing_fee_form_view" model="ir.ui.view">
+        <field name="name">insurance.dispensing.fee.view</field>
+        <field name="model">spec.insurance.dispensing.fee</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group colspan="4" col="4">
+                        <field name="name"/>
+                        <field name="pro_code_ids" options="{'no_open':True,'no_create': True}"
+                               widget="many2many_tags"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action of Dispensing Fees-->
+    <record id="insurance_dispensing_fee_action" model="ir.actions.act_window">
+        <field name="name">Dispensing Fee</field>
+        <field name="res_model">spec.insurance.dispensing.fee</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Tree View of Fitting Fees-->
+    <record id="insurance_fitting_fee_tree_view" model="ir.ui.view">
+        <field name="name">insurance.fitting.fee.tree.view</field>
+        <field name="model">spec.insurance.fitting.fee</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="pro_code_ids"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View of Fitting Fees-->
+    <record id="insurance_fitting_fee_form_view" model="ir.ui.view">
+        <field name="name">insurance.fitting.fee.view</field>
+        <field name="model">spec.insurance.fitting.fee</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group colspan="4" col="4">
+                        <field name="name"/>
+                        <field name="pro_code_ids" options="{'no_open':True,'no_create': True}"
+                               widget="many2many_tags"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action of Fitting Fees-->
+    <record id="insurance_fitting_fee_action" model="ir.actions.act_window">
+        <field name="name">Fitting Fee</field>
+        <field name="res_model">spec.insurance.fitting.fee</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Tree View of Insurance Network Group-->
+    <record id="insurance_network_groups_tree_view" model="ir.ui.view">
+        <field name="name">insurance.network.groups.tree.view</field>
+        <field name="model">spec.insurance.network.groups</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="network_id"/>
+                <field name="name"/>
+                <field name="primary_bill_code"/>
+                <field name="secondary_bill_code"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View of Insurance  Network Groups-->
+    <record id="insurance_network_groups_form_view" model="ir.ui.view">
+        <field name="name">insurance.network.groups.view</field>
+        <field name="model">spec.insurance.network.groups</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group colspan="4" col="4">
+                        <field name="network_id" options="{'no_open':True,'no_create': True}"/>
+                        <field name="name"/>
+                        <field name="primary_bill_code" options="{'no_open':True,'no_create': True}"/>
+                        <field name="secondary_bill_code" options="{'no_open':True,'no_create': True}"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action of Insurance Network Group-->
+    <record id="insurance_network_groups_action" model="ir.actions.act_window">
+        <field name="name">Insurance Network Groups</field>
+        <field name="res_model">spec.insurance.network.groups</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Tree View of Insurance Group Co-Pay-->
+    <record id="insurance_group_co_pay_tree_view" model="ir.ui.view">
+        <field name="name">insurance.group.co.pay.tree.view</field>
+        <field name="model">spec.insurance.group.co.pay</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="pro_code_ids"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View of Insurance Group Co-Pay-->
+    <record id="insurance_group_co_pay_form_view" model="ir.ui.view">
+        <field name="name">insurance.group.co.pay.view</field>
+        <field name="model">spec.insurance.group.co.pay</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group colspan="4" col="4">
+                        <field name="name"/>
+                        <field name="pro_code_ids" options="{'no_open':True,'no_create': True}"
+                               widget="many2many_tags"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action of Insurance Group Co-Pay-->
+    <record id="insurance_group_co_pay_action" model="ir.actions.act_window">
+        <field name="name">Group Co-Pay</field>
+        <field name="res_model">spec.insurance.group.co.pay</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Tree View of ERA Auto-Adjustment Rules-->
+    <record id="insurance_era_auto_adjustment_tree_view" model="ir.ui.view">
+        <field name="name">spec.era.auto.adjustment.tree.view</field>
+        <field name="model">spec.era.auto.adjustment</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="insurance_id"/>
+                <field name="level"/>
+                <field name="amount_min"/>
+                <field name="amount_max"/>
+                <field name="action"/>
+                <field name="reason_char"/>
+                <field name="era_active"/>
+                <field name="date"/>
+                <field name="user"/>
+                <field name="reasons" invisible="1"/>
+                <field name="reasons_write" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View of ERA Auto-Adjustment Rules-->
+    <record id="insurance_era_auto_adjustment_form_view" model="ir.ui.view">
+        <field name="name">spec.era.auto.adjustment.form.view</field>
+        <field name="model">spec.era.auto.adjustment</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group colspan="4" col="4">
+                        <field name="insurance_id" required="1"/>
+                        <field name="era_active" required="1"/>
+                        <field name="amount_min" required="1"/>
+                        <field name="amount_max" required="1"/>
+                        <field name="action" required="1" widget="radio" options="{'horizontal': true}"/>
+                        <label for="reasons"/>
+                        <div class="oe_row">
+                            <field name="reasons"
+                                   attrs="{'invisible':[('action','!=', 'adjustment')], 'required': [('action', '=', 'adjustment')]}"/>
+                            <field name="reasons_write"
+                                   attrs="{'invisible':[('action','!=', 'write_off')], 'required': [('action', '!=', 'adjustment')]}"/>
+                        </div>
+                        <field name="reason_char" invisible="1"/>
+                        <field name="level" required="1" widget="radio" options="{'horizontal': true}"/>
+                        <field name="date"/>
+                        <field name="user" options='{"no_open": True}'/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action of ERA Auto-Adjustment Rules-->
+    <record id="insurance_era_auto_adjustment_action" model="ir.actions.act_window">
+        <field name="name">ERA Auto-Adjustment Rules</field>
+        <field name="res_model">spec.era.auto.adjustment</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Tree View of Formulary Procedure Code Grouping-->
+    <record id="insurance_formulary_procedure_grouping_tree_view" model="ir.ui.view">
+        <field name="name">formulary.procedure.grouping.view</field>
+        <field name="model">spec.formulary.procedure.grouping</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="bill_code_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View of Formulary Procedure Code Grouping-->
+    <record id="insurance_formulary_procedure_grouping_form_view" model="ir.ui.view">
+        <field name="name">formulary.procedure.grouping.view</field>
+        <field name="model">spec.formulary.procedure.grouping</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group colspan="4" col="4">
+                        <field name="name"/>
+                        <field name="bill_code_id" options="{'no_open':True,'no_create': True}"/>
+                    </group>
+                    <notebook>
+                        <page string="Procedure">
+                            <field name="procedure_ids" nolabel="1" context="{'procedure_ids':procedure_ids}">
+                                <tree editable="bottom">
+                                    <field name="sequence"/>
+                                    <field name="lens_id" options='{"no_open": True}'/>
+                                    <field name="lens_procedure"/>
+                                    <field name="lens_type_id" options='{"no_open": True}'/>
+                                    <field name="lens_brand_id" options='{"no_open": True}'/>
+                                    <field name="lens_style_id" options='{"no_open": True}'/>
+                                    <field name="material_id" options='{"no_open": True}'/>
+                                    <field name="filter_id" options='{"no_open": True}'/>
+                                    <field name="lens_color_id" options='{"no_open": True}'/>
+                                    <field name="formulary_id" invisible="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action of Formulary Procedure Code Grouping-->
+    <record id="insurance_formulary_procedure_grouping_action" model="ir.actions.act_window">
+        <field name="name">Formulary Procedure Code Grouping</field>
+        <field name="res_model">spec.formulary.procedure.grouping</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

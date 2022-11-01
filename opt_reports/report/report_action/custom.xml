@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="custom_footer">
+        <div class="footer">
+            <div class="text-center" style="float: right !important;text-align: right;">
+                Run Date: <span t-esc="context_timestamp(datetime.now()).strftime('%b %d, %Y, %I:%M:%S %p')"/>
+            </div>
+        </div>
+    </template>
+
+    <record id="portrait_paper_general_format" model="report.paperformat">
+        <field name="name">Sales Invoice</field>
+        <field name="format">A4</field>
+        <field name="margin_top">40</field>
+        <field name="margin_bottom">10</field>
+        <field name="orientation">Portrait</field>
+    </record>
+
+    <record id="portrait_paper_format" model="report.paperformat">
+        <field name="name">Sales Invoice</field>
+        <field name="format">A4</field>
+        <field name="margin_top">5</field>
+        <field name="margin_bottom">6</field>
+        <field name="orientation">Portrait</field>
+    </record>
+
+    <record id="landscape_paper_format" model="report.paperformat">
+        <field name="name">Sales Invoices</field>
+        <field name="format">A4</field>
+        <field name="margin_top">5</field>
+        <field name="margin_bottom">6</field>
+        <field name="orientation">Landscape</field>
+    </record>
+
+</odoo>

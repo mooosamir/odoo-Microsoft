@@ -1,0 +1,38 @@
+<odoo>
+
+    <record id="log_log_tree" model="ir.ui.view">
+        <field name="name">logs.log.tree</field>
+        <field name="model">logs.log</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="create_date"/>
+                <field name="type"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="log_log_form" model="ir.ui.view">
+        <field name="name">logs.log.form</field>
+        <field name="model">logs.log</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+<!--                        <group>-->
+                            <field name="log"/>
+<!--                        </group>-->
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="log_log_action" model="ir.actions.act_window">
+        <field name="name">Log</field>
+        <field name="res_model">logs.log</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="log_log_menuitem" action="log_log_action" name='Logs'
+              parent="messaging_menuitem" sequence="1"/>
+</odoo>

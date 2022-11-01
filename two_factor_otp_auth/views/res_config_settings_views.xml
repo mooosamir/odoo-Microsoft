@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="res_config_settings_view_form" model="ir.ui.view">
+            <field name="name">res.config.settings.view.form.inherit.website</field>
+            <field name="model">res.config.settings</field>
+            <field name="priority" eval="20"/>
+            <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <div name="integration" position="inside">
+                    <div class="col-12 col-lg-6 o_setting_box" title="Twilio Configuration">
+                                <div class="o_setting_left_pane"/>
+                                <div class="o_setting_right_pane">
+                                    <span class="o_form_label">Twilio Configuration</span>
+                                    
+                                    <div class="content-group">
+                                        <div class="row mt16">
+                                            <label string="Account Sid" for="account_sid" class="col-lg-3 o_light_label"/>
+                                            <field name="account_sid"/>
+                                        </div>
+                                        <div class="row">
+                                            <label string="account_token" for="account_token" class="col-lg-3 o_light_label"/>
+                                            <field name="account_token"/>
+                                        </div>
+                                        <div class="row mt16">
+                                            <label string="From Mobile" for="from_mobile" class="col-lg-3 o_light_label"/>
+                                            <field name="from_mobile"/>
+                                        </div>
+                                        <div class="row">
+                                            <label string="Security Enforce 2FA" for="global_send" class="col-lg-3 o_light_label"/>
+                                            <field name="global_send"/>
+                                        </div>
+                                        <div class="row mt16">
+                                            <label string="Email Api Key" for="api_email_key" class="col-lg-3 o_light_label"/>
+                                            <field name="api_email_key"/>
+                                        </div>
+                                        <div class="row">
+                                            <label string="Email From" for="email_from" class="col-lg-3 o_light_label"/>
+                                            <field name="email_from"/>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                </div>
+            </field>
+        </record>
+
+</odoo>

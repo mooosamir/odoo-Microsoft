@@ -1,0 +1,28 @@
+<odoo>
+	<data>
+	    <record id="spec_contact_lens_replacement_schedule_1" model="spec.contact.lens.replacement.schedule">
+	        <field name="name">Daily</field>
+	        <field name="code">1</field>
+	    </record>
+	    <record id="spec_contact_lens_replacement_schedule_2" model="spec.contact.lens.replacement.schedule">
+	        <field name="name">1 Month</field>
+	        <field name="code">30</field>
+	    </record>
+	    <record id="spec_contact_lens_replacement_schedule_3" model="spec.contact.lens.replacement.schedule">
+	        <field name="name">3 Month</field>
+	        <field name="code">90</field>
+	    </record>
+	    <record id="spec_contact_lens_replacement_schedule_4" model="spec.contact.lens.replacement.schedule">
+	        <field name="name">6 Month</field>
+	        <field name="code">180</field>
+	    </record>
+	    <record id="spec_contact_lens_replacement_schedule_5" model="spec.contact.lens.replacement.schedule">
+	        <field name="name">Yearly</field>
+	        <field name="code">365</field>
+	    </record>
+	    <record id="spec_contact_lens_replacement_schedule_6" model="spec.contact.lens.replacement.schedule">
+	        <field name="name">2 Week</field>
+	        <field name="code">14</field>
+	    </record>
+    </data>
+</odoo>

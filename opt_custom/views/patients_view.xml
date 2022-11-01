@@ -1,0 +1,869 @@
+<odoo>
+    <!--    patient tree view-->
+    <record id="patient_tree_view" model="ir.ui.view">
+        <field name="name">patient.tree</field>
+        <field name="model">res.partner</field>
+        <field eval="166" name="priority"/>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <!--                <field name="relationship_to_patient" string="Relationship"/>-->
+                <!--                <field name="phone"/>-->
+                <!--                <field name="email"/>-->
+                <!--                <field name="account_balance"/>-->
+                <!--                <field name="last_exam"/>-->
+            </tree>
+        </field>
+    </record>
+
+    <record id="patient_view_partner_tree" model="ir.ui.view">
+        <field name="name">patient.partner.tree</field>
+        <field name="model">res.partner</field>
+        <field eval="8" name="priority"/>
+        <field name="arch" type="xml">
+            <tree string="Contacts">
+                <field name="display_name" string="Name"/>
+                <field name="date_of_birth" string="DOB"/>
+                <field name="phone" class="o_force_ltr"/>
+                <field name="email"/>
+                <field name="total_invoiced"/>
+                <field name="company_id" string="Location"/>
+                <field name="category_id" widget="many2many_tags" string="Tags"/>
+                <!-- <field name="bill_acct_number"/> -->
+            </tree>
+        </field>
+    </record>
+
+    <!--    search view for patient-->
+    <record id="patient_search_view" model="ir.ui.view">
+        <field name="name">patient.search.view</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <search string="Accounts">
+                <field string="Name" name="name"/>
+                <field string="Email" name="email"/>
+                <field string="Street" name="street"/>
+                <field string="date of birth" name="date_of_birth"/>
+                <field string="Phone" name="phone"/>
+                <field string="Other Phone" name="other"/>
+                <filter string="Active" name="active" domain="[('active', '=', True)]"/>
+            </search>
+        </field>
+    </record>
+    <record id="patient_profile_search" model="ir.ui.view">
+        <field name="name">res.partner.search.inherits</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <search string="Search Partner">
+                <field name="name"
+                       filter_domain="['|', '|', ('display_name', 'ilike', self), ('ref', '=', self), ('email', 'ilike', self)]"/>
+                <field name="parent_id" domain="[('is_company', '=', True)]" operator="child_of"/>
+                <field name="email" filter_domain="[('email', 'ilike', self)]"/>
+                <field name="phone" filter_domain="['|', ('phone', 'ilike', self), ('mobile', 'ilike', self)]"/>
+                <field name="category_id" string="Tag" filter_domain="[('category_id', 'child_of', self)]"/>
+                <field name="user_id"/>
+                <separator/>
+                <filter string="Individuals" name="type_person" domain="[('is_company', '=', False)]"/>
+                <filter string="Companies" name="type_company" domain="[('is_company', '=', True)]"/>
+                <separator/>
+                <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
+                <separator/>
+                <group expand="0" name="group_by" string="Group By">
+                    <filter name="salesperson" string="Salesperson" domain="[]" context="{'group_by' : 'user_id'}"/>
+                    <filter name="group_company" string="Company" context="{'group_by': 'parent_id'}"/>
+                    <filter name="group_country" string="Country" context="{'group_by': 'country_id'}"/>
+                </group>
+                <searchpanel>
+                    <field name="communication_preferences" icon="fa-users"/>
+                    <field name="preferred_language" icon="fa-users"/>
+                    <!--                        <field name="name" widget='{"fields":["name","dob"], "domain":[], "limit":10, "order":"create_date DESC"}'/>-->
+                </searchpanel>
+            </search>
+        </field>
+    </record>
+    <record id="view_patent_profile_form" model="ir.ui.view">
+        <field name="name">view.patent.profile.form</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_send_mail_user" string="Send Reset Password" type="object"
+                            class="oe_highlight"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="appointments_list_view" type="object" class="oe_stat_button"
+                                icon="fa-calendar">
+                            <div class="o_form_field o_stat_info">
+                                <span class="o_stat_text">
+                                    Appointments
+                                </span>
+                            </div>
+                        </button>
+                        <button type="object" class="oe_stat_button" icon="fa-envelope-open-o"
+                                name="action_view_partner_invoices" context="{'default_partner_id': active_id}">
+                            <div class="o_form_field o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="total_invoiced" widget="monetary"
+                                           options="{'currency_field': 'currency_id'}" modifiers="{'readonly':true}"/>
+                                </span>
+                                <span class="o_stat_text">
+                                    Invoice
+                                </span>
+                            </div>
+                        </button>
+                        <button type="action" class="oe_stat_button" icon="fa-credit-card" name="334"
+                                context="{'search_default_partner_id': active_id, 'create': False, 'edit': False}"
+                                attrs="{'invisible': [('payment_token_count', '=', 0)]}"
+                                modifiers="{'invisible':[['payment_token_count','=',0]]}">
+                            <div class="o_form_field o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="payment_token_count" widget="monetary" nolabel="1"
+                                           options="{'currency_field': 'currency_id'}" modifiers="{'readonly':true}"/>
+                                </span>
+                                <span class="o_stat_text">
+                                    Credit Cards
+                                </span>
+                            </div>
+                        </button>
+                    </div>
+                    <notebook>
+                        <page name="profile" string="Profile" autofocus="autofocus" aria-hidden="true">
+                            <table width='100%'>
+                                <tr>
+                                    <td width='50%'>
+                                        <table>
+                                            <tr>
+                                                <td style="padding-right:10px; width: 14%;">
+                                                    <h4>
+                                                        <field name="title"/>
+                                                    </h4>
+                                                </td>
+                                                <td style="padding-right:10px;width: 20%;">
+                                                    <h4>
+                                                        <field name="first_name" placeholder="First Name"
+                                                               attrs="{'required':[('patient','=', True)]}"/>
+                                                    </h4>
+                                                </td>
+                                                <td style="padding-right:10px;width: 26%;">
+                                                    <h4>
+                                                        <field name="middle_name" placeholder="Middle Name"/>
+                                                    </h4>
+                                                </td>
+                                                <td style="padding-right:10px;width: 26%;">
+                                                    <h4>
+                                                        <field name="last_name" placeholder="Last Name"
+                                                               attrs="{'required':[('patient','=', True)]}"/>
+                                                    </h4>
+                                                </td>
+                                                <td style="padding-right:10px;width: 14%;">
+                                                    <h4>
+                                                        <field name="suffix"/>
+                                                    </h4>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td width='5%'>
+                                    </td>
+                                    <td width='20%'>
+                                        <field name="image_1920" widget="image" class="oe_avatar"
+                                               options="{&quot;preview_image&quot;: &quot;image_128&quot;}"/>
+                                    </td>
+                                </tr>
+                            </table>
+                            <group>
+                                <group>
+                                    <field name="is_company" invisible="1"/>
+                                    <field name="parent_id" invisible="1"/>
+                                    <field name='patient' invisible="1"/>
+                                    <field name="name" invisible="1" attrs="{'required':[('patient','!=', True)]}"
+                                           force_save='1'/>
+                                    <field name="user_ids" invisible="1"/>
+                                    <field name="lang" invisible="1"/>
+                                    <field name="user_id" invisible="1"/>
+
+                              <!--       <field name="id" readonly="1"/> -->
+                                    <field name="nick_name" string='Nickname'/>
+                                    <field name="type" groups="base.group_no_one"
+                                           attrs="{'invisible': [('is_company','=', True)], 'readonly': [('user_ids', '!=', [])]}"
+                                           invisible='1'/>
+                                    <label for="" name="address_name" style='margin-right:10px'>
+                                        <t  attrs="{'invisible': [('update_label_address','=',True)]}">
+                                            <b attrs="{'invisible': [('type', '!=', 'contact')]}">Address</b>
+                                            <b attrs="{'invisible': [('type', '!=', 'invoice')]}">Invoice Address</b>
+                                            <b attrs="{'invisible': [('type', '!=', 'delivery')]}">Delivery Address</b>
+                                            <b attrs="{'invisible': [('type', '!=', 'other')]}">Other Address</b>
+                                            <b attrs="{'invisible': [('type', '!=', 'private')]}">Private Address</b>
+                                            <b attrs="{'invisible': [('type', '!=', False)]}">Address</b>
+                                        </t>
+                                        <t attrs="{'invisible': [('update_label_address','=',False)]}">
+                                            <b attrs="{'invisible': [('type', '!=', 'contact')]}" style="color:red;">Address</b>
+                                            <b attrs="{'invisible': [('type', '!=', 'invoice')]}" style="color:red;">Invoice Address</b>
+                                            <b attrs="{'invisible': [('type', '!=', 'delivery')]}" style="color:red;">Delivery Address</b>
+                                            <b attrs="{'invisible': [('type', '!=', 'other')]}" style="color:red;">Other Address</b>
+                                            <b attrs="{'invisible': [('type', '!=', 'private')]}" style="color:red;">Private Address</b>
+                                            <b attrs="{'invisible': [('type', '!=', False)]}" style="color:red;">Address</b>
+                                        </t>
+                                    </label>
+<!--                                        <b attrs="{'invisible':[('update_label_address','=',False)]}" style="color:red;">-->
+<!--                                            Cell-->
+<!--                                        </b>-->
+<!--                                        <b attrs="{'invisible':[('update_label_address','=',True)]}">Cell</b>-->
+
+                                    <div class="o_address_format">
+                                        <div>
+                                            <div class="row">
+                                                <div class='col-8' style="padding-right: 0px">
+                                                    <field name="street" placeholder="Street..."
+                                                           class="o_address_street" widget="gplaces_autocomplete"
+                                                           attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
+                                                </div>
+                                                <div class='col-4'>
+                                                    <label for="update_label_address" string=" " class="oe_inline"/>
+                                                    <field name="update_label_address" nolabel="1" class="oe_inline"/>
+                                                    <label for="update_label_address" string="Update"
+                                                           class="oe_inline"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <field name="street2" placeholder="Street 2..." class="o_address_street"
+                                               attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
+                                        <field name="city" placeholder="City" class="o_address_city"
+                                               attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
+                                        <field name="state_id" class="o_address_state" placeholder="State"
+                                               options='{"no_open": True}'
+                                               attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"
+                                               context="{'country_id': country_id, 'zip': zip}"/>
+                                        <field name="zip" placeholder="ZIP" class="o_address_zip"
+                                               attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
+                                        <field name="country_id" placeholder="Country" class="o_address_country"
+                                               options='{"no_open": True, "no_create": True}'
+                                               attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
+                                    </div>
+
+
+                                    <label for="" name="update_cell" style='margin-right:10px'>
+                                        <b attrs="{'invisible':[('update_label_cell','=',False)]}" style="color:red;">
+                                            Cell
+                                        </b>
+                                        <b attrs="{'invisible':[('update_label_cell','=',True)]}">Cell</b>
+                                    </label>
+                                    <div>
+                                        <field name="phone" widget="phone" string="Cell" class="oe_inline"/>
+                                        <label for="update_label_cell" string=" " class="oe_inline"/>
+                                        <field name="update_label_cell" class="oe_inline"/>
+                                        <label for="update_label_cell" string="Update" class="oe_inline"/>
+                                    </div>
+
+                                    <label for="" name="update_other">
+                                        <b attrs="{'invisible':[('update_label_other','=',False)]}" style="color:red;">
+                                            Other
+                                        </b>
+                                        <b attrs="{'invisible':[('update_label_other','=',True)]}">Other</b>
+                                    </label>
+                                    <div>
+                                        <field name="other" class="oe_inline"/>
+                                        <label for="update_label_other" string=" " class="oe_inline"/>
+                                        <field name="update_label_other" class="oe_inline"/>
+                                        <label for="update_label_other" string="Update" class="oe_inline"/>
+                                    </div>
+                                    <label for="email" string="Email"/>
+                                    <div>
+                                        <field name="email" class="oe_inline"/>
+                                        <label for="disabled_email" string=" " class="oe_inline"/>
+                                        <field name="disabled_email" class="oe_inline"/>
+                                        <label for="disabled_email" string="Declined" class="oe_inline"/>
+                                    </div>
+
+                                    <field name="referred_by_id"/>
+                                    <label for="date_of_birth"/>
+                                    <div class="oe_row">
+                                        <field name="date_of_birth" class="oe_inline"/>
+                                    <!--     <label for="age" string='Age'/> -->
+                                        <field name="age" class="oe_inline"
+                                               attrs="{'invisible':[('date_of_birth', '=', False)]}"/>
+                                    </div>
+                                    <field name="ssn"/>
+                                    <field name="gender" widget="radio" options="{'horizontal': true}"
+                                           attrs="{'invisible':[('patient','!=',True)], 'required':[('patient','=',True)]}"/>
+                                    <field name="gender_identification"/>
+                                    <field name="marital_status"/>
+                                    <field name="occupation"/>
+                                </group>
+                                <group>
+                                    
+                                    <field name="preferred_language" string="Language"/>
+                                    <field name="race"/>
+                                    <field name="ethnicity"/>
+                                    <field name="partner_id" domain="[('id', '!=', id), ('patient', '=', True)]"
+                                           context="{'form_view_ref': 'opt_custom.view_responsible_party_form', 'default_actual_patien_id':active_id}"/>
+                                    <label for="hipaa_sign"/>
+                                    <div>
+                                        <field name="hipaa_sign" class="oe_inline"/>
+                                        <field name="date" class="oe_inline"
+                                               attrs="{'invisible':['|',('hipaa_sign', '=', False),('patient','!=',True)]}"/>
+                                    </div>
+                                    <field name="provide"
+                                           domain="['|', ('doctor','=',True), ('is_outside_doctor','=',True)]" string="Provider"/>
+                                    <field name="company_id"/>
+
+                                    <label for="active" string="Active" class="o_form_label"/>
+                                    <td style="width: 100%;">
+                                        <field name="active" nolabel="1" style="float: right;" readonly="0"/>
+                                    </td>
+                                    <label for="deceased"/>
+                                    <td style="width: 100%;">
+                                        <field name="deceased" nolabel="1" style="float: right;"/>
+                                    </td>
+                                       <label for="emergency_name" string="Emergency Contact"/>
+                                    <field name="emergency_name" placeholder="Name" nolabel="1"/>
+                                    <label for=" " string=" "/>
+                                    <field name="emergency_phone" placeholder="Phone" widget="phone" nolabel="1"/>
+                                    <field name="communication_preferences" widget="radio" options="{'horizontal': true}" string="Preferred"/>
+                                    <field name="select_all"/>
+                                    <!--                                    <label for="active" string=" "/>-->
+                                </group>
+                                <!--                                <group/>-->
+                                <!--                                <group col="1">-->
+                                <!--                                    <table style="width:100%;" col="1">-->
+                                <!--                                    <tr>-->
+                                <!--                                        <td class="o_td_label">-->
+                                <!--                                            <label for="active" string="Active" class="o_form_label"/>-->
+                                <!--                                        </td>-->
+                                <!--                                        <td style="width: 100%;">-->
+                                <!--                                            <field name="active" nolabel="1" style="float: right;"/>-->
+                                <!--                                        </td>-->
+                                <!--                                    </tr>-->
+                                <!--                                        <tr>-->
+                                <!--                                            <td class="oe_inline">-->
+                                <!--                                                <label for="deceased"/>-->
+                                <!--                                            </td>-->
+                                <!--                                            <td class="oe_inline">-->
+                                <!--                                                <field name="deceased" nolabel="1" style="float: right;"/>-->
+                                <!--                                            </td>-->
+                                <!--                                        </tr>-->
+                                <!--                                    </table>-->
+                                <!--                                    &lt;!&ndash;                                    <div>&ndash;&gt;-->
+                                <!--                                    &lt;!&ndash;                                        <label for="active" string="Active"/>&ndash;&gt;-->
+                                <!--                                    &lt;!&ndash;                                        <field name="active" class="oe_inline" force_save="1" readonly="0"/>&ndash;&gt;-->
+                                <!--                                    &lt;!&ndash;                                        <label for="deceased"/>&ndash;&gt;-->
+                                <!--                                    &lt;!&ndash;                                        <field name="deceased" class="oe_inline"/>&ndash;&gt;-->
+                                <!--                                    &lt;!&ndash;                                    </div>&ndash;&gt;-->
+                                <!--                                </group>-->
+                            </group>
+
+                            <field name="communication_ids" nolabel="1" style="width: min-content;" class="layout_auto">
+                                <tree editable="button" create='false'>
+                                    <field name="communication"/>
+                                    <field name="text"/>
+                                    <field name="cell"/>
+                                    <field name="email"/>
+                                    <field name="mail"/>
+                                    <field name="opt_out"/>
+                                    <field name="partner_id" invisible="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page name='rx_glasses' string="Rx">
+                            <field name="contact_lens_ids" nolabel="1"
+                                   context="{'form_view_ref':'opt_custom.spec_contact_lenses_form', 'tree_view_ref':'opt_custom.spec_contact_lenses_tree'}">
+                            </field>
+                        </page>
+                        <page name='document' string="Documents">
+                            <field name="document_ids">
+                                <tree>
+                                    <field name="document_type"/>
+                                    <field name="title" string="Name"/>
+                                    <field name="description" string="Notes"/>
+                                    <field name="date"/>
+                                    <field name="upload_file_file_name" invisible="1"/>
+                                    <field name="attachment_ids" string="Documents" widget="attachment_preview"/>
+                                    <field name="user_id"/>
+                                </tree>
+                                <form>
+                                    <group col="2" colspan="4">
+
+                                        <field name="document_type"/>
+                                        <field name="upload_file_file_name" invisible="1"/>
+                                        <field name="title" string="Name"/>
+                                        <field name="description" string="Notes"/>
+                                        <field name="date" invisible="1"/>
+                                        <field name="user_id" invisible="0" readonly="1"
+                                               options="{'no_create': True, 'no_open': True}"/>
+                                        <field name="partner_id" invisible="1"/>
+                                        <field name="attachment_ids" widget="many2many_binary"/>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                        <page name='recall' string="Recall">
+                            <group col="4" colspan="4">
+                                <field name="recall_type_ids" nolabel="1">
+                                    <tree>
+                                        <field name="name"/>
+                                        <field name="months" string="Months"/>
+                                        <field name="next_recall_date" string="Recall Date"/>
+                                    </tree>
+                                    <form>
+                                        <group colspan="4" col="4">
+                                            <field name="name"/>
+                                            <field name="months"/>
+                                            <field name="next_recall_date"/>
+                                            <field name="partner_id" invisible="1"/>
+                                        </group>
+                                    </form>
+                                </field>
+                            </group>
+                        </page>
+                        <page string="Addresses">
+                            <field name="child_ids" mode="kanban"
+                                   context="{'default_parent_id': active_id, 'default_street': street, 'default_street2': street2, 'default_city': city, 'default_state_id': state_id, 'default_zip': zip, 'default_country_id': country_id, 'default_lang': lang, 'default_user_id': user_id, 'default_type': 'delivery'}">
+                                <kanban>
+                                    <field name="id"/>
+                                    <field name="color"/>
+                                    <field name="name"/>
+                                    <field name="title"/>
+                                    <field name="type"/>
+                                    <field name="email"/>
+                                    <field name="parent_id"/>
+                                    <field name="is_company"/>
+                                    <field name="function"/>
+                                    <field name="phone"/>
+                                    <field name="street"/>
+                                    <field name="street2"/>
+                                    <field name="zip"/>
+                                    <field name="city"/>
+                               <!--      <field name="country_id"/> -->
+                                    <field name="mobile"/>
+                                    <field name="state_id"/>
+                                    <field name="image_128"/>
+                                    <field name="lang"/>
+                                    <!-- fields in form x2many view to diminish requests -->
+                                    <field name="comment"/>
+                                    <field name="display_name"/>
+                                    <templates>
+                                        <t t-name="kanban-box">
+                                            <t t-set="color" t-value="kanban_color(record.color.raw_value)"/>
+                                            <div t-att-class="color + (record.title.raw_value == 1 ? ' oe_kanban_color_alert' : '') + ' oe_kanban_global_click'">
+                                                <div class="o_kanban_image">
+                                                    <img alt="" t-if="record.image_128.raw_value"
+                                                         t-att-src="kanban_image('res.partner', 'image_128', record.id.raw_value)"/>
+                                                    <t t-if="!record.image_128.raw_value">
+                                                        <img alt="Delivery" t-if="record.type.raw_value === 'delivery'"
+                                                             t-att-src="_s + &quot;/base/static/img/truck.png&quot;"/>
+                                                        <img alt="Invoice" t-if="record.type.raw_value === 'invoice'"
+                                                             t-att-src="_s + &quot;/base/static/img/money.png&quot;"/>
+                                                        <t t-if="record.type.raw_value !== 'invoice' &amp;&amp; record.type.raw_value !== 'delivery'">
+                                                            <img alt="Logo" t-if="record.is_company.raw_value === true"
+                                                                 t-att-src="_s + &quot;/base/static/img/company_image.png&quot;"/>
+                                                            <img alt="Avatar"
+                                                                 t-if="record.is_company.raw_value === false"
+                                                                 t-att-src="_s + &quot;/base/static/img/avatar_grey.png&quot;"/>
+                                                        </t>
+                                                    </t>
+                                                </div>
+                                                <div class="oe_kanban_details">
+                                                    <field name="name"/>
+                                                    <div t-if="record.function.raw_value">
+                                                        <field name="function"/>
+                                                    </div>
+                                                    <div t-if="record.email.raw_value">
+                                                        <field name="email" widget="email"/>
+                                                    </div>
+                                                    <div t-if="record.type.raw_value != 'contact'">
+                                                        <div>
+                                                            <field name="street"/>
+                                                            <field name="street2"/>
+                                                            <field name="zip"/>
+                                                            <field name="city"/>
+                                                        </div>
+                                                        <field t-if="record.state_id.raw_value" name="state_id"/>
+                                                        <field name="country_id"/>
+                                                    </div>
+                                                    <div t-if="record.phone.raw_value">Phone:
+                                                        <field name="phone" widget="phone"/>
+                                                    </div>
+                                                    <div t-if="record.mobile.raw_value">Mobile:
+                                                        <field name="mobile" widget="phone"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </t>
+                                    </templates>
+                                </kanban>
+                                <form string="Contact / Address">
+                                    <sheet>
+                                        <!-- parent_id and type fields needed in attrs in base_address_city module which overwrites
+                                        _fields_view_get() of partner. It would be better to put those fields there but the web client
+                                        dosen't support when a field is displayed several times in the same view.-->
+                                        <field name="type" required="1" widget="radio" options="{'horizontal': true}"/>
+                                        <field name="parent_id" invisible="1"/>
+                                        <field name="website" invisible="1"/>
+                                        <hr/>
+                                        <group col="12">
+                                            <group colspan="5">
+                                                <field name="name" string="Contact Name"
+                                                       attrs="{'required' : [('type', '=', 'contact')]}"/>
+                                                <field name="title" placeholder="e.g. Mr."
+                                                       attrs="{'invisible': [('type','!=', 'contact')]}"/>
+                                                <field name="function" placeholder="e.g. Sales Director"
+                                                       attrs="{'invisible': [('type','!=', 'contact')]}"/>
+                                                <label for="street" string="Address"
+                                                       attrs="{'invisible': [('type','=', 'contact')]}"/>
+                                                <div attrs="{'invisible': [('type','=', 'contact')]}">
+                                                    <div class="o_address_format" name="div_address">
+                                                        <field name="street" placeholder="Street..."
+                                                               widget="gplaces_autocomplete"
+                                                               class="o_address_street"/>
+                                                        <field name="street2" placeholder="Street 2..."
+                                                               class="o_address_street"/>
+                                                        <field name="city" placeholder="City" class="o_address_city"/>
+                                                        <field name="state_id" class="o_address_state"
+                                                               placeholder="State" options="{&quot;no_open&quot;: True}"
+                                                               context="{'country_id': country_id, 'zip': zip}"/>
+                                                        <field name="zip" placeholder="ZIP" class="o_address_zip"/>
+                                                        <field name="country_id" placeholder="Country"
+                                                               class="o_address_country"
+                                                               options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+                                                    </div>
+                                                </div>
+                                                <field name="comment" placeholder="Internal notes..."/>
+                                            </group>
+                                            <group colspan="5">
+                                                <field name="email" widget="email"/>
+                                                <field name="phone" widget="phone"/>
+                                                <field name="mobile" widget="phone"/>
+                                                <field name="company_id" invisible="1"/>
+                                            </group>
+                                            <group colspan="1">
+                                                <field name="image_1920" widget="image" class="oe_avatar" nolabel="1"
+                                                       options="{'image_preview': 'image_128'}"/>
+                                            </group>
+                                        </group>
+                                        <field name="lang" invisible="True"/>
+                                        <field name="user_id" invisible="True"/>
+                                    </sheet>
+                                </form>
+                            </field>
+                        </page>
+                        <page name='family' string="Family">
+                            <field name="family_ids" nolabel="1" domain="[('id', '!=', id), ('patient', '=', True)]"
+                                   context="{'default_actual_patient_id': id}">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="relationship_to_patient" string="Relationship"/>
+                                    <field name="phone"/>
+                                    <field name="email"/>
+                               <!--      <field name="account_balance"/> -->
+                                    <field name="last_exam"/>
+                                </tree>
+                                <form>
+                                    <group>
+                                        <group>
+                                            <div class="oe_title">
+                                                <field name="type" groups="base.group_no_one" invisible='1'/>
+                                                <h2>
+                                                    <field name="name" required="0" invisible="1"/>
+                                                </h2>
+                                                <table>
+                                                    <tr>
+                                                        <td style="padding-right:10px;width: 95px;">
+                                                            <h4>
+                                                                <field name="title"/>
+                                                            </h4>
+                                                        </td>
+                                                        <td style="padding-right:10px;">
+                                                            <h4>
+                                                                <field name="first_name" placeholder="First Name"
+                                                                       required="1"/>
+                                                            </h4>
+                                                        </td>
+                                                        <td style="padding-right:10px;">
+                                                            <h4>
+                                                                <field name="middle_name" placeholder="Middle Name"/>
+                                                            </h4>
+                                                        </td>
+                                                        <td style="padding-right:10px;">
+                                                            <h4>
+                                                                <field name="last_name" placeholder="Last Name"
+                                                                       required="1"/>
+                                                            </h4>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </group>
+                                        <group col="1">
+                                            <table style="width:100%;" col="1">
+                                                <tr>
+                                                    <td style="display: table-cell;">
+                                                        <label for="assign_as_emergency_contact" style="font-weight: bold;"/>
+                                                    </td>
+                                                    <td style="display: table-cell;">
+                                                        <field name="assign_as_emergency_contact" nolabel="1"
+                                                               style="float: right;"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="display: table-cell;">
+                                                        <label for="assign_as_responsible_party" style="font-weight: bold;"/>
+                                                    </td>
+                                                    <td style="display: table-cell;">
+                                                        <field name="assign_as_responsible_party" nolabel="1"
+                                                               style="float: right;"/>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </group>
+                                    </group>
+                                    <group>
+                                        <group>
+                                            <field name="nick_name"/>
+                                            <label for="" name="update_address">
+                                                <b>Address</b>
+                                            </label>
+                                            <div class="o_address_format">
+                                                <div class="o_row">
+                                                    <field name="family_street" placeholder="Street..." widget="gplaces_autocomplete"
+                                                           class="oe_inline"/>
+                                                    <field name="same_as_patient" class="oe_inline"/>
+                                                    <label for="same_as_patient" string="Same as Patient"
+                                                           class="oe_inline"/>
+                                                </div>
+                                                <field name="family_street2" placeholder="Street 2..."
+                                                       class="o_address_street"/>
+                                                <field name="family_city" placeholder="City" class="o_address_city"/>
+                                                <field name="family_state_id" class="o_address_state"
+                                                       placeholder="State" options="{&quot;no_open&quot;: True}"
+                                                       context="{'family_country_id': family_country_id, 'family_zip': family_zip}"/>
+                                                <field name="family_zip" placeholder="ZIP" class="o_address_zip"/>
+                                                <field name="family_country_id" placeholder="Country"
+                                                       class="o_address_country"
+                                                       options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+                                            </div>
+                                            <field name="phone" widget="phone" string="Cell"/>
+                                            <field name="other"/>
+                                            <label for="email" string="Email"/>
+                                            <div class="o_row">
+                                                <field name="email" class="oe_inline"/>
+                                                <field name="disabled_email" class="oe_inline"/>
+                                                <label for="disabled_email" string="Declined" class="oe_inline"/>
+                                                <field name="actual_patien_id" invisible="1"/>
+                                            </div>
+                                        </group>
+                                        <group>
+                                            <label for="date_of_birth"/>
+                                            <div class="oe_row">
+                                                <field name="date_of_birth" class="oe_inline"/>
+                                            </div>
+                                            <field name="ssn"/>
+                                            <field name="gender" widget="radio" options="{'horizontal': true}"/>
+                                            <field name="gender_identification"/>
+                                            <field name="relationship_to_patient"/>
+                                        </group>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                        <!--                        <page name='notes' string="Notes">-->
+                        <!--                            <field name='notes_ids' nolabel='1'>-->
+                        <!--                                <tree>-->
+                        <!--                                    <field name="name"/>-->
+                        <!--                                    <field name="urgent"/>-->
+                        <!--                                    <field name="follow_up"/>-->
+                        <!--                                </tree>-->
+                        <!--                                <form>-->
+                        <!--                                    <group>-->
+                        <!--                                        <group>-->
+                        <!--                                            <field name="urgent"/>-->
+                        <!--                                        </group>-->
+                        <!--                                        <group>-->
+                        <!--                                            <field name="follow_up"/>-->
+                        <!--                                        </group>-->
+                        <!--                                    </group>-->
+                        <!--                                    <group>-->
+                        <!--                                        <field name="name" required='1'/>-->
+                        <!--                                    </group>-->
+                        <!--                                </form>-->
+                        <!--                            </field>-->
+                        <!--                        </page>-->
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_patent_profile_kanban" model="ir.ui.view">
+        <field name="name">view.patent.profile.kanban</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <kanban class="o_res_partner_kanban">
+                <field name="id"/>
+                <field name="parent_id"/>
+                <field name="is_company"/>
+                <field name="image_128"/>
+                <field name="type"/>
+                <field name="recall_type_ids"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click o_kanban_record_has_image_fill o_res_partner_kanban">
+                            <t t-if="!record.is_company.raw_value">
+                                <t t-if="record.type.raw_value === 'delivery'" t-set="placeholder"
+                                   t-value="'/base/static/img/truck.png'"/>
+                                <t t-elif="record.type.raw_value === 'invoice'" t-set="placeholder"
+                                   t-value="'/base/static/img/money.png'"/>
+                                <t t-else="" t-set="placeholder" t-value="'/base/static/img/avatar_grey.png'"/>
+                                <div class="o_kanban_image_fill_left d-none d-md-block"
+                                     t-attf-style="background-image:url('#{kanban_image('res.partner', 'image_128', record.id.raw_value,  placeholder)}')">
+                                    <img class="o_kanban_image_inner_pic" t-if="record.parent_id.raw_value"
+                                         t-att-alt="record.parent_id.value"
+                                         t-att-src="kanban_image('res.partner', 'image_128', record.parent_id.raw_value)"/>
+                                </div>
+                                <div class="o_kanban_image d-md-none"
+                                     t-attf-style="background-image:url('#{kanban_image('res.partner', 'image_128', record.id.raw_value,  placeholder)}')">
+                                    <img class="o_kanban_image_inner_pic" t-if="record.parent_id.raw_value"
+                                         t-att-alt="record.parent_id.value"
+                                         t-att-src="kanban_image('res.partner', 'image_128', record.parent_id.raw_value)"/>
+                                </div>
+                            </t>
+                            <t t-else="">
+                                <t t-set="placeholder" t-value="'/base/static/img/company_image.png'"/>
+                                <div class="o_kanban_image_fill_left o_kanban_image_full"
+                                     t-attf-style="background-image: url(#{kanban_image('res.partner', 'image_128', record.id.raw_value, placeholder)})"
+                                     role="img"/>
+                            </t>
+                            <div class="row oe_kanban_details" style="margin-left: 0px;">
+                                <div class="o_kanban_tags_section oe_kanban_partner_categories"/>
+                                <ul style="width: 100%;">
+                                    <li>
+                                        <div class="row" style="max-width: 95%;margin-left: -0.7%;">
+                                            <div class="col-md-9 col-lg-9 col-12" style="padding:0px;">
+                                                <strong class="o_kanban_record_title oe_partner_heading">
+                                                    <field name="first_name"/>
+                                                    <field name="middle_name"/>
+                                                    <field name="last_name"/>
+                                                    <t t-if="record.nick_name.raw_value">
+                                                        (<field name="nick_name"/>)
+                                                    </t>
+                                                </strong>
+                                            </div>
+                                           <!--  <div class="col-md-3 col-lg-3 col-6" style="padding:0px;">
+                                                ID:
+                                                <field name="id"/>
+                                            </div> -->
+                                        </div>
+                                    </li>
+                                    <li>
+                                         <field name="gender"/>
+                                        <field name="date_of_birth"/>
+                                        (<field name="age"/>)
+                                    </li>
+                                    <li>
+                                        <div class="row" style="max-width: 95%;margin-left: -0.7%;">
+                                            <t t-if="record.recall_type_ids.raw_value">
+                                                <t t-if="record.recall_type_ids.raw_value.length > 2">
+                                                    <div class="row">
+                                                        <t t-foreach="record.recall_type_ids.raw_value"
+                                                           t-as="recall_type_id">
+                                                            <div t-if="isNaN(parseInt(recall_type_id))"
+                                                                 class="col-lg-6 col-g col-md-6">
+                                                                <t t-esc="recall_type_id.name[1]"/>
+                                                                :
+                                                                <t t-esc="recall_type_id.next_recall_date"/>
+                                                            </div>
+                                                        </t>
+                                                    </div>
+                                                </t>
+                                                <t t-else="">
+                                                    <div class="row">
+                                                        <t t-foreach="record.recall_type_ids.raw_value"
+                                                           t-as="recall_type_id">
+                                                            <div t-if="isNaN(parseInt(recall_type_id))"
+                                                                 class="col-lg-12 col-12 col-md-12">
+                                                                <t t-esc="recall_type_id.name[1]"/>
+                                                                :
+                                                                <t t-esc="recall_type_id.next_recall_date"/>
+                                                            </div>
+                                                            <!--                                                        <t t-esc="recall_type_id.next_recall_date.strftime('%m/%d/%Y')"/>-->
+                                                        </t>
+                                                    </div>
+                                                </t>
+                                            </t>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="row" style="max-width: 95%;margin-left: -0.7%;">
+                                            <div class="text-right col-xs-5" style="padding: 2px;font-size: 10px;">
+                                                <field name="company_id"/>
+                                            </div>
+                                            <div  class="text-left col-lg-7"
+                                                 style="padding: 2px;font-size: 10px;text-align-last: right;">
+                                                <span class="balance"/>
+                                            </div>
+                                        </div>
+                                        <div class="row" style="max-width: 95%;margin-left: -0.7%;">
+                                            <div class="text-center col-lg-12"
+                                                 style="padding: 2px;font-size: 10px;text-align-last: start;">
+                                                <field name="provide"/>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="patient_profile_action" model="ir.actions.act_window">
+        <field name="name">Patients</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="search_view_id" ref="opt_custom.patient_search_view"/>
+        <field name="context">{'default_patient': True, 'search_default_active':1, 'name_id':1}</field>
+        <field name="domain">[('patient','=', True),('type','=', 'contact'), ('recall_type_ids', '!=', 0), ('active',
+            'in', [True, False])]
+        </field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smilig_face">
+                Create a new patient
+            </p>
+        </field>
+    </record>
+
+    <record id="action_contacts_view_kanban_patent" model="ir.actions.act_window.view">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">kanban</field>
+        <field name="view_id" ref="opt_custom.view_patent_profile_kanban"/>
+        <field name="act_window_id" ref="opt_custom.patient_profile_action"/>
+    </record>
+
+    <record id="action_contacts_view_tree_patent" model="ir.actions.act_window.view">
+        <field name="sequence" eval="2"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="patient_view_partner_tree"/>
+        <!--        <field name="view_id" ref="base.view_partner_tree"/>-->
+        <field name="act_window_id" ref="patient_profile_action"/>
+    </record>
+    <record id="action_contacts_view_form_patent" model="ir.actions.act_window.view">
+        <field name="sequence" eval="3"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="opt_custom.view_patent_profile_form"/>
+        <field name="act_window_id" ref="patient_profile_action"/>
+    </record>
+
+    <menuitem name="Patients"
+              id="create_menu_patient"
+              action="patient_profile_action"
+              parent="root_patient_menu"
+              sequence="1"/>
+</odoo>

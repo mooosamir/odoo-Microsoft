@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- account incoterms -->
+        <record id="dispensing_note_tree" model="ir.ui.view">
+            <field name="name">dispensing.notes.tree.view</field>
+            <field name="model">dispensing.notes</field>
+            <field name="arch" type="xml">
+                <tree string="Dispensing Notes" editable="bottom">
+                    <field colspan="4" name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="dispensing_note_form" model="ir.ui.view">
+            <field name="name">dispensing.notes.form</field>
+            <field name="model">dispensing.notes</field>
+            <field name="arch" type="xml">
+                <form string="Dispensing Notes">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_dispensing_note_tree" model="ir.actions.act_window">
+            <field name="name">Dispensing Note</field>
+            <field name="res_model">dispensing.notes</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+</odoo>

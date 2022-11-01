@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_post_sale_reasons,post.sale.reasons,model_post_sale_reasons,base.group_user,1,1,1,1
+access_post_sale_transactions,post.sale.transactions,model_post_sale_transactions,base.group_user,1,1,1,1
+access_post_sale_transactions_lines,post.sale.transactions.lines,model_post_sale_transactions_lines,base.group_user,1,1,1,1
+access_post_sale_order_line,post.sale.order.line,model_post_sale_order_line,base.group_user,1,1,1,1
+access_sale_order_session,sale.order.session,model_sale_order_session,base.group_user,1,1,1,1
+access_balance_reporting_wizard,balance.reporting.wizard,model_balance_reporting_wizard,base.group_user,1,1,1,1
+access_balance_reporting_line_wizard,balance.reporting.line.wizard,model_balance_reporting_line_wizard,base.group_user,1,1,1,1
+access_lens_treatment_products,lens_treatment.products.wizard,model_lens_treatment_products,base.group_user,1,1,1,1

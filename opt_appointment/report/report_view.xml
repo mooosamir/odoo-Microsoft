@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="paper_format_02" model="report.paperformat">
+        <field name="name">Sales Invoice</field>
+        <field name="format">A4</field>
+        <field name="margin_top">5</field>
+        <field name="margin_bottom">6</field>
+        <field name="orientation">Landscape</field>
+    </record>
+    <report
+            id="action_report_appointment"
+            string="Appointment Report"
+            model="calendar.event"
+            report_type="qweb-pdf"
+            file="opt_appointment.report_appointment_template"
+            name="opt_appointment.report_appointment_template"
+            print_report_name="'Appointment Schedule Report'"
+    />
+        <record id="action_report_appointment" model="ir.actions.report">
+            <field name="paperformat_id" ref="opt_appointment.paper_format_02"/>
+        </record>
+
+</odoo>

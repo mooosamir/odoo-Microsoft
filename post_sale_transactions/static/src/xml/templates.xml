@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates>
+
+    <t t-name="pst.stripe_initial">
+        <div class="container">
+            <div class="row">
+                <div class="col align-self-center">
+                    <form id='payment-form' style="width:100%;">
+                        <div class="row">
+                            <div class="col-lg-12 col-12">
+                                <label>
+                                    Card details
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 col-12">
+                                <div id="card-element" style="width:100%;"></div>
+                            </div>
+                        </div>
+                        <div class="row returns" style="display:none">
+                            <div class="col-lg-12 col-12">
+                                <table style="width: 100%;text-align: center;">
+                                    <tr>
+                                        <th>Date Time</th>
+                                        <th>Memo</th>
+                                        <th>Amount</th>
+<!--                                        <th>Reference</th>-->
+                                        <th>card</th>
+                                        <th>brand</th>
+<!--                                        <th>Total Amount</th>-->
+                                        <th>Return</th>
+                                    </tr>
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 col-12">
+                                <button type="submit" style="margin: 20px 0px 0px 0px;" class="btn btn-primary">
+                                    Submit Payment
+                                </button>
+                                <button type="button" style="margin: 20px 0px 0px 0px;" class="back button btn btn-primary">
+                                    Back
+                                </button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 col-12" style="padding: 20px 0px 0px 20px;color: red;">
+                                <div class="error_message">
+
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <div t-name="zif_session_widget_main" style="width: 100%;display: inline-flex !important;">
+        <button class="zif_set_value o_hidden"/>
+        <t t-if="widget.state == 'draft' or widget.state == 'opening_control'">
+            <div style="padding-left: 200px;">
+                <table t-att-session_id="widget.dict.id">
+                    <tr>
+                        <th>Starting Cash</th>
+                        <td style="padding-left: 20px;">
+                            <t t-if="widget.state == 'opening_control'">
+                                 <t t-if="widget.mode !== 'readonly'">
+                                     <input class="starting_cash" t-att-value="widget.dict.cash_register_balance_start"/>
+                                 </t>
+                                 <t t-else="">
+                                     <span><t t-esc="widget.dict.cash_register_balance_start" /></span>
+                                 </t>
+                            </t>
+                        </td>
+<!--                        <td style="padding-left: 20px;">-->
+<!--                            <button type="button" class="btn oe_inline btn-link starting_cash">Set Starting Cash</button>-->
+<!--                        </td>-->
+                    </tr>
+                </table>
+            </div>
+        </t>
+        <t t-else="">
+            <div style="padding-left: 200px;" t-if="widget.dict.journal_ids.length > 0">
+                <input class="session_value" t-att-value="widget.value" readonly="readonly" type="hidden"/>
+                <table t-att-session_id="widget.dict.id">
+                    <tr>
+                        <td>Payment Method</td>
+                        <td>Expected</td>
+                        <td>Counted</td>
+                        <td>Difference</td>
+                    </tr>
+                     <t t-foreach="widget.dict.journal_ids || []" t-as="journal_id">
+                         <tr t-att-data-type="journal_id.type"
+                             t-att-data-id="journal_id.Id">
+                             <td><t t-esc="journal_id.name"/></td>
+                             <t t-if="journal_id.name.toLowerCase() == 'cash'">
+                                <td class="expected"><t t-esc="widget.dict.cash_register_balance_start + journal_id.total"/></td>
+                             </t>
+                             <t t-else="">
+                                <td class="expected"><t t-esc="journal_id.total"/></td>
+                             </t>
+                             <td t-if="widget.state == 'closing_control'">
+                                 <t t-if="journal_id.name.toLowerCase() == 'cash' &amp;&amp; widget.mode !== 'readonly'">
+                                     <input class="counted" t-att-value="journal_id.counted"/>
+                                 </t>
+                                 <t t-elif="journal_id.name.toLowerCase() == 'bank' &amp;&amp; widget.mode !== 'readonly'">
+                                     <input class="counted" t-att-value="journal_id.counted"/>
+                                 </t>
+                                 <t t-else="">
+                                     <span class="counted"><t t-esc="journal_id.counted" /></span>
+                                 </t>
+                             </td>
+                             <td t-elif="widget.state == 'closed'">
+                                 <span class="counted"><t t-esc="journal_id.counted" /></span>
+                             </td>
+                             <td t-else="">
+                                 <span class="counted"></span>
+                             </td>
+
+                             <td><span class="difference">
+                                 <t t-if="widget.state == 'closing_control' || widget.state == 'closed'">
+                                     <t t-esc="journal_id.difference" />
+                                 </t>
+                                 <t t-else="">
+                                 </t>
+                             </span></td>
+                         </tr>
+                         <t t-if="journal_id.name.toLowerCase() == 'cash'">
+                             <tr t-att-data-type="journal_id.type"
+                                 t-att-data-id="journal_id.Id">
+                                 <td style="padding-left: 30px !important;border-left: 1px solid black;">Opening</td>
+                                 <td class="expected"><t t-esc="widget.dict.cash_register_balance_start"/></td>
+                                 <td><span class="counted"></span></td>
+                                 <td><span class="difference"></span></td>
+                             </tr>
+                             <tr t-att-data-type="journal_id.type"
+                                 t-att-data-id="journal_id.Id">
+                                 <td style="padding-left: 30px !important;border-left: 1px solid black;">Payments in cash</td>
+                                 <td class="expected"><t t-esc="journal_id.total"/></td>
+                                 <td><span class="counted"></span></td>
+                                 <td><span class="difference"></span></td>
+                             </tr>
+                         </t>
+                     </t>
+                </table>
+            </div>
+        </t>
+    </div>
+
+</templates>

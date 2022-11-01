@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="appointment_details_report">
+        <t t-call="web.html_container">
+            <t t-call="opt_reports.appointment_details_reports" t-lang="o.partner_id.lang"/>
+        </t>
+    </template>
+
+    <template id="appointment_details_reports">
+        <t t-call="general_template.creative_external_layout">
+            <t t-set="o" t-value="o.with_context({'lang':o.partner_id.lang})"/>
+            <t t-set="theme_color" t-value="o.company_id and o.company_id.theme_color"/>
+            <t t-set="theme_text_color" t-value="o.company_id and o.company_id.theme_text_color"/>
+            <t t-set="company_color" t-value="o.company_id and o.company_id.company_color"/>
+            <t t-set="company_address_color" t-value="o.company_id and o.company_id.company_address_color"/>
+            <t t-set="customer_color" t-value="o.company_id and o.company_id.customer_color"/>
+            <t t-set="customer_address_color" t-value="o.company_id and o.company_id.customer_address_color"/>
+            <t t-set="text_color" t-value="o.company_id and o.company_id.text_color"/>
+            <div class="page"
+                 t-att-style="'font-family:'+o.company_id.font_id.family+';font-size:'+str(o.company_id.font_size)+'px;'">
+                <div class="oe_structure"/>
+                <t t-call="general_template.template_watermark"/>
+                <!--                    <t t-call="opt_reports.custom_footer"></t>-->
+                <t>
+                    <table BORDERCOLOR="#{theme_color or '#000000'}" border="1" cellpadding="0" cellspacing="0"
+                           class="table table-bordered"
+                           style="border:0.5px solid #ccc;  border-collapse: collapse; text-transform:capitalize; padding:15px;border-bottom:1px solid #ccc;"
+                           width="100%">
+                        <thead>
+                            <tr t-attf-style="page-break-inside: avoid !important;background-color: #{theme_color or '#000000'}; color: #{theme_text_color or '#000000'};">
+                                <th align="center" class="text-center"
+                                    t-att-style="'padding:5px 10px; border:0.5px solid #ccc !important; border-right:0px solid #ccc !important;'">
+                                    <b>Time</b>
+                                </th>
+                                <th align="center" class="text-center"
+                                    t-att-style="'padding:5px 10px; border:0.5px solid #ccc !important; border-right:0px solid #ccc !important;'">
+                                    <b>Provider</b>
+                                </th>
+                                <th align="center" class="text-center"
+                                    t-att-style="'padding:5px 10px; border:0.5px solid #ccc !important; border-right:0px solid #ccc !important;'">
+                                    <b>Patient Name</b>
+                                </th>
+                                <th align="center" class="text-center"
+                                    t-att-style="'padding:5px 10px; border:0.5px solid #ccc !important; border-right:0px solid #ccc !important;'">
+                                    <b>Date Of Birth</b>
+                                </th>
+                                <th align="center" class="text-center"
+                                    t-att-style="'padding:5px 10px; border:0.5px solid #ccc !important; border-right:0px solid #ccc !important;'">
+                                    <b>Cell #</b>
+                                </th>
+                                <th align="center" class="text-center"
+                                    t-att-style="'padding:5px 10px; border:0.5px solid #ccc !important; border-right:0px solid #ccc !important;'">
+                                    <b>Service</b>
+                                </th>
+                                <th align="center" class="text-center"
+                                    t-att-style="'padding:5px 10px; border:0.5px solid #ccc !important; border-right:0px solid #ccc !important;'">
+                                    <b>Status</b>
+                                </th>
+                                <th align="center" class="text-center"
+                                    t-att-style="'padding:5px 10px; border:0.5px solid #ccc !important; border-right:0px solid #ccc !important;'">
+                                    <b>Appointment Status</b>
+                                </th>
+                                <th align="center" class="text-center"
+                                    t-att-style="'padding:5px 10px; border:0.5px solid #ccc !important; border-right:0px solid #ccc !important;'">
+                                    <b>Insurance</b>
+                                </th>
+                                <th align="center" class="text-center"
+                                    t-att-style="'padding:5px 10px; border:0.5px solid #ccc !important; border-right:0px solid #ccc !important;'">
+                                    <b>Notes</b>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody style="border-top: 1px solid black;">
+                            <t>
+                                <t t-foreach="docs.calender_event" t-as="line">
+                                    <t t-if="line_odd">
+                                        <t t-set="ol_color" t-value="o.company_id.odd_party_color"/>
+                                    </t>
+                                    <t t-else="">
+                                        <t t-set="ol_color" t-value="o.company_id.even_party_color"/>
+                                    </t>
+                                    <tr t-att-style="'page-break-inside: avoid !important;background-color: '+ ol_color + '; color: '+ text_color">
+                                        <td align="center" class="text-center"
+                                            t-att-style="'padding:5px 10px; border:0.5px solid #ccc !important; border-right:0px solid #ccc !important;'">
+                                            <t t-if="line.start_datetime">
+                                                <span t-esc="fields.Datetime.context_timestamp(line.with_context(tz=line.company_event_tz), datetime.strptime(str(line.start_datetime),
+                                                                                  DEFAULT_SERVER_DATETIME_FORMAT)).strftime('%I:%M %p')"/>
+                                            </t>
+                                        </td>
+                                        <td align="center" class="text-center"
+                                            t-att-style="'padding:5px 10px; border:0.5px solid #ccc !important; border-right:0px solid #ccc !important;'">
+                                            <span t-field="line.employee_id.name"/>
+                                        </td>
+                                        <td align="center" class="text-center"
+                                            t-att-style="'padding:5px 10px; border:0.5px solid #ccc !important; border-right:0px solid #ccc !important;'">
+                                            <span t-field="line.patient_id.name"/>
+                                        </td>
+                                        <td align="center" class="text-center"
+                                            t-att-style="'padding:5px 10px; border:0.5px solid #ccc !important; border-right:0px solid #ccc !important;'">
+                                            <span t-field="line.patient_id.date_of_birth"/>
+                                        </td>
+                                        <td align="center" class="text-center"
+                                            t-att-style="'padding:5px 10px; border:0.5px solid #ccc !important; border-right:0px solid #ccc !important;'">
+                                            <span t-field="line.patient_id.phone"/>
+                                        </td>
+                                        <td align="center" class="text-center"
+                                            t-att-style="'padding:5px 10px; border:0.5px solid #ccc !important; border-right:0px solid #ccc !important;'">
+                                            <t t-if="line.service_type.name_get() and len(line.service_type.name_get()) > 0">
+                                                <span t-esc="line.service_type.name_get()[0][1]"/>
+                                            </t>
+                                        </td>
+                                        <td align="center" class="text-center"
+                                            t-att-style="'padding:5px 10px; border:0.5px solid #ccc !important; border-right:0px solid #ccc !important;'">
+                                            <span t-field="line.confirmation_status"/>
+                                        </td>
+                                        <td align="center" class="text-center"
+                                            t-att-style="'padding:5px 10px; border:0.5px solid #ccc !important; border-right:0px solid #ccc !important;'">
+                                            <span t-field="line.appointment_status"/>
+                                        </td>
+                                        <td align="center" class="text-center"
+                                            t-att-style="'padding:5px 10px; border:0.5px solid #ccc !important; border-right:0px solid #ccc !important;'">
+                                            <t t-if="line.insurance_id.name_get() and len(line.insurance_id.name_get()) > 0">
+                                                <span t-esc="line.insurance_id.name_get()[0][1]"/>
+                                            </t>
+                                        </td>
+                                        <td align="center" class="text-center"
+                                            t-att-style="'padding:5px 10px; border:0.5px solid #ccc !important; border-right:0px solid #ccc !important;'">
+                                            <span t-field="line.notes"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </t>
+                        </tbody>
+                    </table>
+                    <p style="page-break-after: always;"/>
+                </t>
+                <div class="oe_structure"/>
+            </div>
+            <t t-call="general_template.report_barcode"/>
+        </t>
+    </template>
+</odoo>

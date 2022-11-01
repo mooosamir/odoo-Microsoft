@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template priority="130" id="ks_assets_kernel_backend" inherit_id="web.assets_backend" name="Auth Assets">
+        <xpath expr="." position="inside">
+
+            <link rel="stylesheet"
+                  type="text/scss"
+                  href="/ks_theme_kernel/static/src/scss/ks_appdrawer_only_for_background_image.scss"
+            />
+            <link rel="stylesheet"
+                  type="text/css"
+                  href="/ks_theme_kernel/static/src/css/style.css"
+            />
+            <link rel="stylesheet"
+                  type="text/scss"
+                  href="/ks_theme_kernel/static/src/scss/variables.scss"
+            />
+            <link rel="stylesheet"
+                  type="text/scss"
+                  href="/ks_theme_kernel/static/src/scss/ks_animation.scss"
+            />
+            <link rel="stylesheet"
+                  type="text/scss"
+                  href="/ks_theme_kernel/static/src/scss/ks_common.scss"
+            />
+            <link rel="stylesheet"
+                  type="text/scss"
+                  href="/ks_theme_kernel/static/src/scss/ks_background.scss"
+            />
+            <link rel="stylesheet"
+                  type="text/scss"
+                  href="/ks_theme_kernel/static/src/scss/ks_left_sidebar.scss"
+            />
+            <link rel="stylesheet"
+                  type="text/scss"
+                  href="/ks_theme_kernel/static/src/scss/ks_filter.scss"
+            />
+            <link rel="stylesheet"
+                  type="text/scss"
+                  href="/ks_theme_kernel/static/src/scss/ks_btn.scss"
+            />
+            <link rel="stylesheet"
+                  type="text/scss"
+                  href="/ks_theme_kernel/static/src/scss/ks_views.scss"
+            />
+            <link rel="stylesheet"
+                  type="text/scss"
+                  href="/ks_theme_kernel/static/src/scss/ks_color_palettes.scss"
+            />
+            <link rel="stylesheet"
+                  type="text/scss"
+                  href="/ks_theme_kernel/static/src/scss/ks_navbar.scss"
+            />
+             <link rel="stylesheet"
+                  type="text/scss"
+                  href="/ks_theme_kernel/static/src/scss/ks_override.scss"
+            />
+            <link rel="stylesheet"
+                  type="text/scss"
+                  href="/ks_theme_kernel/static/src/scss/compatibility/lvm.scss"
+            />
+            <link rel="stylesheet"
+                  type="text/scss"
+                  href="/ks_theme_kernel/static/src/scss/ks_settings_menu.scss"
+            />
+            <link rel="stylesheet"
+                  type="text/scss"
+                  href="/ks_theme_kernel/static/src/scss/ks_rtl.scss"
+            />
+            <link rel="stylesheet"
+                  type="text/css"
+                  href="/ks_theme_kernel/static/src/easy-autocomplete/easy-autocomplete.css"
+            />
+            <link rel="stylesheet"
+                  type="text/css"
+                  href="/ks_theme_kernel/static/src/spectrum/spectrum.css"
+            />
+            <link rel="stylesheet"
+                  type="text/css"
+                  href="/ks_theme_kernel/static/src/scss/ks_color_fixes.scss"
+            />
+
+            <script type="text/javascript" src="/ks_theme_kernel/static/src/js/ks_inherit_menu.js"/>
+            <script type="text/javascript" src="/ks_theme_kernel/static/src/easy-autocomplete/easy-autocomplete.js"/>
+            <script type="text/javascript" src="/ks_theme_kernel/static/src/spectrum/spectrum.js"/>
+            <script type="text/javascript" src="/ks_theme_kernel/static/src/js/ks_configuration.js"/>
+            <script type="text/javascript" src="/ks_theme_kernel/static/src/js/ks_configuration_widget.js"/>
+            <script type="text/javascript" src="/ks_theme_kernel/static/src/js/ks_search_bar_into_header.js"/>
+            <script type="text/javascript" src="/ks_theme_kernel/static/src/js/ks_font_icon_widget.js"/>
+            <script type="text/javascript" src="/ks_theme_kernel/static/src/js/ks_special_icons_widget.js"/>
+            <script type="text/javascript" src="/ks_theme_kernel/static/src/js/ks_unsplash_widget.js"/>
+            <script type="text/javascript" src="/ks_theme_kernel/static/src/js/ks_clock_widget.js"/>
+            <script type="text/javascript" src="/ks_theme_kernel/static/src/js/ks_list_render.js"/>
+
+        </xpath>
+    </template>
+
+    <!-- TEMPLATE FOR DEFAULT COLOR PALETTE -->
+    <template priority="102" id="ks_theme_kernel.backend_color_" name="default_color_pallete"
+              inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet"
+                  type="text/scss"
+                  href="/ks_theme_kernel/static/src/scss/themes/default_color.scss"
+            />
+        </xpath>
+    </template>
+
+    <!-- LOGIN PAGE SCSS -->
+    <template priority="135" id="ks_assets_kernel_frontend" inherit_id="web.assets_frontend" name="Front Assets">
+        <xpath expr="." position="inside">
+
+            <link rel="stylesheet"
+                  type="text/scss"
+                  href="/ks_theme_kernel/static/src/scss/ks_login_page.scss"
+            />
+        </xpath>
+    </template>
+
+    <!-- DOUBLE CLICK EDIT -->
+    <template id="ks_double_click_backend" inherit_id="web.assets_backend" name="Click Edit">
+        <xpath expr="." position="inside">
+            <t t-set="dclick_edit"
+               t-value="request and request.env['res.users'].sudo().is_ks_click_edit_enabled(request)"/>
+            <t t-if="dclick_edit">
+                <script type="text/javascript" src="/ks_theme_kernel/static/src/js/ks_click_form_edit.js"/>
+            </t>
+        </xpath>
+    </template>
+</odoo>

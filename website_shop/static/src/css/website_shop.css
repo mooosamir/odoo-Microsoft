@@ -1,0 +1,38 @@
+@charset "UTF-8";
+
+/*!
+Animate.css - http://daneden.me/animate
+Licensed under the MIT license - http://opensource.org/licenses/MIT
+
+Copyright (c) 2014 Daniel Eden
+*/
+
+
+body {
+    font-family: 'Muli', sans-serif;
+    }
+h1 {
+    font-size: 2em;
+    font-weight: bold;
+}
+.FrameDetailHeading {
+    padding: 0.5em 0;
+    font-weight: bold;
+    font-size: 1.2em;
+    padding-left:6px;
+}
+#divFrmEySzNoTab {
+    margin: auto;
+    padding-bottom: 10px;
+}
+.FrameEyeSize {
+    padding-top: 20px;
+}
+.FrameEyeSize td {
+    text-align: center;
+    padding: .2em;
+}
+.zoom-product
+ {
+     max-height: 400px!important;
+ }

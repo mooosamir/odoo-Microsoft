@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- Integration Form -->
+    <record id="integration_form" model="ir.ui.view">
+        <field name="name">integration.form</field>
+        <field name="model">res.integration</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="company_id"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <field name="res_integration_lines">
+                        <tree editable="bottom" delete="0" create="0">
+                            <field name="key" readonly="1" width="50%"/>
+                            <field name="value"/>
+                        </tree>
+                    </field>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Integration Tree -->
+    <record id="integration_tree" model="ir.ui.view">
+        <field name="name">integration.tree</field>
+        <field name="model">res.integration</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="company_id"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Integration Actions -->
+    <record id="integration_action" model="ir.actions.act_window">
+        <field name="name">Integrations</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.integration</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create first Integration!
+            </p>
+        </field>
+    </record>
+
+
+    <menuitem id="ivis_integration" name="Integrations" parent="opt_custom.root_configrastion_menu"
+              action="integration_action" sequence="0"/>
+
+</odoo>

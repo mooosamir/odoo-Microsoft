@@ -1,0 +1,56 @@
+<odoo>
+	<!-- Tree View of Diagnosis -->
+	<record id="diagnosis_tree_view" model="ir.ui.view">
+		<field name="name">diagnosis.setup.tree.view</field>
+		<field name="model">diagnosis.setup</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="name"/>
+				<field name="description"/>
+			</tree>
+		</field>
+	</record>
+
+	<!-- Form View of Diagnosis -->
+	<record id="diagnosis_from_view" model="ir.ui.view">
+		<field name="name">diagnosis.setup.view</field>
+		<field name="model">diagnosis.setup</field>
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<group>
+						<group>
+							<field name="name" required="1"/>
+							<field name="description" required="1"/>
+						</group>
+					</group>
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+	<record id="diagnosis_from_view_search" model="ir.ui.view">
+		<field name="name">diagnosis.from.view.search</field>
+		<field name="model">diagnosis.setup</field>
+		<field name="arch" type="xml">
+			<search string="Search By Code and Description">
+				<field name="name"/>
+				<field name="description"/>
+			</search>
+		</field>
+	</record>
+
+
+	<!-- Action of Diagnosis -->
+	<record id="diagnosis_action" model="ir.actions.act_window">
+		<field name="name">Diagnosis</field>
+		<field name="res_model">diagnosis.setup</field>
+		<field name="view_mode">tree,form</field>
+		<field name="search_view_id" ref="diagnosis_from_view_search"/>
+	</record>
+
+	<!-- Diagnosis Menu -->
+<!--        has been moved to opt_insurance-->
+<!--	<menuitem id="menu_diagnosis" name="Diagnosis" action="diagnosis_action" sequence="3"-->
+<!--			  parent="opt_custom.insurance_configuration_menu"/>-->
+</odoo>

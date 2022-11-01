@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <menuitem id="payment_methods_main_menu" action="account.action_account_journal_form"
+                  parent="opt_custom.sales_configuration_menu" sequence="1" name="Payment Methods"/>
+        <menuitem id="post_sale_reasons_main_menu" action="post_sale_reasons_action_window"
+                  parent="opt_custom.sales_configuration_menu" sequence="4" name="Post Sale Reasons"/>
+
+    </data>
+</odoo>

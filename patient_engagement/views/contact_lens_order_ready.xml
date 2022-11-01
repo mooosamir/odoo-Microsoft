@@ -1,0 +1,250 @@
+<odoo>
+    <record id="contact_lens_order_ready_tree" model="ir.ui.view">
+        <field name="name">contact.lens.order.ready.tree</field>
+        <field name="model">patient.messaging</field>
+        <field name="arch" type="xml">
+            <tree>
+                 <field name="company_id" widget="many2many_tags"/>
+                <field name="is_active_case_1"/>
+                <field name="is_active_case_2"/>
+                <field name="is_active_case_3"/>
+                <field name="is_active_case_4"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="contact_lens_order_ready_form" model="ir.ui.view">
+        <field name="name">contact.lens.order.ready.form</field>
+        <field name="model">patient.messaging</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="row" invisible="1">
+                        <div class="col-lg-2">
+                            Name
+                        </div>
+                        <div class="col-lg-10">
+                            <input value="Contact Lens - Ready to Dispense" type="readonly"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-2">
+                            Company
+                        </div>
+                        <div class="col-lg-10">
+                             <field name="company_id" widget="many2many_tags"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-2">
+                            Order Status
+                        </div>
+                        <div class="col-lg-10">
+                            <field name="order_status" required="1"/>
+                        </div>
+                    </div>
+                    <group>
+                        <notebook>
+                            <page string="Schedule">
+<!--                            <page string="Schedule" attrs="{'invisible': [('is_active_case_2', '==', True)]}">-->
+                                <div class="o_field_one2many o_field_widget o_field_x2many o_field_x2many_list">
+                                    <div class="o_cp_controller">
+                                        <div class="o_x2m_control_panel">
+                                            <nav class="o_cp_buttons" aria-label="Control panel toolbar" role="toolbar"></nav>
+                                            <nav class="o_cp_pager" aria-label="Pager" role="toolbar">
+                                                <div class="o_pager o_hidden">
+                                                    <span class="o_pager_counter">
+                                                        <span class="o_pager_value"></span> / <span class="o_pager_limit"></span>
+                                                    </span>
+                                                    <span class="btn-group" aria-atomic="true">
+                                                        <button type="button" class="fa fa-chevron-left btn btn-secondary o_pager_previous" aria-label="Previous" title="Previous" tabindex="-1"></button>
+                                                        <button type="button" class="fa fa-chevron-right btn btn-secondary o_pager_next" aria-label="Next" title="Next" tabindex="-1"></button>
+                                                    </span>
+                                                </div>
+                                            </nav>
+                                        </div>
+                                    </div>
+                                    <div class="o_list_view">
+                                        <div class="table-responsive">
+                                            <table class="o_list_table table table-sm table-hover table-striped o_list_table_ungrouped" style="table-layout: fixed;">
+                                                <thead>
+                                                    <tr>
+                                                        <th data-name="schedule" tabindex="-1" class="o_column_sortable" style="width: 70px;">Schedule #</th>
+                                                        <th data-name="day_select" tabindex="-1" class="o_column_sortable" style="width: 232px;">
+                                                            Send Schedule
+                                                            <span class="o_resize"></span>
+                                                        </th>
+                                                        <th data-name="open" class="o_timepicker_cell o_column_sortable" tabindex="-1" style="width: 240px;">
+                                                            Send By
+                                                            <span class="o_resize"></span>
+                                                        </th>
+                                                        <th data-name="close" class="o_timepicker_cell o_column_sortable" tabindex="-1" style="width: 239px;">
+                                                            Backup
+                                                            <span class="o_resize"></span>
+                                                        </th>
+                                                        <th data-name="permanent_closed" tabindex="-1" class="o_column_sortable" style="min-width: 50px; width: 229px;">
+                                                            Active
+                                                            <span class="o_resize"></span>
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="ui-sortable">
+                                                    <tr>
+                                                        <td>1</td>
+                                                        <td class="o_data_cell o_field_cell o_required_modifier" tabindex="-1">
+                                                            Immediately after status updated
+                                                        </td>
+                                                        <td tabindex="-1">
+                                                            <field name="send_by_case_1"/>
+                                                        </td>
+                                                        <td tabindex="-1">
+                                                            <field name="backup_case_1"/>
+                                                        </td>
+                                                        <td tabindex="-1">
+                                                            <field name="is_active_case_1"/>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>2</td>
+                                                        <td class="o_data_cell o_field_cell o_required_modifier" tabindex="-1">
+                                                            3 days after status updated
+                                                        </td>
+                                                        <td tabindex="-1">
+                                                            <field name="send_by_case_2"/>
+                                                        </td>
+                                                        <td tabindex="-1">
+                                                            <field name="backup_case_2"/>
+                                                        </td>
+                                                        <td tabindex="-1">
+                                                            <field name="is_active_case_2"/>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>3</td>
+                                                        <td class="o_data_cell o_field_cell o_required_modifier" tabindex="-1">
+                                                            7 days after status updated
+                                                        </td>
+                                                        <td tabindex="-1">
+                                                            <field name="send_by_case_3"/>
+                                                        </td>
+                                                        <td tabindex="-1">
+                                                            <field name="backup_case_3"/>
+                                                        </td>
+                                                        <td tabindex="-1">
+                                                            <field name="is_active_case_3"/>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>4</td>
+                                                        <td class="o_data_cell o_field_cell o_required_modifier" tabindex="-1">
+                                                            12 days after status updated
+                                                        </td>
+                                                        <td tabindex="-1">
+                                                            <field name="send_by_case_4"/>
+                                                        </td>
+                                                        <td tabindex="-1">
+                                                            <field name="backup_case_4"/>
+                                                        </td>
+                                                        <td tabindex="-1">
+                                                            <field name="is_active_case_4"/>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                                <tfoot>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p>Contact Lenses Ready will be sent after an order is marked Ready to Dispense.</p>
+                                </div>
+                            </page>
+                            <page string="Text">
+                                <field name="text_body" class="count_text"/>
+<!--                                <field name="text_body" class="count_text" widget="mask" data-inputmask="'mask': '*', 'repeat': 130, 'greedy' : false"/>-->
+<!--                                <div id="the-count">-->
+<!--                                    <span id="current">0</span>-->
+<!--                                    <span id="maximum">/ 130</span>-->
+<!--                                </div>-->
+                                <div>
+                                    <field name="text_length" readonly="1"/>
+                                    <span>/ 130</span>
+                                </div>
+                                <div>
+                                    <p style="border: 2px solid burlywood;">use <b>{patient_first_name}</b> for patient first name,<br/>
+                                    use <b>{patient_full_name}</b> for patient full name,<br/>
+                                    use <b>{name}</b> for order type name,<br/>
+                                    use <b>{company_name}</b> for order type name,<br/>
+                                    use <b>{company_phone}</b> for order type name,<br/>
+                                    example:<br/>
+                                    hello {patient_first_name} your order {name} is ready.</p>
+                                </div>
+                            </page>
+                            <page string="Email">
+                                <field name="email_body_html" class="oe_read_only" widget="html"
+                                    options="{'cssReadonly': 'mass_mailing.iframe_css_assets_readonly'}"/>
+                                <field name="email_body_arch" class="o_mail_body oe_edit_only" widget="mass_mailing_html"
+                                    options="{
+                                        'snippets': 'mass_mailing.email_designer_snippets',
+                                        'cssEdit': 'mass_mailing.iframe_css_assets_edit',
+                                        'inline-field': 'email_body_html'
+                                }"/>
+                                <div>
+                                    <p style="border: 2px solid burlywood;">use <b>{patient_first_name}</b> for patient first name,<br/>
+                                    use <b>{patient_full_name}</b> for patient full name,<br/>
+                                    use <b>{name}</b> for order type name,<br/>
+                                    use <b>{company_name}</b> for order type name,<br/>
+                                    use <b>{company_phone}</b> for order type name,<br/>
+                                    example:<br/>
+                                    hello {patient_first_name} your order {name} is ready.</p>
+                                </div>
+                            </page>
+                            <page string="Voice">
+                                <field name="voice_body"/>
+                                <div>
+                                    <p style="border: 2px solid burlywood;">use <b>{patient_first_name}</b> for patient first name,<br/>
+                                    use <b>{patient_full_name}</b> for patient full name,<br/>
+                                    use <b>{name}</b> for order type name,<br/>
+                                    use <b>{company_name}</b> for order type name,<br/>
+                                    use <b>{company_phone}</b> for order type name,<br/>
+                                    example:<br/>
+                                    hello {patient_first_name} your order {name} is ready.</p>
+                                </div>
+                            </page>
+                        </notebook>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="contact_lens_order_ready_action" model="ir.actions.act_window">
+        <field name="name">Contact Lens Order Ready</field>
+        <field name="res_model">patient.messaging</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'default_is_contact_lens_order_ready': 1}</field>
+        <field name="domain">[['is_contact_lens_order_ready','=',1]]</field>
+    </record>
+
+    <record id="contact_lens_order_ready_tree_action" model="ir.actions.act_window.view">
+        <field name="act_window_id" ref="contact_lens_order_ready_action"/>
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="contact_lens_order_ready_tree"/>
+    </record>
+
+    <record id="contact_lens_order_ready_form_action" model="ir.actions.act_window.view">
+        <field name="act_window_id" ref="contact_lens_order_ready_action"/>
+        <field name="sequence" eval="2"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="contact_lens_order_ready_form"/>
+    </record>
+
+    <menuitem id="contact_lens_order_ready_menuitem" action="contact_lens_order_ready_action" name='Contact Lens Order Ready'
+              parent="messaging_menuitem" sequence="8"/>
+</odoo>

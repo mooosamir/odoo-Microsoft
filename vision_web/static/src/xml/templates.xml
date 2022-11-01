@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates>
+
+    <t t-extend="ListView.buttons">
+        <t t-jquery="div.o_list_buttons" t-operation='append'>
+            <t t-if="widget.modelName == 'product.template' &amp; widget._title == 'Lenses' | widget._title == 'Lens Treatment'">
+                <button type="button" class="vision_web_import_client_action btn btn-primary" style="margin-left:10px;">
+                    Vision Web import
+                </button>
+            </t>
+        </t>
+        <t t-jquery="div.o_list_buttons" t-operation='append'>
+            <t t-if="widget.modelName == 'multi.order.type' &amp; widget._title == 'Lab Details'">
+                <button type="button" class="vision_web_transmit_client_action btn btn-primary">
+                    Transmit: Vision Web
+                </button>
+            </t>
+        </t>
+    </t>
+
+    <t t-extend="FormView.buttons">
+        <t t-jquery="div.o_form_buttons_view" t-operation='append'>
+            <t t-if="widget.modelName == 'multi.order.type' &amp;&amp;
+                widget.initialState.data.order_type_name == 'Complete Pair' ||
+                widget.initialState.data.order_type_name == 'Lenses Only' ">
+                <button type="button" class="vision_web_transmit_client_action btn btn-primary">
+                    Transmit: Vision Web
+                </button>
+            </t>
+        </t>
+    </t>
+
+    <div t-name="vision_web_transmit_wizard" class="vision_web_transmit_wizard">
+        <div class="container" style="height: 100%;">
+            <div class="row">
+                <div class="response col-lg-12" style="text-align: -webkit-center;">
+                    Transmitting Data ...<br/>
+                    Please Wait
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div t-name="vision_web_wizard" class="vision_web_wizard">
+        <div class="container" style="height: 100%;">
+            <div class="row" style="padding-bottom: 20px;">
+                <div class="col-lg-3" >
+                    <h5>Vendor</h5>
+                </div>
+                <div class="col-lg-9">
+                    <select id="vendor" style="width:40%;">
+                        <option t-att-data-id="0"></option>
+                        <t t-foreach="widget.vendors" t-as="vendor">
+                            <option t-attf-data-id="#{vendor.id}">
+                                <t t-esc="vendor.name" />
+                            </option>
+                        </t>
+                    </select>
+                </div>
+            </div>
+            <div class="row" style="padding-bottom: 20px;">
+                <div class="col-lg-4" style="overflow-y: scroll;height: 250px;">
+                    <span><strong>Category</strong></span>
+                    <div id="category">
+                        <div class="row radio_into_button" style="margin-top: 0px;">
+                            <t t-foreach="widget.categories || []" t-as="category">
+                                <div class="category_box col-lg-12" style="min-width:100%;">
+                                    <input type="radio" class="category" name="category" t-attf-id="#{category.id}" t-attf-value="#{category.name}"/>
+                                    <label t-attf-for="#{category.id}" class="bold"><t t-esc="category.name"/></label>
+                                </div>
+                            </t>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4" style="overflow-y: scroll;height: 250px;">
+                    <span><strong>Sub-Category</strong></span>
+                    <input type="text" placeholder="Enter your sub-category" class="sub_category_search" style="margin-bottom: 10px;"/>
+                    <div id="sub_category">
+                        <div class="row radio_into_button" style="margin-top: 0px;">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4" style="overflow-y: scroll;height: 250px;;">
+                    <span><strong>Selection</strong></span>
+                    <input type="text" placeholder="Enter your Selection" class="selection_search" style="margin-bottom: 10px;"/>
+                    <div id="selection">
+                        <div class="row radio_into_button" style="margin-top: 0px;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="float:right;">
+                <div class="col-lg-12">
+                    <button id="vw_cancel">Cancel</button>
+                    <button id="vw_import">Import</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <t t-name="vision_web.add_lens_sub_categories">
+        <t t-foreach="sub_categories || []" t-as="sub_category">
+            <div class="lens_sub_category_box col-lg-12" style="min-width:100%;">
+                <input type="radio" class="lens_sub_category" name="lens_sub_category" t-attf-id="#{sub_category.name}" t-attf-selection="#{JSON.stringify(sub_category.selections)}"/>
+                <label t-attf-for="#{sub_category.name}" class="bold"><t t-esc="sub_category.name"/></label>
+            </div>
+        </t>
+    </t>
+
+    <t t-name="vision_web.add_lens_selections">
+        <t t-foreach="selections || []" t-as="selection">
+            <div class="lens_selection_box col-lg-12" style="min-width:100%;">
+                <input type="checkbox" class="lens_selection" name="lens_selection" t-attf-id="#{selection.MaterialCode}" t-attf-data-json="#{JSON.stringify(selection)}"/>
+                <label t-attf-for="#{selection.MaterialCode}" class="bold"><t t-esc="selection.name"/></label>
+            </div>
+        </t>
+    </t>
+
+    <t t-name="vision_web.add_treatment_sub_categories">
+        <t t-foreach="sub_categories || []" t-as="sub_category">
+            <div class="treatment_sub_category_box col-lg-12" style="min-width:100%;">
+                <input type="radio" class="treatment_sub_category" name="treatment_sub_category" t-attf-id="#{sub_category.name}" t-attf-selection="#{JSON.stringify(sub_category.selections)}"/>
+                <label t-attf-for="#{sub_category.name}" class="bold"><t t-esc="sub_category.name"/></label>
+            </div>
+        </t>
+    </t>
+
+    <t t-name="vision_web.add_treatment_selections">
+        <t t-foreach="selections || []" t-as="selection">
+            <div class="treatment_selection_box col-lg-12" style="min-width:100%;">
+                <input type="checkbox" class="treatment_selection" name="treatment_selection" t-attf-id="#{selection.Code}" t-attf-data-json="#{JSON.stringify(selection)}"/>
+                <label t-attf-for="#{selection.Code}" class="bold"><t t-esc="selection.Description"/></label>
+            </div>
+        </t>
+    </t>
+
+</templates>

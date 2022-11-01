@@ -1,0 +1,15 @@
+<odoo>
+    <record id="mail_compose_message_inherit_form" model="ir.ui.view">
+	    <field name="name">mail.compose.message.inherit.form</field>
+	    <field name="model">mail.compose.message</field>
+        <field name="inherit_id" ref="mail.email_compose_message_wizard_form"/>
+	    <field name="arch" type="xml">
+            <xpath expr="//field[@name='composition_mode']" position="before">
+                <field name="followers_show" invisible="1"/>
+            </xpath>
+            <xpath expr="//span[@name='document_followers_text']" position="replace">
+                <span name="document_followers_text" attrs="{'invisible':['|', '|', ('model', '=', False), ('composition_mode', '=', 'mass_mail'), ('followers_show', '=', False)]}">Followers of the document and</span>
+            </xpath>
+        </field>
+    </record>
+</odoo>

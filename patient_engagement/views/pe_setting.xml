@@ -1,0 +1,429 @@
+<odoo>
+    <record id="pe_setting_tree" model="ir.ui.view">
+        <field name="name">pe.setting.tree</field>
+        <field name="model">pe.setting</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="company_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="pe_setting_form" model="ir.ui.view">
+        <field name="name">pe.setting.form</field>
+        <field name="model">pe.setting</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+
+                        <field name="company_id"/>
+                    </group>
+                    <notebook>
+                        <page string="Booking URL">
+                            <group>
+                                <group string="Booking URL">
+                                    <field name="booking_page_link"/>
+                                    <field name="external_booking_page_link"/>
+                                </group>
+                                <group string="Scheduling Preference">
+                                    <field name="online_schedule"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Provider">
+                            <field name="provider_id" context="{'default_company_id': company_id}"/>
+                        </page>
+                        <page string="Services">
+                            <field name="services_id"/>
+                        </page>
+                        <page string="Chat">
+                            <group>
+                                <field name="is_chat"/>
+                            </group>
+                            <div class="o_horizontal_separator" attrs="{'invisible': [('is_chat', '=', False)]}">Quick
+                                Response
+                            </div>
+                            <field name="quick_response" attrs="{'invisible': [('is_chat', '=', False)]}"/>
+                            <group>
+                                <field name="is_respond" attrs="{'invisible': [('is_chat', '=', False)]}"/>
+                            </group>
+                            <div class="o_horizontal_separator"
+                                 attrs="{'invisible': ['|',('is_chat', '=', False),('is_respond', '=', False)]}">
+                                Schedule
+                            </div>
+                            <field name="auto_response"
+                                   attrs="{'invisible': ['|',('is_chat', '=', False),('is_respond', '=', False)]}"/>
+                            <group>
+                                <field name="auto_respond_message"
+                                       attrs="{'invisible': ['|',('is_chat', '=', False),('is_respond', '=', False)]}"/>
+                            </group>
+                        </page>
+                        <page string="Online Appointments Adjustment">
+                            <center>
+                                <h4>Calendar Availability Online is based on Appointment setting from the Company. To
+                                    limit availability please add an adjustment.
+                                </h4>
+                            </center>
+                            <br/>
+                            <field name="calender_id"/>
+                        </page>
+                        <page string="Delivery Restrictions">
+                            <group>
+                                <field name="company_id"/>
+                                <p>Deliver Messages</p>
+                                <field name="from_" widget="timepicker"
+                                       options="{'datepicker': {'stepping': 15}}"/>
+                                <field name="to" widget="timepicker"
+                                       options="{'datepicker': {'stepping': 15}}"/>
+                                <field name="from_time" invisible="1"/>
+                                <field name="to_time" invisible="1"/>
+                                <field name="is_saturday"/>
+                                <field name="is_sunday"/>
+                            </group>
+                        </page>
+                        <page string="Forms">
+                            <field name="form_id"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="pe_setting_action" model="ir.actions.act_window">
+        <field name="name">Setting</field>
+        <field name="res_model">pe.setting</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="pe_setting_menuitem" action="pe_setting_action" name='Patient Engagement Setting'
+              parent="opt_custom.patient_engagement_configuration_menu" sequence="1"/>
+
+
+    <record id="pe_setting_provider_tree" model="ir.ui.view">
+        <field name="name">pe.setting.provider.tree</field>
+        <field name="model">pe.setting.provider</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <!--                <field name="is_active"/>-->
+                <field name="sequence" widget="handle"/>
+                <field name="company_id"/>
+                <field name="provider_id"/>
+                <!--                <button string="Schedule" name="action_schedule_form_view" icon="fa-external-link" type="object"/>-->
+                <field name="online_description"/>
+                <field name="show_online"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="pe_setting_provider_form" model="ir.ui.view">
+        <field name="name">pe.setting.provider.form</field>
+        <field name="model">pe.setting.provider</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <!--                        <field name="is_active"/>-->
+                        <field name="company_id" invisible="1"/>
+                        <field name="provider_id"/>
+                        <field name="online_description"/>
+                        <field name="show_online"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="pe_setting_provider_action" model="ir.actions.act_window">
+        <field name="name">Provider</field>
+        <field name="res_model">pe.setting.provider</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <record id="pe_setting_services_tree" model="ir.ui.view">
+        <field name="name">pe.setting.services.tree</field>
+        <field name="model">pe.setting.services</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <!--                <field name="is_active"/>-->
+                <field name="service_id"/>
+                <field name="online_description"/>
+                <field name="show_online"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="pe_setting_services_form" model="ir.ui.view">
+        <field name="name">pe.setting.services.form</field>
+        <field name="model">pe.setting.services</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <!--                        <field name="is_active"/>-->
+                        <field name="service_id"/>
+                        <field name="online_description"/>
+                        <field name="show_online"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="pe_setting_services_action" model="ir.actions.act_window">
+        <field name="name">Services</field>
+        <field name="res_model">pe.setting.services</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <record id="pe_setting_chat_quick_response_tree" model="ir.ui.view">
+        <field name="name">pe.setting.chat.quick.response.tree</field>
+        <field name="model">pe.setting.chat.quick.response</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="message"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="pe_setting_chat_quick_response_form" model="ir.ui.view">
+        <field name="name">pe.setting.chat.quick.response.form</field>
+        <field name="model">pe.setting.chat.quick.response</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="message"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="pe_setting_chat_quick_response_action" model="ir.actions.act_window">
+        <field name="name">Quick Response</field>
+        <field name="res_model">pe.setting.chat.quick.response</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="pe_setting_chat_schedule_tree" model="ir.ui.view">
+        <field name="name">pe.setting.chat.schedule.tree</field>
+        <field name="model">pe.setting.chat.schedule</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="day_select"/>
+                <field name="open" widget="timepicker" options="{'datepicker': {'stepping': 15}}"/>
+                <field name="close" widget="timepicker" options="{'datepicker': {'stepping': 15}}"/>
+                <field name="opening_time" invisible="1"/>
+                <field name="closing_time" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="pe_setting_chat_schedule_action" model="ir.actions.act_window">
+        <field name="name">Schedule</field>
+        <field name="res_model">pe.setting.chat.schedule</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+
+    <record id="pe_setting_form_tree" model="ir.ui.view">
+        <field name="name">pe.setting.form.tree</field>
+        <field name="model">pe.setting.form</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="write_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="pe_setting_form_form" model="ir.ui.view">
+        <field name="name">pe.setting.form.form</field>
+        <field name="model">pe.setting.form</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="welcome_message"/>
+                        </group>
+                        <group>
+                            <field name="completed_message"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="form_selection_ids"
+                                   context="{'form_view_ref': 'patient_engagement.pe_setting_form_selection_fields_form'}"/>
+                        </group>
+                        <group>
+                            <field name="appointment_selection_id"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="pe_setting_form_action" model="ir.actions.act_window">
+        <field name="name">Intake Forms</field>
+        <field name="res_model">pe.setting.form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="pe_setting_form_selection_tree" model="ir.ui.view">
+        <field name="name">pe.setting.form.selection.tree</field>
+        <field name="model">pe.setting.form.selection</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="sequence" widget="handle"/>
+                <field name="model_name" string="Form"/>
+                <!--                <button type="object" name="open_model_fields_id" string="Fields"/>-->
+            </tree>
+        </field>
+    </record>
+
+    <record id="pe_setting_form_selection_form" model="ir.ui.view">
+        <field name="name">pe.setting.form.selection.form</field>
+        <field name="model">pe.setting.form.selection</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="model_name"/>
+                        </group>
+                        <group>
+                            <field name="ir_model_id"
+                                   options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="pe_setting_form_selection_fields_form" model="ir.ui.view">
+        <field name="name">pe.setting.form.selection.fields.form</field>
+        <field name="model">pe.setting.form.selection</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="model_name"/>
+                        </group>
+                        <group>
+                            <field name="ir_model_id"
+                                   options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"/>
+                            <field name="ir_model_model" invisible="1"/>
+                            <field name="form_id" invisible="1"/>
+                            <field name="company_id" invisible="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="model_fields_ids" widget="section_and_note_one2many"
+                               attrs="{'invisible': [('ir_model_model', '=', 'acs.consent.form.template')]}">
+                            <tree editable="bottom">
+                                <control>
+                                    <create name="add_product_control" string="Add a product"/>
+                                    <create name="add_section_control" string="Add a section"
+                                            context="{'default_display_type': 'line_section'}"/>
+                                    <create name="add_note_control" string=""/>
+                                </control>
+                                <field name="display_type" invisible="1"/>
+                                <field name="form_selection_id" invisible="1"/>
+                                <field name="form_selection_name" invisible="1"/>
+                                <field name="sequence" widget="handle"/>
+                                <field name="name" widget="section_and_note_text" optional="show"/>
+                                <field name="model_fields_id" readonly="0"
+                                       options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"
+                                       domain="[('model_id', '=', form_selection_name)]"/>
+                            </tree>
+                        </field>
+                    </group>
+                    <group>
+                        <field name="acs_consent_form_template_ids"
+                               attrs="{'invisible': [('ir_model_model', '!=', 'acs.consent.form.template')]}"
+                               domain="[('company_id', '=', company_id)]"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="pe_setting_form_selection_fields_form_02" model="ir.ui.view">
+        <field name="name">pe.setting.form.selection.fields.form</field>
+        <field name="model">pe.setting.form.selection</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <field name="model_fields_ids" widget="section_and_note_one2many">
+                        <tree editable="bottom">
+                            <control>
+                                <create name="add_product_control" string="Add a product"/>
+                                <create name="add_section_control" string="Add a section"
+                                        context="{'default_display_type': 'line_section'}"/>
+                                <create name="add_note_control" string="Add a note"
+                                        context="{'default_display_type': 'line_note'}"/>
+                            </control>
+                            <field name="display_type" invisible="1"/>
+                            <field name="form_selection_id" invisible="1"/>
+                            <field name="form_selection_name" invisible="1"/>
+                            <field name="name" widget="section_and_note_text" optional="show"/>
+                            <field name="sequence" widget="handle"/>
+                            <field name="model_fields_id" readonly="0"
+                                   options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"
+                                   domain="[('model_id', '=', form_selection_name)]"/>
+                        </tree>
+                    </field>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="pe_setting_form_selection_action" model="ir.actions.act_window">
+        <field name="name">Intake Forms</field>
+        <field name="res_model">pe.setting.form.selection</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('patient_engagement.pe_setting_form_selection_tree')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('patient_engagement.pe_setting_form_selection_form')})]"/>
+    </record>
+
+    <!--    <record id="pe_setting_form_selection_fields_tree" model="ir.ui.view">-->
+    <!--        <field name="name">pe.setting.form.selection.fields.tree</field>-->
+    <!--        <field name="model">pe.setting.form.selection.fields</field>-->
+    <!--        <field name="arch" type="xml">-->
+    <!--            <tree editable="bottom">-->
+    <!--                <control>-->
+    <!--                    <create name="add_product_control" string="Add a product"/>-->
+    <!--                    <create name="add_section_control" string="Add a section" context="{'default_display_type': 'line_section'}"/>-->
+    <!--                </control>-->
+    <!--                <field name="display_type" invisible="1"/>-->
+    <!--                <field name="form_selection_id" invisible="1"/>-->
+    <!--                <field name="name" widget="section_and_note_text"/>-->
+    <!--                <field name="sequence" widget="handle"/>-->
+    <!--                <field name="model_fields_id" readonly="0" options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"-->
+    <!--                domain="[('model_id', '=', form_selection_id.name.id)]"/>-->
+    <!--&lt;!&ndash;                <field name="is_show" readonly="0"/>&ndash;&gt;-->
+    <!--            </tree>-->
+    <!--        </field>-->
+    <!--    </record>-->
+
+    <record id="pe_setting_form_selection_fields_action" model="ir.actions.act_window">
+        <field name="name">Intake Forms</field>
+        <field name="res_model">pe.setting.form.selection.fields</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="vendor_form_inherit" model="ir.ui.view">
+        <field name="name">vendor.form.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="replace">
+                <field name="name" invisible="1"/>
+                <field name="first_name" default_focus="1" placeholder="Name"
+                       attrs="{'required' : [('type', '=', 'contact')]}"
+                       context="{'vendor_name':1,'copy_to_name':1}" widget="field_partner_autocomplete"/>
+            </xpath>
+            <xpath expr="//field[@name='mobile']" position="replace">
+                <field name="fax" widget="phone" string="Fax"/>
+            </xpath>
+            <!--            <xpath expr="//field[@name='email']" position="attribute">-->
+            <!--                <attribute name="required">False</attribute>-->
+            <!--            </xpath>-->
+            <!--            <xpath expr="//t[@t-if='record.mobile.raw_value']" position="inside">-->
+            <!--                Fax:-->
+            <!--            </xpath>-->
+            <xpath expr="//field[@name='vat']" position="replace">
+                <field name="bill_acct_number"/>
+                <field name="ship_acct_number"/>
+            </xpath>
+            <label for="lang" position="attributes">
+              <attribute name="invisible">1</attribute>
+            </label>
+            <xpath expr="//button[@name='%(base.res_lang_act_window)d']" position="attributes">
+               <attribute name="invisible">1</attribute>
+            </xpath>
+
+        <!--      <xpath expr="//field[@name='lang']/button[1]" position="attributes">
+               <attribute name="invisible">1</attribute>
+            </xpath> -->
+    <!--         <xpath expr="//field[@name='property_product_pricelist']" position="after">
+                <field name="vat"/>
+            </xpath> -->
+            <!-- <xpath expr="//group" position="after">
+                <group>
+                    <group col="1">
+                        <table style="width:100%;" col="1">
+                            <tr>
+                                <td style="display: table-cell;">
+                                    <label for="is_lab" style="font-weight: bold;"/>
+                                </td>
+                                <td style="display: table-cell;">
+                                    <field name="is_lab" nolabel="1"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </group>
+                </group>
+            </xpath> -->
+        </field>
+    </record>
+    <record id="vendor_kanban_inherit" model="ir.ui.view">
+        <field name="name">vendor.kanban.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.res_partner_kanban_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('oe_kanban_partner_categories')]" position="inside">
+                    <span class="oe_kanban_list_many2many">
+                        <field name="category_id" widget="many2many_tags"/>
+                    </span>
+                
+                <span class="oe_kanban_list_many2many">
+                    <field name="phone"/>
+                </span>
+                <span class="oe_kanban_list_many2many">
+                    <field name="email"/>
+                </span>
+                <span class="oe_kanban_list_many2many">
+                    <field name="bill_acct_number"/>
+                </span>
+            </xpath>
+        </field>
+    </record>
+    <record id="base.action_partner_supplier_form" model="ir.actions.act_window">
+        <field name="domain">[('is_company','=',True)]</field>
+    </record>
+</odoo>
+

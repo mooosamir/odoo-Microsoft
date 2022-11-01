@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="claim_manager_view_form_view_inherit" model="ir.ui.view">
+        <field name="name">claim.manager.view.form</field>
+        <field name="model">claim.manager</field>
+        <field name="inherit_id" ref="opt_insurance.claim_manager_view_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='claim_line_ids']/tree/field[@name='spec_modifier_ids']" position="after">
+                <field name="diagnosis_code_sale_ids" widget='many2many_tags'/>
+            </xpath>
+            <xpath expr="//field[@name='claim_line_ids']//form//field[@name='epsdt']" position="after">
+                <field name='diagnosis_code_sale_ids' widget='many2many_tags'
+                                                   options="{'no_open':True,'no_create': True}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="edit_claim_form_view_inherit" model="ir.ui.view">
+        <field name="name">edit.claim.view.form</field>
+        <field name="model">claim.manager</field>
+        <field name="inherit_id" ref="opt_insurance.edit_claim_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='claim_line_ids']/tree/field[@name='spec_modifier_ids']" position="after">
+                <field name="diagnosis_code_sale_ids" widget='many2many_tags'/>
+            </xpath>
+            <xpath expr="//field[@name='claim_line_ids']//form//field[@name='spec_modifier_ids']" position="after">
+                <field name="diagnosis_code_sale_ids" widget='many2many_tags'/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="daily_sales">
+        <t t-call="web.html_container">
+            <t t-call="opt_reports.daily_sale" t-lang="o.partner_id.lang"/>
+        </t>
+    </template>
+
+    <template id="daily_sale">
+        <t t-call="general_template.creative_external_layout">
+            <t t-set="o" t-value="o.with_context({'lang':o.partner_id.lang})"/>
+            <t t-set="theme_color" t-value="o.company_id and o.company_id.theme_color"/>
+            <t t-set="theme_text_color" t-value="o.company_id and o.company_id.theme_text_color"/>
+            <t t-set="company_color" t-value="o.company_id and o.company_id.company_color"/>
+            <t t-set="company_address_color" t-value="o.company_id and o.company_id.company_address_color"/>
+            <t t-set="customer_color" t-value="o.company_id and o.company_id.customer_color"/>
+            <t t-set="customer_address_color" t-value="o.company_id and o.company_id.customer_address_color"/>
+            <t t-set="text_color" t-value="o.company_id and o.company_id.text_color"/>
+            <div class="page"
+                 t-att-style="'font-family:'+o.company_id.font_id.family+';font-size:'+str(o.company_id.font_size)+'px;'">
+                <!--                <t t-call="opt_reports.custom_footer"></t>-->
+                <div class="oe_structure"/>
+                <t t-call="general_template.template_watermark"/>
+                <table BORDERCOLOR="#{theme_color or '#000000'}" border="1" cellpadding="0" cellspacing="0"
+                       class="table table-bordered"
+                       style="border:0.5px solid #ccc;  border-collapse: collapse; text-transform:capitalize; padding:15px;border-bottom:1px solid #ccc;"
+                       width="100%">
+                    <thead>
+                        <tr t-attf-style="page-break-inside: avoid !important;background-color: #{theme_color or '#000000'}; color: #{theme_text_color or '#000000'};">
+                            <th align="center" class="text-center"
+                                t-att-style="'padding:5px 10px; border:0.5px solid #ccc !important; border-right:0px solid #ccc !important;'">
+                                <b>Sales</b>
+                            </th>
+                            <th align="center" class="text-center"
+                                t-att-style="'padding:5px 10px; border:0.5px solid #ccc !important; border-right:0px solid #ccc !important;'">
+                                <b>Type</b>
+                            </th>
+                            <th align="center" class="text-center"
+                                t-att-style="'padding:5px 10px; border:0.5px solid #ccc !important; border-right:0px solid #ccc !important;'">
+                                <b>Invoice</b>
+                            </th>
+                            <th align="center" class="text-center"
+                                t-att-style="'padding:5px 10px; border:0.5px solid #ccc !important; border-right:0px solid #ccc !important;width:200px;'">
+                                <b>Product</b>
+                            </th>
+                            <th align="center" class="text-center"
+                                t-att-style="'padding:5px 10px; border:0.5px solid #ccc !important; border-right:0px solid #ccc !important;'">
+                                <b>Retail</b>
+                            </th>
+                            <th align="center" class="text-center"
+                                t-att-style="'padding:5px 10px; border:0.5px solid #ccc !important; border-right:0px solid #ccc !important;'">
+                                <b>Discount</b>
+                            </th>
+                            <th align="center" class="text-center"
+                                t-att-style="'padding:5px 10px; border:0.5px solid #ccc !important; border-right:0px solid #ccc !important;'">
+                                <b>Net</b>
+                            </th>
+                            <th align="center" class="text-center"
+                                t-att-style="'padding:5px 10px; border:0.5px solid #ccc !important; border-right:0px solid #ccc !important;'">
+                                <b>Tax</b>
+                            </th>
+                            <th align="center" class="text-center"
+                                t-att-style="'padding:5px 10px; border:0.5px solid #ccc !important; border-right:0px solid #ccc !important;'">
+                                <b>Payment</b>
+                            </th>
+                            <th align="center" class="text-center"
+                                t-att-style="'padding:5px 10px; border:0.5px solid #ccc !important; border-right:0px solid #ccc !important;'">
+                                <b>Aging</b>
+                            </th>
+                            <th align="center" class="text-center"
+                                t-att-style="'padding:5px 10px; border:0.5px solid #ccc !important; border-right:0px solid #ccc !important;'">
+                                <b>Employee</b>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody style="border-top: 1px solid black;">
+                        <t t-set="is_odd" t-value="0"/>
+                        <t t-foreach="docs.account_move_line_ids" t-as="account_move_line_id">
+                            <t t-set="is_odd" t-value="is_odd + 1"/>
+                            <t t-if="is_odd % 2 == 0">
+                                <t t-set="ol_color" t-value="o.company_id.even_party_color"/>
+                            </t>
+                            <t t-else="">
+                                <t t-set="ol_color" t-value="o.company_id.odd_party_color"/>
+                            </t>
+                            <tr t-att-style="'page-break-inside: avoid !important;background-color: '+ ol_color + '; color: '+ text_color">
+                                <td align="center" class="text-center"
+                                    t-att-style="'padding:5px 10px; border:0.5px solid #ccc !important; border-right:0px solid #ccc !important;'">
+                                    <t t-esc="account_move_line_id.move_id.invoice_origin"/>
+                                </td>
+                                <td align="center" class="text-center"
+                                    t-att-style="'padding:5px 10px; border:0.5px solid #ccc !important; border-right:0px solid #ccc !important;'">
+                                    <t t-esc="account_move_line_id.lab_details_id.order_type_name"/>
+                                </td>
+                                <td align="center" class="text-center"
+                                    t-att-style="'padding:5px 10px; border:0.5px solid #ccc !important; border-right:0px solid #ccc !important;'">
+                                    <t t-esc="account_move_line_id.move_id.name"/>
+                                </td>
+                                <td align="center" class="text-center"
+                                    t-att-style="'padding:5px 10px; border:0.5px solid #ccc !important; border-right:0px solid #ccc !important;'">
+                                    <t t-if="account_move_line_id.move_id.create_uid.name_get() and
+                                              len(account_move_line_id.move_id.create_uid.name_get()[0]) > 0">
+                                        <t t-esc="account_move_line_id.move_id.create_uid.name_get()[0][1]"/>
+                                    </t>
+                                </td>
+                                <td align="right" class="text-right"
+                                    t-att-style="'padding:5px 10px; border:0.5px solid #ccc !important; border-right:0px solid #ccc !important;'">
+                                    <t t-esc="float(account_move_line_id.actual_retail)"
+                                       t-options='{"widget": "monetary", "display_currency": currency_id}'/>
+                                </td>
+                                <td align="right" class="text-right"
+                                    t-att-style="'padding:5px 10px; border:0.5px solid #ccc !important; border-right:0px solid #ccc !important;'">
+                                    <t t-if="account_move_line_id.discount">
+                                        <t t-esc="float(account_move_line_id.actual_retail) * account_move_line_id.discount/100"
+                                           t-options='{"widget": "monetary", "display_currency": currency_id}'/>
+                                    </t>
+                                    <t t-else="">
+                                        <span>0.00</span>
+                                    </t>
+<!--                                    <t t-esc="'{:.2f}'.format(account_move_line_id.discount)"/>%-->
+                                </td>
+                                <td align="right" class="text-right"
+                                    t-att-style="'padding:5px 10px; border:0.5px solid #ccc !important; border-right:0px solid #ccc !important;'">
+                                    <t t-if="account_move_line_id.discount">
+                                        <t t-esc="float(account_move_line_id.actual_retail) - (float(account_move_line_id.actual_retail) * account_move_line_id.discount/100)"
+                                           t-options='{"widget": "monetary", "display_currency": currency_id}'/>
+                                    </t>
+                                    <t t-else="">
+                                        <t t-esc="float(account_move_line_id.actual_retail)"
+                                           t-options='{"widget": "monetary", "display_currency": currency_id}'/>
+                                    </t>
+                                </td>
+                                <td align="center" class="text-center"
+                                    t-att-style="'padding:5px 10px; border:0.5px solid #ccc !important; border-right:0px solid #ccc !important;'">
+                                    <t t-foreach="account_move_line_id.tax_ids" t-as="tax_id">
+                                        <t t-if="tax_id.name_get() and len(tax_id.name_get()[0]) > 0">
+                                            <t t-esc="tax_id.name_get()[0][1]"/>
+                                        </t>
+                                    </t>
+                                </td>
+                                <td align="right" class="text-right"
+                                    t-att-style="'padding:5px 10px; border:0.5px solid #ccc !important; border-right:0px solid #ccc !important;'">
+                                    <t t-esc="account_move_line_id.move_id.amount_total - account_move_line_id.move_id.amount_residual"
+                                       t-options='{"widget": "monetary", "display_currency": currency_id}'/>
+                                </td>
+<!--                                <td align="right" class="text-right"-->
+<!--                                    t-att-style="'padding:5px 10px; border:0.5px solid #ccc !important; border-right:0px solid #ccc !important;'">-->
+<!--                                    <t t-esc="account_move_line_id.move_id.amount_residual"-->
+<!--                                       t-options='{"widget": "monetary", "display_currency": currency_id}'/>-->
+<!--                                </td>-->
+                                <td align="center" class="text-center"
+                                    t-att-style="'padding:5px 10px; border:0.5px solid #ccc !important; border-right:0px solid #ccc !important;'">
+                                    <t t-if="account_move_line_id.move_id.invoice_date">
+                                        <t t-esc="(datetime.today().date() - account_move_line_id.move_id.invoice_date).days"/>
+                                    </t>
+                                </td>
+                                <td align="center" class="text-center"
+                                    t-att-style="'padding:5px 10px; border:0.5px solid #ccc !important; border-right:0px solid #ccc !important;'">
+                                    <t t-if="account_move_line_id.product_id.name_get() and len(account_move_line_id.product_id.name_get()[0]) > 0">
+                                        <t t-esc="account_move_line_id.product_id.name_get()[0][1]"/>
+                                    </t>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+                <div class="oe_structure"/>
+            </div>
+            <t t-call="general_template.report_barcode"/>
+        </t>
+    </template>
+</odoo>

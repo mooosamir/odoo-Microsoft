@@ -1,0 +1,267 @@
+<odoo>
+    <record id="remittance_advice_payment_notes_tree_views" model="ir.ui.view">
+	    <field name="name">remittance.advice.payment.view.tree</field>
+	    <field name="model">remittance.advice.payment</field>
+	    <field name="arch" type="xml">
+            <form>
+                <field name="note_ids" domain="[('payment_id', '=', id)]">
+                    <tree>
+                        <field name='name'/>
+                        <field name='payment_id' invisible='1'/>
+                    </tree>
+                    <form>
+                        <group>
+                            <field name='name'/>
+                            <field name='payment_id' invisible='1'/>
+                        </group>
+                    </form>
+                </field>
+            </form>
+        </field>
+	</record>
+
+    <record id="remittance_advice_payment_view_form_view" model="ir.ui.view">
+    	<field name="name">remittance.advice.payment.view.form</field>
+        <field name="model">remittance.advice.payment</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name='ins_paid'  widget='monetary' required='1'/>
+                        <field name='bonus' widget='monetary' required='1' force_save='1'/>
+                        <field name='covered_service_fee' widget='monetary' required='1' force_save='1'/>
+                        <field name='dispensing' widget='monetary' required='1' force_save='1'/>
+                        <field name='lab_chgs' widget='monetary' required='1'/>
+                        <field name='write_off' widget='monetary' required='1' force_save='1'/>
+                        <field name='currency_id' invisible='1'/>
+                    </group>
+                    <group col='5' colspan='5'>
+                        <group col='2' colspan='2'>
+                            <field name='pt_resp_other' widget='monetary' force_save='1'/>
+                        </group>
+                        <group >
+                            <field name='pt_selection' nolabel='1'/>
+                        </group>
+                            <group col='2' colspan='2'>
+                        </group>
+                    </group>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <!-- Tree View of remittance advice-->
+    <record id="remittance_advice_view_payments_form_view" model="ir.ui.view">
+	    <field name="name">remittance.advice.view.payments.form</field>
+	    <field name="model">remittance.advice.line</field>
+	    <field name="arch" type="xml">
+	        <form string='Payments' increase_dialog_size="1">
+                <field name='sale_order_id' invisible='1'/>
+                <field name="remittance_advice_payment_ids">
+                    <tree editable='bottom'>
+                        <field name='new_record' invisible='1'/>
+                        <field name='pro_code_id' required='1' context="{'payment_product_code': True, 'remittance_sale_order_id': parent.sale_order_id}"/>
+                        <field name='retail'  widget='monetary' readonly='1' force_save='1'/> 
+                        <field name='pt_resp'  widget='monetary' readonly='1' force_save='1'/>
+                        <field name='ins_receivable'  widget='monetary' readonly='1' force_save='1'/>
+                        <field name='ins_paid'  widget='monetary'/>
+                        <field name='lab_chgs'  widget='monetary'/>
+                        <field name='write_off'  widget='monetary'/>
+                        <field name='pt_resp_other'  widget='monetary'/>
+                        <button name="btn_dummy" string='Allocation'  icon='fa-external-link' type="object" 
+                                class="force_save_dummy_button2"
+                                attrs="{'invisible':[('id','!=',False)]}"/>
+                        <button name="action_open_add_amounts" string='Allocation'  icon='fa-external-link' type="object" 
+                                class="force_save_button2"
+                                attrs="{'invisible':[('id','=',False)]}"/>
+                        <field name='transfer'  widget='monetary'/>
+                        <field name='patient_id'/>
+                        <button name="btn_dummy" string='Notes' icon='fa-file-o' class="force_save_dummy_button" type="object"
+                                attrs="{'invisible':[('id','!=',False)]}"/>
+                        <button name="action_add_notes" string='Notes' icon='fa-file-o' class="force_save_button" type="object"
+                                attrs="{'invisible':[('id','=',False)]}"/>
+                        <field name='currency_id' invisible='1'/>
+                        <field name='remittance_advice_id' invisible='0'/>
+                    </tree>
+                    <form>
+                        <header>
+                            <button name="action_open_add_amounts" string='Allocation' icon='fa-external-link' type="object"/>
+                            <button name="action_add_notes" string='Notes' icon='fa-file-o' type="object" />
+                        </header>
+                        <group>
+                            <field name='pro_code_id' />
+                            <field name='retail'  widget='monetary' readonly='1'/> 
+                            <field name='pt_resp'  widget='monetary' readonly='1'/>
+                            <field name='ins_receivable'  widget='monetary' readonly='1'/>
+                            <field name='ins_paid'  widget='monetary'/>
+                            <field name='lab_chgs'  widget='monetary'/>
+                        </group>
+                        <group>
+                            <field name='write_off'  widget='monetary'/>
+                            <field name='pt_resp_other'  widget='monetary'/>
+                            <field name='transfer'  widget='monetary'/>
+                            <field name='patient_id'/>
+                            <field name='currency_id' invisible='1'/>
+                        </group>
+                    </form>
+                </field>
+                <div width='100%' class='row'>
+                    <div width='5%'>
+                    </div>
+                    <div width='8%'>
+                        <strong>Ins Paid</strong>
+                    </div>
+                    <div width='10%'>
+                        <field name='currency_id' invisible='1'/>
+                        <field name='total_ins_paid' widget='monetary' readonly='1'/>
+                    </div>
+                    <div width='8%'>
+                        <strong>Lab Chag</strong>
+                    </div>
+                    <div width='10%'>
+                        <field name='total_lab_chag' widget='monetary' readonly='1'/>
+                    </div>
+                    <div width='8%'>
+                        <strong>Net Ins Paid</strong>
+                    </div>
+                    <div width='10%'>
+                        <field name='total_net_ins_paid' widget='monetary' readonly='1'/>
+                    </div>
+                    <div width='8%'>
+                        <strong>Pt Resp</strong>
+                    </div>
+                    <div width='10%'>
+                        <field name='total_pt_resp' widget='monetary' readonly='1'/>
+                    </div>
+                    <div width='8%'>
+                        <strong>Transfer</strong>
+                    </div>
+                    <div width='10%'>
+                        <field name='total_transfer' widget='monetary' readonly='1'/>
+                    </div>
+                    <div width='5%'>
+                    </div>
+                </div>
+	        </form>
+	    </field>
+	</record>
+
+	<record id="remittance_advice_view_tree_view" model="ir.ui.view">
+	    <field name="name">remittance.advice.view.tree</field>
+	    <field name="model">remittance.advice</field>
+	    <field name="arch" type="xml">
+	        <tree string='Remittance Advice'>
+                <field name="remittance_date"/>
+                <field name="deposit_date"/>
+                <field name="Check_numbr"/>
+	            <field name="insurance_company_id"/>
+                <field name="payment_method_id"/>
+                <field name="payment_amount" widget='monetary' string='Paid'/>
+                <field name='currency_id' invisible='1'/>
+	        </tree>
+	    </field>
+	</record>
+
+    <!-- Form View of remittance advice-->
+    <record id="remittance_advice_view_form_view" model="ir.ui.view">
+    	<field name="name">remittance.advice.view.form</field>
+        <field name="model">remittance.advice</field>
+        <field name="arch" type="xml">
+        	<form>
+                <header>
+                    <field name='state' readonly='1' widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="sequence" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group col='6' colspan='6'>
+                        <group col='2' colspan='2'>
+                            <field name="insurance_company_id" required='1'/>
+                            <field name="payment_method_id" required='1' context="{'default_insurance': True}"/>
+                            <field name='notes'/>
+                        </group>
+                        <group col='2' colspan='2'>
+                            <field name="Check_numbr" string='Reference'/>
+                            <field name="amount_paid" widget='monetary' string='Payment Amount'/>
+                        </group>
+                        <group col='2' colspan='2'>
+                            <field name="remittance_date"/>
+                            <field name="deposit_date"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string='Claims'>
+                            <group>
+                                <field name='claim_information_ids' nolabel='1'>
+                                    <tree create='false'>
+                                        <button name="btn_dummy" string='Payment Details' icon='fa-square-o' type="object" class="force_save_dummy_button"
+                                           attrs="{'invisible':[('id','!=',False)]}"/>
+                                        <button name="action_payment_details" string='Payment Details' icon='fa-square-o' type="object" 
+                                                class="force_save_button"
+                                                attrs="{'invisible':[('id','=',False)]}"/>
+                                        <field name="new_record" invisible='1'/>
+                                        <field name='claim_id' string='Claim' force_save="1"/>
+                                        <field name='claim_status' string='Claim Status'/>
+                                        <field name='sale_order_id' string='PoS/Sales #'/>
+                                        <field name='service_date'/>
+                                        <field name='patient_id'/>
+                                        <field name='insurance_company_id'/>
+                                        <field name='retail' widget='monetary'/>
+                                        <field name='discount' widget='monetary'/>
+                                        <field name='pt_resp' widget='monetary'/>
+                                        <field name='ins_receivable' widget='monetary'/>
+                                        <field name='amt_applied' widget='monetary'/>
+                                        <field name='currency_id' invisible='1'/>
+                                    </tree>
+                                </field>
+                            </group>
+                            <div width='100%' class='row'>
+                                <div width='3%'>
+                                </div>
+                                <div width='22%'>
+                                    <group>
+                                        <field name='currency_id' invisible='1'/>
+                                        <field name='payment_amount' widget='monetary' string='Payment Amt' readonly='1'/>
+                                    </group>
+                                </div>
+                                <div width='2%'>
+                                </div>
+                                <div width='22%'>
+                                    <group>
+                                        <field name='payment_allocated' widget='monetary' readonly='1'/>
+                                    </group>
+                                </div>
+                                <div width='2%'>
+                                </div>
+                                <div width='22%'>
+                                    <group>
+                                        <field name='total_chargeback' widget='monetary' string='Chargebacks' readonly='1'/>
+                                    </group>
+                                </div>
+                                <div width='2%'>
+                                </div>
+                                <div width='22%'>
+                                    <group>
+                                        <field name='payment_remaining' widget='monetary' readonly='1'/>
+                                    </group>
+                                </div>
+                                <div width='3%'>
+                                </div>
+                            </div>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="remittance_advice_view_action" model="ir.actions.act_window">
+        <field name="name">Remittance Advice</field>
+        <field name="res_model">remittance.advice</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

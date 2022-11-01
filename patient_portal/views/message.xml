@@ -1,0 +1,478 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <template id="message_template" name="Message">
+        <t t-call="website.layout">
+            <div class="container">
+                <nav class="navbar navbar-light responsive navbar-expand-lg">
+                    <a class="navbar-brand" href="/patient_portal">ProVision</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse"
+                            data-target="#collapsibleNavbar">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="collapsibleNavbar" style="justify-content: right;">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/patient_portal">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/patient_portal/prescription">Prescription</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/patient_portal/appointments">Appointments</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/patient_portal/forms">Forms</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/my/orders">Orders</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" href="/patient_portal/message">Messages</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/patient_portal/shop">Shop</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/patient_portal/user">
+                                    <t t-esc="current_user.name"/>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+            <div class="container">
+                <div class="row" style="padding:20px;">
+                    <div class="col-lg-2 col-3 left-side">
+                        <div class="new-message">
+                            <button type="button" onclick="newMessage()">
+                                <i class="fa fa-envelope" style="padding-right:5px;"/>
+                                New
+                            </button>
+                        </div>
+                        <div class="select-box">
+                            <button type="button" onclick="MessageInbox()" id="messageRcvd">
+                                <i class="fa fa-envelope-open" style="padding-right:5px;"/>
+                                Inbox
+                            </button>
+                            <button type="button" onclick="MessageSent()" id="messageSent">
+                                <i class="fa fa-envelope" style="padding-right:5px;"/>
+                                Sent
+                            </button>
+                            <button type="button" onclick="MessageTrash()" id="messageTrash">
+                                <i class="fa fa-trash-o" style="padding-right:5px;"/>
+                                Trash
+                            </button>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-10 col-9 right-side">
+                        <div class="main-content">
+                            <i class="fa fa-comments"/>
+                            <h5>Compose a new message!</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="inbox_template" name="Inbox">
+        <div class="inbox row">
+            <div class="col-lg-4 col-12 inbox-message-list example">
+                <t t-foreach="messages" t-as="message">
+                    <div class="individual-message" t-attf-message="#{message.body}"
+                         t-attf-author="#{message.author_id.name}" t-attf-id="#{message.id}"
+                         t-attf-subject="#{message.subject}"
+                         t-attf-partner-id="#{message.author_id.id}"
+                         t-attf-date="#{message.write_date.strftime('%a, %b %d, %I:%M %p')}"
+                         t-attf-onclick="openMessage(this,#{message.channel_ids.id}, #{request.env.user.partner_id.id})">
+                        <div class="row">
+                            <div class="col-lg-3 col-3">
+                                <t t-if="message.author_id.image_1920">
+                                    <img id="output" class="image rounded-image"
+                                         t-attf-src="data:image/*;base64,{{message.author_id.image_1920}}"/>
+                                </t>
+                                <t t-else="">
+                                    <img id="output" class="image rounded-image"
+                                         src="/patient_portal/static/src/img/empty_image.png"/>
+                                </t>
+                            </div>
+                            <div class="col-lg-8 col-8">
+                                <h5 class="author-name">
+                                    <t t-esc="message.author_id.name"/>
+                                </h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-3 col-3">
+                            </div>
+                            <div class="col-lg-8 col-8 message-margin">
+                                <p style="margin-bottom:0px;">
+                                    <t t-esc="message.description"/>
+                                </p>
+                                <small style="color:#072e6b;">
+                                    <t t-esc="message.write_date.strftime('%a, %b %d, %I:%M %p')"/>
+                                </small>
+                            </div>
+                        </div>
+
+                    </div>
+                </t>
+                <t t-if="len(messages) == 0">
+                    <div class="main-content">
+                        <i class="fa fa-trash-o"/>
+                        <h5>Nothing in Inbox</h5>
+                        <h6>Looks empty over here.</h6>
+                    </div>
+                </t>
+            </div>
+            <!--            <div class="mobile-inbox-message-box">-->
+            <div class="col-lg-7 col-12 inbox-message-box">
+                <t t-if="len(messages) != 0">
+                    <div class="main-content">
+                        <i class="fa fa-inbox"/>
+                        <h5>Select a message to read</h5>
+                        <h6>Nothing is selected</h6>
+                    </div>
+                </t>
+
+                <div class="inbox-content" style="display:none;">
+                    <div class="row inbox-content-row">
+                        <div class="col-lg-6 col-12">
+                            <i class="fa fa-chevron-left" t-attf-onclick="backMessage(this)" style="float:left;display:'None'"/>
+                            <h5 class="email-from"></h5>
+                            <h6 class="subject"></h6>
+                        </div>
+                        <div class="col-lg-6 col-12">
+                            <small class="date"></small>
+                        </div>
+                    </div>
+
+                    <div class="email">
+
+                    </div>
+                    <div class="reply">
+                        <div class="row">
+                            <div class="col-lg-6 col-6">
+                                <i class="fa fa-trash-o" t-attf-onclick="goesToTrash(this)" style="float:left;"/>
+                            </div>
+                            <div class="col-lg-6 col-6">
+                                <i class="fa fa-reply" t-attf-onclick="replyBtn(this)" style="float:right;"/>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+            <!--            </div>-->
+        </div>
+    </template>
+
+    <template id="new_message_template" name="New Message">
+        <div class="create-message">
+            <h5>New Message</h5>
+            <div class="message-box">
+                <select id="drs" name="dr" class="sent-to example" style="display:scroll;">
+
+                    <t t-foreach="drs" t-as="dr">
+                        <t t-if="dr.id == id">
+                            <option t-value="dr.name" t-att-to-partner-id="dr.user_partner_id.id" t-att-data="dr.id" t-add-selected="selected">
+                                <t t-if="dr.doctor == True">
+                                    Dr.
+                                    <t t-esc="dr.name"/>
+                                </t>
+
+                                <t t-elif="dr.first_name or dr.last_name">
+                                    <t t-esc="dr.first_name + ' ' + dr.last_name[0:1]"/>
+                                </t>
+
+                                <t t-else="">
+                                    <t t-esc="dr.name" />
+                                </t>
+                            </option>
+                        </t>
+                        <t t-else="">
+                            <option t-value="dr.name" t-att-data="dr.id" t-att-to-partner-id="dr.user_partner_id.id">
+                                <t t-if="dr.doctor == True">
+                                    <t t-if="'Dr.' in dr.name">
+                                        <t t-esc="dr.name"/>
+                                    </t>
+                                    <t t-else="">
+                                        Dr.
+                                        <t t-esc="dr.name"/>
+                                    </t>
+                                </t>
+
+                                <t t-elif="dr.first_name or dr.last_name">
+                                    <t t-esc="dr.first_name + ' ' + dr.last_name[0:1]"/>
+                                </t>
+                                <t t-else="">
+                                    <t t-esc="dr.name"/>
+                                </t>
+                            </option>
+                        </t>
+                    </t>
+                </select>
+                <br/>
+                <input type="text" placeholder="Subject" class="sent-subject"></input>
+                <div class="write-message">
+                    <textarea class="example sent-message"></textarea>
+                </div>
+                <div class="submit-buttons" style="float:right;">
+
+                    <i class="fa fa-paper-plane" t-attf-onclick="sentMessageBtn()" style="color:#072e6b;"/>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </template>
+
+    <template id="sent_template" name="Sent">
+        <div class="inbox row">
+            <div class="col-lg-4 col-12 inbox-message-list example">
+                <t t-foreach="messages" t-as="message">
+                    <t t-set="custom_name" t-if='message.channel_ids.name.rfind(",") != -1'
+                       t-value="message.channel_ids.name[0:message.channel_ids.name.rfind(',')]"/>
+                    <t t-set="custom_name" t-else='' t-value="message.channel_ids.name"/>
+                    <div class="individual-message"
+                         t-attf-message="#{message.body}"
+                         t-attf-id="#{message.id}"
+                         t-attf-author="#{custom_name}" t-attf-subject="#{message.subject}"
+                         t-attf-date="#{message.write_date.strftime('%a, %b %d, %I:%M %p')}"
+                         t-attf-onclick="openMessage(this)">
+
+                        <div class="row">
+                            <div class="col-lg-3 col-3">
+                                <t t-if="message.channel_ids.channel_partner_ids.partner_id.image_1920">
+                                    <img id="output" class="image rounded-image"
+                                         t-attf-src="data:image/*;base64,{{message.channel_ids.channel_partner_ids.partner_id.image_1920}}"/>
+                                </t>
+                                <t t-else="">
+                                    <img id="output" class="image rounded-image"
+                                         src="/patient_portal/static/src/img/empty_image.png"/>
+                                </t>
+                            </div>
+                            <div class="col-lg-8 col-8">
+                                <h5 class="author-name">
+                                    <t t-if='message.channel_ids.name.rfind(",") != -1'>
+                                        <t t-esc='message.channel_ids.name[0:message.channel_ids.name.rfind(",")]'/>
+                                    </t>
+                                    <t t-if='message.channel_ids.name.rfind(",") == -1'>
+                                        <t t-esc='message.channel_ids.name'/>
+                                    </t>
+                                </h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-3 col-3">
+                            </div>
+                            <div class="col-lg-8 col-8 message-margin">
+                                <p style="margin-bottom:0px;">
+                                    <t t-esc="message.description"/>
+                                </p>
+                                <small style="color:#072e6b;">
+                                    <t t-esc="message.write_date.strftime('%a, %b %d, %I:%M %p')"/>
+                                </small>
+                            </div>
+                        </div>
+
+                    </div>
+                </t>
+                <t t-if="len(messages) == 0">
+                    <div class="main-content">
+                        <i class="fa fa-trash-o"/>
+                        <h5>Nothing in Sent Items</h5>
+                        <h6>Looks empty over here.</h6>
+                    </div>
+                </t>
+            </div>
+            <!--            <div class="mobile-inbox-message-box">-->
+            <div class="col-lg-7 col-12 inbox-message-box">
+                <t t-if="len(messages)">
+                    <div class="main-content">
+                        <i class="fa fa-inbox"/>
+                        <h5>Select a message to read</h5>
+                        <h6>Nothing is selected</h6>
+                    </div>
+                </t>
+
+                <div class="inbox-content" style="display:none;">
+                    <div class="row inbox-content-row">
+                        <div class="col-lg-6 col-12">
+                            <i class="fa fa-chevron-left" t-attf-onclick="backMessage(this)" style="float:left;display:'None'"/>
+                            <h5 class="email-from"></h5>
+                            <h6 class="subject"></h6>
+                        </div>
+                        <div class="col-lg-6 col-12">
+                            <small class="date"></small>
+                        </div>
+                    </div>
+
+                    <div class="email">
+
+                    </div>
+                    <div class="reply">
+                        <div class="row">
+                            <div class="col-lg-6 col-6">
+                                <i class="fa fa-trash-o" t-attf-onclick="goesToTrash(this)" style="float:left;"/>
+                            </div>
+                            <!--                            <div class="col-lg-6">-->
+                            <!--                                <i class="fa fa-reply" style="float:right;"/>-->
+                            <!--                            </div>-->
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+            <!--            </div>-->
+        </div>
+    </template>
+
+    <template id="trash_template" name="Trash">
+        <div class="inbox row">
+            <div class="col-lg-4 col-12 inbox-message-list example">
+                <t t-foreach="messages" t-as="message">
+                    <t t-if="message.author_id.id == user_id">
+                        <t t-set="custom_name" t-if='message.channel_ids.name.rfind(",") != -1'
+                           t-value="message.channel_ids.name[0:message.channel_ids.name.rfind(',')]"/>
+                        <t t-set="custom_name" t-else='' t-value="message.channel_ids.name"/>
+                        <div class="individual-message"
+                             t-attf-message="#{message.body}"
+                             t-attf-id="#{message.id}"
+                             t-attf-author="#{custom_name}"
+                             t-attf-subject="#{message.subject}"
+                             t-attf-date="#{message.write_date.strftime('%a, %b %d, %I:%M %p')}"
+                             t-attf-onclick="openMessage(this)">
+                            <div class="row">
+                                <div class="col-lg-3 col-3">
+                                    <t t-if="message.channel_ids.channel_partner_ids.partner_id.image_1920">
+                                        <img id="output" class="image rounded-image"
+                                             t-attf-src="data:image/*;base64,{{message.channel_ids.channel_partner_ids.partner_id.image_1920}}"/>
+                                    </t>
+                                    <t t-else="">
+                                        <img id="output" class="image rounded-image"
+                                             src="/patient_portal/static/src/img/empty_image.png"/>
+                                    </t>
+                                </div>
+                                <div class="col-lg-8 col-8">
+                                    <h5 class="author-name">
+                                        <t t-if='message.channel_ids.name.rfind(",") != -1'>
+                                            <t t-esc='message.channel_ids.name[0:message.channel_ids.name.rfind(",")]'/>
+                                        </t>
+                                        <t t-if='message.channel_ids.name.rfind(",") == -1'>
+                                            <t t-esc='message.channel_ids.name'/>
+                                        </t>
+                                    </h5>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-3 col-3">
+                                </div>
+                                <div class="col-lg-8 col-8 message-margin">
+                                    <p style="margin-bottom:0px;">
+                                        <t t-esc="message.description"/>
+                                    </p>
+                                    <small style="color:#072e6b;">
+                                        <t t-esc="message.write_date.strftime('%a, %b %d, %I:%M %p')"/>
+                                    </small>
+                                </div>
+                            </div>
+
+                        </div>
+                    </t>
+                    <t t-if="message.author_id.id != user_id">
+
+                        <div class="individual-message" t-attf-message="#{message.body}"
+                             t-attf-author="#{message.author_id.name}" t-attf-id="#{message.id}"
+                             t-attf-subject="#{message.subject}"
+                             t-attf-date="#{message.write_date.strftime('%a, %b %d, %I:%M %p')}"
+                             t-attf-onclick="openMessage(this)">
+                            <div class="row">
+                                <div class="col-lg-3 col-3">
+                                    <h1>
+                                        <t t-esc="message.author_id.image_1920"/>
+                                    </h1>
+                                    <t t-if="message.author_id.image_1920 != ''">
+                                        <img id="output" class="image rounded-image"
+                                             t-attf-src="data:image/*;base64,{{message.author_id.image_1920}}"/>
+                                    </t>
+                                    <t t-else="">
+                                        <img id="output" class="image rounded-image"
+                                             src="/patient_portal/static/src/img/empty_image.png"/>
+                                    </t>
+                                </div>
+                                <div class="col-lg-8 col-8">
+                                    <h5 class="author-name">
+                                        <t t-esc="message.author_id.name"/>
+                                    </h5>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-3 col-3">
+                                </div>
+                                <div class="col-lg-8 col-8 message-margin">
+                                    <p style="margin-bottom:0px;">
+                                        <t t-esc="message.description"/>
+                                    </p>
+                                    <small style="color:#072e6b;">
+                                        <t t-esc="message.write_date.strftime('%a, %b %d, %I:%M %p')"/>
+                                    </small>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </t>
+                </t>
+                <t t-if="len(messages) == 0">
+                    <div class="main-content">
+                        <i class="fa fa-trash-o"/>
+                        <h5>Nothing in Trash!</h5>
+                        <h6>Looks empty over here.</h6>
+                    </div>
+                </t>
+            </div>
+            <!--            <div class="mobile-inbox-message-box">-->
+            <div class="col-lg-7 col-12 inbox-message-box">
+                <t t-if="len(messages)">
+                    <div class="main-content">
+                        <i class="fa fa-inbox"/>
+                        <h5>Select a message to read</h5>
+                        <h6>Nothing is selected</h6>
+                    </div>
+                </t>
+
+                <div class="inbox-content" style="display:none;">
+                    <div class="row inbox-content-row">
+                        <div class="col-lg-6 col-12">
+                            <i class="fa fa-chevron-left" t-attf-onclick="backMessage(this)" style="float:left;display:'None'"/>
+                            <h5 class="email-from"></h5>
+                            <h6 class="subject"></h6>
+                        </div>
+                        <div class="col-lg-6 col-12">
+                            <small class="date"></small>
+                        </div>
+                    </div>
+
+                    <div class="email">
+
+                    </div>
+                    <div class="reply">
+
+
+                    </div>
+                </div>
+
+            </div>
+            <!--            </div>-->
+        </div>
+    </template>
+</odoo>

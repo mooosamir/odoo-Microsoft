@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_appointment_report_wizard,opt_reports.appointment_report_wizard,model_appointment_report_wizard,base.group_user,1,1,1,1
+access_appointment_status_wizard,opt_reports.appointment_status_wizard,model_appointment_status_wizard,base.group_user,1,1,1,1
+access_account_payment_wizard,opt_reports.account_payment_wizard,model_account_payment_wizard,base.group_user,1,1,1,1
+access_account_move_wizard,opt_reports.account_move_wizard,model_account_move_wizard,base.group_user,1,1,1,1
+access_sale_order_wizard,opt_reports.sale_order_wizard,model_sale_order_wizard,base.group_user,1,1,1,1
+access_sale_order_session_wizard,opt_reports.sale_order_session_wizard,model_sale_order_session_wizard,base.group_user,1,1,1,1
+access_sale_order_line_wizard,opt_reports.sale_order_line_wizard,model_sale_order_line_wizard,base.group_user,1,1,1,1
+access_account_move_line_wizard,opt_reports.account_move_line_wizard,model_account_move_line_wizard,base.group_user,1,1,1,1

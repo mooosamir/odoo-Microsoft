@@ -1,0 +1,8 @@
+<odoo>
+	<data>
+		<!-- UPC Attribute Data-->
+	    <record id="product_category_frame" model="product.category">
+	        <field name="name">Frames</field>
+	    </record>
+	</data>
+</odoo>

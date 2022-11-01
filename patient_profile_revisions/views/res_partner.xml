@@ -1,0 +1,49 @@
+<odoo>
+    <record id="view_patent_profile_form" model="ir.ui.view">
+	    <field name="name">view.patent.profile.form</field>
+	    <field name="model">res.partner</field>
+        <field name="inherit_id" ref="opt_custom.view_patent_profile_form"/>
+	    <field name="arch" type="xml">
+            <xpath expr="//form" position="attributes">
+                <attribute name="confirm">Please verify if this is a duplicate patient</attribute>
+                <attribute name="confirm_text">continue adding the new patient profile</attribute>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_vendor_tree_inherit" model="ir.ui.view">
+        <field name="name">view.patent.profile.tree</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="replace">
+                <tree string="Contacts">
+                    <field name="display_name1" string="Name"/>
+                    <field name="function" invisible="1"/>
+                    <field name="phone" class="o_force_ltr" optional="show"/>
+                    <field name="email" optional="show"/>
+                    <field name="state_id" optional="hide"/>
+                    <field name="country_id" optional="hide"/>
+                    <field name="vat" optional="hide"/>
+                    <field name="bill_acct_number" string="Account"/>
+                    <field name="category_id"/>
+                    <field name="user_id"/>
+                    <field name="city"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                    <field name="is_company" invisible="1"/>
+                    <field name="parent_id" invisible="1"/>
+                    <field name="active" invisible="1"/>
+                </tree>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_vendor_tree_inherit" model="ir.ui.view">
+        <field name="name">view.patent.profile.tree</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="opt_custom.patient_view_partner_tree"/>
+        <field name="arch" type="xml">
+            <field name="display_name" position="replace">
+                <field name="display_name1" string="Name"/>  
+            </field>
+        </field>
+    </record>
+</odoo>

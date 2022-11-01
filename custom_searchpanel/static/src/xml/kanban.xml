@@ -1,0 +1,22 @@
+<template>
+
+<t t-name="CustomPanel">
+    <section class="o_search_panel_section o_search_panel_category">
+<!--        <t t-call="SearchPanel.SectionHeader">-->
+<!--            <t t-set="section" t-value="category"/>-->
+<!--        </t>-->
+        <ul class="list-group d-block o_search_panel_field">
+            <t t-foreach="custom_values" t-as="data">
+                <li class="o_search_panel_category_value border-0 list-group-item" t-att-data-id="data.id">
+                    <header t-att-class="'list-group-item-action'">
+                        <label t-att-for="value.display_name" class="o_search_panel_label mb0">
+                            <span class="o_search_panel_label_title"><t t-esc="data.name"/></span>
+                        </label>
+                    </header>
+                </li>
+            </t>
+        </ul>
+    </section>
+</t>
+
+</template>

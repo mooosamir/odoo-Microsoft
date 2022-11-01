@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="promotion_client_action" model="ir.ui.view">
+        <field name="name">promotion.client.action</field>
+        <field name="model">applied.promotion</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="available_promotion_ids" widget="many2many_tags" readonly="0"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+</odoo>

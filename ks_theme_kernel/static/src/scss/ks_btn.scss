@@ -1,0 +1,144 @@
+.ks-btn-theme,
+.btn-primary:not(.o_arrow_button),
+.o_kanban_record a.btn.btn-info.btn-sm {
+    background: $btn-primary;
+    color: $text-primary;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23) !important;
+    border-color: $primary !important;
+    border-radius: $border-radius !important;
+    &:active,
+    &:hover {
+       color: $text-primary;
+       background: $btn-primary;
+       border-color: $btn-primary;
+    }
+
+}
+.btn-primary:not(:disabled):not(.disabled):active,
+.show > .btn-primary.dropdown-toggle {
+   color: $text-primary;
+   background: $btn-primary;
+   border-color: $btn-primary;
+}
+
+.ks-btn-theme-outlined,
+.btn-secondary {
+    background: transparent;
+    color: $btn-outlined-color;
+    border: 1px solid $btn-outlined-color;
+    border-radius: $border-radius !important;
+    transition: 0.3s ease-in-out;
+
+    &:hover {
+       color: $primary-on-light;
+       background-color: transparent;
+       border-color: $primary-on-light;
+    }
+}
+
+.btn-link {
+    color: $primary-on-light;
+
+    &:hover {
+        color: lighten($primary-on-light,10%);
+    }
+}
+
+.ks-favourite-floating-menu {
+    position: fixed;
+    z-index: 101;
+    right: 20px;
+    bottom: 55px;
+}
+
+.o_cp_right .btn-link{
+    border-radius: 4px !important;
+    border-color: $btn-primary;
+    background: $btn-primary;
+    padding: 0.5rem 0.5rem;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: $white;
+}
+.ks-floating-menu-button {
+    background: $btn-primary;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    position: relative;
+    z-index: 1;
+    border: none;
+    @include flex-center();
+
+    &:focus {
+        outline: none;
+    }
+}
+
+.ks-floating-menu-line {
+    background: $btn-primary;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    transition: 0.3s ease-in-out;
+
+    > a {
+        span {
+            color: white;
+            font-weight: 600;
+            font-size: 18px;
+            text-transform: uppercase;
+        }
+    }
+}
+
+//Floating menus position setting up to 15 options
+.ks-floating-menu-list {
+    display: block !important;
+
+    &:not(.d-none) {
+        $fav-position:
+            -55px  25px,
+            -50px -10px,
+            -30px  -45px,
+             5px  -60px,
+            -100px 25px,
+            -90px -15px,
+            -75px -50px,
+            -52px  -80px,
+            -20px -100px,
+            -145px 25px,
+            -135px -15px,
+            -120px  -52px,
+            -100px -85px,
+            -75px -115px,
+            -42px -135px;
+        $next: 1;
+
+        @each $x, $y in $fav-position {
+          .ks-floating-menu-line:nth-child(#{$next}) {
+            transform: translateX($x) translateY($y);
+          }
+          $next: $next + 1;
+        }
+    }
+}
+
+.ks-menu-name-favourite {
+    word-break: break-all;
+}
+
+.btn-secondary:not(:disabled):not(.disabled):active:focus,
+.btn-secondary:focus {
+    box-shadow: none;
+}
+
+.btn-secondary:not(:disabled):not(.disabled):active {
+    background-color: transparent;
+}

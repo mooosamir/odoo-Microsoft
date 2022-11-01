@@ -1,0 +1,95 @@
+<odoo>
+
+	    <!-- Contact Lens Main Menu -->
+	    <!-- <menuitem id="service_main_menu" parent="root_product_service_menu" name="Services" sequence="5"/> -->
+
+		<!-- Tree View of service-->
+	    <record id="service_tree_view" model="ir.ui.view">
+	        <field name="name">service.tree.view</field>
+	        <field name="model">product.template</field>
+	        <field name="priority">21</field>
+	        <field name="arch" type="xml">
+	            <tree>
+	                <field name="name"/>
+	                <field name="ser_pro_code_id"/>
+	                <field name="list_price" string="Fee"/>
+	            </tree>
+	        </field>
+	    </record>
+
+	    <record id="view_product_supplier_inherit_service" model="ir.ui.view">
+            <field name="name">product.template.supplier.form.inherit</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//page[@name='purchase']" position="attributes">
+	            	<attribute name="invisible">1</attribute>
+	            </xpath>
+	            <xpath expr="//page[@name='sales']" position="attributes">
+	            	<attribute name="invisible">1</attribute>
+	            </xpath>
+            </field>
+        </record>
+
+        <!-- Inherit product template form view from Services -->
+	    <record id="product_template_form_inherit_service" model="ir.ui.view">
+	        <field name="name">product.template.form.inherit.service</field>
+	        <field name="model">product.template</field>
+	        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+	        <field name="arch" type="xml">
+				<xpath expr="//div[@name='options']" position="attributes">
+					<attribute name="invisible">1</attribute>
+				</xpath>
+	        	<xpath expr="//label[@for='name']" position="attributes">
+	        		<attribute name="string">Service</attribute>
+	        	</xpath>
+	        	<xpath expr="//notebook" position="before">
+					<field name='prd_categ_name' invisible="1"/>
+					<group attrs="{'invisible':[('prd_categ_name','!=','Services')]}">
+						<group>
+							<field name="ser_pro_code_id" string="CPT"/>
+							<field name="ser_modifier_id" options="{'no_open':True,'no_create': True}"/>
+							<field name="duration" />
+						</group>
+						<group>
+							<field name="appointment_checkbox" />
+							<field name="color" widget='color'/>
+							<field name="online_checkbox" />
+							<field name="recall_type" options="{'no_open':True,'no_create': True}"/>
+						</group>
+	                </group>
+	            </xpath>
+	            <xpath expr="//notebook/page[@name='variants']" position="attributes">
+	            	<attribute name="attrs">{'invisible':[('prd_categ_name','=','Services')]}</attribute>
+	            </xpath>
+	            <xpath expr="//notebook/page[@name='inventory']" position="attributes">
+	            	<attribute name="invisible">{'invisible':[('prd_categ_name','=','Services')]}</attribute>
+	            </xpath>
+	        </field>
+	    </record>
+
+	    <!-- Overwritten action of product template for display only Service type product -->
+        <record id="product_template_action_service" model="ir.actions.act_window">
+	        <field name="name">Service</field>
+	        <field name="type">ir.actions.act_window</field>
+	        <field name="res_model">product.template</field>
+	        <field name="view_mode">kanban,tree,form</field>
+	        <field name="search_view_id" ref="stock.product_template_search_form_view_stock"/>
+	        <field name="context">{'default_prd_categ_name': 'Services'}</field>
+	        <field name="domain">[('prd_categ_name','=','Services')]</field>
+	        <field name="help" type="html">
+	            <p class="o_view_nocontent_smiling_face">
+	                Create a new product
+	            </p>
+	        </field>
+    	</record>
+
+	    <!-- Display custom tree view instead of product template tree view -->
+        <record id="service_action_tree_view" model="ir.actions.act_window.view">
+	        <field name="sequence" eval="1"/>
+	        <field name="view_mode">tree</field>
+	        <field name="view_id" ref="service_tree_view"/>
+	        <field name="act_window_id" ref="product_template_action_service"/>
+    	</record>	
+	    <menuitem id="service_sub_menu" action="product_template_action_service" parent="product_service_child_product" sequence="6"/>
+</odoo>

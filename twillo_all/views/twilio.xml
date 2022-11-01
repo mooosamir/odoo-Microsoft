@@ -1,0 +1,55 @@
+<odoo>
+  <data>
+
+    <record model="ir.ui.view" id="twilio_form">
+      <field name="name">twilio form</field>
+      <field name="model">twilio</field>
+      <field name="arch" type="xml">
+        <form>
+          <header>
+            <button string="Send Message" class="btn btn-info" name="send_message" type="object" states="draft"/>
+            <button string="Send MMS" class="btn btn-success" name="send_mms" type="object" states="draft"/>
+            <button string="Send Voice via call" class="btn btn-warning" name="send_call" type="object" states="draft"/>
+            <field name="state" widget="statusbar"/>
+          </header>
+          <group>
+            <group>
+              <field name="mobile" placeholder="E.164 format required"/>
+            </group>
+            <group>
+              <field name="message_body"/>
+              <field name="media_url"/>
+            </group>
+          </group>
+          <group>
+            <field name="response_message" readonly="1"/>
+            <field name="response_mms" readonly="1"/>
+            <field name="response_call" readonly="1"/>
+          </group>
+        </form>
+      </field>
+    </record>
+
+
+    <record model="ir.ui.view" id="twilio_list">
+      <field name="name">twilio list</field>
+      <field name="model">twilio</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="message_body"/>
+          <field name="mobile"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="twilio_action_window">
+      <field name="name">twilio window</field>
+      <field name="res_model">twilio</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem name="Twilio" id="twilio_main"/>
+    <menuitem name="Test" id="twilio_test" parent="twilio_main"
+              action="twilio_action_window"/>
+  </data>
+</odoo>

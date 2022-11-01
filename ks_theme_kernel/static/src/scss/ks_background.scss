@@ -1,0 +1,243 @@
+a.o_menu_brand {
+    background-color: rgba(0, 0, 0, 0.25);
+
+    &:hover {
+        background-color: rgba(0, 0, 0, 0.45);
+    }
+}
+
+.o_main_navbar > .ks_configuration.ks-icon-outer {
+    background-color: $primary-light;
+    border: 1px solid #fff;
+    padding: 5px;
+    height: 36px;
+    margin-top: 4px;
+    border-radius: $ks-theme-radius;
+    margin-right: 16px;
+    cursor: pointer;
+    @include align-center();
+
+    @media (max-width: $mini-tab) {
+        margin-left: auto;
+        margin-top: 3px;
+    }
+}
+
+.o_action_manager ,
+.ks-favourite-floating-menu,
+header {
+    transition: 0.3s ease-in-out;
+}
+
+.ks-header-size {
+    @extend %size-and-overlay;
+
+    @media (max-width: $mini-tab) {
+        .ks_configuration {
+            position: fixed;
+            background: rgba(0, 0, 0, 0.6) !important;
+            top: -4px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100vw;
+            height: 100vh !important;
+            z-index: 1110;
+
+            img {
+                opacity: 0;
+            }
+        }
+
+        + .ks_app_sidebar {
+            z-index: 1;
+        }
+    }
+}
+
+.main-home-view {
+    max-width: 800px;
+    overflow: auto;
+    max-height: 100%;
+    padding-bottom: 30px;
+    margin: auto;
+    @include justify-center();
+
+    .o_app_icon {
+        width: 50px;
+        height: 50px;
+        font-size: 30px;
+    }
+}
+
+.ks-search-values {
+    position: absolute;
+    z-index: 1;
+    top: 42px;
+    width: 330px;
+    max-width: 100%;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    max-height: 500px;
+    overflow: auto;
+    word-break: break-word;
+    @extend .scroll-style;
+
+    .ks-menu-search-value.dropdown-item {
+        white-space: normal;
+        padding-bottom: 5px !important;
+        background-size: 24px;
+        background-repeat: no-repeat;
+        padding-left: 45px;
+        background-position-x: 2px;
+    }
+
+    @media (max-width: $mobile) {
+        max-height: 300px;
+    }
+}
+
+.ks-pallete-delete {
+    background: #fd6161;
+    border-radius: 50%;
+    padding: 2px;
+    width: 22px;
+    height: 22px;
+    margin-left: -14px;
+    transform: translateY(7px);
+    cursor: pointer;
+    position: absolute;
+    bottom: 0;
+    align-items: center;
+    justify-content: center;
+
+    img {
+        width: 15px;
+        height: 14px;
+        object-fit: contain;
+        filter: invert(1);
+    }
+}
+
+
+
+.o_list_record_selector {
+    .custom-control-label {
+        cursor: pointer;
+    }
+}
+
+.app_settings_block {
+    .content-group {
+        padding: 20px;
+
+        .row {
+            margin: 0;
+        }
+    }
+}
+
+.custom-checkbox {
+    .custom-control-input {
+        &:checked,
+        &:disabled:checked {
+            ~ .custom-control-label {
+                &:before {
+                    background-color: transparent;
+                    border-color: transparent;
+                }
+
+                &:after {
+                    background-image: none;
+                    content: "\f00c";
+                    font: normal normal normal 14px/1 FontAwesome;
+                    color: $chekbox-color;
+                    width: 16px;
+                    height: 16px;
+                    border: 2px solid $chekbox-color;
+                    margin-left: -2px;
+                    margin-top: -2px;
+                    font-size: 10px;
+                    padding-left: 1px;
+                    padding-top: 1px;
+                }
+            }
+        }
+    }
+}
+
+.custom-checkbox .custom-control-input:not(:checked):not(:indeterminate) ~ .custom-control-label:before {
+    border: none;
+    outline-color: $chekbox-color !important;
+}
+
+.o_setting_right_pane {
+    .o_widget {
+        .d-flex  {
+            align-items: center;
+
+            .o_web_settings_invite {
+                margin-left: 5px;
+                height: 38px;
+                margin-top: 7px;
+            }
+        }
+    }
+}
+
+.o_chat_inline_composer {
+    .o_composer_send {
+        .btn {
+            margin-left: 10px;
+        }
+    }
+}
+
+.ks-color-pallete-all-list {
+    li {
+        position: relative;
+    }
+}
+
+.ks-search-element {
+    display: flex;
+    border-bottom: 1px solid #f3f3f3;
+
+    .ks-search-icon-app,
+    .o_app_icon_has_pictogram  {
+        width: 30px;
+        height: 30px;
+        margin: 5px;
+        object-fit: cover;
+        font-size: 20px;
+        text-align: center;
+
+        + .ks-menu-search-value {
+            padding-left: 5px;
+        }
+    }
+}
+
+.ks-main-app-dropdown {
+    .ks_menu_items_search {
+        @media (min-width: $mobile-lg) {
+            margin-bottom: 80px;
+
+            .ks-search-input {
+                width: 600px;
+            }
+        }
+    }
+
+    .ks-search-values {
+        .ks-menu-search-value.dropdown-item {
+            padding-top: 5px;
+            margin-top: 0;
+            display: block;
+            align-items: center;
+            font-size: 14px;
+        }
+        @media (min-width: $mobile-lg) {
+            width: 600px;
+        }
+    }
+}

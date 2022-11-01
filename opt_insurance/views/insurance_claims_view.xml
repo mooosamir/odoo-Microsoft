@@ -1,0 +1,856 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="claim_manager_view_search_view" model="ir.ui.view">
+        <field name="name">view.claim.manager.search</field>
+        <field name="model">claim.manager</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="service_date"/>
+                <field name="primary_insurance_company_id"/>
+                <field name="state"/>
+                <field name="company_id" string="Location"/>
+                <field name="insurance_claim"/>
+                <field name="patient_id"/>
+                <field name="insurance_fees"/>
+                <field name="insurance_ar"/>
+                <filter string="Service Date" name="service_date" date="service_date"/>
+                <filter string="0-30" name="days_0_30" domain="[
+                        ('service_date', '&lt;=', context_today().strftime('%Y-%m-%d')),
+                        ('service_date', '&gt;=', (context_today() - relativedelta(days=30)).strftime('%Y-%m-%d'))]"/>
+                <filter string="31-60" name="days_31_60" domain="[
+                        ('service_date', '&lt;=', (context_today() - relativedelta(days=31)).strftime('%Y-%m-%d')),
+                        ('service_date', '&gt;=', (context_today() - relativedelta(days=60)).strftime('%Y-%m-%d'))]"/>
+                <filter string="61-90" name="days_61_90" domain="[
+                        ('service_date', '&lt;=', (context_today() - relativedelta(days=61)).strftime('%Y-%m-%d')),
+                        ('service_date', '&gt;=', (context_today() - relativedelta(days=90)).strftime('%Y-%m-%d'))]"/>
+                <filter string="91-120" name="days_91_120" domain="[
+                        ('service_date', '&lt;=', (context_today() - relativedelta(days=91)).strftime('%Y-%m-%d')),
+                        ('service_date', '&gt;=', (context_today() - relativedelta(days=120)).strftime('%Y-%m-%d'))]"/>
+                <filter string="120+" name="days_120_plus" domain="[
+                        ('service_date', '&lt;=', (context_today() - relativedelta(days=120)).strftime('%Y-%m-%d'))]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Insurance" name="groupby_insurance"
+                            context="{'group_by': 'primary_insurance_company_id'}"/>
+                    <filter string="Claim Status" name="groupby_state" context="{'group_by': 'state'}"/>
+                    <filter string="Service Date" name="groupby_service_date" context="{'group_by': 'service_date'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Tree View of Claim Manager-->
+    <record id="claim_manager_view_tree_view" model="ir.ui.view">
+        <field name="name">claim.manager.view.tree</field>
+        <field name="model">claim.manager</field>
+        <field name="arch" type="xml">
+            <tree string='Claim Manager'>
+                <field name="sequence"/>
+                <field name="primary_insurance_company_id" string='Insurance'/>
+                <field name="service_date"/>
+                <field name="patient_id"/>
+                <field name="insurance_fees" invisible="1"/>
+                <field name="insurance_ar"/>
+                <field name="state"/>
+                <field name="submission_date"/>
+                <field name="company_id" string="Location"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View of Claim Manager-->
+    <record id="claim_manager_view_form_view" model="ir.ui.view">
+        <field name="name">claim.manager.view.form</field>
+        <field name="model">claim.manager</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+<!--                    <button name="action_on_hold" string="On Hold" class="oe_highlight" type="object"/>-->
+<!--                    <button name="action_reject_claim" string="Reject Claim" class="oe_highlight" type="object"/>-->
+<!--                    <button name="action_cancel_claim" string="Cancel" type="object"/>-->
+                    <field name='state' widget="statusbar" clickable="1"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_edit_claim_open" type="object" icon="fa-pencil" class="oe_stat_button">
+                            Claim Details
+                        </button>
+                        <button name="%(opt_insurance.action_report_cms_1500)d" type="action" icon="fa-external-link"
+                                class="oe_stat_button">
+                            CMS Preview
+                        </button>
+                        <button name="action_open_invoice" type="object" icon="fa-usd" class="oe_stat_button">
+                            Invoice
+                        </button>
+<!--                        <button name="action_open_patient_profile" type="object" icon="fa-user" class="oe_stat_button">-->
+<!--                            Patient-->
+<!--                        </button>-->
+                    </div>
+                    <div width='100%' class='row'>
+                        <div width='25%'>
+                            <group>
+                                <field name='currency_id' invisible='1'/>
+                                <field name='sequence' readonly='1'/>
+                                <field name='patient_id' required='1' options="{'no_create':True}"
+                                       context="{'form_view_ref':'opt_custom.view_patent_profile_form', 'create': False, 'delete': False, 'default_patient': True}"/>
+                                <field name='submission_date' required='0'/>
+                                <field name='claim_age' required='0'/>
+                            </group>
+                        </div>
+                        <div width='25%'>
+                            <group>
+                                <field name='service_date' string='Date of Service'/>
+                                <field name='sale_order_id'/>
+                                <field name='account_move_id'/>
+                                <field name='company_id'/>
+                            </group>
+                        </div>
+                        <div width='25%'>
+                            <group>
+                                <field name='primary_insurance_company_id'
+                                       context="{'search_patient_insurance': True, 'patient_id': patient_id}"/>
+                                <field name='secondary_insurance_company_id'
+                                       context="{'search_patient_secondary_insurance': True, 'patient_id': patient_id}"/>
+                                <field name='employee_provider_id' domain="[('doctor', '=', True)]"/>
+                            </group>
+                        </div>
+                        <div width='25%'>
+                            <group>
+                                <field name='insured_id' invisible="1"/>
+                                <field name='insured_sequence'/>
+                                <field name='insured'/>
+                                <field name='authorization_id'
+                                       context="{'form_view_ref':'ivis_order_grouping.authorization_form_many2one','default_partner_id':patient_id}"/>
+                            </group>
+                        </div>
+                    </div>
+                    <notebook>
+                        <page string='Claim Line'>
+                            <field name='claim_line_ids' context="{'default_service_date': service_date}">
+                                <tree>
+                                    <field name='procedure_code_id' string='Code'/>
+                                    <field name='name'/>
+                                    <field name='spec_modifier_ids' widget='many2many_tags'/>
+                                    <field name='diagnosis_code_ids' widget='many2many_tags' invisible="1"/>
+                                    <field name='quantity'/>
+                                    <field name='retail'/>
+                                    <field name='pt_total' invisible="1"/>
+                                    <field name='payments'/>
+                                    <field name='ins_receivable'/>
+                                </tree>
+                                <form>
+                                    <group>
+                                        <group>
+                                            <field name='name' required='1'/>
+                                        </group>
+                                    </group>
+                                    <group>
+                                        <group>
+                                            <field name='service_date'/>
+                                        </group>
+                                        <group>
+                                            <field name='spec_modifier_ids' widget='many2many_tags'
+                                                   options="{'no_open':True,'no_create': True}"/>
+                                        </group>
+                                    </group>
+                                    <group>
+                                        <group>
+                                            <field name='facility'/>
+                                        </group>
+                                        <group>
+                                            <field name='quantity'/>
+                                        </group>
+                                    </group>
+                                    <group>
+                                        <group>
+                                            <field name='emg_svc'/>
+                                            <field name='epsdt'/>
+                                            <field name='diagnosis_code_ids' widget='many2many_tags'
+                                                   options="{'no_open':True,'no_create': True}" invisible="1"/>
+                                        </group>
+                                    </group>
+                                </form>
+                            </field>
+                            <group name="note_group" col="6">
+                                <group colspan="4">
+                                    <field name="error" nolabel="1" placeholder="Errors..."/>
+                                </group>
+                                <group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total">
+                                    <field name="total_charge" widget="monetary"
+                                           options="{'currency_field': 'currency_id'}"/>
+                                    <field name="amount_paid" widget="monetary"
+                                           options="{'currency_field': 'currency_id'}"/>
+                                </group>
+                                <div class="oe_clear"/>
+                            </group>
+                        </page>
+                        <page string='Additional Information'>
+                            <div class='row' width='100%'>
+                                <div width='15%'>
+                                    <label for="" string='Referring Provider (17)'/>
+                                </div>
+                                <div width='15%'>
+                                    <field name="qualifier"/>
+                                </div>
+                                <div width='5'>
+                                </div>
+                                <div width='25%'>
+                                    <field name='partner_doctors_id' options="{'no_open':True,'no_create': True}"/>
+                                </div>
+                                <div width='15%'>
+                                    <label for="" string='Additional Information (19)'/>
+                                </div>
+                                <div width='25%'>
+                                    <field name='additional_information'/>
+                                </div>
+                            </div>
+                            <div class='row' width='100%'>
+                                <div width='30%'>
+                                    <label for="" string='Prior Authorization (23)'/>
+                                </div>
+                            </div>
+                            <div class='row' width='100%'>
+                                <div width='5%'>
+                                </div>
+                                <div width='45%'>
+                                    <group>
+                                        <field name='prior_auth'/>
+                                    </group>
+                                </div>
+                                <div width='6%'>
+                                </div>
+                                <div width='16%'>
+                                    <label for="" string='Resubmission Code (22)'/>
+                                </div>
+                                <div width='10%'>
+                                    <field name='resubmission_qualifier'/>
+                                </div>
+                                <div width='3%'>
+                                </div>
+                                <div width='10%'>
+                                    <field name='resubmission_text'/>
+                                </div>
+                            </div>
+                            <div class='row' width='100%'>
+                                <div width='5%'>
+                                </div>
+                                <div width='45%'>
+                                    <group>
+                                        <field name='clia'/>
+                                    </group>
+                                </div>
+                                <div width='50%'>
+                                </div>
+                            </div>
+                            <separator string='Claim Supplemental Information'/>
+                            <div class='row' width='100%'>
+                                <div width='5%'>
+                                </div>
+                                <div width='45%'>
+                                    <field name='claim_supplemental_information_ids'>
+                                        <tree editable='bottom'>
+                                            <field name='report_code_id' options="{'no_create':True, 'no_open':True}"/>
+                                            <field name='transmission_type_id'
+                                                   options="{'no_create':True, 'no_open':True}"/>
+                                            <field name='attachment_control_number'/>
+                                        </tree>
+                                    </field>
+                                </div>
+                                <div width='50%'>
+                                </div>
+                            </div>
+                        </page>
+                    </notebook>
+                    <div invisible='1'>
+                        <div id="headingOne1">
+                            <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne1"
+                                    aria-expanded="true" aria-controls="collapseOne1">
+                                <separator string='Carrier >' aria-controls="collapseOne1"/>
+                            </button>
+                        </div>
+                        <hr/>
+                        <div id="collapseOne1" aria-labelledby="headingOne1" width='100%' class='row collapse show'
+                             style='margin-left:10px;margin-right:10px'>
+                            <group>
+                                <group>
+                                    <field name='secondary_plan_id' force_save='1'/>
+                                    <field name='insurance_company_id'
+                                           context="{'search_patient_insurance': True, 'patient_id': patient_id}"/>
+                                    <field name='plan_id'
+                                           domain="[('insurance_company_id', '=', insurance_company_id)]"/>
+                                </group>
+                                <group>
+                                    <label for="address_line_1" string="Address"/>
+                                    <div class="o_address_format">
+                                        <field name="address_line_1" placeholder="Street..." class="o_address_street"/>
+                                        <field name="address_line_2" placeholder="Street 2..."
+                                               class="o_address_street"/>
+                                        <field name="city" placeholder="City" class="o_address_city"/>
+                                        <field name="state_id" class="o_address_state" placeholder="State"
+                                               options='{"no_open": True}'/>
+                                        <field name="zip" placeholder="ZIP" class="o_address_zip"/>
+                                    </div>
+                                    <field name='insurance_type_id'/>
+                                </group>
+                            </group>
+                        </div>
+
+                        <div id="headingOne2">
+                            <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne2"
+                                    aria-expanded="true" aria-controls="collapseOne3">
+                                <separator string='Patient &amp; Subscriber >' aria-controls="collapseOne2"/>
+                            </button>
+                        </div>
+                        <hr/>
+                        <div id="collapseOne2" aria-labelledby="headingOne2" width='100%' class='row collapse show'
+                             style='margin-left:10px;margin-right:10px'>
+                            <group col='3' colspan='3'>
+                                <group col='1' colspan='1'>
+                                    <separator string='Patient'/>
+                                    <br/>
+                                    <div class="o_address_format">
+                                        <field name='patient_name'/>
+                                        <field name="patient_address_line_1" placeholder="Street..."
+                                               class="o_address_street"/>
+                                        <field name="patient_address_line_2" placeholder="Street 2..."
+                                               class="o_address_street"/>
+                                        <field name="patient_city" placeholder="City" class="o_address_city"/>
+                                        <field name='country_id' invisible='1'/>
+                                        <field name="patient_state_id" class="o_address_state" placeholder="State"
+                                               options='{"no_open": True}'/>
+                                        <field name="patient_zip" placeholder="ZIP" class="o_address_zip"/>
+                                        <br/>
+                                        DOB :
+                                        <field name='patient_date_of_birth'/>
+                                        <br/>
+                                        <field name='patient_gender'/>
+                                        <br/>
+                                        Cell :
+                                        <field name='patient_phone'/>
+                                    </div>
+                                    <br/>
+                                    <br/>
+                                </group>
+                                <group col='1' colspan='1'>
+                                    <separator string='Subscriber'/>
+                                    <br/>
+                                    <div class="o_address_format">
+                                        <field name='subscriber_name'/>
+                                        <field name="subscriber_address_line_1" placeholder="Street..."
+                                               class="o_address_street"/>
+                                        <field name="subscriber_address_line_2" placeholder="Street 2..."
+                                               class="o_address_street"/>
+                                        <field name="subscriber_city" placeholder="City" class="o_address_city"/>
+                                        <field name="subscriber_state_id" class="o_address_state" placeholder="State"
+                                               options='{"no_open": True}'/>
+                                        <field name="subscriber_zip" placeholder="ZIP" class="o_address_zip"/>
+                                        <br/>
+                                        DOB :
+                                        <field name='subscriber_date_of_birth'/>
+                                        <br/>
+                                        <field name='subscriber_gender'/>
+                                        <br/>
+                                        Cell :
+                                        <field name='subscriber_phone'/>
+                                    </div>
+                                    <br/>
+                                    <br/>
+                                </group>
+                                <group col='1' colspan='1'>
+                                    <separator string='Secondary Insurance'/>
+                                    <br/>
+                                    <div class="o_address_format">
+                                        <field name='secondary_patient_name'/>
+                                        <field name="secondary_patient_address_line_1" placeholder="Street..."
+                                               class="o_address_street"/>
+                                        <field name="secondary_patient_address_line_2" placeholder="Street 2..."
+                                               class="o_address_street"/>
+                                        <field name="secondary_patient_city" placeholder="City" class="o_address_city"/>
+                                        <field name="secondary_patient_state_id" class="o_address_state"
+                                               placeholder="State" options='{"no_open": True}'/>
+                                        <field name="secondary_patient_zip" placeholder="ZIP" class="o_address_zip"/>
+                                        <br/>
+                                        DOB :
+                                        <field name='secondary_patient_date_of_birth'/>
+                                        <br/>
+                                        <field name='secondary_patient_gender'/>
+                                        <br/>
+                                        Cell :
+                                        <field name='secondary_patient_phone'/>
+                                    </div>
+                                    <br/>
+                                    <br/>
+                                </group>
+                            </group>
+                            <group col='6' colspan='6'>
+                                <group col='2' colspan='2'>
+                                    <field name='edit_insured_sequence'/>
+                                    <field name='policy_group'/>
+                                    <label for="hipaa_sign"/>
+                                    <div>
+                                        <field name="hipaa_sign" class="oe_inline"/>
+                                        <field name="hipaa_date" class="oe_inline"
+                                               attrs="{'invisible':['|',('hipaa_sign', '=', False)]}"/>
+                                    </div>
+                                </group>
+                                <group col='2' colspan='2'>
+                                    <field name='relationship'/>
+                                    <label for="insured_auth"/>
+                                    <div>
+                                        <field name="insured_auth" class="oe_inline"/>
+                                        <field name="insured_date" class="oe_inline"
+                                               attrs="{'invisible':['|',('insured_auth', '=', False)]}"/>
+                                    </div>
+                                </group>
+                                <group col='2' colspan='2'>
+                                    <field name='secondary_insurance_company_id'
+                                           context="{'search_patient_secondary_insurance': True, 'patient_id': patient_id}"/>
+                                    <field name='insured_sequence_other'/>
+                                    <field name='relationship_other'/>
+                                </group>
+                            </group>
+                        </div>
+                        <div id="headingOne9">
+                            <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne9"
+                                    aria-expanded="true" aria-controls="collapseOne9">
+                                <separator string='Additional Condition Information >' aria-controls="collapseOne9"/>
+                            </button>
+                        </div>
+                        <hr/>
+                        <div id="collapseOne9" aria-labelledby="headingOne9" width='100%' class='row collapse'
+                             style='margin-left:20px;margin-right:10px'>
+                            <group>
+                                <div width='100%' class='row'>
+                                    <div width='49%'>
+                                        <table width='100%'>
+                                            <tr>
+                                                <td colspan='3'>
+                                                    <b>Patient’s Condition Related to</b>
+                                                </td>
+                                                <td colspan='6'>
+                                                    <field name='condition_related'/>
+                                                </td>
+                                                <td colspan='3'>
+                                                    <field name='condition_related_state_id'/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan='3'>
+                                                    <b>Other Claim ID</b>
+                                                </td>
+                                                <td colspan='3'>
+                                                    <field name='other_claim_1'/>
+                                                </td>
+<!--                                                <td colspan='6'>-->
+<!--                                                    <field name='other_claim_2'/>-->
+<!--                                                </td>-->
+                                            </tr>
+                                            <tr>
+                                                <td colspan='3'>
+                                                    <b>Date of Current Illness</b>
+                                                </td>
+                                                <td colspan='3'>
+                                                    <field name='date_of_current_illness'/>
+                                                </td>
+                                                <td colspan='3'>
+                                                    <b>Qualif</b>
+                                                </td>
+                                                <td colspan='3'>
+                                                    <field name='qualif'/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan='3'>
+                                                    <b>Other Date</b>
+                                                </td>
+                                                <td colspan='3'>
+                                                    <field name='other_date'/>
+                                                </td>
+                                                <td colspan='6'>
+                                                    <field name='other_selection'/>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div width='2%'>
+                                    </div>
+                                    <div width='49%'>
+                                        <table width='100%'>
+                                            <tr>
+                                                <td colspan='3'>
+                                                    <b>Dates Unable to Work</b>
+                                                </td>
+                                                <td colspan='3'>
+                                                    <field name='dates_unable_1'/>
+                                                </td>
+                                                <td colspan='3'>
+                                                    <b>To</b>
+                                                </td>
+                                                <td colspan='3'>
+                                                    <field name='dates_unable_2'/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan='3'>
+                                                    <b>Hospitalization</b>
+                                                </td>
+                                                <td colspan='3'>
+                                                    <field name='dates_hospitalization_1'/>
+                                                </td>
+                                                <td colspan='3'>
+                                                    <b>To</b>
+                                                </td>
+                                                <td colspan='3'>
+                                                    <field name='dates_hospitalization_2'/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan='3'>
+                                                    <b>Outside Lab</b>
+                                                </td>
+                                                <td>
+                                                    <field name='outside_lab'/>
+                                                    <b>Yes</b>
+                                                </td>
+                                                <td colspan='8'>
+                                                    <field name='outside_lab_charge' widget="monetary"
+                                                           attrs="{'invisible': [('outside_lab', '=', False)]}"/>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </group>
+                        </div>
+                        <div id="headingOne3">
+                            <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne3"
+                                    aria-expanded="true" aria-controls="collapseOne3">
+                                <separator string='Referring Provider >' aria-controls="collapseOne3"/>
+                            </button>
+                        </div>
+                        <hr/>
+                        <div id="collapseOne3" aria-labelledby="headingOne3" width='100%' class='row collapse show'
+                             style='margin-left:10px;margin-right:10px'>
+                            <group>
+                                <div width='100%' class='row' style='margin-left:10px;margin-right:10px'>
+                                    <div width='49%'>
+                                        <table width='100%'>
+                                            <tr>
+                                                <td colspan='4'>
+                                                    <b>Referring Provider</b>
+                                                </td>
+                                                <td colspan='2'>
+                                                    <field name='edit_qualifier'/>
+                                                </td>
+                                                <td colspan='6'>
+                                                    <field name='partner_edit_doctors_id' options='{"no_open": True}'/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan='4'>
+                                                    <b>Referring Provider NPI</b>
+                                                </td>
+                                                <td colspan='6'>
+                                                    <field name='referring_provider_npi'/>
+                                                </td>
+                                                <td colspan='2'>
+                                                </td>
+                                            </tr>
+
+                                        </table>
+                                    </div>
+                                    <div width='2%'>
+                                    </div>
+                                    <div width='49%'>
+                                        <table width='100%'>
+                                            <tr>
+                                                <td colspan='4'>
+                                                    <b>Referring Provider ID</b>
+                                                </td>
+                                                <td colspan='4'>
+                                                    <field name='referring_provider'/>
+                                                </td>
+                                                <td colspan='4'>
+                                                    <field name='qualifier_text'/>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </group>
+                        </div>
+                        <div id="headingOne4">
+                            <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne4"
+                                    aria-expanded="true" aria-controls="collapseOne4">
+                                <separator string='Claim Supplemental Information >' aria-controls="collapseOne4"/>
+                            </button>
+                        </div>
+                        <hr/>
+                        <div id="collapseOne4" aria-labelledby="headingOne4" width='100%' class='row collapse show'
+                             style='margin-left:10px;margin-right:10px'>
+                            <group>
+                                <group>
+                                    <field name='edit_additional_information'/>
+                                    <label for="edit_resubmission_qualifier"/>
+                                    <div>
+                                        <field name="edit_resubmission_qualifier" class="oe_inline"/>
+                                        <field name="edit_resubmission_text" class="oe_inline"/>
+                                    </div>
+                                </group>
+                                <group>
+                                    <field name='edit_prior_auth'/>
+                                    <field name='edit_clia'/>
+                                    <button name="action_open_claim_supplemental" string="Claim Attachment"
+                                            class="oe_highlight" type="object"/>
+                                </group>
+                            </group>
+                        </div>
+                        <div id="headingOne5">
+                            <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne5"
+                                    aria-expanded="true" aria-controls="collapseOne5">
+                                <separator string='Service Details >' aria-controls="collapseOne5"/>
+                            </button>
+                        </div>
+                        <hr/>
+                        <div id="collapseOne5" aria-labelledby="headingOne5" width='100%' class='row collapse show'
+                             style='margin-left:10px;margin-right:10px'>
+                            <group>
+                                <div width='100%' class='row' style='margin-left:10px;margin-right:10px'>
+                                    <div width='4%'>
+                                    </div>
+                                    <div width='3%'>
+                                        <b>A</b>
+                                    </div>
+                                    <div width='10%'>
+                                        <field name='a_diagnosis_code_id'/>
+                                    </div>
+                                    <div width='3%'>
+                                    </div>
+                                    <div width='3%'>
+                                        <b>B</b>
+                                    </div>
+                                    <div width='10%'>
+                                        <field name='b_diagnosis_code_id'/>
+                                    </div>
+                                    <div width='3%'>
+                                    </div>
+                                    <div width='3%'>
+                                        <b>C</b>
+                                    </div>
+                                    <div width='10%'>
+                                        <field name='c_diagnosis_code_id'/>
+                                    </div>
+                                    <div width='3%'>
+                                    </div>
+                                    <div width='3%'>
+                                        <b>D</b>
+                                    </div>
+                                    <div width='10%'>
+                                        <field name='d_diagnosis_code_id'/>
+                                    </div>
+                                    <div width='3%'>
+                                    </div>
+                                    <div width='3%'>
+                                        <b>E</b>
+                                    </div>
+                                    <div width='10%'>
+                                        <field name='e_diagnosis_code_id'/>
+                                    </div>
+                                    <div width='3%'>
+                                    </div>
+                                    <div width='3%'>
+                                        <b>F</b>
+                                    </div>
+                                    <div width='10%'>
+                                        <field name='f_diagnosis_code_id'/>
+                                    </div>
+                                    <div width='7%'>
+                                    </div>
+                                </div>
+                            </group>
+                            <group>
+                                <div width='100%' class='row' style='margin-left:10px;margin-right:10px'>
+                                    <div width='4%'>
+                                    </div>
+                                    <div width='3%'>
+                                        <b>G</b>
+                                    </div>
+                                    <div width='10%'>
+                                        <field name='g_diagnosis_code_id'/>
+                                    </div>
+                                    <div width='3%'>
+                                    </div>
+                                    <div width='3%'>
+                                        <b>H</b>
+                                    </div>
+                                    <div width='10%'>
+                                        <field name='h_diagnosis_code_id'/>
+                                    </div>
+                                    <div width='3%'>
+                                    </div>
+                                    <div width='3%'>
+                                        <b>I</b>
+                                    </div>
+                                    <div width='10%'>
+                                        <field name='i_diagnosis_code_id'/>
+                                    </div>
+                                    <div width='3%'>
+                                    </div>
+                                    <div width='3%'>
+                                        <b>J</b>
+                                    </div>
+                                    <div width='10%'>
+                                        <field name='j_diagnosis_code_id'/>
+                                    </div>
+                                    <div width='3%'>
+                                    </div>
+                                    <div width='3%'>
+                                        <b>K</b>
+                                    </div>
+                                    <div width='10%'>
+                                        <field name='k_diagnosis_code_id'/>
+                                    </div>
+                                    <div width='3%'>
+                                    </div>
+                                    <div width='3%'>
+                                        <b>L</b>
+                                    </div>
+                                    <div width='10%'>
+                                        <field name='l_diagnosis_code_id'/>
+                                    </div>
+                                    <div width='7%'>
+                                    </div>
+                                </div>
+                            </group>
+                            <group col='4' colspan='4'>
+                                <group col='2' colspan='2'>
+                                    <field name='rendering_provider_npi_id' domain="[('doctor', '=', True)]"/>
+                                </group>
+                                <group col='2' colspan='2'>
+                                    <label for="service_referring_provider"/>
+                                    <div>
+                                        <field name="service_referring_provider" class="oe_inline"/>
+                                        <field name="service_qualifier_text" class="oe_inline"/>
+                                    </div>
+                                </group>
+                            </group>
+                            <group>
+                            </group>
+                            <group col='6' colspan='6'>
+                                <group col='2' colspan='2'>
+                                    <field name='patient_acct'/>
+                                </group>
+                                <group col='2' colspan='2'>
+                                </group>
+                                <group col='2' colspan='2'>
+                                </group>
+                            </group>
+                        </div>
+                        <div id="headingOne7">
+                            <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne7"
+                                    aria-expanded="true" aria-controls="collapseOne7">
+                                <separator string='Billing >' aria-controls="collapseOne7"/>
+                            </button>
+                        </div>
+                        <hr/>
+                        <div id="collapseOne7" aria-labelledby="headingOne7" width='100%' class='row collapse show'
+                             style='margin-left:10px;margin-right:10px'>
+                            <group>
+                                <group>
+                                    <field name='provider_tax'/>
+                                </group>
+                                <group>
+                                    <field name='provider_signature'/>
+                                </group>
+                            </group>
+                            <group string='Service Facility'>
+                                <group>
+                                    <!-- <field name='company_id'/> -->
+                                </group>
+                                <group>
+                                    <label for="bill_address_line_1" string="Address"/>
+                                    <div class="o_address_format">
+                                        <field name="bill_address_line_1" placeholder="Street..."
+                                               class="o_address_street"/>
+                                        <field name="bill_address_line_2" placeholder="Street 2..."
+                                               class="o_address_street"/>
+                                        <field name="bill_city" placeholder="City" class="o_address_city"/>
+                                        <field name="bill_state_id" class="o_address_state" placeholder="State"
+                                               options='{"no_open": True}'/>
+                                        <field name="bill_zip" placeholder="ZIP" class="o_address_zip"/>
+                                    </div>
+                                </group>
+                            </group>
+                            <group col='6' colspan='6'>
+                                <group col='2' colspan='2'>
+                                    <field name='location_npi'/>
+                                </group>
+                                <group col='2' colspan='2'>
+                                    <field name='bill_qualifier'/>
+                                </group>
+                                <group col='2' colspan='2'>
+                                    <field name='bill_other_id'/>
+                                </group>
+                            </group>
+                            <group string='Billing Facility'>
+                                <group>
+                                    <field name='provider_id'/>
+                                </group>
+                                <group>
+                                    <label for="provider_bill_address_line_1" string="Address"/>
+                                    <div class="o_address_format">
+                                        <field name="provider_bill_address_line_1" placeholder="Street..."
+                                               class="o_address_street"/>
+                                        <field name="provider_bill_address_line_2" placeholder="Street 2..."
+                                               class="o_address_street"/>
+                                        <field name="provider_bill_city" placeholder="City" class="o_address_city"/>
+                                        <field name="provider_bill_state_id" class="o_address_state" placeholder="State"
+                                               options='{"no_open": True}'/>
+                                        <field name="provider_bill_zip" placeholder="ZIP" class="o_address_zip"/>
+                                    </div>
+                                </group>
+                            </group>
+                            <group col='6' colspan='6'>
+                                <group col='2' colspan='2'>
+                                    <field name='provider_location_npi'/>
+                                </group>
+                                <group col='2' colspan='2'>
+                                    <field name='provider_bill_qualifier'/>
+                                </group>
+                                <group col='2' colspan='2'>
+                                    <field name='provider_bill_other_id'/>
+                                </group>
+                            </group>
+                        </div>
+                    </div>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="claim_manager_view_action" model="ir.actions.act_window">
+        <field name="name">Claim Manager</field>
+        <field name="res_model">claim.manager</field>
+        <field name="search_view_id" ref="claim_manager_view_search_view"/>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="claim_manager_view_action_tree_view" model="ir.actions.act_window.view">
+        <field name="sequence" eval="19"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="claim_manager_view_tree_view"/>
+        <field name="act_window_id" ref="claim_manager_view_action"/>
+    </record>
+
+    <record id="claim_manager_view_action_form_view" model="ir.actions.act_window.view">
+        <field name="sequence" eval="20"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="claim_manager_view_form_view"/>
+        <field name="act_window_id" ref="claim_manager_view_action"/>
+    </record>
+</odoo>

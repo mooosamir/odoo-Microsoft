@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.base.setup</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="0"/>
+        <field name="inherit_id" ref="base_setup.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='companies']//div[hasclass('mt8')]/button" position="replace">
+                <button name="%(action_company_registration)d" icon="fa-arrow-right"
+                        type="action" string="Manage Branches" class="btn-link"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

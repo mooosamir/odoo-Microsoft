@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record model="ir.ui.menu" id="opt_insurance.insurance_main_menu">
+      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_configurations_insurance_configurations')])]"/>
+    </record>
+    <record model="ir.ui.menu" id="opt_insurance.insurance_network_menu">
+      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_configurations_insurance_insurance_network')])]"/>
+    </record>
+    <record model="ir.ui.menu" id="opt_insurance.insurance_plan_menu">
+      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_configurations_insurance_insurance_plan')])]"/>
+    </record>
+    <record model="ir.ui.menu" id="opt_insurance.insurance_chargeback_menu">
+      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_configurations_insurance_insurance_chargeback')])]"/>
+    </record>
+    <record model="ir.ui.menu" id="opt_insurance.insurance_group_allowance_menu">
+      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_configurations_insurance_group_allowance')])]"/>
+    </record>
+    <record model="ir.ui.menu" id="opt_insurance.insurance_dispensing_fee_menu">
+      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_configurations_insurance_dispensing_fee')])]"/>
+    </record>
+    <record model="ir.ui.menu" id="opt_insurance.insurance_fitting_fee_menu">
+      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_configurations_insurance_fitting_fee')])]"/>
+    </record>
+    <record model="ir.ui.menu" id="opt_insurance.insurance_era_auto_adjustment_menu">
+      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_configurations_insurance_configuration_auto_adjustment_rules')])]"/>
+    </record>
+    <record model="ir.ui.menu" id="opt_insurance.insurance_network_groups_menu">
+      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_configurations_insurance_procedure_code_groups_insurance_network_groups')])]"/>
+    </record>
+    <record model="ir.ui.menu" id="opt_insurance.insurance_group_co_pay_menu">
+      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_configurations_insurance_procedure_code_groups_group_co_pay')])]"/>
+    </record>
+    <record model="ir.ui.menu" id="opt_insurance.insurance_formulary_procedure_grouping_menu">
+      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_configurations_insurance_procedure_code_groups_formulary_procedure_grouping')])]"/>
+    </record>
+    <record model="ir.ui.menu" id="opt_insurance.insurance_compan_listing_menu">
+      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_configurations_insurance_insurance_company')])]"/>
+    </record>
+    <record model="ir.ui.menu" id="opt_insurance.claim_manager_view_menu">
+      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_claims_manager')])]"/>
+    </record>
+    <record model="ir.ui.menu" id="opt_insurance.root_payments_manu">
+      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_claims_payments')])]"/>
+    </record>
+</odoo>

@@ -1,0 +1,57 @@
+<!-- <?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <report
+            id="action_report_appointment"
+            string="Appointment Report"
+            model="spec.appointment"
+            report_type="qweb-pdf"
+            file="opt_custom.report_appointment"
+            name="opt_custom.report_appointment"
+            print_report_name="'Appointment Schedule Report'"
+    />
+
+    <template id="report_appointment">
+        <t t-call="web.html_container">
+            <t t-call="web.basic_layout">
+                <div class="page">
+                    <div class="header">
+                        <table width="100%">
+                            <tr style="border-bottom:1px solid black;">
+                                <td>
+                                    <h4>
+                                        <center>
+                                            <b>Appointment Schedule Report</b>
+                                        </center>
+                                    </h4>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <table width="80%" class="table table-sm table-striped" style="font-size: 10px;">
+                        <thead>
+                            <tr>
+                                <th style="text-align:center"><b>Date</b></th>
+                                <th style="text-align:center"><b>Time</b></th>
+                                <th style="text-align:center"><b>Duration</b></th>
+                                <th style="text-align:center"><b>Patient Name</b></th>
+                                <th style="text-align:center"><b>Age</b></th>
+                                <th style="text-align:center"><b>Clinician</b></th>
+                            </tr>
+                        </thead>
+                        <tbody style="border-top: 1px solid black;">
+                            <tr t-foreach="docs" t-as="line">
+                                <td style="text-align:center;"><span t-field="line.appointment_date"/></td>
+                                <td style="text-align:center;"><span t-field="line.appointment_time"/></td>
+                                <td style="text-align:center;"><span t-field="line.appointment_duration"/></td>
+                                <td style="text-align:center;"><span t-field="line.patient_id.name"/></td>
+                                <td style="text-align:center;"><span t-field="line.patient_id.age"/></td>
+                                <td style="text-align:center;"><span t-field="line.employee_id.name"/></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>
+ -->

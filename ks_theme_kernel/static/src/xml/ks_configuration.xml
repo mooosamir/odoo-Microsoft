@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="KsThemeConfiguration">
+      <div class="ks_theme_layout">
+          <div class="ks_theme_layout_inner">
+              <div id="ks_color_mode_option_list">
+                  <button class="btn btn-filter-head" type="button" data-toggle="collapse"
+                          data-target="#filterMode" aria-expanded="true" aria-controls="filterMode">
+                       <img src="/ks_theme_kernel/static/src/images/icons/half-moon-and-sun.svg"
+                            class="filter-icon"/>
+                      <span class="ml-2">Select Mode</span>
+                      <div class="btn-expanded ml-auto">
+                              <i class="fa fa-chevron-up"/>
+                           </div>
+                  </button>
+                  <div class="collapse show" id="filterMode">
+                    <div class="card card-body">
+                        <div class="ks-filter-radios">
+                            <label class="ks_color_mode active" id="light_mode">
+                                <input type="radio" checked="true" name="modeSelect"/>
+                                <div class="ks-color-mode-img mr-3">
+                                    <img src="/ks_theme_kernel/static/src/images/icons/filters/sun.svg"
+                                         class="filter-select-icon"/>
+                                    <i class="fa fa-check-circle"/>
+                                </div>
+                                <span>Light Mode</span>
+                            </label>
+                            <label class="ks_color_mode" id="dark_mode">
+                                <input type="radio" name="modeSelect"/>
+                                <div class="ks-color-mode-img mr-3">
+                                    <img src="/ks_theme_kernel/static/src/images/icons/filters/moon.svg"
+                                         class="filter-select-icon"/>
+                                    <i class="fa fa-check-circle"/>
+                                </div>
+                                <span>Dark Mode</span>
+                            </label>
+                        </div>
+                    </div>
+                  </div>
+              </div>
+              <div id="ks_theme_font_id">
+                  <button class="btn btn-filter-head collapsed" type="button" data-toggle="collapse"
+                          data-target="#filterFonts" aria-expanded="false" aria-controls="filterFonts">
+                       <img src="/ks_theme_kernel/static/src/images/icons/filters/text-styles-white.svg"/>
+                      <span class="ml-2">Font Styles</span>
+                      <div class="btn-expanded ml-auto">
+                          <i class="fa fa-chevron-up"/>
+                       </div>
+                  </button>
+                  <div class="collapse" id="filterFonts">
+                    <div class="card card-body">
+                        <div class="ks-filter-radios">
+                            <label class="ks_font" id="font_1">
+                                <input type="radio" name="selectFont"/>
+                                <div class="ks-font-img mr-3">
+                                    <img src="/ks_theme_kernel/static/src/images/icons/filters/text-styles-white.svg"/>
+                                    <i class="fa fa-check-circle"/>
+                                </div>
+                                <span>Open Sans</span>
+                                <!--                                    <img src="/ks_theme_kernel/static/src/images/icons/fonts/f1.jpg"-->
+                                <!--                                         class="ks-font-img-name"/>-->
+                            </label>
+                            <label class="ks_font" id="font_2">
+                                <input type="radio" name="selectFont"/>
+                                <div class="ks-font-img mr-3">
+                                    <img src="/ks_theme_kernel/static/src/images/icons/filters/text-styles-white.svg"/>
+                                    <i class="fa fa-check-circle"/>
+                                </div>
+                                <span>Source Sans Pro</span>
+                                <!--                                    <img src="/ks_theme_kernel/static/src/images/icons/fonts/f2.jpg"-->
+                                <!--                                         class="ks-font-img-name"/>-->
+                            </label>
+                            <label class="ks_font" id="font_3">
+                                <input type="radio" name="selectFont"/>
+                                <div class="ks-font-img mr-3">
+                                    <img src="/ks_theme_kernel/static/src/images/icons/filters/text-styles-white.svg"/>
+                                    <i class="fa fa-check-circle"/>
+                                </div>
+                                <span>Noto Sans JP</span>
+                                <!--                                    <img src="/ks_theme_kernel/static/src/images/icons/fonts/f3.jpg"-->
+                                <!--                                         class="ks-font-img-name"/>-->
+                            </label>
+                            <label class="ks_font" id="font_4">
+                                <input type="radio" name="selectFont"/>
+                                <div class="ks-font-img mr-3">
+                                    <img src="/ks_theme_kernel/static/src/images/icons/filters/text-styles-white.svg"/>
+                                    <i class="fa fa-check-circle"/>
+                                </div>
+                                <span>Roboto</span>
+                            </label>
+                            <label class="ks_font" id="font_5">
+                                <input type="radio" name="selectFont"/>
+                                <div class="ks-font-img mr-3">
+                                    <img src="/ks_theme_kernel/static/src/images/icons/filters/text-styles-white.svg"/>
+                                    <i class="fa fa-check-circle"/>
+                                </div>
+                                <span>Lato</span>
+                            </label>
+                            <label class="ks_font" id="font_6">
+                                <input type="radio" name="selectFont"/>
+                                <div class="ks-font-img mr-3">
+                                    <img src="/ks_theme_kernel/static/src/images/icons/filters/text-styles-white.svg"/>
+                                    <i class="fa fa-check-circle"/>
+                                </div>
+                                <span>Oswald</span>
+                            </label>
+                            <label class="ks_font" id="font_7">
+                                <input type="radio" name="selectFont"/>
+                                <div class="ks-font-img mr-3">
+                                    <img src="/ks_theme_kernel/static/src/images/icons/filters/text-styles-white.svg"/>
+                                    <i class="fa fa-check-circle"/>
+                                </div>
+                                <span>Cairo</span>
+                            </label>
+                        </div>
+                  </div>
+                  </div>
+              </div>
+              <div id="ks_theme_favourite_id">
+                  <button class="btn btn-filter-head" type="button" data-toggle="collapse"
+                          data-target="#filterFav"
+                          aria-expanded="true" aria-controls="filterFav">
+                       <img src="/ks_theme_kernel/static/src/images/icons/filters/fav-white.svg"/>
+                      <span class="ml-2">Favourite Menus</span>
+                      <div class="btn-expanded ml-auto">
+                          <i class="fa fa-chevron-up"/>
+                       </div>
+                  </button>
+                  <div class="collapse show" id="filterFav">
+                    <div class="card card-body">
+                        <div class="ks_favourite_search ks-search-container form-row align-items-center justify-content-center">
+                            <div class="ks-favourite-input w-100 mb-3">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <i class="fa fa-search"/>
+                                        </div>
+                                    </div>
+                                    <input name="search" type="search" autocomplete="off"
+                                           placeholder="Search Here For Menu Url..."
+                                           class="search-query form-control ks-favourite-search"/>
+                                </div>
+                            </div>
+                            <div class="ks-favourite-values"/>
+                  </div>
+                        <div class="ks-favourite-menu-section">
+
+                        <table class="ks-favourite-menu-table w-100">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>URL</td>
+                                    <td/>
+                                </tr>
+                            </thead>
+                            <tbody class="ks-favourite-menu-body">
+
+                            </tbody>
+                        </table>
+                            <div class="ks-input-outer my-3">
+                            <input class="ks_menu_url d-none" required="True" placeholder="Menu Url..."/>
+                                <span class="ks_menu_url_validation error-text d-none">Please fill the menu url</span>
+                        </div>
+                            <div class="ks-input-outer mt-3">
+                            <input class="ks_menu_names d-none" required="True" placeholder="Menu Name..."/>
+                                <span class="ks_menu_name_validation error-text d-none">Please fill the menu name</span>
+                        </div>
+                            <button role="button" class="btn ks-btn-theme mb-4 ks_add_line_favourite">Add New Menu</button>
+                    </div>
+                </div>
+              </div>
+          </div>
+              <div id="ks_theme_color_id" class="ks_theme_color_class d-none">
+                  <button class="btn btn-filter-head" type="button" data-toggle="collapse"
+                          data-target="#filterColors"
+                          aria-expanded="true" aria-controls="filterFav">
+                       <img src="/ks_theme_kernel/static/src/images/icons/filters/color-white.svg"/>
+                      <span class="ml-2">Colors and Themes</span>
+                      <div class="btn-expanded ml-auto">
+                          <i class="fa fa-chevron-up"/>
+                       </div>
+                  </button>
+                  <div class="collapse show" id="filterColors">
+                      <div class="ks-color-pallete-all-list card card-body">
+                      </div>
+                  </div>
+              </div>
+              <div id="ks_theme_advance_colors" class="color_picker d-none">
+                <button class="btn btn-filter-head" type="button" data-toggle="collapse"
+                        data-target="#filterAdvanceColors"
+                        aria-expanded="true" aria-controls="filterFav">
+                   <img src="/ks_theme_kernel/static/src/images/icons/filters/add-white.svg"/>
+                    <span class="ml-2">Advance Settings</span>
+                    <div class="btn-expanded ml-auto">
+                      <i class="fa fa-chevron-up"/>
+                   </div>
+                 </button>
+                  <div class="collapse show" id="filterAdvanceColors">
+                    <div class="card card-body">
+                        <div class="color_picker_wrapper">
+                            <label>Primary Color</label>
+                            <input type="text" class="header-bg-color-picker" value="red"/>
+                        </div>
+                        <div class="color_picker_wrapper">
+                            <label>Theme Text Color</label>
+                            <input type="text" class="header-text-color-picker" value="red"/>
+                        </div>
+                        <div class="color_picker_wrapper">
+                            <label>Secondary Color</label>
+                            <input type="text" class="button-bg-color-picker" value="red"/>
+                        </div>
+                        <div class="color_picker_wrapper">
+                            <label>Sidebar BG Color</label>
+                            <input type="text" class="button-text-color-picker" value="red"/>
+                        </div>
+                        <div class="color_picker_wrapper">
+                            <label>Top Menu BG Color</label>
+                            <input type="text" class="heading-bg-color-picker" value="red"/>
+                        </div>
+                        <div class="color_picker_wrapper">
+                            <label>Border Color</label>
+                            <input type="text" class="heading-text-color-picker" value="red"/>
+                        </div>
+                    </div>
+                      <div class="ks-bg-footer p-3 select-bg-footer">
+                          <button type="button" class="btn ks-btn-theme ks_apply_color mr-3  reset_buttom "
+                                  disabled="disabled">Save</button>
+                          <button type="button"
+                                  class="btn btn-secondary ks_cancel_color mr-3  reset_buttom">Discard</button>
+                      </div>
+                  </div>
+             </div>
+          </div>
+       </div>
+    </t>
+</templates>

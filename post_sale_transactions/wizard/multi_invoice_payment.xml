@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="multi_invoice_payment_form" model="ir.ui.view">
+            <field name="name">multi.invoice.payment.form.</field>
+            <field name="model">multi.invoice.payment</field>
+            <field name="arch" type="xml">
+                <form string="Register Payment">
+                    <group col="1" attrs="{'invisible': [('reverse_invoice', '=', True)]}">
+                        <button string="Stripe" name="open_stripe_gateway" type="object"
+                                class="oe_highlight" style="float: right;"/>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="invoice_ids" invisible="1" force_save="1"/>
+                            <field name="reverse_invoice" invisible="1"/>
+                            <field name="type" invisible="1"/>
+                            <field name="journal_id" widget="selection" string="Payment Type"/>
+                            <field name="amount" force_save="1" invisible="1"/>
+                            <field name="so_cash" force_save="1" string="Amount"/>
+                            <field name="partner_id" invisible="1" options="{'no_open': True, 'no_create': True}"  force_save="1"/>
+                            <field name="payment_method_id" invisible="0" options="{'no_open': True, 'no_create': True}"/>
+                        </group>
+                        <group>
+                            <field name="payment_date" string="Date"/>
+                            <field name="reference_number"/>
+                        </group>
+                    </group>
+                    <group col="6">
+                        <td class="o_td_label">
+                            <label for="so_cash"/>
+                        </td>
+                        <td style="width: 20%;">
+                            <field name="so_cash" force_save="1" attrs="{'invisible': [('type', '=', 'bank')]}"/>
+                        </td>
+                        <field name="so_change" force_save="1"/>
+                    </group>
+                    <field name="invoice_lines" force_save="1" readonly="0" mode="tree" create="0">
+                        <tree editable="bottom" create="0">
+                            <field name="sale_order_id" readonly="1" force_save="1"/>
+                            <field name="invoice_id" readonly="1" force_save="1"/>
+                            <field name="partner_id" readonly="1" force_save="1"/>
+                            <field name="balance" readonly="1" force_save="1"/>
+                            <field name="fixed_amount" readonly="0" force_save="1"/>
+                            <field name="amount" readonly="1" force_save="1" string="split amount"/>
+                        </tree>
+                    </field>
+                    <p attrs="{'invisible': [('reverse_invoice', '=', True)]}">
+                        Only invoices with balance of greater than 0 will come.
+                        In case of customer note, amount greater then invoice is not allowed.
+                    </p>
+                    <footer>
+                        <button string="Create Payment" name="create_payments" type="object" class="oe_highlight"/>
+                        <button string="Cancel" class="btn btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

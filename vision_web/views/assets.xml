@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <template id="assets_backend" name="Patient Engagement Assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" href="/vision_web/static/src/css/style.css"/>
+                <script type="text/javascript" src="/vision_web/static/src/js/vision_web_import.js"></script>
+                <script type="text/javascript" src="/vision_web/static/src/js/vision_web_transmit.js"></script>
+                <script type="text/javascript" src="/vision_web/static/src/js/list_view/list_controller.js"></script>
+                <script type="text/javascript" src="/vision_web/static/src/js/form_view/form_controller.js"></script>
+            </xpath>
+        </template>
+    </data>
+</odoo>

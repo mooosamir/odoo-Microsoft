@@ -1,0 +1,272 @@
+.ks_menu_url,
+.ks_menu_names,
+.o_input,
+.ks-search-input .form-control,
+.ks-page-input-search .input-group-text,
+.o_required_modifier .o_input,
+.o_required_modifier.o_input,
+.o_thread_composer .o_composer,
+.note-editor .note-editing-area .note-editable,
+.o_base_settings .o_control_panel .o_panel .o_setting_search .searchInput {
+    background-color: $searchbar-bg-color !important;
+    border-color: $searchbar-border-color !important;
+    color: $sidebar-text-color;
+
+    &::placeholder {
+        color: $placeholder-text;
+    }
+}
+
+.o_mail_discuss .o_mail_discuss_content,
+.o_calendar_view .o_calendar_widget,
+.fc-unthemed tbody,
+.o_calendar_sidebar_container,
+.o_calendar_sidebar_container .ui-datepicker,
+.o_list_view .o_list_table tfoot,
+.table td,
+.o_dashboards .o_website_dashboard,
+.o_dashboards .o_website_dashboard div.o_box,
+.o_base_settings .o_setting_container .settings,
+.o_form_view .o_form_sheet_bg > .o_form_sheet,
+.o_form_view,
+.o_mail_thread .o_thread_date_separator .o_thread_date,
+.o_mail_thread .o_thread_message.o_mail_not_discussion,
+.oe_chatter .o_mail_chatter_attachments .o_chatter_attachment .o_border_dashed .o_attach_title,
+.o_pivot table th,
+.o_pivot table,
+.o_pivot table .o_pivot_header_cell_opened,
+.o_pivot table .o_pivot_header_cell_closed,
+.o_pivot table .o_pivot_measure_row,
+.o_kanban_view .o_kanban_quick_create,
+.modal-header,
+.modal-footer,
+.o_activity_view > table,
+.dropdown-menu,
+.o_thread_window .o_mail_thread .o_thread_date_separator .o_thread_date,
+.o_thread_composer:not(.o_chat_mini_composer),
+body .fc-row .fc-content-skeleton td,
+.o_calendar_view .o_calendar_widget .fc-month-view .fc-bg .fc-today,
+.modal-body,
+.ks-search-values,
+.o_mail_systray_item .o_mail_systray_dropdown .o_mail_mobile_tabs,
+.o_activity_view .o_activity_summary_cell,
+body .note-popover .popover .popover-body .dropdown-menu,
+body .panel-heading.note-toolbar .dropdown-menu,
+body .note-popover .popover .popover-body .dropdown-item,
+body .panel-heading.note-toolbar .dropdown-item {
+    background-color: $user-info-bg; //white on light mode
+    color: $sidebar-text-color;
+    border-color: $border-color;
+}
+
+.table, table{
+    tr{
+        &.text-info,
+        &.text-danger,
+        &.text-mute,
+        &.text-success,
+        &.decoration-bf,
+        &.decoration-it,
+        &.decoration-danger,
+        &.decoration-info,
+        &.decoration-muted,
+        &.decoration-primary,
+        &.decoration-success,
+        &.decoration-warning,
+        &.text-primary,
+        &.text-secondary,
+        &.text-success,
+        &.text-danger,
+        &.text-warning,
+        &.text-info,
+        &.text-light,
+        &.text-dark,
+        &.text-muted,
+        &.text-white{
+            td{
+                color: inherit !important;
+            }
+        }
+    }
+}
+
+.o_calendar_sidebar_container .ui-datepicker td a,
+.ui-datepicker-title,
+.input-group-text .fa,
+.o_mail_systray_item .o_mail_systray_dropdown .o_no_activity,
+.o_activity_view .o_record_selector,
+.modal-header .modal-title,
+.close,
+.o_field_phone_sms,
+.o_chatter .o_thread_message .o_thread_message_content,
+.o_list_view .o_list_table .o_list_record_remove button,
+.fc-day-grid-event .o_event_title,
+.dropdown-item,
+.dropdown-item:hover,
+.modal-header .fa,
+.oe_topbar_name,
+ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6,
+.o_kanban_view .o_kanban_record .o_kanban_record_title,
+.card-body,
+.modal-header .close,
+.o_list_view .o_list_table .o_column_sortable:not(.o_handle_cell).o-sort-up, .o_list_view .o_list_table .o_column_sortable:not(.o_handle_cell).o-sort-down,
+.o_base_settings .o_setting_container .settings .settingSearchHeader .appName {
+    color: $sidebar-text-color;
+}
+
+.o_content,
+.o_setting_container > .settings,
+.modal-body,
+.fc-time-grid-container,
+.o_calendar_sidebar_container,
+.settings_tab {
+    @extend .scroll-style;
+}
+
+.o_base_settings .o_setting_container .settings > .app_settings_block h2,
+.o_base_settings .o_setting_container .settings > .app_settings_block .settingSearchHeader {
+    background: $primary-and-grey;
+}
+
+.o_form_view .o_form_uri > span, .o_form_view .o_form_uri,
+.o_form_view .oe_button_box .btn.oe_stat_button,
+.o_notebook .nav-tabs .nav-link,
+.o_followers .o_followers_follow_button,
+.o_kanban_view .o_kanban_group .o_kanban_header > .o_kanban_header_title .o_kanban_quick_add i,
+.o_thread_message_content,
+.btn-link:disabled,
+.btn-link.disabled,
+.ks-menu-systray .o_switch_company_menu .dropdown-menu > .dropdown-item .text-muted,
+.o_kanban_counter_side,
+.o_base_settings .o_control_panel .o_panel .o_setting_search .searchIcon {
+    color: $text-white-gray !important;
+}
+
+.nav-tabs .nav-link.active {
+    color: $sidebar-text-color;
+    background: transparent;
+}
+
+.o_dashboards .o_website_dashboard .o_dashboard_visits .o_demo_background .o_layer {
+    background-color: rgba($page-bg-color, 0.75);
+}
+
+//bredcrumb arrows
+.o_form_view .o_form_statusbar > .o_statusbar_status > .o_arrow_button.disabled,
+.o_form_view .o_form_statusbar > .o_statusbar_status > .o_arrow_button {
+    background-color: $primary-light;
+    color: $text-primary;
+    border-color: $primary-light;
+    border-radius: 0 !important;
+}
+
+.o_form_view .o_form_statusbar > .o_statusbar_status > .o_arrow_button:not(:first-child):after {
+    border-left-color: $primary-light;
+}
+
+.o_form_view .o_form_statusbar > .o_statusbar_status > .o_arrow_button:not(:first-child):before {
+    border-left-color: $border-color;
+}
+
+.o_pivot table .o_pivot_header_cell_opened,
+.o_pivot table .o_pivot_header_cell_closed {
+    &:hover {
+        background-color: $primary;
+    }
+}
+
+.o_control_panel,
+.o_control_panel .breadcrumb,
+.o_form_view .o_form_statusbar,
+.o_kanban_view.o_theme_kanban {
+    background-color: $page-bg-color;
+    color: $sidebar-text-color;
+}
+
+@media (max-width: 767.98px) {
+    .o_cp_searchview .o_searchview_input_container {
+        background-color: $searchbar-bg-color !important;
+        border-color: $searchbar-border-color !important;
+        color: $sidebar-text-color;
+
+        &::placeholder {
+            color: $placeholder-text;
+        }
+    }
+
+    .o_cp_searchview .o_searchview_input_container .o_searchview_autocomplete,
+    .o_mail_discuss,
+    .o_web_client .o_mobile_search {
+        background-color: $user-info-bg;
+        color: $sidebar-text-color;
+        border-color: $border-color;
+    }
+
+    .o_cp_searchview .o_toggle_searchview_full {
+        background: $primary-light;
+        color: $text-primary !important;
+    }
+}
+
+.o_thread_composer.o_chat_mini_composer .o_composer_container {
+    border-color: $border-color !important;
+}
+
+.o_dashboards .o_website_dashboard .o_dashboard_common .o_inner_box {
+    background-color: $primary;
+    color: $text-primary;
+}
+
+.o_dashboards .o_website_dashboard div.o_box h2,
+.o_dashboards .o_website_dashboard div.o_box h4 {
+    color: $primary-light;
+}
+
+.o_control_panel .breadcrumb,
+.o_control_panel .o_cp_left,
+.o_control_panel .o_cp_searchview,
+.o_control_panel .o_cp_right {
+ @media (min-width: 769px) {
+    width: auto;
+ }
+}
+
+.ui-widget.ui-widget-content {
+    background-color: $user-info-bg !important; //white on light mode
+    color: $sidebar-text-color !important;
+    border-color: $border-color !important;
+
+    .ui-menu-item-wrapper {
+        color: $sidebar-text-color !important;
+    }
+}
+
+body .modal .o_select_media_dialog .modal-body .o_we_attachment_selected.font-icons-icon {
+    border-color: none !important;
+    box-shadow: none !important;
+
+    &:before {
+        border-color: $primary;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23) ;
+    }
+}
+
+.input-group-text.o_we_search_icon {
+    background-color: $primary-light;
+
+    .fa {
+        color: #fff;
+    }
+}
+
+.o_mail_discuss .o_mail_discuss_sidebar .o_mail_discuss_item.o_active {
+    box-shadow: inset 3px 0 0 $primary;
+}
+
+.o_control_panel .breadcrumb {
+    max-width: 100%;
+}
+
+.o_field_char.o_field_widget{
+    word-break: break-word;
+}

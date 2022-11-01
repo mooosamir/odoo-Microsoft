@@ -1,0 +1,72 @@
+<odoo>
+	    <record id="patients_own_frame_form" model="ir.ui.view">
+	        <field name="name">patients.own.frame.tree</field>
+	        <field name="model">patient.own.frame</field>
+	        <field name="arch" type="xml">
+	            <form>
+                    <sheet>
+                        <button name="add_from_frame" string="Add from previous frame" type="object" class="border_black"/>
+<!--                        <group colspan="4" col="2">-->
+<!--    	                    <field name="name" invisible="1"/>-->
+<!--                        </group>-->
+                        <group colspan="4" col="2">
+    	                    <field name="model_number" string='Model'/>
+	                        <field name="color"/>
+
+                        </group>
+                        <group colspan="4" col="10">
+                            <field name="a"/>
+                            <field name="b"/>
+                            <field name="dbl"/>
+                            <field name="ed"/>
+                            <field name="temple"/>
+                        </group>
+                        <group colspan="4" col="2">
+    	                    <field name="edge_id"/>
+                        </group>
+                    </sheet>
+	            </form>
+	        </field>
+	    </record>
+
+	    <record id="patients_own_frame_tree" model="ir.ui.view">
+	        <field name="name">patients.own.frame.tree</field>
+	        <field name="model">patient.own.frame</field>
+	        <field name="arch" type="xml">
+	            <tree>
+	                <field name="brand_id"/>
+	                <field name="model_number" string='Model'/>
+	                <field name="color"/>
+<!--	                <field name="color"/>-->
+	                <field name="bridge"/>
+	                <field name="temple"/>
+	            </tree>
+	        </field>
+	    </record>
+
+        <record id="patients_own_frame_action" model="ir.actions.act_window">
+	        <field name="name">Patients Own Frame</field>
+	        <field name="type">ir.actions.act_window</field>
+	        <field name="res_model">patient.own.frame</field>
+	        <field name="view_mode">tree,form</field>
+	        <field name="help" type="html">
+	            <p class="o_view_nocontent_smiling_face">
+	                Create a new product
+	            </p>
+	        </field>
+    	</record>
+
+        <record id="patients_own_frame_action_tree_view" model="ir.actions.act_window.view">
+	        <field name="view_mode">tree</field>
+	        <field name="view_id" ref="patients_own_frame_tree"/>
+	        <field name="act_window_id" ref="patients_own_frame_action"/>
+    	</record>
+
+		<record id="patients_own_frame_action_form_view" model="ir.actions.act_window.view">
+	        <field name="view_mode">form</field>
+	        <field name="view_id" ref="patients_own_frame_form"/>
+	        <field name="act_window_id" ref="patients_own_frame_action"/>
+    	</record>
+
+<!--	    <menuitem id="patients_own_frame_menus" name="Patients Own Frames" action="patients_own_frame_action" parent="root_product_service_menu" sequence="1"/>-->
+</odoo>

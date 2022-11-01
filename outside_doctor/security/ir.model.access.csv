@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_frame_markup_formula_user,access_frame.markup.formula,model_frame_markup_formula,base.group_user,1,1,1,1
+access_employee_role,access_employee.role,model_employee_role,base.group_user,1,1,1,1

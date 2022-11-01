@@ -1,0 +1,15 @@
+<odoo>
+    <record id="spec_contact_lenses_form" model="ir.ui.view">
+        <field name="name">spec.contact.lenses.form</field>
+        <field name="model">spec.contact.lenses</field>
+        <field name="inherit_id" ref="opt_custom.spec_contact_lenses_form"/>
+	    <field name="arch" type="xml">
+            <xpath expr="//field[@name='soft_manufacturer_id']" position="attributes">
+                <attribute name="context">{'tree_view_ref': 'brand_manufacturer_only_view'}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='soft_left_manufacturer_id']" position="attributes">
+                <attribute name="context">{'tree_view_ref': 'brand_manufacturer_only_view'}</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

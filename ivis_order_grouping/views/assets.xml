@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+<!--         <template id="assets_backend_1" name="ks_theme_kernel" inherit_id="ks_theme_kernel.ks_assets_kernel_backend">
+            <xpath expr="//link[@href='/ks_theme_kernel/static/src/scss/ks_views.scss']" position="before">
+                <link rel="stylesheet" href="/ivis_order_grouping/static/src/css/style.css"/>
+            </xpath>
+        </template> -->
+        <template id="assets_backend_2" name="assets_backend" inherit_id="web.assets_backend">
+            <xpath expr="//script[last()]" position="after">
+                <link rel="stylesheet" href="/ivis_order_grouping/static/src/css/style.css"/>
+                <script type="text/javascript" src="/ivis_order_grouping/static/src/js/section_and_note_backend.js"></script>
+                <script type="text/javascript" src="/ivis_order_grouping/static/src/js/form_controller.js"></script>
+                <script type="text/javascript" src="/ivis_order_grouping/static/src/js/basic_renderer.js"></script>
+                <script type="text/javascript" src="/ivis_order_grouping/static/src/js/list_renderer.js"></script>
+            </xpath>
+        </template>
+
+    </data>
+</odoo>

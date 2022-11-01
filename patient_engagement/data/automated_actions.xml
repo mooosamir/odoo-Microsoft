@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!--    <data noupdate="1">-->
+<!--        For Appointment Reminder-->
+        <record model="base.automation" id="appointment_reminder_automated_action_case_1">
+            <field name="name">Appointment Reminder Case 1</field>
+            <field name="model_id" ref="calendar.model_calendar_event"/>
+            <field name="active">True</field>
+            <field name="trigger">on_time</field>
+            <field name="filter_domain">[["appointment_status","=","none"]]</field>
+            <field name="trg_date_id" search="[('model','=','calendar.event'),('name','=','start_datetime')]" />
+            <field name="trg_date_range">-7</field>
+            <field name="trg_date_range_type">day</field>
+            <field name="state">code</field>
+            <field name="code">env['patient.messaging'].notifications_case_1(records,'is_appointment_remainder','Appointment Reminder')</field>
+        </record>
+        <record model="base.automation" id="appointment_reminder_automated_action_case_2">
+            <field name="name">Appointment Reminder Case 2</field>
+            <field name="model_id" ref="calendar.model_calendar_event"/>
+            <field name="active">True</field>
+            <field name="trigger">on_time</field>
+            <field name="filter_domain">[["appointment_status","=","none"]]</field>
+            <field name="trg_date_id" search="[('model','=','calendar.event'),('name','=','start_datetime')]" />
+            <field name="trg_date_range">-3</field>
+            <field name="trg_date_range_type">day</field>
+            <field name="state">code</field>
+            <field name="code">env['patient.messaging'].notifications_case_2(records,'is_appointment_remainder','Appointment Reminder')</field>
+        </record>
+        <record model="base.automation" id="appointment_reminder_automated_action_case_3">
+            <field name="name">Appointment Reminder Case 3</field>
+            <field name="model_id" ref="calendar.model_calendar_event"/>
+            <field name="active">True</field>
+            <field name="trigger">on_time</field>
+            <field name="filter_domain">[["appointment_status","=","none"]]</field>
+            <field name="trg_date_id" search="[('model','=','calendar.event'),('name','=','start_datetime')]" />
+            <field name="trg_date_range">-1</field>
+            <field name="trg_date_range_type">day</field>
+            <field name="state">code</field>
+            <field name="code">env['patient.messaging'].notifications_case_3(records,'is_appointment_remainder','Appointment Reminder')</field>
+        </record>
+        <record model="base.automation" id="appointment_reminder_automated_action_case_4">
+            <field name="name">Appointment Reminder Case 4</field>
+            <field name="model_id" ref="calendar.model_calendar_event"/>
+            <field name="active">True</field>
+            <field name="trigger">on_time</field>
+            <field name="filter_domain">[["appointment_status","=","none"]]</field>
+            <field name="trg_date_id" search="[('model','=','calendar.event'),('name','=','start_datetime')]" />
+            <field name="trg_date_range">-1</field>
+            <field name="trg_date_range_type">hour</field>
+            <field name="state">code</field>
+            <field name="code">env['patient.messaging'].notifications_case_4(records,'is_appointment_remainder','Appointment Reminder')</field>
+        </record>
+        <record model="base.automation" id="appointment_reminder_automated_action_case_5">
+            <field name="name">Appointment Reminder Case 5</field>
+            <field name="model_id" ref="calendar.model_calendar_event"/>
+            <field name="active">True</field>
+            <field name="trigger">on_create</field>
+            <field name="filter_domain">[["appointment_status","=","none"]]</field>
+            <field name="state">code</field>
+            <field name="code">env['patient.messaging'].notifications_case_5(records,'is_appointment_remainder','Appointment Reminder')</field>
+        </record>
+<!--        For Order Status-->
+        <record model="base.automation" id="order_status_automated_action_case_1">
+            <field name="name">Order Status Case 1</field>
+            <field name="model_id" ref="ivis_order_grouping.model_multi_order_type"/>
+            <field name="active">True</field>
+            <field name="trigger">on_write</field>
+            <field name="trigger_field_ids" search="[('model','=','multi.order.type'),('name','=','order_status')]" />
+            <field name="state">code</field>
+            <field name="code">env['patient.messaging'].notifications_case_1(records,'is_order_status','Order Status')</field>
+        </record>
+<!--        For No Show-->
+        <record model="base.automation" id="no_show_automated_action_case_1">
+            <field name="name">No Show Case 1</field>
+            <field name="model_id" ref="calendar.model_calendar_event"/>
+            <field name="active">True</field>
+            <field name="trigger">on_write</field>
+            <field name="trigger_field_ids" search="[('model','=','calendar.event'),('name','=','appointment_status')]" />
+            <field name="filter_pre_domain">[["appointment_status","=","none"]]</field>
+            <field name="filter_domain">[["appointment_status","=","no_show"]]</field>
+            <field name="state">code</field>
+            <field name="code">env['patient.messaging'].notifications_case_2(records,'is_no_show','No Show')</field>
+        </record>
+        <record model="base.automation" id="no_show_automated_action_case_2">
+            <field name="name">No Show Case 2</field>
+            <field name="model_id" ref="calendar.model_calendar_event"/>
+            <field name="active">True</field>
+            <field name="trigger">on_time</field>
+            <field name="filter_domain">[["appointment_status","=","no_show"]]</field>
+            <field name="trg_date_id" search="[('model','=','calendar.event'),('name','=','start_datetime')]" />
+            <field name="trg_date_range">2</field>
+            <field name="trg_date_range_type">day</field>
+            <field name="state">code</field>
+            <field name="code">env['patient.messaging'].notifications_case_2(records,'is_no_show','No Show')</field>
+        </record>
+        <record model="base.automation" id="no_show_automated_action_case_3">
+            <field name="name">No Show Case 3</field>
+            <field name="model_id" ref="calendar.model_calendar_event"/>
+            <field name="active">True</field>
+            <field name="trigger">on_time</field>
+            <field name="filter_domain">[["appointment_status","=","no_show"]]</field>
+            <field name="trg_date_id" search="[('model','=','calendar.event'),('name','=','start_datetime')]" />
+            <field name="trg_date_range">7</field>
+            <field name="trg_date_range_type">day</field>
+            <field name="state">code</field>
+            <field name="code">env['patient.messaging'].notifications_case_3(records,'is_no_show','No Show')</field>
+        </record>
+        <record model="base.automation" id="no_show_automated_action_case_4">
+            <field name="name">No Show Case 4</field>
+            <field name="model_id" ref="calendar.model_calendar_event"/>
+            <field name="active">True</field>
+            <field name="trigger">on_time</field>
+            <field name="filter_domain">[["appointment_status","=","no_show"]]</field>
+            <field name="trg_date_id" search="[('model','=','calendar.event'),('name','=','start_datetime')]" />
+            <field name="trg_date_range">14</field>
+            <field name="trg_date_range_type">day</field>
+            <field name="state">code</field>
+            <field name="code">env['patient.messaging'].notifications_case_4(records,'is_no_show','No Show')</field>
+        </record>
+<!--        For Thank You-->
+        <record model="base.automation" id="thank_you_automated_action_case_1">
+            <field name="name">Thank You Case 1</field>
+            <field name="model_id" ref="calendar.model_calendar_event"/>
+            <field name="active">True</field>
+            <field name="trigger">on_time</field>
+            <field name="filter_domain">[["appointment_status","=","checked_out"]]</field>
+            <field name="trg_date_id" search="[('model','=','calendar.event'),('name','=','start_datetime')]" />
+            <field name="trg_date_range">2</field>
+            <field name="trg_date_range_type">day</field>
+            <field name="state">code</field>
+            <field name="code">env['patient.messaging'].notifications_case_1(records,'is_thank_you','Thank You')</field>
+        </record>
+<!--        For Recall-->
+        <record model="base.automation" id="recall_automated_action_case_1">
+            <field name="name">Recall Case 1</field>
+            <field name="model_id" ref="opt_custom.model_spec_recall_type_line"/>
+            <field name="active">True</field>
+            <field name="trigger">on_time</field>
+            <field name="trg_date_id" search="[('model','=','spec.recall.type.line'),('name','=','next_recall_date')]" />
+            <field name="trg_date_range">-7</field>
+            <field name="trg_date_range_type">day</field>
+            <field name="state">code</field>
+            <field name="code">env['patient.messaging'].notifications_case_1(records,'is_recall','Recall')</field>
+        </record>
+        <record model="base.automation" id="recall_automated_action_case_2">
+            <field name="name">Recall Case 2</field>
+            <field name="model_id" ref="opt_custom.model_spec_recall_type_line"/>
+            <field name="active">True</field>
+            <field name="trigger">on_time</field>
+            <field name="trg_date_id" search="[('model','=','spec.recall.type.line'),('name','=','next_recall_date')]" />
+            <field name="trg_date_range">-14</field>
+            <field name="trg_date_range_type">day</field>
+            <field name="state">code</field>
+            <field name="code">env['patient.messaging'].notifications_case_2(records,'is_recall','Recall')</field>
+        </record>
+        <record model="base.automation" id="recall_automated_action_case_3">
+            <field name="name">Recall Case 3</field>
+            <field name="model_id" ref="opt_custom.model_spec_recall_type_line"/>
+            <field name="active">True</field>
+            <field name="trigger">on_time</field>
+            <field name="trg_date_id" search="[('model','=','spec.recall.type.line'),('name','=','next_recall_date')]" />
+            <field name="trg_date_range">-21</field>
+            <field name="trg_date_range_type">day</field>
+            <field name="state">code</field>
+            <field name="code">env['patient.messaging'].notifications_case_3(records,'is_recall','Recall')</field>
+        </record>
+<!--        For Overdue Recall-->
+        <record model="base.automation" id="overdue_recall_automated_action_case_1">
+            <field name="name">Overdue Recall Case 1</field>
+            <field name="model_id" ref="opt_custom.model_spec_recall_type_line"/>
+            <field name="active">True</field>
+            <field name="trigger">on_time</field>
+            <field name="trg_date_id" search="[('model','=','spec.recall.type.line'),('name','=','next_recall_date')]" />
+            <field name="trg_date_range">90</field>
+            <field name="trg_date_range_type">day</field>
+            <field name="state">code</field>
+            <field name="code">env['patient.messaging'].notifications_case_1(records,'is_overdue_recall','Overdue Recall')</field>
+        </record>
+        <record model="base.automation" id="overdue_recall_automated_action_case_2">
+            <field name="name">Overdue Recall Case 2</field>
+            <field name="model_id" ref="opt_custom.model_spec_recall_type_line"/>
+            <field name="active">True</field>
+            <field name="trigger">on_time</field>
+            <field name="trg_date_id" search="[('model','=','spec.recall.type.line'),('name','=','next_recall_date')]" />
+            <field name="trg_date_range">180</field>
+            <field name="trg_date_range_type">day</field>
+            <field name="state">code</field>
+            <field name="code">env['patient.messaging'].notifications_case_1(records,'is_overdue_recall','Overdue Recall')</field>
+        </record>
+        <record model="base.automation" id="overdue_recall_automated_action_case_3">
+            <field name="name">Overdue Recall Case 3</field>
+            <field name="model_id" ref="opt_custom.model_spec_recall_type_line"/>
+            <field name="active">True</field>
+            <field name="trigger">on_time</field>
+            <field name="trg_date_id" search="[('model','=','spec.recall.type.line'),('name','=','next_recall_date')]" />
+            <field name="trg_date_range">270</field>
+            <field name="trg_date_range_type">day</field>
+            <field name="state">code</field>
+            <field name="code">env['patient.messaging'].notifications_case_1(records,'is_overdue_recall','Overdue Recall')</field>
+        </record>
+        <record model="base.automation" id="overdue_recall_automated_action_case_4">
+            <field name="name">Overdue Recall Case 4</field>
+            <field name="model_id" ref="opt_custom.model_spec_recall_type_line"/>
+            <field name="active">True</field>
+            <field name="trigger">on_time</field>
+            <field name="trg_date_id" search="[('model','=','spec.recall.type.line'),('name','=','next_recall_date')]" />
+            <field name="trg_date_range">360</field>
+            <field name="trg_date_range_type">day</field>
+            <field name="state">code</field>
+            <field name="code">env['patient.messaging'].notifications_case_1(records,'is_overdue_recall','Overdue Recall')</field>
+        </record>
+        <record model="base.automation" id="overdue_recall_automated_action_case_5">
+            <field name="name">Overdue Recall Case 5</field>
+            <field name="model_id" ref="opt_custom.model_spec_recall_type_line"/>
+            <field name="active">True</field>
+            <field name="trigger">on_time</field>
+            <field name="trg_date_id" search="[('model','=','spec.recall.type.line'),('name','=','next_recall_date')]" />
+            <field name="trg_date_range">450</field>
+            <field name="trg_date_range_type">day</field>
+            <field name="state">code</field>
+            <field name="code">env['patient.messaging'].notifications_case_1(records,'is_overdue_recall','Overdue Recall')</field>
+        </record>
+        <record model="base.automation" id="overdue_recall_automated_action_case_6">
+            <field name="name">Overdue Recall Case 6</field>
+            <field name="model_id" ref="opt_custom.model_spec_recall_type_line"/>
+            <field name="active">True</field>
+            <field name="trigger">on_time</field>
+            <field name="trg_date_id" search="[('model','=','spec.recall.type.line'),('name','=','next_recall_date')]" />
+            <field name="trg_date_range">540</field>
+            <field name="trg_date_range_type">day</field>
+            <field name="state">code</field>
+            <field name="code">env['patient.messaging'].notifications_case_1(records,'is_overdue_recall','Overdue Recall')</field>
+        </record>
+        <record model="base.automation" id="overdue_recall_automated_action_case_7">
+            <field name="name">Overdue Recall Case 7</field>
+            <field name="model_id" ref="opt_custom.model_spec_recall_type_line"/>
+            <field name="active">True</field>
+            <field name="trigger">on_time</field>
+            <field name="trg_date_id" search="[('model','=','spec.recall.type.line'),('name','=','next_recall_date')]" />
+            <field name="trg_date_range">630</field>
+            <field name="trg_date_range_type">day</field>
+            <field name="state">code</field>
+            <field name="code">env['patient.messaging'].notifications_case_1(records,'is_overdue_recall','Overdue Recall')</field>
+        </record>
+        <record model="base.automation" id="overdue_recall_automated_action_case_8">
+            <field name="name">Overdue Recall Case 8</field>
+            <field name="model_id" ref="opt_custom.model_spec_recall_type_line"/>
+            <field name="active">True</field>
+            <field name="trigger">on_time</field>
+            <field name="trg_date_id" search="[('model','=','spec.recall.type.line'),('name','=','next_recall_date')]" />
+            <field name="trg_date_range">720</field>
+            <field name="trg_date_range_type">day</field>
+            <field name="state">code</field>
+            <field name="code">env['patient.messaging'].notifications_case_1(records,'is_overdue_recall','Overdue Recall')</field>
+        </record>
+<!--        For Contact Lens Reorder-->
+        <record model="base.automation" id="contact_lens_reorder_action_case_1">
+            <field name="name">Contact Lens Reorder Case 1</field>
+            <field name="model_id" ref="calendar.model_calendar_event"/>
+            <field name="active">True</field>
+            <field name="trigger">on_time</field>
+            <field name="filter_domain">[["sale_order_status","not in",["draft", "cancel"]]</field>
+            <field name="trg_date_id" search="[('model','=','multi.order.type'),('name','=','contact_lens_reorder')]" />
+            <field name="trg_date_range">-14</field>
+            <field name="trg_date_range_type">day</field>
+            <field name="state">code</field>
+            <field name="code">env['patient.messaging'].notifications_case_1(records,'is_appointment_remainder','Appointment Reminder')</field>
+        </record>
+        <record model="base.automation" id="contact_lens_reorder_action_case_2">
+            <field name="name">Contact Lens Reorder Case 2</field>
+            <field name="model_id" ref="calendar.model_calendar_event"/>
+            <field name="active">True</field>
+            <field name="trigger">on_time</field>
+            <field name="filter_domain">[["sale_order_status","not in",["draft", "cancel"]]</field>
+            <field name="trg_date_id" search="[('model','=','multi.order.type'),('name','=','contact_lens_reorder')]" />
+            <field name="trg_date_range">-7</field>
+            <field name="trg_date_range_type">day</field>
+            <field name="state">code</field>
+            <field name="code">env['patient.messaging'].notifications_case_2(records,'is_appointment_remainder','Appointment Reminder')</field>
+        </record>
+        <record model="base.automation" id="contact_lens_reorder_action_case_3">
+            <field name="name">Contact Lens Reorder Case 3</field>
+            <field name="model_id" ref="calendar.model_calendar_event"/>
+            <field name="active">True</field>
+            <field name="trigger">on_time</field>
+            <field name="filter_domain">[["sale_order_status","not in",["draft", "cancel"]]</field>
+            <field name="trg_date_id" search="[('model','=','multi.order.type'),('name','=','contact_lens_reorder')]" />
+            <field name="trg_date_range">-2</field>
+            <field name="trg_date_range_type">day</field>
+            <field name="state">code</field>
+            <field name="code">env['patient.messaging'].notifications_case_3(records,'is_appointment_remainder','Appointment Reminder')</field>
+        </record>
+        <record model="base.automation" id="contact_lens_reorder_action_case_4">
+            <field name="name">Contact Lens Reorder Case 4</field>
+            <field name="model_id" ref="calendar.model_calendar_event"/>
+            <field name="active">True</field>
+            <field name="trigger">on_time</field>
+            <field name="filter_domain">[["sale_order_status","not in",["draft", "cancel"]]</field>
+            <field name="trg_date_id" search="[('model','=','multi.order.type'),('name','=','contact_lens_reorder')]" />
+            <field name="trg_date_range">+3</field>
+            <field name="trg_date_range_type">hour</field>
+            <field name="state">code</field>
+            <field name="code">env['patient.messaging'].notifications_case_4(records,'is_appointment_remainder','Appointment Reminder')</field>
+        </record>
+
+<!--    </data>-->
+</odoo>

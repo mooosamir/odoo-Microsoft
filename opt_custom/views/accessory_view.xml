@@ -1,0 +1,543 @@
+<odoo>
+
+	    <!-- Main Configurations Accessory Lens Menu -->
+        <menuitem id="root_accessory_configuration_menu" name="Miscellaneous" parent="root_configrastion_menu" sequence="4"/>
+        
+        <!-- Configurations Menu Of Accessory-->
+        <menuitem id="accessory_configuration_menu" name="Configurations" parent="root_accessory_configuration_menu" sequence="1"/>
+
+		<!-- Tree View of Accessory -->
+	    <record id="accessory_category_tree_view" model="ir.ui.view">
+	        <field name="name">accessory.category.tree.view</field>
+	        <field name="model">spec.accessory.category</field>
+	        <field name="arch" type="xml">
+	            <tree>
+	                <field name="name"/>
+	            </tree>
+	        </field>
+	    </record>
+		        
+        <!-- Form View of Accessory -->
+	    <record id="accessory_category_from_view" model="ir.ui.view">
+	        <field name="name">brand.from.view</field>
+	        <field name="model">spec.accessory.category</field>
+	        <field name="arch" type="xml">
+	            <form>
+	                <sheet>
+	                    <group>
+		                    <group>
+		                        <field name="name" required="1"/>
+		                    </group>
+	                    </group>
+	                </sheet>
+	            </form>
+	        </field>
+	    </record>	
+
+	    <!-- Action of Accessory -->
+	    <record id="accessory_category_action" model="ir.actions.act_window">
+	        <field name="name">Miscellaneous Category</field>
+	        <field name="res_model">spec.accessory.category</field>
+	        <field name="view_mode">tree,form</field>
+	    </record>
+	    
+	    <!-- Accessory Menu -->
+	    <menuitem id="menu_accessory_category" name="Miscellaneous Category" action="accessory_category_action" parent="accessory_configuration_menu" sequence="1"/>
+
+		<!-- Tree View of accessory-->
+	    <record id="accessory_tree_view" model="ir.ui.view">
+	        <field name="name">accessory.tree.view</field>
+	        <field name="model">product.template</field>
+	        <field name="priority">19</field>
+	        <field name="arch" type="xml">
+	            <tree>
+	                <field name="acc_category_id"/>
+					<field name="accessory_brand_id"/>
+	                <field name="name"/>
+					<field name="list_price" widget='monetary' string='Retail'/>
+					<field name="currency_id" invisible='1'/>
+	                <!-- <field name="pro_code_id"/> -->
+	                <!-- <field name="acc_suggested_retail"/> -->
+	            </tree>
+	        </field>
+	    </record>
+
+		<record id="product_template_accessory_form_view" model="ir.ui.view">
+	        <field name="name">product.template.form.inherit.accessory</field>
+	        <field name="model">product.template</field>
+	        <field name="arch" type="xml">
+				<form>
+					<div class="oe_button_box" name="button_box">
+						<field name="is_published" widget="website_redirect_button" attrs="{'invisible': [('sale_ok','=',False)]}"/>
+						<button name="138" type="action" icon="fa-sitemap" class="oe_stat_button" attrs="{'invisible': [('product_variant_count', '&lt;=', 1)]}">
+							<div class="o_field_widget o_stat_info">
+								<span class="o_stat_value" widget="statinfo">
+									<field name="product_variant_count" nolabel='1' class="mr4" widget="statinfo"/>
+								</span>
+								<span class="o_stat_text">
+									Variants
+								</span>
+							</div>
+						</button>
+						<button type="object" name="action_open_quants" attrs="{'invisible':[('type', '!=', 'product')]}" class="oe_stat_button" icon="fa-cubes">
+							<div class="o_field_widget o_stat_info">
+								<span class="o_stat_value" widget="statinfo">
+									<field name="qty_available" widget="statinfo" nolabel="1" class="mr4"/>
+									<field name="uom_name"/>
+								</span>
+								<span class="o_stat_text">
+									On Hand
+								</span>
+							</div>
+						</button>
+						<button type="object" name="action_product_tmpl_forecast_report" attrs="{'invisible':[('type', '!=', 'product')]}" context="{'default_product_tmpl_id': id}" class="oe_stat_button" icon="fa-cubes">
+							<div class="o_field_widget o_stat_info">
+								<span class="o_stat_value">
+									<field name="virtual_available" widget="statinfo" nolabel="1" class="mr4"/>
+									<field name="uom_name"/>
+								</span>
+								<span class="o_stat_text">
+									Forecasted
+								</span>
+							</div>
+						</button>
+						<button string="Traceability" type="object" name="action_view_stock_move_lines" attrs="{'invisible':[('type', 'not in', ['product', 'consu'])]}" class="oe_stat_button" icon="fa-exchange"/>
+						<button type="object" name="action_view_orderpoints" attrs="{'invisible':['|',('type', '!=', 'product'),('nbr_reordering_rules', '!=', 1)]}" class="oe_stat_button" icon="fa-refresh">
+							<div class="o_field_widget o_stat_info mr4">
+								<span class="o_stat_text">
+									Min:
+								</span>
+								<span class="o_stat_text">
+									Max:
+								</span>
+							</div>
+							<div class="o_field_widget o_stat_info">
+								<span class="o_stat_value">
+									<field name="reordering_min_qty"/>
+								</span>
+								<span class="o_stat_value">
+									<field name="reordering_max_qty"/>
+								</span>
+							</div>
+						</button>
+						<button type="object" name="action_view_orderpoints" attrs="{'invisible':['|',('type', '!=', 'product'),('nbr_reordering_rules', '==', 1)]}" class="oe_stat_button" icon="fa-refresh" >
+							<field name="nbr_reordering_rules" widget="statinfo"/>
+						</button>
+						<button string="Lot/Serial Numbers" type="object" name="action_open_product_lot" class="oe_stat_button" icon="fa-bars" invisible="1"/>
+						<button string="Routes" type="action" name="194" class="oe_stat_button" icon="fa-cogs" context="{'default_product_tmpl_id': id}" invisible="1"/>
+						<button string="Putaway Rules" type="object" name="action_view_related_putaway_rules" class="oe_stat_button" icon="fa-random" context="{'invisible_handle': True, 'single_product': product_variant_count == 1,}" invisible="1"/>
+						<button class="oe_stat_button" name="action_view_po" type="object" icon="fa-shopping-cart" attrs="{'invisible': [('purchase_ok', '=', False)]}" help="Purchased in the last 365 days">
+							<div class="o_field_widget o_stat_info">
+								<span class="o_stat_value">
+									<field name="purchased_product_qty" widget="statinfo" nolabel="1" class="mr4"/>
+									<field name="uom_name"/>
+								</span>
+								<span class="o_stat_text">
+									Purchased
+								</span>
+							</div>
+						</button>
+						<button class="oe_stat_button" name="action_view_sales" type="object" icon="fa-signal" help="Sold in the last 365 days" attrs="{'invisible': [('sale_ok', '=', False)]}">
+							<div class="o_field_widget o_stat_info">
+								<span class="o_stat_value">
+									<field name="sales_count" widget="statinfo" nolabel="1" class="mr4"/>
+									<field name="uom_name"/>
+								</span>
+								<span class="o_stat_text">
+									Sold
+								</span>
+							</div>
+						</button>
+					</div>
+					<widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
+					<!-- <field name='product_variant_count' invisible='1'/> -->
+					<!-- <field name='is_product_variant' invisible='1'/> -->
+					<!-- <field name='attribute_line_ids' invisible='1'/> -->
+					<!-- <field name="id" invisible="True"/> -->
+					<group>
+						<table  width='100%'>
+							<tr>
+								<td width='60%'>
+									<div class="oe_title">
+										<!-- <label class="oe_edit_only" for="name" string="Product Name"/> -->
+										<h1><field name="accessory_header_name" placeholder="Product Name" class='oe_inline'/></h1>
+										<div name="options" invisible='1'>
+											<div>
+												<field name="sale_ok"/>
+												<label for="sale_ok"/>
+											</div>
+											<div>
+												<field name="purchase_ok"/>
+												<label for="purchase_ok"/>
+											</div>
+										</div>
+									</div>
+								</td>
+								<td width='7%'/>
+								<td width='33%'>
+									<field name="image_1920" class='image_fortmat_change_accessory' nolabel='1' widget="image"/>
+								</td>
+							</tr>
+						</table>
+					</group>
+					<group>
+						<group>
+							<field name="acc_category_id"/>
+							<field name="accessory_brand_id" context="{'default_brand_type': 'accessory'}"/>
+						</group>
+						<group>
+							<field name="name"/>
+							<field name="active"/>
+						</group>
+					</group>
+					<notebook>
+						<page string="Information" name="information">
+							<group>
+								<group name="group_general">
+									<field name="active" invisible="1"/>
+									<field name="type"/>
+									<field name="categ_id" string="Product Category"/>
+									<field name="procedure_code" options="{'no_open':True,'no_create': True}" string="HCPCS Code"/>
+									<field name="modifier_id"/>
+									<field name="company_id" options="{'no_create': True}"/>
+								</group>
+								<group name="group_standard_price">
+									<field name="taxes_id" string='Tax' widget='many2many_tags'/>
+									<label for="list_price" string='Retail Price'/>
+									<div name="pricing">
+										<field name="list_price" class="oe_inline" widget='monetary'
+											options="{'currency_field': 'currency_id', 'field_digits': True}"/>
+										<button name="open_pricelist_rules" icon="fa-arrow-right" type="object"
+											groups="product.group_product_pricelist" class="oe_inline">
+											<field name="pricelist_item_count" attrs="{'invisible': [('pricelist_item_count', '=', 0)]}"/>
+											<span attrs="{'invisible': [('pricelist_item_count', '=', 1)]}">
+											Extra Prices
+											</span>
+											<span attrs="{'invisible': [('pricelist_item_count', '!=', 1)]}">
+											Extra Price
+											</span>
+										</button>
+									</div>
+									<field name="wholesale_cost" widget='monetary'/>
+									<field name="valuation" invisible="1" readonly="1"/>
+									<field name="cost_method" invisible="1" readonly="1"/>
+									<label for="standard_price"/>
+									<div class="o_row" name="update_cost_price">
+										<field name="standard_price"
+											attrs="{'readonly':[('cost_method', '!=', 'fifo')]}"
+											widget='monetary' options="{'currency_field': 'cost_currency_id', 'field_digits': True}"
+											class="oe_inline"/>
+										<button string="Update Cost" type="action"
+											name="%(stock_account.action_view_change_standard_price)d"
+											attrs="{'invisible':[('cost_method', '=', 'fifo')]}"
+											class="oe_link oe_inline"/>
+									</div>
+									<field name="uom_id" required='0' invisible="0" options="{'no_create': True}"/>
+									<field name="uom_po_id" required='0' invisible="1" options="{'no_create': True}"/>
+									<field name="currency_id" invisible="1"/>
+									<field name="cost_currency_id" invisible="1"/>
+									<field name="product_variant_id" invisible="1"/>
+									
+								</group>
+							</group>
+							<group string="Internal Notes">
+								<field name="description" nolabel="1" placeholder="This note is only for internal purposes."/>
+							</group>
+						</page>
+						<page string="Variations">
+							<field name='product_variant_ids' context="{'default_type': 'product', 'default_name': name}">
+								<tree>
+									<field name="default_code" string="SKU"/>
+									<!-- <field name="prod_packaging_id"/> -->
+									<field name="description"/>
+									<field name="barcode" string="UPC"/>
+									<field name="qty_available" string='On Hand'/>
+									<field name='list_price' string="Retail"/>
+									<field name='active'/>
+								</tree>
+								<form increase_dialog_size="1">
+									<field name="company_id" invisible="1"/>
+									<field name="type" invisible="1"/>
+									<field name="sale_ok" invisible="1"/>
+									<field name="purchase_ok" invisible="1"/>
+									<field name="tracking" invisible="1"/>
+									<div class="oe_button_box" name="button_box">
+										<field name="is_published" widget="website_redirect_button" attrs="{'invisible': [('sale_ok','=',False)]}"/>
+										<button class="oe_stat_button" name="action_open_quants" icon="fa-cubes" type="object" attrs="{'invisible':[('type', '!=', 'product')]}" >
+											<div class="o_field_widget o_stat_info">
+												<span class="o_stat_value">
+													<field name="qty_available" widget="statinfo" nolabel="1" class="mr4"/>
+													<field name="uom_name"/>
+												</span>
+												<span class="o_stat_text">
+													On Hand
+												</span>
+											</div>
+										</button>
+										<button type="object" name="action_product_forecast_report" attrs="{'invisible':[('type', '!=', 'product')]}" context="{'default_product_id': id}" class="oe_stat_button" icon="fa-cubes" >
+											<div class="o_field_widget o_stat_info">
+												<span class="o_stat_value">
+													<field name="virtual_available" widget="statinfo" nolabel="1" class="mr4"/>
+													<field name="uom_name"/>
+												</span>
+												<span class="o_stat_text">
+													Forecasted
+												</span>
+											</div>
+										</button>
+										<button string="Traceability" type="object" name="action_view_stock_move_lines" attrs="{'invisible':[('type', 'not in', ['product', 'consu'])]}" class="oe_stat_button" icon="fa-exchange" />
+										<button name="232" type="action" attrs="{'invisible':['|',('type', 'not in', ['product', 'consu']),('nbr_reordering_rules', '!=', 1)]}" class="oe_stat_button" icon="fa-refresh" >
+											<div class="o_field_widget o_stat_info mr4">
+												<span class="o_stat_text">
+													Min :
+												</span>
+												<span class="o_stat_text">
+													Max:
+												</span>
+											</div>
+											<div class="o_field_widget o_stat_info">
+												<span class="o_stat_value">
+													<field name="reordering_min_qty"/>
+												</span>
+												<span class="o_stat_value">
+													<field name="reordering_max_qty"/>
+												</span>
+											</div>
+										</button>
+										<button type="action" name="232" attrs="{'invisible':['|',('type', '!=', 'product'),('nbr_reordering_rules', '==', 1)]}" class="oe_stat_button" icon="fa-refresh" >
+											<field name="nbr_reordering_rules" widget="statinfo"/>
+										</button>
+										<button string="Lot/Serial Numbers" type="object" name="action_open_product_lot" attrs="{'invisible': [('tracking', '=', 'none')]}" class="oe_stat_button" icon="fa-bars"/>
+										<button string="Routes" type="action" name="227" class="oe_stat_button" icon="fa-cogs" context="{'default_product_id': id}" invisible="1"/>
+										<button string="Putaway Rules" type="object" name="action_view_related_putaway_rules" class="oe_stat_button" icon="fa-random" context="{'invisible_handle': True, 'single_product': True}" invisible="1"/>
+										<button class="oe_stat_button" name="action_view_sales" type="object" icon="fa-signal" help="Sold in the last 365 days" attrs="{'invisible': [('sale_ok', '=', False)]}">
+											<div class="o_field_widget o_stat_info">
+												<span class="o_stat_value">
+													<field name="sales_count" widget="statinfo" nolabel="1" class="mr4"/>
+													<field name="uom_name"/>
+												</span>
+												<span class="o_stat_text">
+													Sold
+												</span>
+											</div>
+										</button>
+										<button class="oe_stat_button" name="action_view_po" type="object" icon="fa-shopping-cart" attrs="{'invisible': [('purchase_ok', '=', False)]}" help="Purchased in the last 365 days" >
+											<div class="o_field_widget o_stat_info">
+												<span class="o_stat_value">
+													<field name="purchased_product_qty" widget="statinfo" nolabel="1" class="mr4"/>
+													<field name="uom_name"/>
+												</span>
+												<span class="o_stat_text">
+													Purchased
+												</span>
+											</div>
+										</button>
+									</div>
+
+
+									<div class="row"  width='100%' style="margin-left: 20px">
+										<div width='60%'>
+											<group>
+												<field name="description"/>
+											</group>
+										</div>
+										<div  width='5%'>
+										</div>
+										<div  width='35%'>
+											<group>
+												<field name="tag_ids" widget="many2many_tags" required='0'/>
+											</group>
+										</div>
+									</div>
+									<div class="row"  width='100%' style="margin-left: 20px">
+										<div width='65%'>
+											<group>
+											</group>
+										</div>
+										<div  width='35%'>
+											<group>
+												<field name='active'/>
+											</group>
+										</div>
+									</div>
+									<separator string="Point Of Sale" class="oe_inline"/>
+									<div class="row"  width='100%' style="margin-left: 20px">
+										<div width='25%'>
+											<group>
+												<field name="barcode" string="UPC" required='1'/>
+											</group>
+										</div>
+										<div width='25%'>
+											<group>
+												<field name="currency_id" invisible="1"/>
+												<field name="list_price" string="Retail" widget='monetary' options="{'currency_field': 'currency_id', 'field_digits': True}"/>
+											</group>
+										</div>
+										<div width='25%'>
+											<group>
+												<field name="product_min_qty"/>
+											</group>
+										</div>
+										<div width='25%'>
+											<group>
+												<field name="product_max_qty"/>
+											</group>
+										</div>
+									</div>
+									<div class="row"  width='100%' style="margin-left: 20px">
+										<div width='25%'>
+											<group>
+												<field name="default_code" string="SKU"/>
+											</group>
+										</div>
+									</div>
+								</form>
+							</field>
+						</page>
+						<page name="shop" string="eCommerce" invisible="1">
+<!--						<page name="shop" string="eCommerce" attrs="{'invisible': [('sale_ok','=',False)]}">-->
+							<group name="shop">
+								<group string="Shop">
+									<field name="website_url" invisible="1"/>
+									<field name="website_id" options="{'no_create': True}" groups="website.group_multi_website"/>
+									<field name="website_sequence" groups="base.group_no_one"/>
+									<field name="public_categ_ids" widget="many2many_tags" string="Categories"/>
+									<field name="alternative_product_ids" widget="many2many_tags" domain="[('id', '!=', active_id), '|', ('company_id', '=', company_id), ('company_id', '=', False)]"/>
+									<field name="accessory_product_ids" widget="many2many_tags"/>
+									<field name="website_style_ids" widget="many2many_tags" groups="base.group_no_one"/>
+								</group>
+							</group>
+							<group name="product_template_images" string="Extra Product Media">
+								<field name="product_template_image_ids" class="o_website_sale_image_list" context="{'default_name': name}" mode="kanban" options="{'create_text':'Add a Media'}" nolabel="1"/>
+							</group>
+						</page>
+						<page name="purchase" string="Purchase">
+							<field name="seller_ids" context="{'default_product_tmpl_id':context.get('product_tmpl_id',active_id), 'product_template_invisible_variant': True}" nolabel="1">
+								<tree>
+									<field name="name"/>
+									<field name="company_id"/>
+									<field name="price" string='Cost' widget='monetary'/>
+									<field name="wholesale_cost" widget='monetary'/>
+									<field name="currency_id" invisible='1'/>		
+								</tree>
+								<form>
+									<sheet>
+										<group>
+											<group name="vendor" string="Vendor">
+												<field name="currency_id" invisible='1'/>
+												<field name="product_variant_count" invisible="1"/>
+												<field name="name" context="{'res_partner_search_mode': 'supplier'}" domain="[('supplier_rank', '>=', 1)]"/>
+												<label for="delay"/>
+												<div>
+													<field name="delay" class="oe_inline"/> days
+												</div>
+											</group>
+											<group string="Price List">
+												<field name="wholesale_cost" widget='monetary'/>	
+												<field name="product_tmpl_id" string="Product" invisible="context.get('visible_product_tmpl_id', True)"/>
+												<label for="price" string='Cost'/>
+												<div class="o_row">
+													<field name="price" widget='monetary'/>
+												</div>
+												<label for="date_start" string="Validity"/>
+												<div class="o_row"><field name="date_start"/> to <field name="date_end"/></div>
+											</group>
+											<group string="Other Information" groups="base.group_multi_company">
+												<field name="company_id" options="{'no_create': True}"/>
+											</group>
+										</group>
+									</sheet>
+								</form>
+							</field>
+							<group name="purchase">
+								<group string="Vendor Bills" name="bill">
+									<field name="supplier_taxes_id" widget="many2many_tags" context="{'default_type_tax_use':'purchase'}"/>
+									<field name="purchase_method" widget="radio"/>
+								</group>
+							</group>
+							<!-- <group string="Purchase Description">
+								<field name="description_purchase" nolabel="1"
+									placeholder="This note is added to purchase orders."/>
+							</group> -->
+						</page>
+						<page string="Inventory" name="inventory" attrs="{'invisible':[('type', '=', 'service')]}">
+							<group name="inventory">
+								<group string="Operations" name="operations">
+									<field name="route_ids" widget="many2many_checkboxes" attrs="{'invisible': [('type', 'in', ['service', 'digital'])]}" can_create="true" can_write="true" />
+									
+									<field name="route_from_categ_ids" widget="many2many_tags" readonly="1" attrs="{'invisible': [('route_from_categ_ids', '=', [])]}" can_create="true" can_write="true"/>
+<!--									<label for="sale_delay" attrs="{'invisible': [('sale_ok', '=', False)]}" />-->
+<!--									<div attrs="{'invisible': [('sale_ok', '=', False)]}" >-->
+<!--										<field name="sale_delay" class="oe_inline" style="vertical-align:baseline"/>-->
+<!--										days-->
+<!--									</div>-->
+								</group>
+								<group string="Traceability" name="traceability" invisible="1">
+<!--								<group string="Traceability" name="traceability" attrs="{'invisible': [('type', '=', 'consu')]}" >-->
+									<field name="tracking" widget="radio" attrs="{'invisible': [('type', 'in', ['service', 'digital'])]}" on_change="1" />
+								</group>
+								<group string="Counterpart Locations" name="stock_property">
+									<field name="property_stock_production" can_create="true" can_write="true" invisible="1"/>
+									<field name="property_stock_inventory" can_create="true" can_write="true"/>
+								</group>
+							</group>
+							<group string="Description for Delivery Orders" invisible="1">
+								<field name="description_pickingout" nolabel="1" placeholder="This note is added to delivery orders."/>
+							</group>
+							<group string="Description for Receipts" invisible="1">
+								<field name="description_pickingin" nolabel="1" placeholder="This note is added to receipt orders (e.g. where to store the product in the warehouse)."/>
+							</group>
+							<group string="Description for Internal Transfers">
+								<field name="description_picking" placeholder="This note is added to internal transfer orders (e.g. where to pick the product in the warehouse)." nolabel="1"/>
+							</group>
+						</page>
+					</notebook>
+				</form>
+			</field>
+		</record>
+	    <!-- Overwritten action of product template for display only Lens type Accessory -->
+        <record id="product_template_action_accessory" model="ir.actions.act_window">
+	        <field name="name">Miscellaneous</field>
+	        <field name="type">ir.actions.act_window</field>
+	        <field name="res_model">product.template</field>
+	        <field name="view_mode">kanban,tree,form</field>
+	        <field name="search_view_id" ref="stock.product_template_search_form_view_stock"/>
+            <field name="context">{'default_spec_product_type': 'accessory', 'default_prd_categ_name': 'Accessory', 'create_product_product':False, 'disable_varients':True}</field>
+            <field name="domain">['|', ('prd_categ_name','=','Accessory'), ('spec_product_type', '=', 'accessory')]</field>
+	        <field name="help" type="html">
+	            <p class="o_view_nocontent_smiling_face">
+	                Create a new product
+	            </p>
+	        </field>
+    	</record>
+
+    	<!-- Display custom tree view instead of product template tree view -->
+        <record id="accessory_action_tree_view" model="ir.actions.act_window.view">
+	        <field name="sequence" eval="17"/>
+	        <field name="view_mode">tree</field>
+	        <field name="view_id" ref="accessory_tree_view"/>
+	        <field name="act_window_id" ref="product_template_action_accessory"/>
+    	</record>
+
+		<record id="accessory_action_form_view" model="ir.actions.act_window.view">
+	        <field name="sequence" eval="18"/>
+	        <field name="view_mode">form</field>
+	        <field name="view_id" ref="product_template_accessory_form_view"/>
+	        <field name="act_window_id" ref="product_template_action_accessory"/>
+    	</record>
+
+		<menuitem id="accessory_sub_menu" action="product_template_action_accessory" parent="product_service_child_product"
+				  sequence="5" string="Miscellaneous"/>
+
+		<!-- Action of brand -->
+	    <record id="brand_action_accessory" model="ir.actions.act_window">
+	        <field name="name">Brands</field>
+	        <field name="res_model">spec.brand.brand</field>
+			<field name="context">{'default_brand_type': 'accessory'}</field>
+	        <field name="domain">[('brand_type','=','accessory')]</field>
+	        <field name="view_mode">tree,form</field>
+	    </record>
+	    
+	    <!-- Brand Menu -->
+		 <menuitem id="menu_accessory_brand" name="Brands" action="brand_action_accessory" parent="accessory_configuration_menu" sequence="2"/>
+</odoo>

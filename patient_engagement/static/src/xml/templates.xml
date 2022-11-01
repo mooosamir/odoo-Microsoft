@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates>
+    <div t-name="two_way_texting" class="two_way_texting">
+        <div style="margin: 30px;margin-top: 0px;">
+            <div class="row">
+                <div class="col-lg-3 company">
+                    <div class="dropdown">
+                        <button class="dropbtn">Locations <i class="fa fa-angle-down" style="font-size: 13px;padding-left: 5px;"/></button>
+                        <span class="dropdown-content"/>
+                    </div>
+                    <span class="selected_company" value="0"></span>
+                </div>
+                <div class="col-lg-9" style="border-bottom: 2px solid black;border-left: 2px solid black;height: 4em;">
+                    <div class="row">
+                        <div class="col-lg-12 chat_patient_name">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 chat_patient_number">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="row">
+                        <div class="col-lg-2 first_col">
+                            <i class="fa fa-comments" id="not_archived" style="display: none;"/>
+                            <br/>
+                            <i class="fa fa-archive" id="archived"/>
+                        </div>
+                        <div class="col-lg-10 second_col">
+                            <div style="margin: 20px;">
+                                <button id="new_message">New Message</button><br/>
+                                <input id="new_search" placeholder="Search" style="margin-top: 20px;width: 100%;border-radius: 50px 50px 50px 50px;border: 1px solid"/>
+                            </div>
+                            <div id="patient_box"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-9 third_col">
+                    <div id="chat_box"></div>
+                    <div id="message_box">
+                        <div class="row">
+                            <div class="col-lg-10">
+                                <textarea placeholder="Type a Message" id="textArea"/>
+                            </div>
+                            <div class="col-lg-2 right">
+                                <div id="emoji_box"/>
+                                <i class="fa fa-smile-o" id="emojis_picker"></i>
+                                <label for="file">
+                                    <i class="fa fa-paperclip" style="fa fa-paperclip"/>
+                                    <input type="file" style="display: none" id="file" name="message_document" multiple="" data-original-title="upload photos"/>
+                                    <input type="hidden" name="messaging_history_id" value="0"/>
+                                </label>
+                                <div class="dropup">
+                                    <button class="dropbtn">...</button>
+                                    <div class="dropup-content">
+                                    </div>
+                                </div>
+                                <button class="send">send</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <t t-name="twilio.branch">
+        <t t-foreach="branches" t-as="branch">
+            <a t-attf-value="#{branch.id}" class="branch left"><t t-esc="branch.name" /></a>
+        </t>
+    </t>
+
+    <t t-name="twilio.quick_response">
+        <span><b style="padding: 12px 16px;">Quick Response</b></span>
+        <t t-foreach="quick_response" t-as="lines">
+            <a t-attf-value="#{lines.message}" class="quick_response left"><t t-esc="lines.name" /></a>
+        </t>
+    </t>
+
+    <t t-name="twilio.patient_box">
+        <div class="row radio_into_button">
+            <t t-foreach="patient_list || []" t-as="patient">
+                <div class="patient_box col-lg-12" style="min-width:100%;">
+                    <input type="radio" name="patient" t-attf-id="#{patient.id}" t-attf-value="#{patient.id}"/>
+                    <label t-if="patient.unread" t-attf-for="#{patient.id}" class="bold" style="margin: 0px;"><t t-esc="patient.name"/></label>
+                    <label t-else="" t-attf-for="#{patient.id}" style="margin: 0px;"><t t-esc="patient.name"/></label>
+                    <i t-if="patient.is_archived" class="fa fa-comments un_archived" t-attf-value="#{patient.id}"/>
+                    <i t-else="" class="fa fa-archive archived" t-attf-value="#{patient.id}"/>
+                    <i t-if="patient.unread" class="fa fa-circle unread_count" t-attf-value="#{patient.id}"/>
+                    <div class="last_message">
+                        <p><t t-esc="patient.last_message"/></p>
+                    </div>
+                </div>
+            </t>
+        </div>
+    </t>
+
+    <t t-name="twilio.update_patient_box">
+        <t t-foreach="patient_list || []" t-as="patient">
+            <div class="patient_box col-lg-12" style="min-width:100%;">
+                <input type="radio" name="patient" t-attf-id="#{patient.id}" t-attf-value="#{patient.id}" checked="checked"/>
+                <label t-if="patient.unread" t-attf-for="#{patient.id}" class="bold" style="margin: 0px;"><t t-esc="patient.name"/></label>
+                <label t-else="" t-attf-for="#{patient.id}" style="margin: 0px;"><t t-esc="patient.name"/></label>
+                <i t-if="patient.is_archived" class="fa fa-comments un_archived" t-attf-value="#{patient.id}"/>
+                <i t-else="" class="fa fa-archive archived" t-attf-value="#{patient.id}"/>
+                <i t-if="patient.unread" class="fa fa-circle unread_count" t-attf-value="#{patient.id}"/>
+                <div class="last_message">
+                    <p><t t-esc="patient.last_message"/></p>
+                </div>
+            </div>
+        </t>
+    </t>
+
+    <t t-name="twilio.chat_box">
+        <t t-foreach="chat_box || []" t-as="chat">
+            <div class="row">
+                <t t-if="chat.received == 0">
+                    <div class="col-lg-6"/>
+                </t>
+                <div t-attf-class="chat_box col-lg-6">
+                    <div t-attf-class="received_#{chat.received}">
+                        <div class="name">
+                            <t t-if="chat.received == 1" t-esc="chat.name"/>
+                            <t t-else="" t-esc="patient.branch"/>
+                        </div>
+                        <div class="message dropdown">
+                            <p class="dropbtn" t-esc="chat.message"/>
+                            <span t-attf-class="dropdown-content dropdown-content_#{chat.received}">
+                                <a t-if="chat.received and chat.read" t-attf-data-id="#{chat.id}" value="unread" class="chat_options left">mark as unread</a>
+                            </span>
+                        </div>
+                        <div class="time"><t t-esc="chat.datetime"/></div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </t>
+
+    <t t-name="twilio.add_patient_modal">
+        <div role="dialog" class="modal fade" tabindex="-1">
+            <div class="modal-dialog modal-sm add_patient" style="max-width:400px;">
+                <div class="modal-content">
+                    <header class="modal-header">
+                        <h4 class="modal-title">Select Patient</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">x</button>
+                    </header>
+                    <main class="modal-body">
+                        <div class="row">
+                            <div class="col-lg-1"/>
+                            <div class="col-lg-2">
+                                <p>Search</p>
+                            </div>
+                            <div class="col-lg-8">
+                                <input name="add_search" style="width: 100%;border-radius: 50px 50px 50px 50px;border: 1px solid"/>
+                            </div>
+                            <div class="col-lg-1"/>
+                        </div>
+
+                        <div class="container radio_into_button">
+                            <t t-foreach="patient_list || []" t-as="patient">
+                                <div class="row">
+                                    <div class="col-lg-1"/>
+                                    <div class="col-lg-10">
+                                        <input type="radio" name="add_patient" t-attf-id="#{patient.id}" t-attf-value="#{patient.id}"/>
+                                        <label t-attf-for="#{patient.id}" style="margin: 0px;font-weight: bold;"><t t-esc="patient.name"/> (DOB: <span t-esc="patient.date_of_birth"/>)</label>
+                                    </div>
+                                    <div class="col-lg-1"/>
+                                </div>
+                            </t>
+                        </div>
+                    </main>
+<!--                    <footer class="modal-footer">-->
+<!--                    </footer>-->
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="twilio.update_patient_modal">
+        <t t-foreach="patient_list || []" t-as="patient">
+            <div class="row">
+                <div class="col-lg-1"/>
+                <div class="col-lg-10">
+                    <input type="radio" name="add_patient" t-attf-id="#{patient.id}" t-attf-value="#{patient.id}"/>
+                    <label t-attf-for="#{patient.id}" style="margin: 0px;font-weight: bold;"><t t-esc="patient.name"/> (DOB: <span t-esc="patient.date_of_birth"/>)</label>
+                </div>
+                <div class="col-lg-1"/>
+            </div>
+        </t>
+    </t>
+
+    <t t-name="systray.twilio.NotificationsMenu">
+        <li class="o_mail_systray_item">
+            <a class="dropdown-toggle o-no-caret" role="button" style="cursor: pointer;">
+                <i class="fa fa-comments-o twilio_notification" role="img" aria-label="Notifications"/>
+                <span class="o_notification_counter badge badge-pill" style="background-color: red;"/>
+            </a>
+        </li>
+    </t>
+
+    <t t-name="systray.online_request.NotificationsMenu">
+        <li class="o_mail_systray_item">
+            <a class="dropdown-toggle o-no-caret" role="button" style="cursor: pointer;">
+                <i class="fa fa-file-text-o online_request_notification" role="img" aria-label="Notifications"/>
+                <span class="o_notification_counter badge badge-pill" style="background-color: red;"/>
+            </a>
+        </li>
+    </t>
+
+</templates>

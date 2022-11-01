@@ -1,0 +1,182 @@
+<odoo>
+    <!--    APP SIDE BAR TEMPLATE-->
+    <template id="ks_app_sidebar" inherit_id="web.webclient_bootstrap" name="Ks Apps Sidebar">
+        <xpath expr="//t[@t-set='body_classname']" position="attributes">
+            <attribute name="t-value" add="+ ' ks_sidebar_position'" separator=" "/>
+        </xpath>
+        <xpath expr="//t[@t-set='body_classname']" position="after">
+            <div id="ks_app_sidebar" class="ks_app_sidebar">
+                <div class="inner-sidebar">
+                    <ul id="sidebar" class="app-sidebar-menu">
+                        <li class="nav-item ks_menu_list" t-as="menu" t-foreach="menu_data['children']">
+                            <!--                                <t t-set="debug_param" t-value="''"/>-->
+                            <a role="menuitem"
+                               t-attf-class="dropdown-item  #{'oe_menu_toggler' if menu.get('children') else 'oe_menu_leaf'}"
+                               t-att-data-action-id="menu['action'] and menu['action'].split(',')[1] or None"
+                               t-att-data-action-model="menu['action'] and menu['action'].split(',')[0] or None"
+                               t-att-data-menu="menu['id']"
+                               t-att-data-menu-xmlid="menu.get('xmlid')"
+                               t-att-href="'/web#menu_id=%s&amp;action=%s' % (menu['id'], menu['action'] and menu['action'].split(',')[1] or '')">
+<!--                                <i t-attf-class="fa #{menu.get('icon')} fa-lg fa-fw" t-if="menu.get('icon')" role="img"-->
+<!--                                   aria-label="Menu" title="Menu"/>-->
+<!--                                <img t-attf-src="/web/image/ir.ui.menu/{{ menu['id'] }}/web_icon_data/20x20"-->
+<!--                                     t-att-alt="menu['name']"-->
+<!--                                     class="ks_app_sidebar_menuitem" t-att-title="menu['name']"/>-->
+<!--                                <span class="oe_menu_text">-->
+<!--                                    <t t-esc="menu['name']"/>-->
+<!--                                </span>-->
+
+                                <img t-if="menu['web_icon_data']" t-attf-src="/web/image/ir.ui.menu/{{ menu['id'] }}/web_icon_data/54x54"
+                                     t-att-alt="menu['name']" class="ks_app_sidebar_menuitem" t-att-title="menu['name']"/>
+
+                                <div t-elif="menu['web_icon']" class="o_app_icon o_app_icon_has_pictogram">
+                                    <i t-attf-class="#{menu.get('web_icon').split(',')[0]} fa-lg fa-fw"
+                                       t-attf-style="color: #{menu['web_icon'].split(',')[1]};"
+                                       t-att-title="menu['name']" />
+                                </div>
+                                <img t-else=""
+                                     t-attf-src="/ks_theme_kernel/static/src/logo/twod/Modules.png"
+                                     t-att-alt="menu['name']" class="ks_app_sidebar_menuitem"
+                                     t-att-title="menu['name']"/>
+                                <span class="oe_menu_text">
+                                    <t t-esc="menu['name']"/>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="mt-auto w-100 app-sidebar-menu-bottom">
+                        <ul class="ks-menu-systray o_menu_systray"/>
+                        <ul class="ks-menu-apps o_menu_apps"/>
+                    </div>
+                </div>
+                <!--                 VERTICAL TOP MENU-->
+                <t t-if="request.env['ir.config_parameter'].sudo().get_param('menu_options')=='Vertical'">
+                    <div class="sidebar-sub-menu">
+                        <a class="ks-main-menu-name o_menu_brand" role="button"/>
+                        <ul class="ks-menu-sections o_menu_sections" role="menu"/>
+                    </div>
+                    <div class="ks-sidebar-sub-menu-opener ks_resize_window">
+                        <i class="fa fa-chevron-right"/>
+                    </div>
+                </t>
+            </div>
+            <div class="ks-favourite-floating-menu">
+                <button class="ks-floating-menu-button" title="Favourite Menu">
+                    <img src="/ks_theme_kernel/static/src/images/icons/filters/fav-white.svg"/>
+                </button>
+            </div>
+        </xpath>
+    </template>
+
+    <!--    FAVOURITE MENU LINE TEMPLATE-->
+    <template name="ks_favourite_menu_structure" id="ks_favourite_menu_lines">
+        <t t-if="menus">
+            <t t-foreach="menus" t-as="line">
+                <tr class="favourite-menu-lines">
+                    <td>
+                        <p class="ks-menu-name-favourite mb-0">
+                            <t t-esc="line.ks_menu_name"/>
+                        </p>
+                        <input type="hidden" class="ks-menu-name-edit" t-att-value="line.ks_menu_name"></input>
+                    </td>
+                    <td>
+                        <p class="ks-url-name-favourite mb-0">
+                            <t t-esc="line.ks_menu_url"/>
+                        </p>
+                        <input type="hidden" class="favourite-menu-id" t-att-value="line.id"/>
+
+                    </td>
+                    <td>
+                        <div class="ks-menu-edit">
+                            <span class="menu-edit dropdown-toggle ks-no-after cursor-pointer" id="editMenuButton"
+                                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img src="/ks_theme_kernel/static/src/images/icons/filters/menu.svg"/>
+                            </span>
+
+                            <div class="dropdown-menu p-3" aria-labelledby="editMenuButton">
+                                <input type="hidden" class="current_active_font" t-att-value="font_id"></input>
+                                <input type="hidden" class="current_active_color" t-att-value="color_id"></input>
+                                <input type="hidden" class="favourite-menu-id" t-att-value="line.id"/>
+                                <div class="d-flex align-items-center menu-rename cursor-pointer mb-3">
+                                    <img src="/ks_theme_kernel/static/src/images/icons/filters/edit.svg"
+                                         class="mr-2 ks-dropdown-icon"/>
+                                    Rename
+                                </div>
+                                <div class="d-flex align-items-center menu-delete cursor-pointer"><img
+                                        src="/ks_theme_kernel/static/src/images/icons/filters/del.svg"
+                                        class="mr-2 ks-dropdown-icon"/>Delete
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </t>
+
+        </t>
+        <t t-else="">
+            <input type="hidden" class="current_active_font" t-att-value="font_id"></input>
+            <input type="hidden" class="current_active_color" t-att-value="color_id"></input>
+        </t>
+    </template>
+
+    <!--    FAVOURITE FLOATING MENU TEMPLATE-->
+    <template name="ks-favourite-floating-menu" id="ks_favourite_floating_menu">
+        <ul class="ks-floating-menu-list list-unstyled mb-0">
+            <t t-if="menus">
+                <t t-foreach="menus" t-as="line">
+                    <li class="ks-floating-menu-line" type="button" data-toggle="tooltip" data-placement="top"
+                        t-att-title="line.ks_menu_name">
+                        <a t-att-href="line.ks_menu_url">
+                            <!--                            <img t-att-src="'/ks_theme_kernel/static/description/favourite_menu_icons/'+line.ks_menu_name+'.png'"></img>-->
+                            <!--                            <img class="" src="/ks_theme_kernel/static/src/images/icons/filters/fav-white.svg" />-->
+                            <span>
+                                <t t-esc="line.ks_menu_name[0]"/>
+                            </span>
+                        </a>
+                    </li>
+                </t>
+            </t>
+        </ul>
+    </template>
+
+    <!--    COLOR PALLETE TEMPLATE-->
+    <template name="color-pallete-template" id="ks_color_pallete_list">
+        <t t-if="color_list">
+            <ul class="list-unstyled mb-0 d-flex flex-wrap">
+                <t t-foreach="color_list" t-as="list_">
+
+                    <li class="mr-3 mb-3">
+                        <label t-att-id="'color_'+str(list_)" class="ks_theme_color_pallete">
+                            <input type="radio" name="themeColor"/>
+                            <i class="fa fa-check-circle"/>
+                            <div class="ks-color-box d-flex">
+                                <div t-att-class="'color-primary-'+str(list_)+' w-50'"/>
+                                <div t-att-class="'color-alternate-'+str(list_)+' w-50'"/>
+                            </div>
+                        </label>
+                        <t t-if="list_>10">
+                            <t t-if="request.env.user.has_group('ks_theme_kernel.ks_theme_kernel_settings')">
+                                <div class="ks-pallete-delete d-none" t-att-id="'color_'+str(list_)">
+                                    <img src="/ks_theme_kernel/static/src/images/icons/filters/del.svg"/>
+                                </div>
+                            </t>
+                        </t>
+                    </li>
+                </t>
+            </ul>
+        </t>
+    </template>
+
+    <template id="ks_login_layout" inherit_id="web.login_layout" name="Login Layout">
+        <xpath expr="//t[@t-set='body_classname']" position="attributes">
+            <attribute name="t-value" add="+ ' ks_login_layout'" separator=" "/>
+        </xpath>
+    </template>
+
+<!--    login page template when website is installed-->
+<!--     <template id="ks_login_layout" inherit_id="website.user_navbar" name="Login Layout">-->
+<!--        <xpath expr="//t[@t-set='body_classname']" position="attributes">-->
+<!--            <attribute name="t-value" add="+ ' ks_login_layout'" separator=" "/>-->
+<!--        </xpath>-->
+<!--    </template>-->
+</odoo>

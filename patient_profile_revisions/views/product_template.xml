@@ -1,0 +1,13 @@
+<odoo>
+    <record id="brand_manufacturer_only_view" model="ir.ui.view">
+	    <field name="name">brand.manufacturer.only.view</field>
+	    <field name="model">product.template</field>
+<!--        <field name="search_view_id" ref="stock.product_template_search_form_view_stock"/>-->
+	    <field name="arch" type="xml">
+            <tree>
+                <field name="contact_lens_manufacturer_id"/>
+                <field name="name" string="Brand"/>
+            </tree>
+        </field>
+    </record>
+</odoo>

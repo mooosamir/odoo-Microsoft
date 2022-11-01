@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="multi_order_type_historical_tree" model="ir.ui.view">
+        <field name="name">multi.order.type.historical.tree</field>
+        <field name="model">multi.order.type.historical</field>
+        <field name="arch" type="xml">
+            <tree create="0" edit="0" delete="0" export_xlsx="0">
+                <field name="write_date" string="Date"/>
+                <field name="status" string="Sale Order"/>
+                <field name="write_uid" string="Employee"/>
+            </tree>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <template id="portal_searchbar" name="Portal Search Bars">
+        <div class="container">
+                <nav class="navbar navbar-light responsive navbar-expand-lg">
+                    <a class="navbar-brand" href="/patient_portal">ProVision</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse"
+                            data-target="#collapsibleNavbar">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="collapsibleNavbar" style="justify-content: right;">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/patient_portal">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" href="/patient_portal/prescription">Prescription</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/patient_portal/appointments">Appointments</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/patient_portal/forms">Forms</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/my/orders">Orders</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/patient_portal/message">Messages</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/patient_portal/shop">Shop</a>
+                            </li>
+<!--                            <li class="nav-item">-->
+<!--                                <a class="nav-link" href="/patient_portal/user">-->
+<!--                                    <t t-esc="current_user.name"/>-->
+<!--                                </a>-->
+<!--                            </li>-->
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        <nav t-attf-class="navbar navbar-light navbar-expand-lg border py-0 mb-2 o_portal_navbar {{classes if classes else ''}} {{'mt-3 rounded' if breadcrumbs_searchbar else 'border-top-0' }}">
+            <!--  Navbar breadcrumb or title  -->
+            <t t-if="breadcrumbs_searchbar">
+                <t t-call="patient_portal.portal_breadcrumbs"/>
+            </t>
+            <span t-else="" class="navbar-brand mb-0 h1 mr-auto" t-esc="title or 'No title'"/>
+
+            <!--  Collapse button -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#o_portal_navbar_content" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle filters">
+                <span class="navbar-toggler-icon small"/>
+            </button>
+
+            <!--  Collapsable content  -->
+            <div class="collapse navbar-collapse" id="o_portal_navbar_content">
+                <div class="nav flex-column flex-lg-row ml-auto p-0 mb-3 mb-lg-0 mt-1 mt-lg-0">
+                    <div t-if="searchbar_sortings" class="form-inline">
+                        <span class="small mr-1 navbar-text">Sort By:</span>
+                        <div class="btn-group">
+                            <button id="portal_searchbar_sortby" data-toggle="dropdown" class="btn btn-secondary btn-sm dropdown-toggle">
+                                <t t-esc="searchbar_sortings[sortby].get('label', 'Newest')"/>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="portal_searchbar_sortby">
+                                <t t-foreach="searchbar_sortings" t-as="option">
+                                    <a t-att-href="request.httprequest.path + '?' + keep_query('*', sortby=option)"
+                                       t-attf-class="dropdown-item#{sortby == option and ' active' or ''}">
+                                        <span t-esc="searchbar_sortings[option].get('label')"/>
+                                    </a>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+                    <div t-if="searchbar_filters" class="form-inline ml-lg-2">
+                        <span class="small mr-1 navbar-text">Filter By:</span>
+                        <div class="btn-group">
+                            <button id="portal_searchbar_filters" data-toggle="dropdown" class="btn btn-secondary btn-sm dropdown-toggle">
+                                <t t-esc="searchbar_filters.get(filterby,searchbar_filters.get('all')).get('label', 'All')"/>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="portal_searchbar_filters">
+                                <t t-foreach="searchbar_filters" t-as="option">
+                                    <a t-att-href="default_url + '?' + keep_query('*', filterby=option)"
+                                       t-attf-class="dropdown-item#{filterby == option and ' active' or ''}">
+                                        <span t-esc="searchbar_filters[option].get('label')"/>
+                                    </a>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+                    <div t-if="searchbar_groupby" class="form-inline ml-lg-2">
+                        <span class="small mr-1 navbar-text">Group By:</span>
+                        <div class="btn-group">
+                            <button id="portal_searchbar_groupby" data-toggle="dropdown" class="btn btn-secondary btn-sm dropdown-toggle">
+                                <t t-esc="searchbar_groupby[groupby].get('label', 'None')"/>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="portal_searchbar_groupby">
+                                <t t-foreach="searchbar_groupby" t-as="option">
+                                    <a t-att-href="default_url + '?' + keep_query('*', groupby=option)"
+                                       t-attf-class="dropdown-item#{groupby == option and ' active' or ''}">
+                                        <span t-esc="searchbar_groupby[option].get('label')"/>
+                                    </a>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+                    <t t-raw="0"/>
+                </div>
+                <form t-if="searchbar_inputs" class="form-inline o_portal_search_panel ml-lg-4">
+                    <div class="input-group input-group-sm w-100">
+                        <div class="input-group-prepend">
+                            <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"/>
+                            <div class="dropdown-menu" role="menu">
+                                <t t-foreach='searchbar_inputs' t-as='input'>
+                                    <a t-att-href="'#' + searchbar_inputs[input]['input']"
+                                        t-attf-class="dropdown-item#{search_in == searchbar_inputs[input]['input'] and ' active' or ''}">
+                                        <span t-raw="searchbar_inputs[input]['label']"/>
+                                    </a>
+                                </t>
+                            </div>
+                        </div>
+                        <input type="text" class="form-control form-control-sm" placeholder="Search" t-att-value='search' name="search"/>
+                        <span class="input-group-append">
+                            <button class="btn btn-secondary search-submit" type="button">
+                                <span class="fa fa-search"/>
+                            </button>
+                        </span>
+                    </div>
+                </form>
+            </div>
+        </nav>
+    </template>
+    <template id="portal_breadcrumbs" name="Portal Breadcrumbss">
+        <ol t-if="page_name != 'home'" class="o_portal_submenu breadcrumb mb-0 py-2 flex-grow-1">
+            <li class="breadcrumb-item"><a href="/patient_portal" aria-label="Home" title="Home"><i class="fa fa-home"/></a></li>
+            <li t-if="page_name == 'my_details'" class="breadcrumb-item">Details</li>
+        </ol>
+    </template>
+
+    <template id="portal_layout" name="Portal Layout">
+        <t t-call="portal.frontend_layout">
+            <t t-set="is_portal" t-value="True"/>
+
+            <div t-if="not no_breadcrumbs and not my_details and not breadcrumbs_searchbar" class="o_portal container mt-3">
+                <div class="row align-items-center bg-white no-gutters border rounded">
+                    <div class="col">
+                        <t t-call="patient_portal.portal_breadcrumbs"></t>
+                    </div>
+                    <div t-if="prev_record or next_record" class="col flex-grow-0">
+                        <t t-call='portal.record_pager'/>
+                    </div>
+                </div>
+            </div>
+            <div id="wrap" class='o_portal_wrap'>
+                <div class="container mb64">
+                    <t t-if="my_details">
+                        <div class="row justify-content-between mt-4">
+                            <div t-attf-class="col-12 col-md col-lg-6">
+                                <t t-raw="0"/>
+                            </div>
+                            <div id="o_my_sidebar" class="col-12 col-md col-lg-4 col-xl-3 o_my_sidebar">
+                                <div class="o_my_contact" t-if="sales_user">
+                                    <t t-call="portal.portal_contact"/>
+                                </div>
+                                <div class="o_portal_my_details">
+                                    <h4>Details <a role="button" href="/my/account" class="btn btn-sm btn-link"><i class="fa fa-pencil"/> Edit</a></h4>
+                                    <hr class="mt-1 mb-0"/>
+                                    <div t-field="user_id.partner_id" t-options='{"widget": "contact", "fields": ["email", "phone", "address", "name"]}'/>
+                                </div>
+                                <div class="o_my_archives" t-if="archive_groups">
+                                    <t t-call="portal.portal_archive_groups"/>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                    <t t-else="">
+                        <t t-raw="0"/>
+                    </t>
+                </div>
+            </div>
+        </t>
+    </template>
+
+
+    <template id="portal_my_orders" name="My Sales Orderss">
+        <t t-call="patient_portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+
+            <t t-call="patient_portal.portal_searchbar">
+                <t t-set="title">Sales Orders</t>
+            </t>
+            <t t-if="not orders">
+                <p>There are currently no orders for your account.</p>
+            </t>
+            <t t-if="orders" t-call="portal.portal_table">
+                <thead>
+                    <tr class="active">
+                        <th>
+                            <span class='d-none d-md-inline'>Sales Order #</span>
+                            <span class='d-block d-md-none'>Ref.</span>
+                        </th>
+                        <th class="text-right">Order Date</th>
+                        <th class="text-center"/>
+                        <th class="text-right">Total</th>
+                    </tr>
+                </thead>
+                <t t-foreach="orders" t-as="order">
+                    <tr>
+                        <td><a t-att-href="order.get_portal_url()"><t t-esc="order.name"/></a></td>
+                        <td class="text-right">
+                            <span t-field="order.date_order" t-options="{'widget': 'date'}"/>&amp;nbsp;
+                            <span class='d-none d-md-inline' t-field="order.date_order" t-options="{'time_only': True}"/>
+                        </td>
+                        <td class="text-center">
+                            <span t-if="order.state == 'done'"  class="badge badge-pill badge-success">
+                                <i class="fa fa-fw fa-check" role="img" aria-label="Done" title="Done"/>Done
+                            </span>
+                        </td>
+                        <td class="text-right"><span t-field="order.amount_total"/></td>
+                    </tr>
+                </t>
+            </t>
+        </t>
+    </template>
+
+
+</odoo>

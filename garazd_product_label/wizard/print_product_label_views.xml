@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+
+    <!-- <act_window
+        id="action_print_label_from_template"
+        name="Custom Product Labels"
+        binding_model="product.template"
+        res_model="print.product.label"
+        view_mode="form"
+        target="current"
+        binding_views="form"
+        context="{'default_product_ids': active_ids}"/> -->
+
+    <record id="print_product_label_view_form" model="ir.ui.view">
+        <field name="name">print.product.label.view.form</field>
+        <field name="model">print.product.label</field>
+        <field name="arch" type="xml">
+            <form create="false" string="Print Product Labels">
+                <div class="alert alert-info text-center mb-3" attrs="{'invisible':[('message', '=', False)]}"
+                     role="alert">
+                    <field name="message"/>
+                </div>
+                <group name="settings">
+                    <group name="global">
+                        <field name="output" string="Printer"/>
+                        <field name="template" string="Label"/>
+                    </group>
+                </group>
+                <br/>
+                <h4>Show on Label</h4>
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <group>
+                                <field name="product_name"/>
+                            </group>
+                        </div>
+                        <div class="col">
+                            <group>
+                                <field name="eye"/>
+                            </group>
+                        </div>
+                        <div class="col">
+                            <group>
+                                <field name="bridge"/>
+                            </group>
+                        </div>
+                        <div class="col">
+                            <group>
+                                <field name="temple"/>
+                            </group>
+                        </div>
+                        <div class="col">
+                            <group>
+                                <field name="color"/>
+                            </group>
+                        </div>
+                        <div class="col">
+                            <group>
+                                <field name="upc" attrs="{'readonly':[('sku', '=', True)]}"/>
+                            </group>
+                        </div>
+                        <div class="col">
+                            <group>
+                                <field name="sku" attrs="{'readonly':[('upc', '=', True)]}"/>
+                            </group>
+                        </div>
+
+                        <div class="col">
+                            <group>
+                                <field name="demo" invisible="1"/>
+                            </group>
+                        </div>
+                        <div class="col">
+                            <group>
+                                <field name="demo" invisible="1"/>
+                            </group>
+                        </div>
+                    </div>
+                </div>
+
+                <field name="label_ids" mode="tree">
+                    <tree editable="top" decoration-success="qty > 0" edit="1" create="0">
+                        <field name="selected"/>
+                        <field name="product_id"/>
+                        <field name="barcode" readonly="True"/>
+                        <field name="qty" sum="Total"/>
+                    </tree>
+                </field>
+                <footer>
+                    <button name="action_print" string="Print" help="Print product labels" type="object" icon="fa-print"
+                            class="btn-primary mt8 mb8" style="float:right;"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+<!--    <act_window id="action_print_label_from_template"-->
+<!--                name="Custom Product Labels"-->
+<!--                res_model="print.product.label"-->
+<!--                binding_model="product.template"-->
+<!--                view_mode="form"-->
+<!--                binding_type="report"-->
+<!--                target="new"-->
+<!--                context="{'default_product_ids': active_ids}"/>-->
+
+    <act_window id="action_print_label_from_product"
+                name="Custom Product Labels"
+                binding_model="product.product"
+                res_model="print.product.label"
+                view_mode="form"
+                binding_type="report"
+                target="new"
+                context="{'default_product_ids': active_ids}"/>
+
+</odoo>

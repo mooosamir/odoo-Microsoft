@@ -1,0 +1,11 @@
+<odoo>
+    <data>
+        <menuitem id="patient_engagement_menu" name="Patient Engagement" sequence="6"/>
+<!--        <menuitem id="dashboard_menuitem" name='Dashboard' parent="patient_engagement_menu" sequence="1"/>-->
+        <menuitem id="appointments_menuitem" name='Online Requests' parent="patient_engagement_menu" sequence="2"/>
+        <menuitem id="messaging_menuitem" name='Messaging' parent="patient_engagement_menu" sequence="3"/>
+<!--        <menuitem id="setting_menuitem" name='Setting' parent="patient_engagement_menu" sequence="4"/>-->
+<!--        <menuitem id="online_requests_menuitem" action="online_requests_action" name='Online Requests'-->
+<!--              parent="patient_engagement_menu" sequence="1"/>-->
+    </data>
+</odoo>

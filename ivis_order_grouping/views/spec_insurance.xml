@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+        <record id="spec_insurance_form_many2one" model="ir.ui.view">
+            <field name="name">spec.insurance.form</field>
+            <field name="model">spec.insurance</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group colspan="4">
+                        <group string="Carrier Information">
+<!--                            <field name="employer"/>-->
+                            <field name="carrier_id" required="1"/>
+                            <field name="plan_id" required="1"
+                                   domain="[('insurance_company_id', '=', carrier_id)]" string="Plan (11c)"/>
+                            <field name="insurance_type" string="Type" widget="radio" options="{'horizontal': true}"/>
+                            <field name="priority" required="1"/>
+                            <field name="address"/>
+                            <field name="activation_date"/>
+                            <field name="termination_date"/>
+                            <field name="country_id" invisible='1'/>
+                        </group>
+                        <group string="Subscriber Information">
+                            <label for="sequence" string="Insurance ID(1a)"/>
+                            <div class="o_row">
+                                <field name="sequence" class="oe_inline"/>
+                                <field name="use_patient_ssn" class="oe_inline"/>
+                                <label for="use_patient_ssn"/>
+                            </div>
+                            <field name="policy_group" string="Policy Group(11)"/>
+                            <field name="first_name"/>
+                            <field name="middle_name"/>
+                            <field name="last_name"/>
+                            <field name="relationship" string="Relationship(6)"/>
+                            <label for="address_line_1"/>
+                            <div class="o_row">
+                                <field name="address_same_patient" class="oe_inline"/>
+                                <label for="address_same_patient" string="Same as Patient"
+                                       class="oe_inline"/>
+                                <field name="address_line_1" placeholder="Address line 1 (7)"
+                                       class="oe_inline"/>
+                            </div>
+                            <field name="address_line_2" placeholder="Address line 2 (7)"/>
+                            <field name="city" placeholder="City(7)" style="margin-right:7px;"/>
+                            <field name="state_id" placeholder="State(7)" options='{"no_open": True}'/>
+                            <field name="zip" placeholder="Zip(7)"/>
+                            <field name="gender" string="Sex(11a)" widget="radio" options="{'horizontal': true}"/>
+                            <field name="phone" string="Phone(7)"/>
+                            <field name="date" string="DOB(11a)"/>
+                            <field name="partner_id" invisible="1"/>
+                        </group>
+                    </group>
+                    <group colspan="4" col="4">
+                        <field name="image_front" widget="image" style="width: 300px; height: 250px;"/>
+                        <field name="image_back" widget="image" style="width: 300px; height: 250px;"/>
+                    </group>
+                    <!--                                PLEASE DO NOT REMOVE THIS DUMMY BUTTON AND DO NOT CHANGE THIS POSITION -->
+                    <button name="dummy_btn" string="compute value" type="object" invisible="1"/>
+                </form>
+            </field>
+        </record>
+
+
+</odoo>

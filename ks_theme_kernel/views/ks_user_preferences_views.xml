@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="click_view_users_form_simple_modif">
+        <field name="name">KsUsers</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form_simple_modif"/>
+        <field name="arch" type="xml">
+            <field name="tz" position="after">
+                <div>
+                    <field name="ks_show_clock" readonly="0"/>
+                    <span class="o_form_label">Show clock</span>
+                </div>
+                <field name="ks_time_format" readonly="0"/>
+                <div>
+                    <field name="ks_click_edit" readonly="0"/>
+                    <span class="o_form_label">Double Click Edit</span>
+                    <i class="fa fa-exclamation-triangle text-warning" role="img" aria-label="Warning"
+                       title="Re-login to make changes effective."/>
+                </div>
+            </field>
+        </field>
+    </record>
+</odoo>

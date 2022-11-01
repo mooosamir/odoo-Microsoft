@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="account_move_form_inherit" model="ir.ui.view">
+            <field name="name">Account Move Form - Sale Order</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+<!--                <xpath expr="//div[hasclass('oe_button_box')]" position="inside">-->
+<!--                    <field name="is_insurance" invisible="1"/>-->
+<!--                    <button name="action_view_hcpcs_lines" type="object" class="oe_stat_button"-->
+<!--                        attrs="{'invisible': [('is_insurance', '=', 0)]}" icon="fa-list-alt ">-->
+<!--                        <div class="o_field_widget o_stat_info">-->
+<!--                            <span class="o_stat_text">HCPCS</span>-->
+<!--                        </div>-->
+<!--                    </button>-->
+<!--                </xpath>-->
+<!--                <xpath expr="//group[1]" position="after">-->
+<!--                    <div id="headingOne5">-->
+<!--                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne5" aria-expanded="true" aria-controls="collapseOne5">-->
+<!--                            <separator string='Diagnosis Codes ⌄' aria-controls="collapseOne5"/>-->
+<!--                        </button>-->
+<!--                    </div>-->
+<!--                    <hr/>-->
+<!--                    <div id="collapseOne5" aria-labelledby="headingOne5" width='100%' class='row collapse hide' style='margin-left:10px;margin-right:10px'>-->
+<!--                        <field name="diagnosis_lines" invisible="1">-->
+<!--                            <tree edit="0" create="0" delete="0">-->
+<!--                                <field name="diagnosis_code_id"/>-->
+<!--                            </tree>-->
+<!--                        </field>-->
+<!--                    </div>-->
+<!--                </xpath>-->
+                <xpath expr="//field[@name='partner_id']" position="attributes">
+                    <attribute name="string">Patient</attribute>
+                </xpath>
+                <xpath expr="//field[@name='journal_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='currency_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+<!--                <xpath expr="//field[@name='discount_rate']" position="attributes">-->
+<!--                    <attribute name="invisible">1</attribute>-->
+<!--                </xpath>-->
+                <xpath expr="//field[@name='invoice_line_ids']//tree//field[@name='account_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='invoice_line_ids']//tree//field[@name='analytic_account_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='invoice_line_ids']//tree//field[@name='analytic_tag_ids']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='invoice_line_ids']//tree//field[@name='name']" position="after">
+<!--                    <field name="prescription_id" widget="many2one_button"/>-->
+<!--                    <field name="lab_details_id" widget="many2one_button"/>-->
+<!--                    <field name="insurance_id" string="Insurance"/>-->
+<!--                    <field name="authorization_id" string="Authorization"/>-->
+                </xpath>
+                <xpath expr="//field[@name='invoice_line_ids']//tree//field[@name='price_unit']" position="attributes">
+                    <attribute name="string">Retails</attribute>
+                </xpath>
+                <xpath expr="//field[@name='invoice_line_ids']//tree//field[@name='price_unit']" position="replace">
+                    <field name="actual_retail"/>
+                </xpath>
+                <xpath expr="//field[@name='invoice_line_ids']//tree//field[@name='name']" position="after">
+                    <field name="move_id" invisible="1"/>
+                    <field name="procedure_code_id"/>
+                    <field name="spec_modifier_ids" widget="many2many_tags"/>
+                    <field name="diagnosis_code_sale_ids" widget="many2many_tags"/>
+<!--                    <field name="pt_resp"/>-->
+                    <field name="pt_total"/>
+<!--                    <field name="insur"/>-->
+                    <field name="DX" widget="many2many_tags"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_invoice_tree" model="ir.ui.view">
+            <field name="name">Account Move Tree - Sale Order</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_invoice_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='invoice_date_due']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='invoice_partner_display_name']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='invoice_partner_display_name']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='invoice_origin']" position="after">
+                    <field name="invoice_partner_display_name"/>
+                </xpath>
+                <xpath expr="//field[@name='company_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='type']" position="after">
+                    <field name="company_id"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

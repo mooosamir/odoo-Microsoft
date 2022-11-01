@@ -1,0 +1,37 @@
+.prescription-heading{
+    text-align:center;
+    background-color:#072e6b;
+    color:white;
+    font-size:20px;
+}
+
+.prescription-container{
+    padding:25px;
+
+}
+
+.prescription-box {
+    border:1px solid black;
+    height:100px;
+    margin-bottom:10px;
+}
+
+.prescription-box h5{
+    font-weight:bold;
+    color:#072e6b;
+    margin-bottom:5px;
+}
+
+.prescription-box p{
+    margin-bottom:2px;
+    margin-left:5px;
+}
+
+.prescription-box button{
+    float:right;
+    color:white;
+    background-color:#072e6b;
+    align:center;
+    margin-top:15px;
+}
+

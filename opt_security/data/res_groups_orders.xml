@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data noupdate="1">
+	    <record id="opt_order" model="ir.module.category">
+	        <field name="name">OPT Orders</field>
+	    </record>
+
+	    <record id="opt_order_create_edit" model="res.groups">
+	        <field name="name">Create/Edit</field>
+	        <field name="category_id" ref="opt_security.opt_order"/>
+	    </record>
+	    <record id="opt_order_read" model="res.groups">
+	        <field name="name">Read</field>
+	        <field name="category_id" ref="opt_security.opt_order"/>
+	    </record>
+	    <record id="opt_order_delete" model="res.groups">
+	        <field name="name">Delete</field>
+	        <field name="category_id" ref="opt_security.opt_order"/>
+	    </record>
+	    <record id="opt_order_export" model="res.groups">
+	        <field name="name">Export</field>
+	        <field name="category_id" ref="opt_security.opt_order"/>
+	    </record>
+	    <record id="opt_order_send_cart_email" model="res.groups">
+	        <field name="name">Cart Email</field>
+	        <field name="category_id" ref="opt_security.opt_order"/>
+	    </record>
+	    <record id="opt_order_create_invoice" model="res.groups">
+	        <field name="name">Create Invoice</field>
+	        <field name="category_id" ref="opt_security.opt_order"/>
+	    </record>
+	    <record id="opt_order_send_email" model="res.groups">
+	        <field name="name">Send by Email</field>
+	        <field name="category_id" ref="opt_security.opt_order"/>
+	    </record>
+	    <record id="opt_order_customer_preview" model="res.groups">
+	        <field name="name">Customer Preview</field>
+	        <field name="category_id" ref="opt_security.opt_order"/>
+	    </record>
+	    <record id="opt_order_cancel" model="res.groups">
+	        <field name="name">Cancel Order</field>
+	        <field name="category_id" ref="opt_security.opt_order"/>
+	    </record>
+	    <record id="opt_order_promotions" model="res.groups">
+	        <field name="name">Promotions</field>
+	        <field name="category_id" ref="opt_security.opt_order"/>
+	    </record>
+	    <record id="opt_order_line_delete" model="res.groups">
+	        <field name="name">Delete Order Types</field>
+	        <field name="category_id" ref="opt_security.opt_order"/>
+	    </record>
+<!--	    <record id="opt_order_manager" model="res.groups">-->
+<!--	        <field name="name">Manager</field>-->
+<!--	        <field name="category_id" ref="opt_security.opt_order"/>-->
+<!--			<field name="implied_ids" eval="[(4, ref('opt_security.opt_order_create_edit')), (4, ref('opt_security.opt_order_read')),-->
+<!--				(4, ref('opt_security.opt_order_delete')), (4, ref('opt_security.opt_order_export')),-->
+<!--				(4, ref('opt_security.opt_order_send_cart_email')), (4, ref('opt_security.opt_order_create_invoice')),-->
+<!--				(4, ref('opt_security.opt_order_create_invoice')), (4, ref('opt_security.opt_order_send_email')),-->
+<!--				]"/>-->
+<!--	    </record>-->
+
+	</data>
+</odoo>

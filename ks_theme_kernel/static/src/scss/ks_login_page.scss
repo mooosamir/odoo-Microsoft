@@ -1,0 +1,43 @@
+.ks_login_layout {
+    background-image: url("/login_page/background");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: rgba(0, 0, 0, 0.3) !important;
+    background-blend-mode: darken;
+
+    .o_database_list {
+        max-width: 500px !important;
+        background: transparent !important;
+
+        .card-body {
+            padding: 40px;
+            background-color: rgba(255, 255, 255, 0.75) !important;
+
+            @media (max-width: 575px) {
+                padding: 20px;
+            }
+        }
+    }
+
+    .btn-primary {
+        background-color: #292961;
+        border-color: #292961;
+        color: #FFFFFF !important;
+    }
+
+    a,
+    .btn-link,
+     {
+        color: #292961;
+    }
+
+    .form-control {
+        padding: 12px 16px;
+        height: auto;
+
+        &:focus {
+            border-color: #292961;
+            box-shadow: 0 0 0 0.2rem rgba(41, 41, 97, 0.2);
+        }
+    }
+}

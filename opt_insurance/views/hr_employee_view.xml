@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_employee_extend_got2" model="ir.ui.view">
+        <field name="name">hr.employee.extend.got2</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+<!--            <xpath expr="//group[@name='managers']" position="inside">-->
+<!--                <field name="expense_manager_id" context="{'default_company_id': company_id}"/>-->
+<!--            </xpath>-->
+            <xpath expr="//field[@name='name']" position="attributes">
+                <attribute name="required">0</attribute>
+                <attribute name="invisible">1</attribute>
+                <attribute name="force_save">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='name']" position="before">
+                <field name="provide" invisible="1"/>
+                <!-- 	<h6>
+                        <field name="provide" widget="radio" options="{'horizontal': true}" class="oe_edit_only"/>
+                        <field name="active" class="oe_edit_only"/>
+                        <label for="active" class="oe_edit_only"/>
+                    </h6> -->
+            </xpath>
+            <xpath expr="//field[@name='name']" position="after">
+                <table>
+                    <tr>
+                        <td style="padding-right:10px;">
+                            <h4>
+                                <field name="title" placeholder="Title"/>
+                            </h4>
+
+                        </td>
+                        <td style="padding-right:10px;">
+                            <h4>
+                                <field name="first_name" placeholder="First Name"/>
+                            </h4>
+                        </td>
+                        <td style="padding-right:10px;">
+                            <h4>
+                                <field name="middle_name" placeholder="Middle Name"/>
+                            </h4>
+                        </td>
+                        <td style="padding-right:10px;">
+                            <h4>
+                                <field name="last_name" placeholder="Last Name"/>
+                            </h4>
+
+                        </td>
+                        <td style="padding-right:10px;">
+                            <h4>
+                                <field name="credential" placeholder="Credential"/>
+                            </h4>
+                        </td>
+                    </tr>
+                </table>
+            </xpath>
+            <xpath expr="//field[@name='job_id']" position="after">
+                <field name="doctor" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='address_home_id']" position="attributes">
+                <attribute name="domain">[('patient', '!=', True)]</attribute>
+            </xpath>
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="open_user_from_employee"
+                        class="oe_stat_button"
+                        icon="fa-users"
+                        type="object"
+                        string="User"/>
+            </xpath>
+
+            <xpath expr="//field[@name='company_id']" position="after">
+                <field name="fax" string="Company Fax"/>
+                <field name="doctor"/>
+                <field name="ein" invisible="1"/>
+                <field name="license"/>
+                <field name="dea"/>
+                <field name="npi_type" invisible="1"/>
+                <field name="npi"/>
+                <field name="taxonomy"/>
+                <field name="allow_overbooks" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='parent_id']" position="after">
+                <field name="duration" widget="float_time"/>
+                <field name="color" widget="color"/>
+<!--                <field name="online_appointment"/>-->
+                <field name="appointment"/>
+                <field name="signature_date"/>
+                <field name="signature" widget="signature" style="width: 75%; height:40px;"/>
+            </xpath>
+            <xpath expr="//field[@name='duration']" position="replace">
+            </xpath>
+            <xpath expr="//field[@name='signature_date']" position="replace">
+                <field name="active"/>
+            </xpath>
+            <xpath expr="//field[@name='category_ids']" position="replace">
+            </xpath>
+            <xpath expr="//field[@name='resource_calendar_id']" position="attributes">
+                <attribute name="invisible">0</attribute>
+                <attribute name="required">0</attribute>
+            </xpath>
+            <xpath expr="//notebook/page[@name='public']" position="before">
+                <page name="insurance" string="Insurance" invisible="1">
+                    <field name="insurance_ids" nolabel="1">
+                        <tree>
+                            <field name="name"/>
+                            <field name="npi_type"/>
+                            <field name="billing_npi"/>
+                            <field name="rendering_provider_npi"/>
+                            <field name="tax_id"/>
+                        </tree>
+                        <form>
+                            <group col="4" colspan="4">
+                                <field name="name"/>
+                                <field name="npi_type"/>
+                                <field name="billing_npi"/>
+                                <field name="rendering_provider_npi"/>
+                                <field name="tax_id"/>
+                                <field name="employee_id" invisible="1"/>
+                            </group>
+                        </form>
+                    </field>
+                </page>
+                <page name="availability" string="Availability">
+                    <group>
+                        <field name="resource_calendar_id" required="1"/>
+                    </group>
+                </page>
+                <!-- below page is created by Siddhant Kaushik -->
+                <page name="personal" string="Personal">
+                    <group>
+                        <group>
+                            <field name="nick_name"/>
+                            <label for="street" string="Address"/>
+                            <div class="o_address_format">
+                                <field name="website" invisible="1"/>
+                                <field name="street" placeholder="Street..." class="o_address_street" widget="gplaces_autocomplete"/>
+                                <field name="street2" placeholder="Street 2..." class="o_address_street"/>
+                                <field name="city" placeholder="City" class="o_address_city"/>
+                                <field name="state_id" class="o_address_state" placeholder="State"
+                                       options='{"no_open": True}'/>
+                                <field name="country_id" placeholder="Country" class="o_address_country"
+                                       options='{"no_open": True, "no_create": True}'/>
+                                <field name="zip" placeholder="ZIP" class="o_address_zip"/>
+                            </div>
+                        </group>
+                        <group>
+                            <field name="phone" string="Cell"/>
+                            <field name="private_email" string="Email" required="1"/>
+                            <field name="birthday"/>
+                            <field name="ssn"/>
+                            <field name="gender"/>
+                            <field name="security_group" options="{'no_create_edit': True}" required="0" invisible='1'/>
+                            <field name="personal_status"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+            <xpath expr="//notebook/page[@name='personal_information']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//button[@name='%(hr.plan_wizard_action)d']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <!-- Below hr settings page is made hidden when developer mode is off by Siddhant Kaushik -->
+            <xpath expr="//page[@name='hr_settings']" position="attributes">
+                <attribute name="groups">base.group_no_one</attribute>
+            </xpath>
+            <field name="mobile_phone" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="work_email" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="work_phone" position="attributes">
+                <attribute name="string">Company Phone</attribute>
+            </field>
+            <field name="work_location" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+        </field>
+    </record>
+    <record id="view_employee_tree_inherit" model="ir.ui.view">
+        <field name="name">hr.employee.tree</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="phone" string="Cell"/>
+                <field name="private_email" string="Email"/>
+            </xpath>
+            <xpath expr="//field[@name='name']" position="attributes">
+                <attribute name="string">Employee</attribute>
+            </xpath>
+            <xpath expr="//field[@name='work_phone']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='work_email']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='department_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='parent_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="hr_employee_tree_view" model="ir.ui.view">
+        <field name="name">hr.employee.tree.view</field>
+        <field name="model">hr.employee</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="private_email"/>
+                <field name="job_id"/>
+                <field name="company_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="hr_employee_action" model="ir.actions.act_window">
+        <field name="name">Employees</field>
+        <field name="res_model">hr.employee</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_ids"
+               eval="[(5, 0, 0),
+					  (0, 0, {'view_mode': 'tree', 'view_id': ref('hr_employee_tree_view')}),
+					  (0, 0, {'view_mode': 'form', 'view_id': ref('hr.view_employee_form')})]"/>
+    </record>
+</odoo>

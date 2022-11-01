@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="action_server_claim_manager" model="ir.actions.server">
+        <field name="name">Trizetto</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_claim_manager"/>
+        <field name="binding_model_id" ref="model_claim_manager"/>
+        <field name="state">code</field>
+        <field name="code">records.write({'state':'submitted_to_payer'})</field>
+    </record>
+
+    <record id="action_server_claim_manager_ready_to_bill" model="ir.actions.server">
+        <field name="name">Ready To Bill</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_claim_manager"/>
+        <field name="binding_model_id" ref="model_claim_manager"/>
+        <field name="state">code</field>
+        <field name="code">records.write({'state':'ready_to_bill'})</field>
+    </record>
+    <record id="action_server_claim_manager_on_hold" model="ir.actions.server">
+        <field name="name">On Hold</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_claim_manager"/>
+        <field name="binding_model_id" ref="model_claim_manager"/>
+        <field name="state">code</field>
+        <field name="code">records.write({'state':'on_hold'})</field>
+    </record>
+    <record id="action_server_claim_manager_rejected" model="ir.actions.server">
+        <field name="name">Rejected</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_claim_manager"/>
+        <field name="binding_model_id" ref="model_claim_manager"/>
+        <field name="state">code</field>
+        <field name="code">records.write({'state':'rejected'})</field>
+    </record>
+</odoo>

@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Invoice Template -->
+        <report 
+            id="report_invoice_template_contemporary"
+            string="Contemporary"
+            model="account.move"
+            report_type="qweb-pdf"
+            file="general_template.report_invoice_template_custom" 
+            name="general_template.report_invoice_template_custom"
+            menu="False"
+            />
+            
+        <report 
+            id="report_invoice_template_elegant"
+            string="Elegant"
+            model="account.move"
+            report_type="qweb-pdf"
+            file="general_template.report_invoice_template_custom_elegant" 
+            name="general_template.report_invoice_template_custom_elegant"
+            menu="False"
+            />
+            
+        <report 
+            id="report_invoice_template_creative"
+            string="Creative"
+            model="account.move"
+            report_type="qweb-pdf"
+            file="general_template.report_invoice_template_custom_creative" 
+            name="general_template.report_invoice_template_custom_creative"
+            menu="False"
+            />
+           
+        <report 
+            id="report_invoice_template_professional"
+            string="Professional"
+            model="account.move"
+            report_type="qweb-pdf"
+            file="general_template.report_invoice_template_custom_professional" 
+            name="general_template.report_invoice_template_custom_professional"
+            menu="False"
+            />
+           
+        <report 
+            id="report_invoice_template_advanced"
+            string="Advanced"
+            model="account.move"
+            report_type="qweb-pdf"
+            file="general_template.report_invoice_template_custom_advanced" 
+            name="general_template.report_invoice_template_custom_advanced"
+            menu="False"
+            />
+           
+        <report 
+            id="report_invoice_template_exclusive"
+            string="Exclusive"
+            model="account.move"
+            report_type="qweb-pdf"
+            file="general_template.report_invoice_template_custom_exclusive" 
+            name="general_template.report_invoice_template_custom_exclusive"
+            menu="False"
+            />
+
+        <report 
+            id="report_invoice_template_incredible"
+            string="Incredible"
+            model="account.move"
+            report_type="qweb-pdf"
+            file="general_template.report_invoice_template_custom_incredible" 
+            name="general_template.report_invoice_template_custom_incredible"
+            menu="False"
+            />
+
+        <report 
+            id="report_invoice_template_innovative"
+            string="Innovative"
+            model="account.move"
+            report_type="qweb-pdf"
+            file="general_template.report_invoice_template_custom_innovative" 
+            name="general_template.report_invoice_template_custom_innovative"
+            menu="False"
+            />
+        
+        <!-- Sale Order Template -->
+        <report 
+            id="report_sale_order_contemporary"
+            string="Contemporary"
+            model="sale.order"
+            report_type="qweb-pdf"
+            file="general_template.report_sale_order_custom" 
+            name="general_template.report_sale_order_custom"
+            menu="False"
+            />
+            
+        <report 
+            id="report_sale_order_elegant"
+            string="Elegant"
+            model="sale.order"
+            report_type="qweb-pdf"
+            file="general_template.report_sale_order_custom_elegant" 
+            name="general_template.report_sale_order_custom_elegant"
+            menu="False"
+            />
+            
+        <report 
+            id="report_sale_order_creative"
+            string="Creative"
+            model="sale.order"
+            report_type="qweb-pdf"
+            file="general_template.report_sale_order_custom_creative" 
+            name="general_template.report_sale_order_custom_creative"
+            menu="False"
+            />
+           
+        <report 
+            id="report_sale_order_professional"
+            string="Professional"
+            model="sale.order"
+            report_type="qweb-pdf"
+            file="general_template.report_sale_order_custom_professional" 
+            name="general_template.report_sale_order_custom_professional"
+            menu="False"
+            />
+           
+        <report 
+            id="report_sale_order_advanced"
+            string="Advanced"
+            model="sale.order"
+            report_type="qweb-pdf"
+            file="general_template.report_sale_order_custom_advanced" 
+            name="general_template.report_sale_order_custom_advanced"
+            menu="False"
+            />
+           
+        <report 
+            id="report_sale_order_exclusive"
+            string="Exclusive"
+            model="sale.order"
+            report_type="qweb-pdf"
+            file="general_template.report_sale_order_custom_exclusive" 
+            name="general_template.report_sale_order_custom_exclusive"
+            menu="False"
+            />
+
+        <report 
+            id="report_sale_order_incredible"
+            string="Incredible"
+            model="sale.order"
+            report_type="qweb-pdf"
+            file="general_template.report_sale_order_custom_incredible" 
+            name="general_template.report_sale_order_custom_incredible"
+            menu="False"
+            />
+
+        <report 
+            id="report_sale_order_innovative"
+            string="Innovative"
+            model="sale.order"
+            report_type="qweb-pdf"
+            file="general_template.report_sale_order_custom_innovative" 
+            name="general_template.report_sale_order_custom_innovative"
+            menu="False"
+            />
+        
+        <!-- Delivery Template -->
+        <report 
+            id="report_delivery_contemporary"
+            string="Contemporary"
+            model="stock.picking"
+            report_type="qweb-pdf"
+            file="general_template.report_delivery_custom" 
+            name="general_template.report_delivery_custom"
+            menu="False"
+            />
+            
+        <report 
+            id="report_delivery_elegant"
+            string="Elegant"
+            model="stock.picking"
+            report_type="qweb-pdf"
+            file="general_template.report_delivery_custom_elegant" 
+            name="general_template.report_delivery_custom_elegant"
+            menu="False"
+            />
+            
+        <report 
+            id="report_delivery_creative"
+            string="Creative"
+            model="stock.picking"
+            report_type="qweb-pdf"
+            file="general_template.report_delivery_custom_creative" 
+            name="general_template.report_delivery_custom_creative"
+            menu="False"
+            />
+           
+        <report 
+            id="report_delivery_professional"
+            string="Professional"
+            model="stock.picking"
+            report_type="qweb-pdf"
+            file="general_template.report_delivery_custom_professional" 
+            name="general_template.report_delivery_custom_professional"
+            menu="False"
+            />
+           
+        <report 
+            id="report_delivery_advanced"
+            string="Advanced"
+            model="stock.picking"
+            report_type="qweb-pdf"
+            file="general_template.report_delivery_custom_advanced" 
+            name="general_template.report_delivery_custom_advanced"
+            menu="False"
+            />
+           
+        <report 
+            id="report_delivery_exclusive"
+            string="Exclusive"
+            model="stock.picking"
+            report_type="qweb-pdf"
+            file="general_template.report_delivery_custom_exclusive" 
+            name="general_template.report_delivery_custom_exclusive"
+            menu="False"
+            />
+
+        <report 
+            id="report_delivery_incredible"
+            string="Incredible"
+            model="stock.picking"
+            report_type="qweb-pdf"
+            file="general_template.report_delivery_custom_incredible" 
+            name="general_template.report_delivery_custom_incredible"
+            menu="False"
+            />
+
+            <report 
+            id="report_delivery_innovative"
+            string="Innovative"
+            model="stock.picking"
+            report_type="qweb-pdf"
+            file="general_template.report_delivery_custom_innovative" 
+            name="general_template.report_delivery_custom_innovative"
+            menu="False"
+            />
+        <!-- Purchase Template -->
+        <report 
+            id="report_purchase_contemporary"
+            string="Contemporary"
+            model="purchase.order"
+            report_type="qweb-pdf"
+            file="general_template.report_purchase_custom" 
+            name="general_template.report_purchase_custom"
+            menu="False"
+            />
+            
+        <report 
+            id="report_purchase_elegant"
+            string="Elegant"
+            model="purchase.order"
+            report_type="qweb-pdf"
+            file="general_template.report_purchase_custom_elegant" 
+            name="general_template.report_purchase_custom_elegant"
+            menu="False"
+            />
+            
+        <report 
+            id="report_purchase_creative"
+            string="Creative"
+            model="purchase.order"
+            report_type="qweb-pdf"
+            file="general_template.report_purchase_custom_creative" 
+            name="general_template.report_purchase_custom_creative"
+            menu="False"
+            />
+           
+        <report 
+            id="report_purchase_professional"
+            string="Professional"
+            model="purchase.order"
+            report_type="qweb-pdf"
+            file="general_template.report_purchase_custom_professional" 
+            name="general_template.report_purchase_custom_professional"
+            menu="False"
+            />
+           
+        <report 
+            id="report_purchase_advanced"
+            string="Advanced"
+            model="purchase.order"
+            report_type="qweb-pdf"
+            file="general_template.report_purchase_custom_advanced" 
+            name="general_template.report_purchase_custom_advanced"
+            menu="False"
+            />
+           
+        <report 
+            id="report_purchase_exclusive"
+            string="Exclusive"
+            model="purchase.order"
+            report_type="qweb-pdf"
+            file="general_template.report_purchase_custom_exclusive" 
+            name="general_template.report_purchase_custom_exclusive"
+            menu="False"
+            />
+
+            <report 
+            id="report_purchase_incredible"
+            string="Incredible"
+            model="purchase.order"
+            report_type="qweb-pdf"
+            file="general_template.report_purchase_custom_incredible" 
+            name="general_template.report_purchase_custom_incredible"
+            menu="False"
+            />
+
+            <report 
+            id="report_purchase_innovative"
+            string="Innovative"
+            model="purchase.order"
+            report_type="qweb-pdf"
+            file="general_template.report_purchase_custom_innovative" 
+            name="general_template.report_purchase_custom_innovative"
+            menu="False"
+            />
+       <!-- demo template -->
+       <report
+        id="report_demo_template"
+        model="res.company"
+        string="Preview Template"
+        report_type="qweb-html"
+        name="general_template.report_demo_template_main"
+        file="general_template.report_demo_template_main"
+        menu="False"/>
+    </data>
+</odoo>

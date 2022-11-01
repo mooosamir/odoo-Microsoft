@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_appointments_hours,access_appointments_hours,model_appointments_hours,base.group_user,1,1,1,1
+access_appointments_holidays,access_appointments_holidays,model_appointments_holidays,base.group_user,1,1,1,1
+access_appointments_open_close,access_appointments_open_close,model_appointments_open_close,base.group_user,1,1,1,1
+
+access_schedule_appointment,access_schedule_appointment,model_schedule_appointment,base.group_user,1,1,1,1

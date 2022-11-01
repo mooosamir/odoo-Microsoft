@@ -1,0 +1,135 @@
+<odoo>
+  <data>
+        <record id="post_sale_transactions_view" model="ir.ui.view">
+            <field name="name">post.sale.transactions.view</field>
+            <field name="model">post.sale.transactions</field>
+            <field name="arch" type="xml">
+                <form string="Contact Patient">
+                    <sheet>
+                        <group>
+                            <field name="sale_order_id" invisible="1"/>
+                            <field name="account_move_id" invisible="1" force_save="1"/>
+                            <field name="type" invisible="1" force_save="1"/>
+                            <field name="stock_picking_ids" widget="many2many_tags" invisible="1" force_save="1"/>
+                            <field name="post_sale_reasons_id" options='{"no_open": True, "no_create": True}'/>
+                        </group>
+                        <field name="post_sale_lines_transactions_ids" force_save="1" create="0" widget="section_and_note_one2many">
+                            <tree create="0" editable="bottom" edit="1" delete="0">
+                               <control>
+                                   <create name="add_product_control" string="Add a product"/>
+                                   <create name="add_section_control" string="Add a section" context="{'default_display_type': 'line_section'}"/>
+                                   <create name="add_note_control" string="Add a note" context="{'default_display_type': 'line_note'}"/>
+                               </control>
+                               <field name="display_type" invisible="1"/>
+                               <field name="processed_in_post_sale" invisible="1" force_save="1"/>
+                               <field name="company_id" invisible="1" force_save="1"/>
+                               <field name="account_move_line_id" invisible="1" force_save="1"/>
+                               <field name="original_location_id" invisible="1" force_save="1"/>
+                               <field name="type" invisible="1"/>
+                               <field name="check" force_save="1"
+                                      attrs="{'readonly': ['|', '&amp;', ('qty', '=', 0),
+                                      ('processed_in_post_sale', '=', True), ('qty', '=', 0)]}"/>
+                               <field name="re_order" attrs="{'readonly': ['|', ('qty', '=', 0), ('check', '=', False)],
+                                                              'invisible': [('type', 'not in', ['Remake', 'Warranty'])]}" force_save="1"/>
+                               <field name="name" widget="section_and_note_text" optional="show" force_save="1"/>
+                               <field name="product_id" options='{"no_open": True, "no_create": True}' force_save="1"/>
+                               <field name="uom_qty" force_save="1" invisible="1"/>
+                               <field name="qty" force_save="1"/>
+                               <field name="return_qty" force_save="1"
+                                      attrs="{'readonly': ['|', ('check', '=', False),('processed_in_post_sale', '=', True)]}"/>
+                               <field name="return_location" options='{"no_open": True, "no_create": True}'
+                                attrs="{'readonly': ['|', ('check', '=', False), '|',
+                                        '&amp;', ('processed_in_post_sale', '=', True), ('qty', '=', 0),
+                                        '&amp;', ('re_order', '=', False), ('type', 'in', ['Remake', 'Warranty'])]}" force_save="1"/>
+                            </tree>
+                        </field>
+<!--                      <div style="padding-left: 40px;" attrs="{'invisible': [('type', '!=', 'Remake')]}">-->
+<!--                          <field name="re_order"/>-->
+<!--                          <label for="re_order"/>-->
+<!--                      </div>-->
+                        <p attrs="{'invisible': [('type', '!=', 'Return')]}">
+                            <span>A Customer Credit Note Invoice will be generated and posted.<br/></span>
+                            <span>Delivery will be updated or returned.<br/></span>
+                            <span>In case of Return Delivery, a new delivery will be made for each delivery location from the original delivery.<br/></span>
+                            <span>The returned Delivery(if original was validated) will also be validated.<br/></span>
+                        </p>
+                    </sheet>
+                    <footer>
+                        <button name="post" string="Return" type="object" class="btn-primary"
+                                attrs="{'invisible': [('type', '!=', 'Return')]}"/>
+                        <button name="post" string="Exchange" type="object" class="btn-primary"
+                                attrs="{'invisible': [('type', '!=', 'Exchange')]}"/>
+                        <button name="post" string="Remake" type="object" class="btn-primary"
+                                attrs="{'invisible': [('type', '!=', 'Remake')]}"/>
+                        <button name="post" string="Warranty" type="object" class="btn-primary"
+                                attrs="{'invisible': [('type', '!=', 'Warranty')]}"/>
+                        <button string="Cancel" class="btn-default" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="post_sale_transactions_reorder_view" model="ir.ui.view">
+            <field name="name">post.sale.transactions.view</field>
+            <field name="model">post.sale.transactions</field>
+            <field name="arch" type="xml">
+                <form string="Contact Patient">
+                    <sheet>
+                        <group>
+                            <field name="sale_order_id" invisible="1"/>
+                            <field name="account_move_id" invisible="1" force_save="1"/>
+                            <field name="type" invisible="1" force_save="1"/>
+                            <field name="stock_picking_ids" widget="many2many_tags" invisible="1" force_save="1"/>
+                            <field name="post_sale_reasons_id" options='{"no_open": True, "no_create": True}'/>
+                        </group>
+                        <field name="post_sale_lines_transactions_ids" force_save="1" create="0" widget="section_and_note_one2many">
+                            <tree create="0" editable="bottom" edit="1" delete="0">
+                               <control>
+                                   <create name="add_product_control" string="Add a product"/>
+                                   <create name="add_section_control" string="Add a section" context="{'default_display_type': 'line_section'}"/>
+                                   <create name="add_note_control" string="Add a note" context="{'default_display_type': 'line_note'}"/>
+                               </control>
+                               <field name="display_type" invisible="1"/>
+                               <field name="processed_in_post_sale" invisible="1" force_save="1"/>
+                               <field name="company_id" invisible="1" force_save="1"/>
+                               <field name="account_move_line_id" invisible="1" force_save="1"/>
+                               <field name="original_location_id" invisible="1" force_save="1"/>
+                               <field name="check" attrs="{'readonly': [('processed_in_post_sale', '=', True), ('qty', '=', 0)]}"
+                                      force_save="1"/>
+                               <field name="name" widget="section_and_note_text" optional="show" force_save="1"/>
+                               <field name="product_id" options='{"no_open": True, "no_create": True}' force_save="1"/>
+                               <field name="uom_qty" force_save="1" invisible="1"/>
+                               <field name="qty" force_save="1"/>
+                               <field name="return_qty" attrs="{'readonly': [('processed_in_post_sale', '=', True)]}" force_save="1"/>
+                               <field name="return_location" options='{"no_open": True, "no_create": True}'
+                                attrs="{'readonly': [('processed_in_post_sale', '=', True), ('qty', '=', 0)]}" force_save="1"/>
+                            </tree>
+                        </field>
+<!--                      <div style="padding-left: 40px;" attrs="{'invisible': [('type', '!=', 'Remake')]}">-->
+<!--                          <field name="re_order"/>-->
+<!--                          <label for="re_order"/>-->
+<!--                      </div>-->
+                        <p attrs="{'invisible': [('type', '!=', 'Return')]}">
+                            <span>A Customer Credit Note Invoice will be generated and posted.<br/></span>
+                            <span>Delivery will be updated or returned.<br/></span>
+                            <span>In case of Return Delivery, a new delivery will be made for each delivery location from the original delivery.<br/></span>
+                            <span>The returned Delivery(if original was validated) will also be validated.<br/></span>
+                        </p>
+                    </sheet>
+                    <footer>
+                        <button name="post" string="Return" type="object" class="btn-primary"
+                                attrs="{'invisible': [('type', '!=', 'Return')]}"/>
+                        <button name="post" string="Exchange" type="object" class="btn-primary"
+                                attrs="{'invisible': [('type', '!=', 'Exchange')]}"/>
+                        <button name="post" string="Remake" type="object" class="btn-primary"
+                                attrs="{'invisible': [('type', '!=', 'Remake')]}"/>
+                        <button name="post" string="Warranty" type="object" class="btn-primary"
+                                attrs="{'invisible': [('type', '!=', 'Warranty')]}"/>
+                        <button string="Cancel" class="btn-default" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+  </data>
+</odoo>

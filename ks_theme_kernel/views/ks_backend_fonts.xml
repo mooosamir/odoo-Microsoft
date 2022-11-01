@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--    FONT TEMPLATES-->
+    <template priority="120" id="ks_theme_kernel.backend_font_1" name="Open Sans" active="False"
+              inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet"
+                  type="text/scss"
+                  href="/ks_theme_kernel/static/src/scss/fonts/font_1.scss"
+            />
+        </xpath>
+    </template>
+    <template priority="121" id="ks_theme_kernel.backend_font_2" name="Source Sans Pro"
+              inherit_id="web.assets_backend" active="False">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet"
+                  type="text/scss"
+                  href="/ks_theme_kernel/static/src/scss/fonts/font_2.scss"
+            />
+        </xpath>
+    </template>
+    <template priority="122" id="ks_theme_kernel.backend_font_3" name="Noto Sans JP"
+              inherit_id="web.assets_backend" active="False">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet"
+                  type="text/scss"
+                  href="/ks_theme_kernel/static/src/scss/fonts/font_3.scss"
+            />
+        </xpath>
+    </template>
+    <template priority="24" id="ks_theme_kernel.backend_font_4" name="Roboto"
+              inherit_id="web.assets_backend" active="False">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet"
+                  type="text/scss"
+                  href="/ks_theme_kernel/static/src/scss/fonts/font_4.scss"
+            />
+        </xpath>
+    </template>
+    <template priority="25" id="ks_theme_kernel.backend_font_5" name="Lato"
+              inherit_id="web.assets_backend" active="False">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet"
+                  type="text/scss"
+                  href="/ks_theme_kernel/static/src/scss/fonts/font_5.scss"
+            />
+        </xpath>
+    </template>
+    <template priority="26" id="ks_theme_kernel.backend_font_6" name="Oswald"
+              inherit_id="web.assets_backend" active="False">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet"
+                  type="text/scss"
+                  href="/ks_theme_kernel/static/src/scss/fonts/font_6.scss"
+            />
+        </xpath>
+    </template>
+    <template priority="27" id="ks_theme_kernel.backend_font_7" name="Cairo"
+              inherit_id="web.assets_backend" active="False">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet"
+                  type="text/scss"
+                  href="/ks_theme_kernel/static/src/scss/fonts/font_7.scss"
+            />
+        </xpath>
+    </template>
+</odoo>

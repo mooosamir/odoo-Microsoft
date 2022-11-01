@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <template id="custom_searchpanel_assets_backend" name="Custom SearchPanel Assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/custom_searchpanel/static/src/js/abstract_view.js"></script>
+                <script type="text/javascript" src="/custom_searchpanel/static/src/js/search_panel.js"></script>
+            </xpath>
+        </template>
+    </data>
+</odoo>

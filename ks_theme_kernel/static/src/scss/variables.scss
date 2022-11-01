@@ -1,0 +1,48 @@
+$sidebar-width: 90px;
+$sidebar-mobile-width: 60px;
+
+$hd-desktop: 1400px;
+$desktop: 1200px;
+$hd-tab: 1024px;
+$tab: 992px;
+$mini-tab: 769px;
+$mobile-lg: 767.98px;
+$mobile: 575px;
+
+.scroll-style {
+    @media (min-width: 991px) {
+        &::-webkit-scrollbar {
+            width: 5px;
+            height: 5px;
+        }
+
+        &::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background-color: lighten($primary,10%);
+            outline: 1px solid slategrey;
+        }
+    }
+}
+
+@mixin flex-with-wrap() {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+@mixin align-center() {
+    @include flex-with-wrap();
+    align-items: center;
+}
+
+@mixin justify-center() {
+    @include flex-with-wrap();
+    justify-content: center;
+}
+
+@mixin flex-center() {
+    @include align-center();
+    justify-content: center
+}

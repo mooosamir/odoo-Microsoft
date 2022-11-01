@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data noupdate="1">
+	    <record id="opt_appointment" model="ir.module.category">
+	        <field name="name">OPT Appointment</field>
+	    </record>
+
+	    <record id="opt_appointment_holidays" model="ir.module.category">
+	        <field name="name">OPT Appointment/Holidays</field>
+	        <field name="parent_id" ref="opt_security.opt_appointment"/>
+	    </record>
+
+	    <record id="opt_appointment_schedule_adjustment" model="ir.module.category">
+	        <field name="name">OPT Appointment/Schedule Adjustment</field>
+	        <field name="parent_id" ref="opt_security.opt_appointment"/>
+	    </record>
+
+	    <record id="opt_appointment_holidays_create_edit" model="res.groups">
+	        <field name="name">Create/Edit</field>
+	        <field name="category_id" ref="opt_security.opt_appointment_holidays"/>
+	    </record>
+	    <record id="opt_appointment_holidays_read" model="res.groups">
+	        <field name="name">Read</field>
+	        <field name="category_id" ref="opt_security.opt_appointment_holidays"/>
+	    </record>
+	    <record id="opt_appointment_holidays_delete" model="res.groups">
+	        <field name="name">Delete</field>
+	        <field name="category_id" ref="opt_security.opt_appointment_holidays"/>
+	    </record>
+	    <record id="opt_appointment_holidays_manager" model="res.groups">
+	        <field name="name">Manager</field>
+	        <field name="category_id" ref="opt_security.opt_appointment_holidays"/>
+			<field name="implied_ids" eval="[(4, ref('opt_security.opt_appointment_holidays_create_edit')), (4, ref('opt_security.opt_appointment_holidays_read')),
+				(4, ref('opt_security.opt_appointment_holidays_delete')),
+				]"/>
+	    </record>
+
+	    <record id="opt_appointment_schedule_adjustment_create_edit" model="res.groups">
+	        <field name="name">Create/Edit</field>
+	        <field name="category_id" ref="opt_security.opt_appointment_schedule_adjustment"/>
+	    </record>
+	    <record id="opt_appointment_schedule_adjustment_delete" model="res.groups">
+	        <field name="name">Delete</field>
+	        <field name="category_id" ref="opt_security.opt_appointment_schedule_adjustment"/>
+	    </record>
+	    <record id="opt_appointment_schedule_adjustment_manager" model="res.groups">
+	        <field name="name">Manager</field>
+	        <field name="category_id" ref="opt_security.opt_appointment_schedule_adjustment"/>
+			<field name="implied_ids" eval="[(4, ref('opt_security.opt_appointment_schedule_adjustment_create_edit')),
+				(4, ref('opt_security.opt_appointment_schedule_adjustment_delete')),
+				]"/>
+	    </record>
+
+	    <record id="opt_appointment_manager" model="res.groups">
+	        <field name="name">Manager</field>
+	        <field name="category_id" ref="opt_security.opt_appointment"/>
+			<field name="implied_ids" eval="[(4, ref('opt_security.opt_appointment_holidays_create_edit')), (4, ref('opt_security.opt_appointment_holidays_read')),
+				(4, ref('opt_security.opt_appointment_holidays_delete')), (4, ref('opt_security.opt_appointment_schedule_adjustment_create_edit')),
+				(4, ref('opt_security.opt_appointment_schedule_adjustment_delete')),
+				]"/>
+	    </record>
+	</data>
+</odoo>

@@ -1,0 +1,158 @@
+<odoo>
+    <data>
+        <record id="sale_order_tree" model="ir.ui.view">
+            <field name="name">Sale Order</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_quotation_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="before">
+                    <field name="sale_order_session_id" string="Session Id"  options='{"no_open": True, "no_create": True}'/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="sale_order_form" model="ir.ui.view">
+            <field name="name">Sale Order</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header" position="inside">
+                    <!-- Register Payment (only invoices / receipts) -->
+                    <field name="invoice_payment_state" invisible="1" widget="statusbar"/>
+                    <button name="action_invoice_register_payment" type="object" class="oe_highlight"
+                            attrs="{'invisible': [('invoice_amount_residual', '=', 0)]}"
+                            string="Payment" groups="account.group_account_invoice"/>
+                    <field name="post_sale_type" invisible="1"/>
+                    <button name="action_post_sale_return" type="object" class="oe_highlight"
+                            attrs="{'invisible': [('state', '!=', 'sale')]}"
+                            string="Return"/>
+                    <button name="action_post_sale_exchange" type="object" class="oe_highlight"
+                            attrs="{'invisible': [('state', '!=', 'sale')]}"
+                            string="Exchange"/>
+                    <button name="action_post_sale_remake" type="object" class="oe_highlight"
+                            attrs="{'invisible': [('state', '!=', 'sale')]}"
+                            string="Remake"/>
+                    <button name="action_post_sale_warranty" type="object" class="oe_highlight"
+                            attrs="{'invisible': [('state', '!=', 'sale')]}"
+                            string="Warranty"/>
+                </xpath>
+                <xpath expr="//button[@name='%(sale.action_view_sale_advance_payment_inv)d']" position="replace">
+                </xpath>
+                <xpath expr="//button[@name='%(sale.action_view_sale_advance_payment_inv)d']" position="replace">
+                </xpath>
+                <xpath expr="//div[hasclass('oe_button_box')]" position="inside">
+                    <button name="action_view_post_sale_exchange_delivery"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-truck"
+                        attrs="{'invisible': [('post_sale_exchange_delivery', '=', 0)]}">
+                        <field name="post_sale_exchange_delivery" widget="statinfo" string="RETURN Delivery" style="font-size: smaller;"/>
+                    </button>
+                    <button name="action_view_customer_note"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-pencil-square-o"
+                        attrs="{'invisible': [('customer_note_count', '=', 0)]}">
+                        <field name="customer_note_count" widget="statinfo" string="Customer Notes" style="font-size: x-small;"/>
+                    </button>
+                </xpath>
+                <xpath expr="//div[hasclass('oe_button_box')]" position="before">
+                    <field name="processed_in_post_sale" invisible="1"/>
+                    <widget name="web_ribbon" title="Post Sale" class="post_sale_ribbon"
+                            attrs="{'invisible': [('processed_in_post_sale', '=', False)]}"/>
+                    <widget name="web_ribbon" title="Return" class="post_sale_return_ribbon"
+                            attrs="{'invisible': [('customer_note_count', '=', 0)]}"/>
+                </xpath>
+                <xpath expr="//div[hasclass('oe_button_box')]" position="attributes">
+                    <attribute name="style">padding-right: 120px;</attribute>
+                </xpath>
+                <xpath expr="//field[@name='pricelist_id']" position="before">
+                    <field name="post_sale_reasons_id" attrs="{'invisible': [('post_sale_reasons_id', '=', False)]}"
+                           options="{'no_open':True,'no_create':True}"/>
+                    <field name="post_sale_ref" attrs="{'invisible': [('post_sale_ref', 'in', [False,'',[],{},None])]}" widget="many2many_tags"/>
+                    <div class="o_td_label" style="margin: -1px;">
+                        <b><span attrs="{'invisible': [('post_sale_type', '!=', 'Exchange')]}">Exchange Order ref</span></b>
+                        <b><span attrs="{'invisible': [('post_sale_type', '!=', 'Remake')]}">Remake Order ref</span></b>
+                        <b><span attrs="{'invisible': [('post_sale_type', '!=', 'Warranty')]}">Warranty Order ref</span></b>
+                    </div>
+                    <div>
+                        <field name="post_sale_order_ref" attrs="{'invisible': [('post_sale_type', 'not in', ['Exchange', 'Remake', 'Warranty'])]}"/>
+                    </div>
+                </xpath>
+                <xpath expr="//div[hasclass('oe_title')]" position="after">
+                    <div>
+                        <label for="sale_order_session_id"/>
+                        <field name="sale_order_session_id" string="Session Id"  options='{"no_open": True, "no_create": True}'/>
+                    </div>
+                </xpath>
+                <xpath expr="//field[@name='amount_untaxed']" position="before">
+                    <field name="post_sale_amount" string="Exchange Order Amount"
+                           attrs="{'invisible': [('post_sale_type', '!=', 'Exchange')]}"
+                           widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                    <field name="post_sale_amount" string="Remake Order Amount"
+                           attrs="{'invisible': [('post_sale_type', '!=', 'Remake')]}"
+                           widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                </xpath>
+                <xpath expr="//page[@name='order_lines']" position="after">
+                    <page string="Exchange" name="Exchange" attrs="{'invisible': [('post_sale_type', '!=', 'Exchange')]}">
+                        <field name="post_sale_order_line_ids"
+                         force_save="1" create="0" widget="section_and_note_one2many">
+                            <tree create="0" editable="bottom" edit="1" delete="0">
+                               <control>
+                                   <create name="add_product_control" string="Add a product"/>
+                                   <create name="add_section_control" string="Add a section" context="{'default_display_type': 'line_section'}"/>
+                                   <create name="add_note_control" string="Add a note" context="{'default_display_type': 'line_note'}"/>
+                               </control>
+                               <field name="display_type" invisible="1" force_save="1"/>
+                                <field name="sale_order_id" force_save="1" invisible="1"/>
+                                <field name="sale_order_line_id" force_save="1" invisible="1"/>
+                                <field name="name" widget="section_and_note_text" optional="show" force_save="1"/>
+                                <field name="sol_name" force_save="1"/>
+                                <field name="sol_product_id" force_save="1"/>
+                                <field name="sol_product_uom_qty" force_save="1"/>
+<!--                                <field name="sol_price_subtotal" force_save="1"/>-->
+                                <field name="qty" force_save="1"/>
+                                <field name="return_location" force_save="1"/>
+<!--                                <field name="tax_id" force_save="1" widget="many2many_tags"/>-->
+                                <field name="sol_pt_total" force_save="1"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <page string="Return" name="Return" attrs="{'invisible': [('customer_note_count', '=', 0)]}">
+                        <field name="post_sale_order_line_ids"
+                         force_save="1" create="0" widget="section_and_note_one2many">
+                            <tree create="0" editable="bottom" edit="1" delete="0">
+                               <control>
+                                   <create name="add_product_control" string="Add a product"/>
+                                   <create name="add_section_control" string="Add a section" context="{'default_display_type': 'line_section'}"/>
+                                   <create name="add_note_control" string="Add a note" context="{'default_display_type': 'line_note'}"/>
+                               </control>
+                               <field name="display_type" invisible="1" force_save="1"/>
+                                <field name="sale_order_id" force_save="1" invisible="1"/>
+                                <field name="sale_order_line_id" force_save="1" invisible="1"/>
+                                <field name="sol_product_id" force_save="1"/>
+                                <field name="sol_name" force_save="1"/>
+                                <field name="name" widget="section_and_note_text" optional="show" force_save="1"/>
+                                <field name="sol_product_uom_qty" force_save="1" invisible="1"/>
+<!--                                <field name="sol_price_subtotal" force_save="1"/>-->
+                                <field name="qty" force_save="1"/>
+                                <field name="tax_id" force_save="1" widget="many2many_tags"/>
+                                <field name="sol_pt_total" force_save="1"/>
+                                <field name="return_location" force_save="1"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+                <xpath expr="//field[@name='order_line']//tree//field[@name='product_id']" position="before">
+                    <field name="post_sale_type" invisible="1"/>
+                    <field name="post_sale_order_line_id" invisible="1"/>
+                    <field name="return_location" invisible="1" force_save="1"/>
+                </xpath>
+                <xpath expr="//field[@name='order_line']//tree//field[@name='product_id']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('post_sale_type', 'in', ['Return','Remake','Exchange',False]), ('state', 'not in', ['draft'])]}</attribute>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

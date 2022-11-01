@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="external_layout_clean">
+        <div t-attf-class="header o_company_#{company.id}_layout" t-att-style="report_header_style">
+            <div class="o_clean_header">
+            <div class="row">
+                <div class="col-6">
+                    <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" alt="Logo"/>
+                </div>
+                <div class="col-5 offset-1" name="company_address">
+                    <ul class="list-unstyled">
+                        <strong><li t-if="company.name"><span t-field="company.name"/></li></strong>
+                        <li t-if="company.vat"><t t-esc="company.country_id.vat_label or 'Tax ID'"/>: <span t-field="company.vat"/></li>
+                        <li t-if="company.phone">Tel: <span class="o_force_ltr" t-field="company.phone"/></li>
+                        <li t-if="company.email"><span t-field="company.email"/></li>
+                        <li t-if="company.website"><span t-field="company.website"/></li>
+                    </ul>
+                </div>
+            </div>
+            </div>
+        </div>
+
+        <div t-attf-class="article o_report_layout_clean o_company_#{company.id}_layout"  t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+            <t t-call="web.address_layout"/>
+            <t t-raw="0"/>
+        </div>
+    </template>
+
+    <template id="external_layout">
+        <t t-if="not o" t-set="o" t-value="doc"/>
+
+        <t t-if="not company">
+            <!-- Multicompany -->
+            <t t-if="company_id">
+                <t t-set="company" t-value="company_id"/>
+            </t>
+            <t t-elif="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id.sudo()"/>
+            </t>
+            <t t-else="else">
+                <t t-set="company" t-value="res_company"/>
+            </t>
+        </t>
+
+        <t t-call="acs_consent_form.external_layout_clean"><t t-raw="0"/></t>
+
+    </template>
+
+    <template id="consent_form_report_document">
+        <t t-call="acs_consent_form.external_layout">
+            <div class="page col-xs-offset-1">
+                <t t-if="doc.print_header_in_report">
+                    <br/>
+                    <div class="row mb32">
+                        <div class="col-12 text-center">
+                            <h3>
+                                <i><strong>Consent Form</strong></i>
+                            </h3>
+                        </div>
+                    </div>
+                    <table class="table" style="border-bottom: 1px solid black;">
+                        <tr>
+                            <td style="width:50%;border: none;">
+                                <strong>Name : <span t-field="doc.partner_id.name"/></strong>
+                            </td>
+                            <td style="width:50%;border: none;">
+                                <strong>Given By: <span t-field="doc.sudo().user_id.name"/></strong>
+                            </td>
+                        </tr>
+                        <tr col="4">
+                            <td style="width:50%;border: none;">
+                                <strong>Reg No: <span t-field="doc.name" /></strong>
+                            </td>
+                            <td style="width:50%;border: none;">
+                                <strong>Date. : <span t-field="doc.date" /></strong>
+                            </td>
+                        </tr>
+                    </table>
+                </t>
+                <div class="row mt32 mb32">
+                    <table class="table">
+                        <tr>
+                            <td style="border: none;">
+                                <span t-field="doc.consent_form_content"/>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <strong>Customer Signature</strong><br/>
+                <span t-if="doc.acs_signature" t-field="doc.acs_signature" t-options='{"widget": "image","style":"width: 225px;"}'/><br/>
+                <span t-field="doc.partner_id.name"/><br/>
+                <span t-field="doc.acs_signed_on"/><br/>
+            </div>
+        </t>
+    </template>
+
+    <template id="consent_form_report">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <!-- Just for Portal Isuse -->
+                <t t-set="doc" t-value="doc.sudo()"/>
+                <t t-call="acs_consent_form.consent_form_report_document" t-lang="doc.partner_id.lang"/>
+            </t>
+        </t>
+    </template>
+
+    <record id="report_acs_consent_form" model="ir.actions.report">
+        <field name="name">Consent Form</field>
+        <field name="model">acs.consent.form</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">acs_consent_form.consent_form_report</field>
+        <field name="report_file">acs_consent_form.consent_form_report</field>
+        <field name="binding_model_id" ref="model_acs_consent_form"/>
+        <field name="binding_type">report</field>
+    </record>
+
+</odoo>

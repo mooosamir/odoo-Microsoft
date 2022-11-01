@@ -1,0 +1,64 @@
+<odoo>
+
+	<!-- Insurance Lens Main Menu -->
+	<!-- <menuitem id="outside_doctor_main_menu" parent="opt_custom.root_spectacles_menu" name="Settings" sequence="7"/> -->
+
+
+	<!-- Tree View of Frame Markup Formula-->
+	<record id="employee_role_tree_view" model="ir.ui.view">
+	    <field name="name">employee.role</field>
+	    <field name="model">employee.role</field>
+	    <field name="arch" type="xml">
+	        <tree>
+	            <field name="name"/>
+	        </tree>
+	    </field>
+	</record>
+
+   <!-- Form View of Frame Markup Formula-->
+  <record id="employee_role_form_view" model="ir.ui.view">
+     <field name="name">employee.role.form.view</field>
+     <field name="model">employee.role</field>
+     <field name="arch" type="xml">
+        <form>
+          <sheet>
+            
+              <group>
+               <field name="name"/>
+               <field name="groups" widget="many2many_tags"/>
+             </group>
+             
+          </sheet>
+        </form>
+    </field>
+
+   </record>
+
+   <!-- Action of Insurance Company-->
+   <record id="employee_rule_form_action" model="ir.actions.act_window">
+       <field name="name">Employee Role</field>
+       <field name="res_model">employee.role</field>
+       <field name="view_mode">tree,form</field>
+   </record>
+
+
+<!-- User Form -->
+
+<record id="res_users_form_inherit_role" model="ir.ui.view">
+        <field name="name">res.users.form.inherit.2fa</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <field name="companies_count" position="after">
+                <field name="role_id"/>
+            </field>
+           
+        </field>
+    </record>
+    <!-- End -->
+    <menuitem id="employee_rule_form_action_menu" action="employee_rule_form_action" parent="base.menu_users" sequence="4" name="Employee Role"/>
+   
+
+
+
+</odoo>

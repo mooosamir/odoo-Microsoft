@@ -1,0 +1,33 @@
+.o_rtl {
+    .sp-container {
+        right: 0 !important;
+        left: auto !important;
+        direction: ltr;
+        text-align: right;
+    }
+
+    .sp-picker-container{
+        direction: rtl;
+        text-align: left;
+    }
+
+    .sp-dragger{
+        display: none !important;
+    }
+
+    .sp-color{
+        transform: rotateY(180deg) !important;
+    }
+
+    .sidebar-sub-menu:hover ~ .ks-sidebar-sub-menu-opener .fa,
+    &.ks-submenu-show .sidebar-sub-menu ~ .ks-sidebar-sub-menu-opener .fa {
+        transform: rotate(0deg) translate(-2px, 1px);
+    }
+
+    .ui-datepicker-prev span{
+        direction: rtl;
+    }
+    .ui-datepicker-next span{
+        direction: rtl;
+    }
+}

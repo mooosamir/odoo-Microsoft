@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <template id="assets_backend" name="assets_backend" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+<!--                <link rel="stylesheet" href="/post_sale_transactions/static/src/css/style.css"/>-->
+                <script type="text/javascript" src="/opt_security/static/src/js/basic_view_patient.js"></script>
+                <script type="text/javascript" src="/opt_security/static/src/js/list_controller_patient.js"></script>
+                <script type="text/javascript" src="/opt_security/static/src/js/basic_view_order.js"></script>
+                <script type="text/javascript" src="/opt_security/static/src/js/list_controller_order.js"></script>
+                <script type="text/javascript" src="/opt_security/static/src/js/basic_view_invoice.js"></script>
+                <script type="text/javascript" src="/opt_security/static/src/js/basic_view_product.js"></script>
+                <script type="text/javascript" src="/opt_security/static/src/js/list_controller_product.js"></script>
+                <script type="text/javascript" src="/opt_security/static/src/js/basic_view_attendance.js"></script>
+                <script type="text/javascript" src="/opt_security/static/src/js/list_controller_attendance.js"></script>
+                <script type="text/javascript" src="/opt_security/static/src/js/basic_view_inventory.js"></script>
+                <script type="text/javascript" src="/opt_security/static/src/js/list_controller_inventory.js"></script>
+            </xpath>
+        </template>
+    </data>
+</odoo>

@@ -1,0 +1,33 @@
+<odoo>
+
+    <record id="copy_cms_setting_view" model="ir.ui.view">
+        <field name="name">Copy CMS Setting</field>
+        <field name="model">spec.copy.cms.setting</field>
+        <field name="arch" type="xml">
+            <form string="Copy CMS Setting">
+                <group string="Insurance Company">
+                    <field name="insurance_company_ids" nolabel="1" >
+                        <tree>
+                            <field name="name"/>
+                            <field name="payer_id"/>
+                        </tree>
+                    </field>
+                </group>
+                <footer class="oe_edit_only">
+                    <button name="action_copy_cms_setting" type="object" string="Copy CMS Settings" class="oe_highlight"/>
+                    <button string="Cancel" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="copy_cms_setting_action" model="ir.actions.act_window">
+        <field name="name">Copy CMS Setting</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">spec.copy.cms.setting</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="copy_cms_setting_view"/>
+        <field name="target">new</field>
+    </record>`
+
+</odoo>

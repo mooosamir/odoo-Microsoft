@@ -1,0 +1,30 @@
+<odoo>
+    <record id="order_security" model="ir.ui.view">
+	    <field name="name">order.security</field>
+	    <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+	    <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_quotation_send']" position="attributes">
+                <attribute name="groups">opt_security.opt_order_send_email</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_confirm']" position="replace">
+            </xpath>
+            <xpath expr="//button[@name='action_confirm']" position="replace">
+                    <button name="action_confirm"
+                        string="Confirm" type="object"
+                        attrs="{'invisible': [('state', 'not in', ['sent', 'draft'])]}"
+                        groups="opt_security.opt_order_create_invoice"
+                    />
+            </xpath>
+            <xpath expr="//button[@name='preview_sale_order']" position="attributes">
+                <attribute name="groups">opt_security.opt_order_customer_preview</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_cancel']" position="attributes">
+                <attribute name="groups">opt_security.opt_order_cancel</attribute>
+            </xpath>
+            <xpath expr="//button[@name='recompute_coupon_lines']" position="attributes">
+                <attribute name="groups">opt_security.opt_order_promotions</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

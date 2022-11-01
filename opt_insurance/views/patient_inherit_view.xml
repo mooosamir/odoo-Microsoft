@@ -1,0 +1,221 @@
+<odoo>
+    <record id="view_patent_profile_form_inheritance" model="ir.ui.view">
+        <field name="name">view.patent.profile.form.inheritance</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="opt_custom.view_patent_profile_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook/page[@name='rx_glasses']" position="after">
+                <page name='insurance' string="Insurance" invisible="0">
+                    <field name="insurance_ids" nolabel="1" context="{'default_partner_id': id}">
+                        <tree class="name_with_termination_date">
+                            <field name="name_with_termination_date"/>
+                            <field name="sequence"/>
+                            <field name="plan_id" />
+                            <field name="termination_date"/>
+                            <field name="priority"/>
+                            <field name="insurance_type"/>
+                            <field name="name" invisible='1'/>
+                            <field name="activation_date" invisible="1"/>
+                            <field name="employer" invisible="1"/>
+                            <field name="address" invisible="1"/>
+                            <field name="use_patient_ssn" invisible="1"/>
+                            <field name="relationship" invisible="1"/>
+                            <field name="address_same_patient" invisible="1"/>
+                            <field name="address_line_1" invisible="1"/>
+                            <field name="address_line_2" invisible="1"/>
+                            <field name="city" invisible="1"/>
+                            <field name="state_id" invisible="1"/>
+                            <field name="zip" invisible="1"/>
+                            <field name="gender" invisible="1"/>
+                            <field name="phone" invisible="1"/>
+                            <field name="date" invisible="1"/>
+                            <field name="partner_id" invisible="1"/>
+                            <field name="image_front" invisible="1"/>
+                            <field name="image_back" invisible="1"/>
+                        </tree>
+                        <form>
+                            <group colspan="4">
+                                <group string="Carrier Information">
+<!--                                    <field name="employer"/>-->
+                                    <field name="carrier_id" required="1"/>
+                                    <field name="plan_id" required="1"
+                                           domain="[('insurance_company_id', '=', carrier_id)]"/>
+                                    <field name="insurance_type" widget="radio" options="{'horizontal': true}"/>
+                                    <field name="priority"/>
+                              <!--       <field name="address"/> -->
+                                    <field name="activation_date"/>
+                                    <field name="termination_date"/>
+                                </group>
+                                    <group string="Subscriber Information">
+                                    <label for="sequence" string="Insurance ID (1a)"/>
+                                    <div class="o_row">
+                                        <field name="sequence" class="oe_inline"/>
+                                        <field name="use_patient_ssn" class="oe_inline"/>
+                                        <label for="use_patient_ssn"/>
+                                    </div>
+                                    <field name="policy_group" string="Policy Group (11)"/>
+                                    <field name="first_name"/>
+                                    <field name="middle_name"/>
+                                    <field name="last_name"/>
+                                    <field name="relationship" string="Relationship (6)"/>
+                                    <label for="address_line_1"/>
+                                    <div class="o_row">
+                                        <field name="address_same_patient" class="oe_inline"/>
+                                        <label for="address_same_patient" string="Same as Patient"
+                                               class="oe_inline"/>
+                                        <field name="address_line_1" placeholder="Address line 1 (7)"
+                                               class="oe_inline"/>
+                                    </div>
+                                    <field name="address_line_2" placeholder="Address line 2 (7)"/>
+                                    <field name="country_id" invisible='1'/>
+                                    <field name="city" placeholder="City (7)" style="margin-right:7px;"/>
+                                    <field name="state_id" placeholder="State (7)" options='{"no_open": True}'/>
+                                    <field name="zip" placeholder="Zip (7)"/>
+                                    <field name="gender" string="Sex (11a)" widget="radio" options="{'horizontal': true}"/>
+                                    <field name="phone" string="Phone(7)"/>
+                                    <field name="date" string="DOB (11a)"/>
+                                    <field name="partner_id" invisible="1"/>
+                                </group>
+                                
+                            </group>
+                            <group colspan="4" col="4">
+                                <field name="image_front" widget="image" style="width: 300px; height: 250px;"/>
+                                <field name="image_back" widget="image" style="width: 300px; height: 250px;"/>
+                            </group>
+                            <!--                                PLEASE DO NOT REMOVE THIS DUMMY BUTTON AND DO NOT CHANGE THIS POSITION -->
+                            <button name="dummy_btn" string="compute value" type="object" invisible="1"/>
+                        </form>
+                    </field>
+                </page>
+                <page name='insurance_authorizations' string="Authorizations" invisible="0">
+                    <field name="insurance_authorizations_ids" nolabel="1" context="{'default_partner_id': id}">
+                        <tree>
+                            <field name="insurance_id"/>
+                            <field name="plan_id"/>
+                            <field name="authorizations_number"/>
+                            <field name="authorizations_date"/>
+                            <field name="expiration_date"/>
+                            <field name="benefit_char" string="Benefit"/>
+                        </tree>
+                        <form>
+                            <group colspan="4" col="4">
+                                <field name="authorizations_type" widget="radio"/>
+                                <field name="authorizations_number"/>
+                                <field name="insurance_id" domain="[('partner_id', '=', partner_id)]"/>
+                                <field name="authorizations_date" required="1"/>
+                                <field name="plan_id"/>
+                                <field name="expiration_date" required="1"/>
+                                <field name="benefit_char" invisible="1"/>
+                                <field name="employee_id" domain="[('is_outside_doctor', '!=', 'True')]"/>
+                                <field name="partner_id" invisible="1"/>
+                            </group>
+                            <!-- Authorizations -->
+                             <group attrs="{'invisible':[('authorizations_type','!=','authorization')]}">
+                                <group>
+                                    <field name="vision_medical" widget="radio" options="{'horizontal': true}"
+                                           nolabel="1"/>
+                                </group>
+                                <!-- Vision -->
+                                <group colspan="4" attrs="{'invisible':[('vision_medical','!=','vision')]}">
+                                    <group>
+                                        <field name="exam"
+                                               attrs="{'required':[('vision_medical','=','vision')]}"/>
+                                        <field name="farme"
+                                               attrs="{'required':[('vision_medical','=','vision')]}"/>
+                                        <field name="lenses"
+                                               attrs="{'required':[('vision_medical','=','vision')]}"/>
+                                        <field name="contact_lens"
+                                               attrs="{'required':[('vision_medical','=','vision')]}"/>
+                                    </group>
+                                    <group colspan="4">
+                                        <group string="Copays">
+                                            <field name="exam_copay"/>
+                                            <field name="medical_copay"/>
+                                            <field name="currency_id" invisible="1"/>
+                                        </group>
+                                        <group string="Allowance">
+                                            <field name="frame_allowance"/>
+                                            <label for="frame_range" string="Frame Range"/>
+                                            <div class="o_row">
+                                                <field name="frame_range" class="oe_inline"/>
+                                                <label for="frame_range_to" string="to" class="oe_inline"/>
+                                                <field name="frame_range_to" class="oe_inline"/>
+                                            </div>
+                                            <field name="contact_lens_allowance"/>
+                                            <field name="total_allowance"/>
+                                        </group>
+                                        <group colspan="4" col="4">
+                                            <field name="post_contact_glasses" widget="radio"
+                                                   options="{'horizontal': true}"/>
+                                            <field name="surgery_date"/>
+                                            <field name="referring_provider"
+                                                   domain="[('provide', '=', 'outside_provide')]"/>
+                                        </group>
+                                    </group>
+                                </group>
+                                <!-- Medical -->
+                                <group colspan="4" attrs="{'invisible':[('vision_medical','!=','medical')]}">
+                                    <group string="Benefits" colspan="4">
+                                        <group colspan="4" col="6">
+                                            <field name="office_copay"/>
+                                            <field name="deductible_amount"/>
+                                            <field name="remaining_deductible_amount"/>
+                                            <field name="specialist_deductible"/>
+                                            <field name="family_deductible_amount"/>
+                                            <field name="family_remaining_deductible"/>
+                                            <field name="co_insurance"/>
+                                            <field name="out_of_pocket_max"/>
+                                            <field name="remaining_out_pocket_max"/>
+                                        </group>
+                                        <separator string="Additional Benefits"/>
+                                        <group colspan="4" col="6">
+                                            <field name="cataract_co_manage" widget="radio"
+                                                   options="{'horizontal': true}"/>
+                                            <field name="cataract_referring_provider"
+                                                   domain="[('provide', '=', 'outside_provide')]"/>
+                                            <field name="cataract_surgery_date"/>
+                                            <field name="cataract_asm"/>
+                                            <field name="cataract_rql"/>
+                                            <field name="cataract_second_surgery"/>
+                                        </group>
+                                        <group colspan="4" col="6">
+                                            <field name="yag_co_manage" widget="radio"
+                                                   options="{'horizontal': true}"/>
+                                            <field name="yag_referring_provider"
+                                                   domain="[('provide', '=', 'outside_provide')]"/>
+                                            <field name="yag_surgery_date"/>
+                                            <field name="yag_asm"/>
+                                            <field name="yag_rql"/>
+                                            <field name="yag_second_surgery"/>
+                                        </group>
+                                    </group>
+                                </group>
+                            </group>
+                            <!-- Referral  -->
+                            <group attrs="{'invisible':[('authorizations_type','!=','referral')]}">
+                                <group colspan="4" col="6">
+                                    <field name="referring_physician"
+                                           domain="[('provide', '=', 'outside_provide')]"/>
+                                    <field name="referring_physician_npi"
+                                           attrs="{'invisible':[('referring_physician','=', False)]}"/>
+                                    <field name="referring_physician_tel"
+                                           attrs="{'invisible':[('referring_physician','=', False)]}"/>
+                                    <field name="date_of_vist"/>
+                                    <field name="number_of_vist"/>
+                                </group>
+                                <group colspan="4" col="4">
+                                    <field name="procedure_code"/>
+                                    <field name="diagnosis_code"/>
+                                </group>
+                            </group>
+                            <group>
+                                <field name="notes"/>
+                            </group>
+                        </form>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

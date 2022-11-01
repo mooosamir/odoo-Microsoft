@@ -1,0 +1,85 @@
+/*.o_calendar_button_calendar .ui-datepicker-trigger{
+    border: none !important;
+    background: transparent !important;
+}
+
+.calendar{
+    height:100%vh;
+}
+.marker-green{
+    color : #849e0f;
+    font-size : 15px;
+}
+.marker-faded-green{
+    color : #8cd059;
+    font-size : 15px;
+}
+.marker-orange{
+    color : #f9a631;
+    font-size : 15px;
+}*/
+.fc-ltr.fc-time-grid.fc-event-container {
+    margin: 0 0.5% 0 2px !important;
+}
+.green{
+    color: #509f16;
+}
+.light-green{
+    color: #93c47d;
+}
+.no_show{
+    color:#d03c2a;
+}
+.orange{
+    color: #f79931;
+}
+.event-box{
+    font-size:15px !important;
+}
+.padding-left{
+    .padding-left:5px
+}
+.confirmed{
+    color: #509f16;
+    float: right;
+}
+.checked_in{
+    color: #93c47d;
+}
+.walk_in{
+    color: #f79931;
+}
+.checked_out{
+/*    color: #f79931;*/
+    color: #51b73b;
+}
+.padding-left{
+    padding-left:5px;
+}
+
+.o_cp_left button{
+    font-size: 9px !important;
+}
+
+.background_hide {
+  display: none;
+}
+
+.background_text:hover + .background_hide {
+  display: block;
+  color: blue;
+}
+.fc-slats .fc-widget-content {
+    height: 50px !important;
+}
+.text_box_height{
+    height: 70px !important;
+}
+
+.no_theme_label label {
+    width: auto !important;
+}
+.no_theme_width .o_datepicker,
+.no_theme_width .o_field_widget {
+    width: 96% !important;
+}

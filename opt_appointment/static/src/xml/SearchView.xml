@@ -1,0 +1,19 @@
+<!--<?xml version="1.0" encoding="UTF-8"?>-->
+<!--<templates id="template" xml:space="preserve">-->
+
+<!--    <t t-extend='SearchView.SearchBar'>-->
+<!--        <t t-jquery='.o_searchview_input' t-operation='replace'>-->
+<!--            <t t-if="widget.parent !== undefined">-->
+<!--                <t t-if="widget.parent.action.xml_id == 'opt_appointment.action_calendar_event_appointment'">-->
+<!--                </t>-->
+<!--                <t t-else="">-->
+<!--                    <input type="text" class="o_searchview_input" accesskey="Q" placeholder="Search..." role="searchbox" aria-haspopup="true"/>-->
+<!--                </t>-->
+<!--            </t>-->
+<!--            <t t-else="">-->
+<!--                <input type="text" class="o_searchview_input" accesskey="Q" placeholder="Search..." role="searchbox" aria-haspopup="true"/>-->
+<!--            </t>-->
+<!--        </t>-->
+<!--    </t>-->
+
+<!--</templates>-->

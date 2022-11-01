@@ -1,0 +1,324 @@
+<odoo>
+    <record id="lens_treatment_view_tree" model="ir.ui.view">
+        <field name="name">lens.treatment.view.tree</field>
+        <field name="model">product.template</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="category_id"/>
+                <field name="name"/>
+                <field name="list_price" string='Price' widget='monetary'/>
+				<field name="currency_id" invisible='1'/>
+            </tree>
+        </field>
+    </record>
+
+
+    <!-- Form View of Lens Treatment -->
+	    <record id="lens_treatment_view_form" model="ir.ui.view">
+	        <field name="name">lens.treatment.view.form</field>
+	        <field name="model">product.template</field>
+	        <field name="arch" type="xml">
+	            <form>
+	                <sheet>
+                        <div class="oe_button_box" name="button_box">
+<!--							<field name="is_published" widget="website_redirect_button" attrs="{'invisible': [('sale_ok','=',False)]}"/>-->
+							<button name="138" type="action" icon="fa-sitemap" class="oe_stat_button" attrs="{'invisible': [('product_variant_count', '&lt;=', 1)]}">
+								<div class="o_field_widget o_stat_info">
+									<span class="o_stat_value" widget="statinfo">
+										<field name="product_variant_count" nolabel='1' class="mr4" widget="statinfo"/>
+									</span>
+									<span class="o_stat_text">
+										Variants
+									</span>
+								</div>
+							</button>
+							<button type="object" name="action_open_quants" attrs="{'invisible':[('type', '!=', 'product')]}" class="oe_stat_button" icon="fa-cubes">
+								<div class="o_field_widget o_stat_info">
+									<span class="o_stat_value" widget="statinfo">
+										<field name="qty_available" widget="statinfo" nolabel="1" class="mr4"/>
+										<field name="uom_name"/>
+									</span>
+									<span class="o_stat_text">
+										On Hand
+									</span>
+								</div>
+							</button>
+							<button type="object" name="action_product_tmpl_forecast_report" attrs="{'invisible':[('type', '!=', 'product')]}" context="{'default_product_tmpl_id': id}" class="oe_stat_button" icon="fa-cubes">
+								<div class="o_field_widget o_stat_info">
+									<span class="o_stat_value">
+										<field name="virtual_available" widget="statinfo" nolabel="1" class="mr4"/>
+										<field name="uom_name"/>
+									</span>
+									<span class="o_stat_text">
+										Forecasted
+									</span>
+								</div>
+							</button>
+							<button string="Traceability" type="object" name="action_view_stock_move_lines" attrs="{'invisible':[('type', 'not in', ['product', 'consu'])]}" class="oe_stat_button" icon="fa-exchange"/>
+							<button type="object" name="action_view_orderpoints" attrs="{'invisible':['|',('type', '!=', 'product'),('nbr_reordering_rules', '!=', 1)]}" class="oe_stat_button" icon="fa-refresh">
+								<div class="o_field_widget o_stat_info mr4">
+									<span class="o_stat_text">
+										Min:
+									</span>
+									<span class="o_stat_text">
+										Max:
+									</span>
+								</div>
+								<div class="o_field_widget o_stat_info">
+									<span class="o_stat_value">
+										<field name="reordering_min_qty"/>
+									</span>
+									<span class="o_stat_value">
+										<field name="reordering_max_qty"/>
+									</span>
+								</div>
+							</button>
+							<button type="object" name="action_view_orderpoints" attrs="{'invisible':['|',('type', '!=', 'product'),('nbr_reordering_rules', '==', 1)]}" class="oe_stat_button" icon="fa-refresh" >
+								<field name="nbr_reordering_rules" widget="statinfo"/>
+							</button>
+							<button string="Lot/Serial Numbers" type="object" name="action_open_product_lot" class="oe_stat_button" icon="fa-bars" invisible="1"/>
+							<button string="Routes" type="action" name="194" class="oe_stat_button" icon="fa-cogs" context="{'default_product_tmpl_id': id}" invisible="1"/>
+							<button string="Putaway Rules" type="object" name="action_view_related_putaway_rules" class="oe_stat_button" icon="fa-random" context="{'invisible_handle': True, 'single_product': product_variant_count == 1,}" invisible="1"/>
+							<button class="oe_stat_button" name="action_view_po" type="object" icon="fa-shopping-cart" attrs="{'invisible': [('purchase_ok', '=', False)]}" help="Purchased in the last 365 days">
+								<div class="o_field_widget o_stat_info">
+									<span class="o_stat_value">
+										<field name="purchased_product_qty" widget="statinfo" nolabel="1" class="mr4"/>
+										<field name="uom_name"/>
+									</span>
+									<span class="o_stat_text">
+										Purchased
+									</span>
+								</div>
+							</button>
+							<button class="oe_stat_button" name="action_view_sales" type="object" icon="fa-signal" help="Sold in the last 365 days" attrs="{'invisible': [('sale_ok', '=', False)]}">
+								<div class="o_field_widget o_stat_info">
+									<span class="o_stat_value">
+										<field name="sales_count" widget="statinfo" nolabel="1" class="mr4"/>
+										<field name="uom_name"/>
+									</span>
+									<span class="o_stat_text">
+										Sold
+									</span>
+								</div>
+							</button>
+						</div>
+                        <table  width='100%'>
+							<tr>
+								<td width='60%'>
+									<div class="oe_title">
+										<label class="oe_edit_only" for="name" string="Product Name"/>
+										<h1><field name="name" placeholder="Product Name" class='oe_inline'/></h1>
+										<div name="options" invisible='1'>
+											<div>
+												<field name="sale_ok"/>
+												<label for="sale_ok"/>
+											</div>
+											<div>
+												<field name="purchase_ok"/>
+												<label for="purchase_ok"/>
+											</div>
+										</div>
+									</div>
+								</td>
+								<td width='7%'/>
+								<td width='33%'>
+									<field name="image_1920" class='image_fortmat_change' nolabel='1' widget="image"/>
+								</td>
+							</tr>
+						</table>
+	                    <group>
+	                    	<group>
+	                        	<field name="category_id" required='1' options="{'no_open':True,'no_create': True}"/>
+	                        </group>
+                        </group>
+                        <group>
+	                        <group>
+	                        	<field name="vw_code" readonly='1' groups="base.group_no_one"/>
+                            </group>
+							<group>
+<!--	                        	<field name="branch_id" readonly='1'/>-->
+	                        </group>
+                            <group>
+	                        	<field name="vw_description" readonly='1'/>
+	                        </group>
+	                    </group>
+	                    <notebook>
+							<page string="Information" name="information">
+								<group>
+									<group name="group_general">
+                                        <field name="retail_price_lens" invisible='1'/>
+										<field name="prd_categ_name" invisible="1"/>
+										<field name="active" invisible="1"/>
+										<field name="type" invisible="1"/>
+										<field name="categ_id" string="Product Category"/>
+                                        <field name='barcode' string="UPC"/>
+										<field name='default_code' string="SKU"/>
+										<field name="company_id" options="{'no_create': True}"/>
+										
+									</group>
+									<group name="group_standard_price">
+										<field name="taxes_id" string='Tax' widget='many2many_tags'/>
+										<label for="list_price" string='Retail Price'/>
+										<div name="pricing">
+											<field name="list_price" class="oe_inline" widget='monetary'
+												options="{'currency_field': 'currency_id', 'field_digits': True}"/>
+											<button name="open_pricelist_rules" icon="fa-arrow-right" type="object"
+												groups="product.group_product_pricelist" class="oe_inline">
+												<field name="pricelist_item_count" attrs="{'invisible': [('pricelist_item_count', '=', 0)]}"/>
+												<span attrs="{'invisible': [('pricelist_item_count', '=', 1)]}">
+												Extra Prices
+												</span>
+												<span attrs="{'invisible': [('pricelist_item_count', '!=', 1)]}">
+												Extra Price
+												</span>
+											</button>
+										</div>
+										<field name="wholesale_cost" widget='monetary'/>
+										<field name="valuation" invisible="1" readonly="1"/>
+										<field name="cost_method" invisible="1" readonly="1"/>
+										<label for="standard_price"/>
+										<div class="o_row" name="update_cost_price">
+											<field name="standard_price"
+												attrs="{'readonly':[('cost_method', '!=', 'fifo')]}"
+												widget='monetary' options="{'currency_field': 'cost_currency_id', 'field_digits': True}"
+												class="oe_inline"/>
+											<button string="Update Cost" type="action"
+												name="%(stock_account.action_view_change_standard_price)d"
+												attrs="{'invisible':[('cost_method', '=', 'fifo')]}"
+												class="oe_link oe_inline"/>
+										</div>
+										<field name="uom_id" required='0' invisible="0" options="{'no_create': True}"/>
+										<field name="uom_po_id" required='0' invisible="1" options="{'no_create': True}"/>
+										<field name="currency_id" invisible="1"/>
+										<field name="cost_currency_id" invisible="1"/>
+										<field name="product_variant_id" invisible="1"/>
+									</group>
+								</group>
+								<group string="Internal Notes">
+									<field name="description" nolabel="1" placeholder="This note is only for internal purposes."/>
+								</group>
+							</page>
+                            <page string="HCPCS">
+								<field name='treatment_line_ids'>
+									<tree editable="bottom">
+										<field name="pro_code_id" options="{'no_create':True, 'no_open':True}" required='1'/>
+										<field name="modifier_id" options="{'no_create':True, 'no_open':True}" required='0'/>
+										<field name="price" widget='monetary'/>
+										<field name="currency_id" invisible='1'/>
+									</tree>
+								</field>
+							</page>
+                            <page name="shop" string="eCommerce" invisible="1">
+<!--                            <page name="shop" string="eCommerce" attrs="{'invisible': [('sale_ok','=',False)]}">-->
+								<group name="shop">
+									<group string="Shop">
+										<field name="website_id" options="{'no_create': True}" groups="website.group_multi_website"/>
+										<field name="website_sequence" groups="base.group_no_one"/>
+										<field name="public_categ_ids" widget="many2many_tags" string="Categories"/>
+										<field name="alternative_product_ids" widget="many2many_tags" domain="[('id', '!=', active_id), '|', ('company_id', '=', company_id), ('company_id', '=', False)]"/>
+										<field name="accessory_product_ids" widget="many2many_tags"/>
+										<field name="website_style_ids" widget="many2many_tags" groups="base.group_no_one"/>
+									</group>
+								</group>
+								<group name="product_template_images" string="Extra Product Media">
+									<field name="product_template_image_ids" class="o_website_sale_image_list" context="{'default_name': name}" mode="kanban" options="{'create_text':'Add a Media'}" nolabel="1"/>
+								</group>
+							</page>
+                            <page name="purchase" string="Purchase">
+								<field name="seller_ids" context="{'default_product_tmpl_id':context.get('product_tmpl_id',active_id), 'product_template_invisible_variant': True}" nolabel="1">
+									<tree>
+										<field name="name"/>
+										<field name="company_id"/>
+										<field name="price" string='Cost' widget='monetary'/>
+										<field name="wholesale_cost" widget='monetary'/>
+										<field name="currency_id" invisible='1'/>		
+									</tree>
+									<form>
+										<sheet>
+											<group>
+												<group name="vendor" string="Vendor">
+													<field name="currency_id" invisible='1'/>
+													<field name="product_variant_count" invisible="1"/>
+													<field name="name" context="{'res_partner_search_mode': 'supplier'}" domain="[('supplier_rank', '>=', 1)]"/>
+													<field name="product_id" domain="[('product_tmpl_id', '=', product_tmpl_id)]" options="{'no_create_edit': True}"/>
+													<label for="delay"/>
+													<div>
+														<field name="delay" class="oe_inline"/> days
+													</div>
+												</group>
+												<group string="Price List">
+                                                    <label for="min_qty"/>
+													<div class="o_row">
+														<field name="min_qty"/>
+														<field name="product_uom" groups="uom.group_uom"/>
+													</div>
+													<field name="wholesale_cost" widget='monetary'/>	
+													<field name="product_tmpl_id" string="Product" invisible="context.get('visible_product_tmpl_id', True)"/>
+													<label for="price" string='Cost'/>
+													<div class="o_row">
+														<field name="price" widget='monetary'/>
+													</div>
+													<label for="date_start" string="Validity"/>
+													<div class="o_row"><field name="date_start"/> to <field name="date_end"/></div>
+												</group>
+												<group string="Other Information" groups="base.group_multi_company">
+													<field name="company_id" options="{'no_create': True}"/>
+												</group>
+											</group>
+										</sheet>
+									</form>
+								</field>
+								<group name="purchase">
+									<group string="Vendor Bills" name="bill">
+										<field name="supplier_taxes_id" widget="many2many_tags" context="{'default_type_tax_use':'purchase'}"/>
+										<field name="purchase_method" widget="radio"/>
+									</group>
+								</group>
+								<group string="Purchase Description">
+									<field name="description_purchase" nolabel="1"
+										placeholder="This note is added to purchase orders."/>
+								</group>
+							</page>
+                            <page name="incompatible_treatments" string="Incompatible Treatments">
+								<field name="incompatible_treatments_ids" options="{'no_create': True}"
+										domain="[('prd_categ_name','=','Lens Treatment')]"
+										context="{'form_view_ref': 'opt_custom.lens_treatment_view_form',
+												'tree_view_ref': 'opt_custom.lens_treatment_view_tree'}"/>
+							</page>
+                        </notebook>
+	                </sheet>
+	            </form>
+	        </field>
+	    </record>
+	    
+	    <!-- Action of Lens Treatment -->
+	    <record id="product_lens_treatment_action" model="ir.actions.act_window">
+	        <field name="name">Lens Treatment</field>
+	        <field name="type">ir.actions.act_window</field>
+	        <field name="res_model">product.template</field>
+	        <field name="view_mode">kanban,tree,form</field>
+	        <field name="search_view_id" ref="stock.product_template_search_form_view_stock"/>
+	        <field name="context">{'default_prd_categ_name': 'Lens Treatment'}</field>
+	        <field name="domain">['|', ('prd_categ_name','=','Lens Treatment'), ('spec_product_type','=','lens_treatment')]</field>
+	        <field name="help" type="html">
+	            <p class="o_view_nocontent_smiling_face">
+	                Create a new product
+	            </p>
+	        </field>
+    	</record>
+
+        <record id="product_lens_treatment_action_tree_view" model="ir.actions.act_window.view">
+	        <field name="sequence" eval="1"/>
+	        <field name="view_mode">tree</field>
+	        <field name="view_id" ref="lens_treatment_view_tree"/>
+	        <field name="act_window_id" ref="product_lens_treatment_action"/>
+    	</record>
+		 <record id="product_lens_treatment_action_form_view" model="ir.actions.act_window.view">
+	        <field name="sequence" eval="2"/>
+	        <field name="view_mode">form</field>
+	        <field name="view_id" ref="lens_treatment_view_form"/>
+	        <field name="act_window_id" ref="product_lens_treatment_action"/>
+    	</record>
+
+        <menuitem id="product_lens_treatment_menu" action="product_lens_treatment_action" parent="product_service_child_product" sequence="3"/>
+</odoo>

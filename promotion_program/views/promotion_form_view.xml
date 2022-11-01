@@ -1,0 +1,496 @@
+<odoo>
+    <record id="promotion_form_view" model="ir.ui.view">
+        <field name="name">PromotionForm</field>
+        <field name="model">promotion.form</field>
+        <field name="arch" type="xml">
+            <form string="Promotion">
+
+                <div class="row">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-4">
+                                <strong>
+                                    <p>Promo Name</p>
+                                </strong>
+                            </div>
+                            <div class="col-8">
+                                <field name="promotion_name"></field>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-4">
+                                <strong>
+                                    <p>Validity</p>
+                                </strong>
+                            </div>
+                            <div class="col-4">
+                                <field name="start_date"></field>
+
+                            </div>
+                            <div class="col-4">
+                                <field name="end_date"></field>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-4">
+                                <strong>
+                                    <p>Locations</p>
+                                </strong>
+                            </div>
+                            <div class="col-8">
+<!--                                <field name="locations" widget="many2many_tags" style="width:100%;"></field>-->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="row">
+                                    <field name="code_entry"></field>
+                                    <strong>
+                                        <p>Code Entry Required</p>
+                                    </strong>
+                                    <field name="code_entry_box" attrs="{'invisible':[('code_entry','=',False)]}"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-4">
+                                <strong>
+                                    <p>Promotion Type</p>
+                                </strong>
+                            </div>
+                            <div class="col-8">
+                                <field name="promotion_type"></field>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <br/>
+                <br/>
+
+                <div class="row" attrs="{'invisible':[('promotion_type','!=','package_discount')]}">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-4">
+                                <strong>
+                                    <p>Package Amount</p>
+                                </strong>
+                            </div>
+                            <div class="col-3">
+                                <field name="package_amount"></field>
+                            </div>
+                            <div class="col-5">
+                                <div class="row">
+                                    <field name="allow_upgrade"></field>
+                                    <strong>
+                                        <p>Allow Upgrade</p>
+                                    </strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <br/>
+                <br/>
+
+
+                <field name="order_amount_discount_id"
+                       attrs="{'invisible':[('promotion_type','!=','order_amount_discount')]}">
+                    <form>
+                        <group>
+                            <field name="min_amount"/>
+                            <field name="max_amount"/>
+                            <field name="discount"/>
+                            <field name="type"/>
+                        </group>
+                    </form>
+                    <tree>
+                        <field name="min_amount"/>
+                        <field name="max_amount"/>
+                        <field name="discount"/>
+                        <field name="type"/>
+                    </tree>
+                </field>
+                <field name="category_discount_id"
+                       attrs="{'invisible':[('promotion_type','!=','category_discount')]}">
+                    <form>
+                        <group>
+                            <field name="inventory_category"/>
+                            <field name="quantity"/>
+                            <field name="min_retail"/>
+
+                        </group>
+                        <group>
+                            <field name="max_retail"/>
+                            <field name="discount"/>
+                            <field name="discount_type"/>
+
+                        </group>
+                    </form>
+                    <tree string="Inventory Details">
+                        <field name="inventory_category"/>
+                        <field name="quantity"/>
+                        <field name="min_retail"/>
+                        <field name="max_retail"/>
+                        <field name="discount"/>
+                        <field name="discount_type"/>
+                    </tree>
+
+                </field>
+                <field name="item_discount_id" attrs="{'invisible':[('promotion_type','!=','item_discount')]}">
+                    <form>
+                        <group>
+                            <field name="inventory_category"/>
+                            <field name="selection_frame_manufacturer"
+                                   attrs="{'invisible':[('inventory_category','!=','frame__frame_manufacturer_id')]}"
+                                   widget="many2many_tags"/>
+                            <field name="many2many_brand_selection"
+                                   attrs="{'invisible':[('inventory_category','!=','frame__brand_id')]}"
+                                   widget="many2many_tags"/>
+                            <field name="selection_frame_collection"
+                                   attrs="{'invisible':[('inventory_category','!=','frame__collection_id')]}"
+                                   widget="many2many_tags"/>
+                            <field name="selection_lens_type"
+                                   attrs="{'invisible':[('inventory_category','!=','lens__lens_type_id')]}"
+                                   widget="many2many_tags"/>
+                            <field name="selection_lens_material"
+                                   attrs="{'invisible':[('inventory_category','!=','lens__material_id')]}"
+                                   widget="many2many_tags"/>
+                            <field name="selection_lens_filter"
+                                   attrs="{'invisible':[('inventory_category','!=','lens__filter_id')]}"
+                                   widget="many2many_tags"/>
+                            <field name="many2many_field_selection"
+                                   attrs="{'invisible':[('inventory_category','!=','lens__name')]}"
+                                   widget="many2many_tags"/>
+                            <field name="many2many_field_selection"
+                                   attrs="{'invisible':[('inventory_category','!=','lens_treatment__name')]}"
+                                   widget="many2many_tags"/>
+                            <field name="selection_lens_treatment_category"
+                                   attrs="{'invisible':[('inventory_category','!=','lens_treatment__category_id')]}"
+                                   widget="many2many_tags"/>
+                            <field name="selection_contact_lens_replacement_schedule"
+                                   attrs="{'invisible':[('inventory_category','!=','contact_lens__replacement_schedule_id')]}"
+                                   widget="many2many_tags"/>
+                            <field name="many2many_field_selection"
+                                   attrs="{'invisible':[('inventory_category','!=','contact_lens__name')]}"
+                                   widget="many2many_tags"/>
+                            <field name="selection_accessories_category"
+                                   attrs="{'invisible':[('inventory_category','!=','accessory__acc_category_id')]}"
+                                   widget="many2many_tags"/>
+                            <field name="many2many_brand_selection"
+                                   attrs="{'invisible':[('inventory_category','!=','accessory__accessory_brand_id')]}"
+                                   widget="many2many_tags"/>
+                            <field name="many2many_field_selection"
+                                   attrs="{'invisible':[('inventory_category','!=','accessory__accessory_header_name')]}"
+                                   widget="many2many_tags"/>
+                            <field name="selection_services_cpt"
+                                   attrs="{'invisible':[('inventory_category','!=','services__ser_pro_code_id')]}"
+                                   widget="many2many_tags"/>
+                            <field name="many2many_field_selection"
+                                   attrs="{'invisible':[('inventory_category','!=','services__name')]}"
+                                   widget="many2many_tags"/>
+
+                            <field name="quantity"/>
+                            <field name="min_retail"/>
+                        </group>
+                        <group>
+                            <field name="max_retail"/>
+                            <field name="discount"/>
+                            <field name="discount_type"/>
+                        </group>
+                    </form>
+                    <tree>
+                        <field name="inventory_category"/>
+                        <field name="compute_selection"/>
+                        <field name="quantity"/>
+                        <field name="min_retail"/>
+                        <field name="max_retail"/>
+                        <field name="discount"/>
+                        <field name="discount_type"/>
+                    </tree>
+                </field>
+                <field name="package_discount_id" attrs="{'invisible':[('promotion_type','!=','package_discount')]}">
+                    <form>
+                        <group>
+                            <field name="inventory_category"/>
+                            <field name="selection_frame_manufacturer"
+                                   attrs="{'invisible':[('inventory_category','!=','frame__frame_manufacturer_id')]}"
+                                   widget="many2many_tags"/>
+                            <field name="many2many_brand_selection"
+                                   attrs="{'invisible':[('inventory_category','!=','frame__brand_id')]}"
+                                   widget="many2many_tags"/>
+                            <field name="selection_frame_collection"
+                                   attrs="{'invisible':[('inventory_category','!=','frame__collection_id')]}"
+                                   widget="many2many_tags"/>
+                            <field name="selection_lens_type"
+                                   attrs="{'invisible':[('inventory_category','!=','lens__lens_type_id')]}"
+                                   widget="many2many_tags"/>
+                            <field name="selection_lens_material"
+                                   attrs="{'invisible':[('inventory_category','!=','lens__material_id')]}"
+                                   widget="many2many_tags"/>
+                            <field name="selection_lens_filter"
+                                   attrs="{'invisible':[('inventory_category','!=','lens__filter_id')]}"
+                                   widget="many2many_tags"/>
+                            <field name="many2many_field_selection"
+                                   attrs="{'invisible':[('inventory_category','!=','lens__name')]}"
+                                   widget="many2many_tags"/>
+                            <field name="many2many_field_selection"
+                                   attrs="{'invisible':[('inventory_category','!=','lens_treatment__name')]}"
+                                   widget="many2many_tags"/>
+                            <field name="selection_lens_treatment_category"
+                                   attrs="{'invisible':[('inventory_category','!=','lens_treatment__category_id')]}"
+                                   widget="many2many_tags"/>
+                            <field name="selection_contact_lens_replacement_schedule"
+                                   attrs="{'invisible':[('inventory_category','!=','contact_lens__replacement_schedule_id')]}"
+                                   widget="many2many_tags"/>
+                            <field name="many2many_field_selection"
+                                   attrs="{'invisible':[('inventory_category','!=','contact_lens__name')]}"
+                                   widget="many2many_tags"/>
+                            <field name="selection_accessories_category"
+                                   attrs="{'invisible':[('inventory_category','!=','accessory__acc_category_id')]}"
+                                   widget="many2many_tags"/>
+                            <field name="many2many_brand_selection"
+                                   attrs="{'invisible':[('inventory_category','!=','accessory__accessory_brand_id')]}"
+                                   widget="many2many_tags"/>
+                            <field name="many2many_field_selection"
+                                   attrs="{'invisible':[('inventory_category','!=','accessory__accessory_header_name')]}"
+                                   widget="many2many_tags"/>
+                            <field name="selection_services_cpt"
+                                   attrs="{'invisible':[('inventory_category','!=','services__ser_pro_code_id')]}"
+                                   widget="many2many_tags"/>
+                            <field name="many2many_field_selection"
+                                   attrs="{'invisible':[('inventory_category','!=','services__name')]}"
+                                   widget="many2many_tags"/>
+
+                            <field name="quantity"/>
+                            <field name="max_retail"/>
+                        </group>
+
+                    </form>
+                    <tree>
+                        <field name="inventory_category"/>
+                        <field name="compute_selection"/>
+                        <field name="quantity"/>
+                        <field name="max_retail"/>
+                    </tree>
+                </field>
+                <field name="contact_lens_id"
+                       attrs="{'invisible':[('promotion_type','!=','contact_lens_annual_supply')]}">
+                    <form>
+                        <group>
+                            <field name="inventory_category"/>
+                            <field name="selection_contact_lens_replacement_schedule"
+                                   attrs="{'invisible':[('inventory_category','!=','contact_lens__replacement_schedule_id')]}"
+                                   widget="many2many_tags"/>
+                            <field name="many2many_field_selection"
+                                   attrs="{'invisible':[('inventory_category','!=','contact_lens__name')]}"
+                                   widget="many2many_tags"/>
+
+                            <field name="min_quantity"/>
+                            <field name="discount"/>
+                            <field name="discount_type"/>
+                        </group>
+
+                    </form>
+                    <tree>
+                        <field name="inventory_category"/>
+                        <field name="compute_selection"/>
+                        <field name="min_quantity"/>
+                        <field name="discount"/>
+                        <field name="discount_type"/>
+                    </tree>
+                </field>
+                <field name="buyx_gety_id" attrs="{'invisible':[('promotion_type','!=','buy_x_get_y')]}">
+                    <form>
+                         <group>
+                            <field name="inventory_category"/>
+                            <field name="selection_frame_manufacturer"
+                                   attrs="{'invisible':[('inventory_category','!=','frame__frame_manufacturer_id')]}"
+                                   widget="many2many_tags"/>
+                            <field name="many2many_brand_selection"
+                                   attrs="{'invisible':[('inventory_category','!=','frame__brand_id')]}"
+                                   widget="many2many_tags"/>
+                            <field name="selection_frame_collection"
+                                   attrs="{'invisible':[('inventory_category','!=','frame__collection_id')]}"
+                                   widget="many2many_tags"/>
+                            <field name="selection_lens_type"
+                                   attrs="{'invisible':[('inventory_category','!=','lens__lens_type_id')]}"
+                                   widget="many2many_tags"/>
+                            <field name="selection_lens_material"
+                                   attrs="{'invisible':[('inventory_category','!=','lens__material_id')]}"
+                                   widget="many2many_tags"/>
+                            <field name="selection_lens_filter"
+                                   attrs="{'invisible':[('inventory_category','!=','lens__filter_id')]}"
+                                   widget="many2many_tags"/>
+                            <field name="many2many_field_selection"
+                                   attrs="{'invisible':[('inventory_category','!=','lens__name')]}"
+                                   widget="many2many_tags"/>
+                            <field name="many2many_field_selection"
+                                   attrs="{'invisible':[('inventory_category','!=','lens_treatment__name')]}"
+                                   widget="many2many_tags"/>
+                            <field name="selection_lens_treatment_category"
+                                   attrs="{'invisible':[('inventory_category','!=','lens_treatment__category_id')]}"
+                                   widget="many2many_tags"/>
+                            <field name="selection_contact_lens_replacement_schedule"
+                                   attrs="{'invisible':[('inventory_category','!=','contact_lens__replacement_schedule_id')]}"
+                                   widget="many2many_tags"/>
+                            <field name="many2many_field_selection"
+                                   attrs="{'invisible':[('inventory_category','!=','contact_lens__name')]}"
+                                   widget="many2many_tags"/>
+                            <field name="selection_accessories_category"
+                                   attrs="{'invisible':[('inventory_category','!=','accessory__acc_category_id')]}"
+                                   widget="many2many_tags"/>
+                            <field name="many2many_brand_selection"
+                                   attrs="{'invisible':[('inventory_category','!=','accessory__accessory_brand_id')]}"
+                                   widget="many2many_tags"/>
+                            <field name="many2many_field_selection"
+                                   attrs="{'invisible':[('inventory_category','!=','accessory__accessory_header_name')]}"
+                                   widget="many2many_tags"/>
+                            <field name="selection_services_cpt"
+                                   attrs="{'invisible':[('inventory_category','!=','services__ser_pro_code_id')]}"
+                                   widget="many2many_tags"/>
+                            <field name="many2many_field_selection"
+                                   attrs="{'invisible':[('inventory_category','!=','services__name')]}"
+                                   widget="many2many_tags"/>
+
+                            <field name="quantity"/>
+                            <field name="min_retail"/>
+                             <field name="max_retail"/>
+                        </group>
+
+                    </form>
+                    <tree>
+                        <field name="inventory_category"/>
+                        <field name="compute_selection"/>
+                        <field name="quantity"/>
+                        <field name="min_retail"/>
+                        <field name="max_retail"/>
+                    </tree>
+                </field>
+                <field name="buyx_gety2_id" attrs="{'invisible':[('promotion_type','!=','buy_x_get_y')]}">
+                    <form>
+                         <group>
+                            <field name="inventory_category"/>
+                            <field name="selection_frame_manufacturer"
+                                   attrs="{'invisible':[('inventory_category','!=','frame__frame_manufacturer_id')]}"
+                                   widget="many2many_tags"/>
+                            <field name="many2many_brand_selection"
+                                   attrs="{'invisible':[('inventory_category','!=','frame__brand_id')]}"
+                                   widget="many2many_tags"/>
+                            <field name="selection_frame_collection"
+                                   attrs="{'invisible':[('inventory_category','!=','frame__collection_id')]}"
+                                   widget="many2many_tags"/>
+                            <field name="selection_lens_type"
+                                   attrs="{'invisible':[('inventory_category','!=','lens__lens_type_id')]}"
+                                   widget="many2many_tags"/>
+                            <field name="selection_lens_material"
+                                   attrs="{'invisible':[('inventory_category','!=','lens__material_id')]}"
+                                   widget="many2many_tags"/>
+                            <field name="selection_lens_filter"
+                                   attrs="{'invisible':[('inventory_category','!=','lens__filter_id')]}"
+                                   widget="many2many_tags"/>
+                            <field name="many2many_field_selection"
+                                   attrs="{'invisible':[('inventory_category','!=','lens__name')]}"
+                                   widget="many2many_tags"/>
+                            <field name="many2many_field_selection"
+                                   attrs="{'invisible':[('inventory_category','!=','lens_treatment__name')]}"
+                                   widget="many2many_tags"/>
+                            <field name="selection_lens_treatment_category"
+                                   attrs="{'invisible':[('inventory_category','!=','lens_treatment__category_id')]}"
+                                   widget="many2many_tags"/>
+                            <field name="selection_contact_lens_replacement_schedule"
+                                   attrs="{'invisible':[('inventory_category','!=','contact_lens__replacement_schedule_id')]}"
+                                   widget="many2many_tags"/>
+                            <field name="many2many_field_selection"
+                                   attrs="{'invisible':[('inventory_category','!=','contact_lens__name')]}"
+                                   widget="many2many_tags"/>
+                            <field name="selection_accessories_category"
+                                   attrs="{'invisible':[('inventory_category','!=','accessory__acc_category_id')]}"
+                                   widget="many2many_tags"/>
+                            <field name="many2many_brand_selection"
+                                   attrs="{'invisible':[('inventory_category','!=','accessory__accessory_brand_id')]}"
+                                   widget="many2many_tags"/>
+                            <field name="many2many_field_selection"
+                                   attrs="{'invisible':[('inventory_category','!=','accessory__accessory_header_name')]}"
+                                   widget="many2many_tags"/>
+                            <field name="selection_services_cpt"
+                                   attrs="{'invisible':[('inventory_category','!=','services__ser_pro_code_id')]}"
+                                   widget="many2many_tags"/>
+                            <field name="many2many_field_selection"
+                                   attrs="{'invisible':[('inventory_category','!=','services__name')]}"
+                                   widget="many2many_tags"/>
+
+                            <field name="quantity"/>
+                            <field name="min_retail"/>
+                             <field name="max_retail"/>
+                             <field name="discount"/>
+                             <field name="discount_type"/>
+                        </group>
+
+                    </form>
+                    <tree>
+                        <field name="inventory_category"/>
+                        <field name="compute_selection"/>
+                        <field name="quantity"/>
+                        <field name="min_retail"/>
+                        <field name="max_retail"/>
+                        <field name="discount"/>
+                        <field name="discount_type"/>
+                    </tree>
+                </field>
+
+
+            </form>
+        </field>
+    </record>
+
+     <record id="promotion_program_tree" model="ir.ui.view">
+            <field name="name">promotion.program.tree</field>
+            <field name="model">promotion.form</field>
+            <field name="priority" eval="50"/>
+            <field name="arch" type="xml">
+                <tree string="Promotion">
+                    <field name="promotion_name"/>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                </tree>
+            </field>
+     </record>
+
+
+    <record id="promotion_form_action" model="ir.actions.act_window">
+        <field name="name">Promotion</field>
+        <field name="res_model">promotion.form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new promotion!
+            </p>
+            <p>
+                Build up promotion programs to attract more customers with discounts, free products, free delivery, etc.
+                You can share promotion codes or grant the promotions automatically if some conditions are met.
+            </p>
+        </field>
+    </record>
+
+    <menuitem action="promotion_form_action" id="promotion_form" parent="opt_custom.sales_configuration_menu"
+              name="Promotion" sequence="2"/>
+</odoo>

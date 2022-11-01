@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template_pos_view" xml:space="preserve">
+	<t t-extend="calendar-box">
+		<t t-jquery=".o_event_title" t-operation="after">
+			<div>
+				<label class="oe_inline">Duration</label>
+				<div class="oe_inline" t-esc="record.appointment_duration"/>	
+			</div>
+		</t>
+	</t>
+</templates>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <template id="assets_backend" name="Patient Engagement Assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" href="/patient_engagement/static/src/css/style.css"/>
+                <script type="text/javascript" src="/patient_engagement/static/src/js/two_way_texting_twilio.js"></script>
+                <script type="text/javascript" src="/patient_engagement/static/src/js/two_way_texting_systray.js"></script>
+                <script type="text/javascript" src="/patient_engagement/static/src/js/online_requests_systray.js"></script>
+                <script type="text/javascript" src="/patient_engagement/static/src/js/list_view/list_renderer.js"></script>
+            </xpath>
+        </template>
+    </data>
+</odoo>

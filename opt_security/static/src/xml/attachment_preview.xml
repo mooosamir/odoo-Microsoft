@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template_pos_view" xml:space="preserve">
+
+    <div t-name="AttachmentPreviewMultiFiles" class="o_attachments" aria-atomic="true">
+        <div><i class="fa fa-paperclip" id="preview">  <t t-esc="widget.value.data.length"/></i></div>
+    </div>
+
+</templates>

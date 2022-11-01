@@ -1,0 +1,179 @@
+<odoo>
+    <record model="ir.ui.menu" id="opt_custom.menu_brand">
+      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_configurations_frames_configuration_brands')])]"/>
+    </record>
+    <record model="ir.ui.menu" id="opt_custom.menu_collection">
+      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_configurations_frames_configuration_collections')])]"/>
+    </record>
+
+    <record model="ir.ui.menu" id="opt_custom.menu_frame_material">
+      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_configurations_frames_admin_configuration_frame_material')])]"/>
+    </record>
+    <record model="ir.ui.menu" id="opt_custom.menu_temple_material">
+      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_configurations_frames_admin_configuration_temple_material')])]"/>
+    </record>
+    <record model="ir.ui.menu" id="opt_custom.menu_shap">
+      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_configurations_frames_admin_configuration_shape')])]"/>
+    </record>
+    <record model="ir.ui.menu" id="opt_custom.menu_color_family">
+      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_configurations_frames_admin_configuration_color_family')])]"/>
+    </record>
+    <record model="ir.ui.menu" id="opt_custom.menu_geo_fit">
+      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_configurations_frames_admin_configuration_geo_fit_bridge')])]"/>
+    </record>
+    <record model="ir.ui.menu" id="opt_custom.menu_hinge_type">
+      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_configurations_frames_admin_configuration_hinge_type')])]"/>
+    </record>
+    <record model="ir.ui.menu" id="opt_custom.menu_edge_type">
+      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_configurations_frames_admin_configuration_edge_type')])]"/>
+    </record>
+    <record model="ir.ui.menu" id="opt_custom.menu_frame_tag">
+      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_configurations_frames_admin_configuration_tags')])]"/>
+    </record>
+    <record model="ir.ui.menu" id="opt_custom.menu_lens_shape_catalog">
+      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_configurations_frames_admin_configuration_lens_shape_catalog')])]"/>
+    </record>
+    <record model="ir.ui.menu" id="opt_custom.menu_color_code_family">
+      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_configurations_frames_admin_configuration_color_code')])]"/>
+    </record>
+    <record model="ir.ui.menu" id="opt_custom.menu_frame_type">
+      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_configurations_frames_admin_configuration_frame_type')])]"/>
+    </record>
+    <record model="ir.ui.menu" id="opt_custom.lens_memgnt_type_menu">
+      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_configurations_lenses_lens_configurations_lens_measurement_type')])]"/>
+    </record>
+    <record model="ir.ui.menu" id="opt_custom.lens_edge_menu">
+      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_configurations_lenses_lens_configurations_edge_type')])]"/>
+    </record>
+    <record model="ir.ui.menu" id="opt_custom.power_grid_menu">
+      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_configurations_lenses_lens_configurations_power_grid_pricing')])]"/>
+    </record>
+    <record model="ir.ui.menu" id="opt_custom.prism_grid_menu">
+      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_configurations_lenses_lens_configurations_prism_grid_pricing')])]"/>
+    </record>
+    <record model="ir.ui.menu" id="opt_custom.oversize_pricing_menu">
+      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_configurations_lenses_lens_configurations_oversized_pricing')])]"/>
+    </record>
+    <record model="ir.ui.menu" id="opt_custom.lens_selection_table_menu">
+      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_configurations_lenses_lens_configurations_lens_selection_priority')])]"/>
+    </record>
+    <record model="ir.ui.menu" id="opt_custom.product_lens_parameter_menu">
+      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_configurations_lenses_lens_configurations_lens_parameter')])]"/>
+    </record>
+    <record model="ir.ui.menu" id="opt_custom.lens_parameter_selection_menu">
+      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_configurations_lenses_lens_configurations_lens_parameter_selection')])]"/>
+    </record>
+    <record model="ir.ui.menu" id="opt_custom.lens_menu">
+      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_configurations_lenses_admin_configurations_lens_type')])]"/>
+    </record>
+    <record model="ir.ui.menu" id="opt_custom.lens_brand_menu">
+      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_configurations_lenses_admin_configurations_lens_brand')])]"/>
+    </record>
+    <record model="ir.ui.menu" id="opt_custom.lens_style_menu">
+      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_configurations_lenses_admin_configurations_lens_style')])]"/>
+    </record>
+    <record model="ir.ui.menu" id="opt_custom.lens_material_menu">
+      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_configurations_lenses_admin_configurations_lens_material')])]"/>
+    </record>
+    <record model="ir.ui.menu" id="opt_custom.lens_filter_menu">
+      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_configurations_lenses_admin_configurations_lens_filter')])]"/>
+    </record>
+    <record model="ir.ui.menu" id="opt_custom.lens_colors_menu">
+      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_configurations_lenses_admin_configurations_lens_colors')])]"/>
+    </record>
+    <record model="ir.ui.menu" id="opt_custom.lens_category_menu">
+      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_configurations_lenses_admin_configurations_lens_treatment_category')])]"/>
+    </record>
+
+    <record model="ir.ui.menu" id="opt_custom.contact_lens_color_type_menu">
+      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_configurations_contact_lens_admin_configurations_color_type')])]"/>
+    </record>
+    <record model="ir.ui.menu" id="opt_custom.contact_lens_wear_period_menu">
+      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_configurations_contact_lens_admin_configurations_wear_period')])]"/>
+    </record>
+    <record model="ir.ui.menu" id="opt_custom.contact_lens_replacement_schedule_menu">
+      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_configurations_contact_lens_admin_configurations_replacement_schedule')])]"/>
+    </record>
+<!--    <record model="ir.ui.menu" id="opt_custom.contact_lens_indication_menu">-->
+<!--      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_configurations_contact_lens_admin_configurations_indication')])]"/>-->
+<!--    </record>-->
+
+    <record model="ir.ui.menu" id="opt_custom.menu_accessory_category">
+      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_configurations_accessory_configurations_accessory_category')])]"/>
+    </record>
+    <record model="ir.ui.menu" id="opt_custom.menu_accessory_brand">
+      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_configurations_accessory_configurations_brands')])]"/>
+    </record>
+
+    <record model="ir.ui.menu" id="post_sale_transactions.payment_methods_main_menu">
+      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_configurations_company_invoicing_payment_methods')])]"/>
+    </record>
+    <record model="ir.ui.menu" id="taxes.taxes">
+      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_configurations_company_admin_configurations_taxes')])]"/>
+    </record>
+    <record model="ir.ui.menu" id="opt_custom.root_purchase_conf_manu">
+      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_configurations_company_admin_configurations_vendors')])]"/>
+    </record>
+    <record model="ir.ui.menu" id="opt_custom.root_shipping_methods_manu">
+      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_configurations_company_admin_configurations_shipping_methods')])]"/>
+    </record>
+    <record model="ir.ui.menu" id="acs_consent_form.menu_acs_consent_form_template_02">
+      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_configurations_company_admin_configurations_consent_form_template')])]"/>
+    </record>
+<!--    <record model="ir.ui.menu" id="scs_rma.menu_rma_reasons">-->
+<!--      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_configurations_company_admin_configurations_RMA_reasons')])]"/>-->
+<!--    </record>-->
+    <record model="ir.ui.menu" id="promotion_program.promotion_form">
+      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_configurations_company_admin_configurations_promotion')])]"/>
+    </record>
+<!--    <record model="ir.ui.menu" id="product_category_custom.menu_item_product_category_custom">-->
+<!--      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_configurations_company_admin_configurations_product_category')])]"/>-->
+<!--    </record>-->
+    <record model="ir.ui.menu" id="post_sale_transactions.post_sale_reasons_main_menu">
+      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_configurations_company_admin_configurations_post_sale_reasons')])]"/>
+    </record>
+    <record model="ir.ui.menu" id="patient_form_line.patient_form">
+      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_configurations_company_admin_configurations_patient_form')])]"/>
+    </record>
+    <record model="ir.ui.menu" id="opt_diagnosis.menu_diagnosis">
+      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_configurations_company_admin_configurations_diagnosis')])]"/>
+    </record>
+<!--    <record model="ir.ui.menu" id="opt_custom.menu_promotion_type_config_opt">-->
+<!--      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_configurations_company_admin_configurations_promotion_programs')])]"/>-->
+<!--    </record>-->
+<!--    <record model="ir.ui.menu" id="opt_custom.menu_coupon_type_config_opt">-->
+<!--      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_configurations_company_admin_configurations_coupon_programs')])]"/>-->
+<!--    </record>-->
+    <record model="ir.ui.menu" id="company_registration.menu_action_company_registration">
+      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_configurations_company_admin_configurations_branch')])]"/>
+    </record>
+    <record model="ir.ui.menu" id="company_registration.menu_action_default_label">
+      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_configurations_company_admin_configurations_integrated_label')])]"/>
+    </record>
+    <record model="ir.ui.menu" id="opt_appointment.menu_appointments_hours_calendar_appointment">
+      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_configurations_company_admin_configurations_appointments')])]"/>
+    </record>
+    <record model="ir.ui.menu" id="opt_custom.modifier_code_menu">
+      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_configurations_company_admin_configurations_modifier')])]"/>
+    </record>
+    <record model="ir.ui.menu" id="opt_custom.procedure_code_menu">
+      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_configurations_company_admin_configurations_procedure')])]"/>
+    </record>
+    <record model="ir.ui.menu" id="opt_custom.menu_product_category">
+      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_configurations_company_product_product_categories')])]"/>
+    </record>
+    <record model="ir.ui.menu" id="opt_custom.menu_units_of_measure">
+      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_configurations_company_product_units_of_measure')])]"/>
+    </record>
+    <record model="ir.ui.menu" id="opt_custom.menu_units_of_measure_categories">
+      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_configurations_company_product_units_of_measure_categories')])]"/>
+    </record>
+
+<!--    <record model="ir.ui.menu" id="opt_custom.root_menu_product">-->
+<!--      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_configurations_product_configurations')])]"/>-->
+<!--    </record>-->
+<!--    <record model="ir.ui.menu" id="opt_custom.root_configrastion_company_menu">-->
+<!--      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_configurations_company_configurations')])]"/>-->
+<!--    </record>-->
+</odoo>
+

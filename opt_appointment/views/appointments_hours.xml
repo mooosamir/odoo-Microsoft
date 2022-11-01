@@ -1,0 +1,95 @@
+<odoo>
+    <record id="view_appointments_hours_calendar_appointment_tree" model="ir.ui.view">
+        <field name="name">appointments.hours.calendar.appointment.tree</field>
+        <field name="model">appointments.hours</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="company_id"/>
+                <field name="default_view"/>
+                <field name="duration_block"/>
+                <field name="closed_color" widget='color'/>
+                <field name="available_color" widget='color'/>
+                <field name="holiday_color" widget='color'/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_appointments_hours_calendar_appointment_form" model="ir.ui.view">
+        <field name="name">appointments.hours.calendar.appointment.form</field>
+        <field name="model">appointments.hours</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <notebook>
+                        <page string='Appointment Hours'>
+                            <table width='100%'>
+                                <tr>
+                                    <td width='65%'>
+                                        <field name="appointments_close_open_ids">
+                                            <tree editable="bottom">
+                                                <field name="day_select" required='1'/>
+                                                <field name="open" widget="timepicker"
+                                                       options="{'datepicker': {'stepping': 15}}"
+                                                       attrs="{'readonly':[('permanent_closed', '=', True)],
+                                                               'required':[('permanent_closed', '=', False)],
+                                                               }"
+                                                       force_save='1'/>
+                                                <field name="close" widget="timepicker"
+                                                       options="{'datepicker': {'stepping': 15}}"
+                                                       attrs="{'readonly':[('permanent_closed', '=', True)],
+                                                               'required':[('permanent_closed', '=', False)],
+                                                               }"
+                                                       force_save='1'/>
+                                                <field name="permanent_closed"/>
+                                                <field name="opening_time" invisible="1"/>
+                                                <field name="closing_time" invisible="1"/>
+
+                                            </tree>
+                                            <form>
+                                                <field name="day_select" required='1'/>
+                                                <field name="open" widget="timepicker"
+                                                       options="{'datepicker': {'stepping': 15}}"
+                                                       attrs="{'readonly':[('permanent_closed', '=', True)]}"
+                                                       force_save='1'/>
+                                                <field name="close" widget="timepicker"
+                                                       options="{'datepicker': {'stepping': 15}}"
+                                                       attrs="{'readonly':[('permanent_closed', '=', True)]}"
+                                                       force_save='1'/>
+                                                <field name="permanent_closed"/>
+                                                <field name="opening_time" invisible="1"/>
+                                                <field name="closing_time" invisible="1"/>
+                                            </form>
+                                        </field>
+                                    </td>
+                                    <td width='5%'>
+                                    </td>
+                                    <td width='30%'>
+                                        <group>
+                                            <field name="company_id" />
+<!--                                            <field name="branch_id" />-->
+                                            <field name="default_view" required='1'/>
+                                            <field name="duration_block"/>
+                                            <field name="hide_saturday"/>
+                                            <field name="hide_sunday"/>
+                                            <separator string='Schedule Color'/>
+                                            <field name="closed_color" widget='color'/>
+                                            <field name="available_color" widget='color'/>
+                                            <field name="holiday_color" widget='color'/>
+                                        </group>
+                                    </td>
+                                </tr>
+                            </table>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_appointments_hours_calendar_appointment" model="ir.actions.act_window">
+        <field name="name">Appointments</field>
+        <field name="res_model">appointments.hours</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="menu_appointments_hours_calendar_appointment" name="Appointments" sequence="1"
+              action="action_appointments_hours_calendar_appointment" parent="opt_custom.appointment_configuration_menu"/>
+
+</odoo>

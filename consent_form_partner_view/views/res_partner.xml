@@ -1,0 +1,18 @@
+<odoo>
+    <record id="view_patent_profile_forms" model="ir.ui.view">
+	    <field name="name">view.patent.profile.forms</field>
+	    <field name="model">res.partner</field>
+        <field name="inherit_id" ref="opt_custom.view_patent_profile_form"/>
+	    <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('oe_button_box')]" position="inside">
+                <button class="oe_stat_button" type="object" name="open_consent_form" icon="fa-wpforms">
+                    <div class="o_field_widget o_stat_info">
+                        <span class="o_stat_text">
+                            Consent Forms
+                        </span>
+                    </div>
+                </button>
+            </xpath>
+        </field>
+    </record>
+</odoo>

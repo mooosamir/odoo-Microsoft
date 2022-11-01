@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <menuitem id="pos_root_order_menu" name="Order" sequence="3"/>
+        <menuitem id="order_menu_sales_dropdown" action="sale.action_quotations_with_onboarding"
+                  parent="pos_root_order_menu" name="Sales"  sequence="0"/>
+    </data>
+</odoo>

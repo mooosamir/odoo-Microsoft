@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data noupdate="1">
+	    <record id="opt_patient" model="ir.module.category">
+	        <field name="name">OPT Patient</field>
+	    </record>
+
+	    <record id="opt_patient_create_edit" model="res.groups">
+	        <field name="name">Create/Edit</field>
+	        <field name="category_id" ref="opt_security.opt_patient"/>
+	    </record>
+	    <record id="opt_patient_read" model="res.groups">
+	        <field name="name">Read</field>
+	        <field name="category_id" ref="opt_security.opt_patient"/>
+	    </record>
+	    <record id="opt_patient_delete" model="res.groups">
+	        <field name="name">Delete</field>
+	        <field name="category_id" ref="opt_security.opt_patient"/>
+	    </record>
+	    <record id="opt_patient_archive" model="res.groups">
+	        <field name="name">Archive</field>
+	        <field name="category_id" ref="opt_security.opt_patient"/>
+	    </record>
+	    <record id="opt_patient_duplicate" model="res.groups">
+	        <field name="name">Duplicate</field>
+	        <field name="category_id" ref="opt_security.opt_patient"/>
+	    </record>
+	    <record id="opt_patient_portal_access" model="res.groups">
+	        <field name="name">Grant portal access</field>
+	        <field name="category_id" ref="opt_security.opt_patient"/>
+	    </record>
+	    <record id="opt_patient_prescription_delete" model="res.groups">
+	        <field name="name">Prescription Delete</field>
+	        <field name="category_id" ref="opt_security.opt_patient"/>
+	    </record>
+	    <record id="opt_patient_document_delete" model="res.groups">
+	        <field name="name">Document Delete</field>
+	        <field name="category_id" ref="opt_security.opt_patient"/>
+	    </record>
+	    <record id="opt_patient_insurance_delete" model="res.groups">
+	        <field name="name">Insurance Delete</field>
+	        <field name="category_id" ref="opt_security.opt_patient"/>
+	    </record>
+	    <record id="opt_patient_recall_delete" model="res.groups">
+	        <field name="name">Recall Delete</field>
+	        <field name="category_id" ref="opt_security.opt_patient"/>
+	    </record>
+	    <record id="opt_patient_authorization_delete" model="res.groups">
+	        <field name="name">Authorization Delete</field>
+	        <field name="category_id" ref="opt_security.opt_patient"/>
+	    </record>
+	    <record id="opt_patient_send_text_message" model="res.groups">
+	        <field name="name">Send Text Message</field>
+	        <field name="category_id" ref="opt_security.opt_patient"/>
+	    </record>
+	    <record id="opt_patient_reset_password" model="res.groups">
+	        <field name="name">Send Reset Password</field>
+	        <field name="category_id" ref="opt_security.opt_patient"/>
+	    </record>
+	    <record id="opt_patient_import" model="res.groups">
+	        <field name="name">Import</field>
+	        <field name="category_id" ref="opt_security.opt_patient"/>
+	    </record>
+	    <record id="opt_patient_payment_data" model="res.groups">
+	        <field name="name">Saved Payment Data</field>
+	        <field name="category_id" ref="opt_security.opt_patient"/>
+	    </record>
+	    <record id="opt_patient_merge_patients" model="res.groups">
+	        <field name="name">Merge Patients</field>
+	        <field name="category_id" ref="opt_security.opt_patient"/>
+	    </record>
+	    <record id="opt_patient_manager" model="res.groups">
+	        <field name="name">Manager</field>
+	        <field name="category_id" ref="opt_security.opt_patient"/>
+        <field name="implied_ids" eval="[(4, ref('opt_security.opt_patient_create_edit')), (4, ref('opt_security.opt_patient_read')),
+        	(4, ref('opt_security.opt_patient_delete')), (4, ref('opt_security.opt_patient_archive')),
+        	(4, ref('opt_security.opt_patient_duplicate')), (4, ref('opt_security.opt_patient_portal_access')),
+        	(4, ref('opt_security.opt_patient_prescription_delete')),(4, ref('opt_security.opt_patient_document_delete')),
+        	(4, ref('opt_security.opt_patient_insurance_delete')),(4, ref('opt_security.opt_patient_recall_delete')),
+        	(4, ref('opt_security.opt_patient_authorization_delete')), (4, ref('opt_security.opt_patient_send_text_message')),
+        	(4, ref('opt_security.opt_patient_reset_password')), (4, ref('opt_security.opt_patient_import')),
+        	(4, ref('opt_security.opt_patient_payment_data')), (4, ref('opt_security.opt_patient_merge_patients')),
+        	]"/>
+	    </record>
+	</data>
+</odoo>

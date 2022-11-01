@@ -1,0 +1,49 @@
+<odoo>
+    <record id="sale_coupon_program_form_extend_got2" model="ir.ui.view">
+        <field name="name">sale.coupon.program.form.extend.got2</field>
+        <field name="model">sale.coupon.program</field>
+        <field name="inherit_id" ref="sale_coupon.sale_coupon_program_view_promo_program_form"/>
+        <field name="arch" type="xml">
+            <label for='rule_minimum_amount' position='attributes'>
+                <attribute name="string">Package Price</attribute>
+            </label>
+            <field name='reward_product_id' position='attributes'>
+                <attribute name="attrs">{'invisible': [('reward_type', 'in', ('discount', 'free_shipping',
+                    'package_price'))], 'required': [('reward_type', '=', 'product')]}
+                </attribute>
+            </field>
+            <field name='discount_apply_on' position='attributes'>
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name='discount_apply_on' position='after'>
+                <field name="discount_apply_on_new" attrs="{'invisible':
+                            ['|', ('reward_type', 'in', ('product', 'free_shipping')), ('discount_type', '!=', 'percentage')]}"
+                       widget="radio"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="sale_coupon_program_form_extend_got2_common" model="ir.ui.view">
+        <field name="name">sale.coupon.program.common.form.extend.got2</field>
+        <field name="model">sale.coupon.program</field>
+        <field name="inherit_id" ref="sale_coupon.sale_coupon_program_view_form"/>
+        <field name="arch" type="xml">
+            <label for='rule_minimum_amount' position='attributes'>
+                <attribute name="string">Package Price</attribute>
+            </label>
+            <field name='reward_product_id' position='attributes'>
+                <attribute name="attrs">{'invisible': [('reward_type', 'in', ('discount', 'free_shipping',
+                    'package_price'))], 'required': [('reward_type', '=', 'product')]}
+                </attribute>
+            </field>
+            <field name='discount_apply_on' position='attributes'>
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name='discount_apply_on' position='after'>
+                <field name="discount_apply_on_new" attrs="{'invisible':
+                            ['|', ('reward_type', 'in', ('product', 'free_shipping')), ('discount_type', '!=', 'percentage')]}"
+                       widget="radio"/>
+            </field>
+        </field>
+    </record>
+</odoo>

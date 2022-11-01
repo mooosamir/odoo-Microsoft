@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+	<record id="view_company_tree_inherit1" model="ir.ui.view">
+        <field name="name">view.company.tree.inherit1</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="replace">
+            	<tree string="Company">
+	                <field name="name"/>
+	                <field name="street"/>
+	                <field name="phone"/>
+        		</tree>
+            </xpath>
+        </field>
+    </record>
+
+	<record id="company_registration_form_view" model="ir.ui.view">
+		<field name="name">company.registration.form.view</field>
+		<field name="model">res.company</field>
+		<field name="arch" type="xml">
+			<form string="Branch">
+				<sheet>
+				<notebook colspan="4">
+					<page string="General">
+						<field name="logo" widget="image" class="oe_avatar"/>
+						<div class="oe_title">
+							<label for="name" class="oe_edit_only"/>
+							<h1>
+								<field name="name" widget='field_partner_autocomplete' string="Branch"/>
+							</h1>
+						</div>
+						<group>
+							<group>
+								<label for="street" string="Address"/>
+								<div class="o_address_format">
+									<field name="street" placeholder="Street..." class="o_address_street" widget="gplaces_autocomplete"/>
+									<field name="street2" placeholder="Street 2..." class="o_address_street"/>
+									<field name="city" placeholder="City" class="o_address_city"/>
+									<field name="state_id" class="o_address_state" placeholder="State" options="{&quot;no_open&quot;: True}" domain="[('country_id', '=', country_id)]"/>
+									<field name="zip" placeholder="ZIP" class="o_address_zip"/>
+									<field name="country_id" placeholder="Country" class="o_address_country" options="{&quot;no_open&quot;: True}"/>
+								</div>
+								<field name="phone" class="o_force_ltr" string="Office Phone"/>
+<!--								<field name="logo" widget="image"/>-->
+								<field name="email"/>
+								<field name="fax"/>
+								<field name="website" string="Website" widget="url" placeholder="e.g. https://www.odoo.com"/>
+							</group>
+							<group>
+								<field name="vat"/>
+								<field name="region_ids" widget="many2many_tags"/>
+								<field name="main"/>
+								<field name="timezone"/>
+								<field name="dst_observed"/>
+								<field name="default_lab"/>
+							</group>
+						</group>
+					</page>
+					<page name="hours" string="Hours">
+						<group>
+							<field name="company_close_open_ids" nolabel='1'>
+								<tree editable="bottom">
+									<field name="day_select" required='1'/>
+									<field name="open" widget="timepicker" options="{'datepicker': {'stepping': 15}}" attrs="{'readonly':[('permanent_closed', '=', True)]}" force_save='1'/>
+									<field name="close" widget="timepicker" options="{'datepicker': {'stepping': 15}}" attrs="{'readonly':[('permanent_closed', '=', True)]}" force_save='1'/>
+									<field name="permanent_closed"/>
+									<field name="opening_time" invisible="1"/>
+									<field name="closing_time" invisible="1"/>
+
+								</tree>
+								<form>
+									<field name="day_select" required='1'/>
+									<field name="open" widget="timepicker" options="{'datepicker': {'stepping': 15}}" attrs="{'readonly':[('permanent_closed', '=', True)]}" force_save='1'/>
+									<field name="close" widget="timepicker" options="{'datepicker': {'stepping': 15}}" attrs="{'readonly':[('permanent_closed', '=', True)]}" force_save='1'/>
+									<field name="permanent_closed"/>
+									<field name="opening_time" invisible="1"/>
+									<field name="closing_time" invisible="1"/>
+								</form>
+							</field>
+						</group>
+					</page>
+					<page name="tax" string="Tax Rates">
+						<group>
+							<field name="category_based_tax_id" nolabel='1'>
+								<tree editable="top">
+									<field name="product_category"/>
+									<field name="tax_applied"/>
+								</tree>
+							</field>
+						</group>
+					</page>
+					<page name="billing" string="Insurance">
+						<group>
+							<group>
+								<field name="facility_type" />
+								<field name="default_provider"/>
+								<field name="clia"/>
+								<field name="location_code"/>
+								<field name="hl7_code"/>
+								<field name="claim_npi_entity"/>
+								<field name="npi"/>
+							</group>
+						</group>
+					</page>
+					<page name="settings" string="Settings">
+						<group>
+							<group>
+								<field name="rx_expiration_lens" string="RX Expiration Contacts"/>
+								<field name="rx_expiration_contacts" string="RX Expiration Glasses"/>
+								<field name="print_doctor_recommendation"/>
+								<field name="clock_in"/>
+								<field name="add_inventory"/>
+							</group>
+							<group>
+								<field name="notes"/>
+							</group>
+						</group>
+						<div>
+							<h2>Barcode Configuration</h2>
+							<group>
+								<group>
+									<field name="label_width"/>
+									<field name="currency"/>
+									<field name="barcode_type"/>
+									<field name="barcode_width"/>
+									<field name="integrated_label"/>
+								</group>
+								<group>
+									<field name="label_height"/>
+									<field name="currency_position"/>
+									<field name="barcode_height"/>
+								</group>
+							</group>
+						</div>
+					</page>
+					<page name="integrations" string="Integrations" invisible='1'>
+		                <group name="frame">
+						</group>
+		                <group name="twilio">
+						</group>
+					</page>
+					<page name="social" string="Social Media">
+						<group>
+							<group name="social_media">
+								<field name='google_maps'/>
+								<field name="social_facebook"/>
+								<field name="social_instagram"/>
+								<field name="social_twitter"/>
+								<field name="social_github" invisible="1"/>
+								<field name="social_linkedin" invisible="1"/>
+								<field name="social_youtube" invisible="1"/>
+							</group>
+						</group>
+					</page>
+				</notebook>
+				</sheet>
+			</form>
+    	</field>
+    </record>
+
+	<record id="action_company_registration" model="ir.actions.act_window">
+		<field name="name">Branch</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">res.company</field>
+		<field name="view_mode">tree,form</field>
+		<field name="context">{'default_patient': True,'active_test': False}</field>
+		<field name="help" type="html">
+			<p class="o_view_nocontent_smiling_face">
+			Create a new company
+			</p><p>
+			Create and manage the companies that will be managed by Odoo from here. Shops or subsidiaries can be created and maintained from here.
+			</p>
+		</field>
+	</record>
+
+    <menuitem action="action_company_registration" id="menu_action_company_registration"
+			  parent="opt_custom.root_configrastion_company_menu" sequence="1" name="Company"/>
+</odoo>

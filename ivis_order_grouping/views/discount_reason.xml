@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- account incoterms -->
+        <record id="discount_reason_tree" model="ir.ui.view">
+            <field name="name">discount.reason.tree.view</field>
+            <field name="model">discount.reason</field>
+            <field name="arch" type="xml">
+                <tree string="Discount Reason">
+                    <field colspan="4" name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="discount_reason_form" model="ir.ui.view">
+            <field name="name">discount.reason.form</field>
+            <field name="model">discount.reason</field>
+            <field name="arch" type="xml">
+                <form string="Discount Reason">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_discount_reason_tree" model="ir.actions.act_window">
+            <field name="name">Discount Reason</field>
+            <field name="res_model">discount.reason</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+</odoo>

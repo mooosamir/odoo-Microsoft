@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<template id="auth_signup_extend" inherit_id="auth_signup.fields">
+		
+		<!-- <t t-jquery=".form-group" t-operation="inside"> -->
+		<xpath expr="//div[hasclass('field-name')]" position="after">
+		    <div class="form-group field-business-type">
+		        <label for="login">Business Type</label>
+		        <select name="business_type" id="business_type_id" class="form-control">
+		        	 <option value=""></option>
+                     <option value="1">Manufacturer / Distributor</option>
+                     <option value="2">Retail Optical</option>
+                     <option value="3">Laboratory</option>
+                </select>
+		    </div>
+		
+		    <div id="collection-container" class="form-group field-collection d-none">
+		        <label for="login">Collections</label>
+		        <select name="collection_id" id="collection_id" multiple="multiple" class="form-control">
+                     <t t-foreach="collections or []" t-as="collection">
+                         <option t-att-value="collection.id">
+                             <t t-esc="collection.name"/>
+                         </option>
+                     </t>
+                </select>
+		    </div>
+		    <input type="hidden" name='collection_ids' id='collection_input'/>
+	    </xpath>
+	</template>
+</odoo>

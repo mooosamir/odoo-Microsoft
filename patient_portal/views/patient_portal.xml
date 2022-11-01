@@ -1,0 +1,663 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <template id="patient_portal_template" name="Patient Portal">
+        <t t-call="website.layout">
+            <div class="container">
+                <nav class="navbar navbar-light responsive navbar-expand-lg">
+                    <a class="navbar-brand" href="/patient_portal">ProVision</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse"
+                            data-target="#collapsibleNavbar">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="collapsibleNavbar" style="justify-content: right;">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="/patient_portal">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/patient_portal/prescription">Prescription</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/patient_portal/appointments">Appointments</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/patient_portal/forms">Forms</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/my/orders">Orders</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/patient_portal/message">Messages</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/patient_portal/shop">Shop</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/patient_portal/user">
+                                    <t t-esc="current_user.name"/>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+            <br/>
+            <br/>
+            <div class="container portal" style="padding:30px;">
+                <div class="row">
+                    <div class="col-sm display_div example">
+                        <h5><i class="fa fa-calendar"/>Upcoming Appointments
+                        </h5>
+                        <div style="max-height:300px; overflow-y:scroll;" class="example">
+                            <t t-foreach="appointments" t-as="app">
+                                <br/>
+                                <div class="appointment-div">
+
+                                    <p>
+                                        <i class="fa fa-calendar-o"/>
+                                        <t t-esc="fields.Datetime.context_timestamp(app.with_context(tz=app.company_event_tz), datetime.strptime(str(app.start_datetime),
+                                                                              DEFAULT_SERVER_DATETIME_FORMAT)).strftime('%a, %b %d, %I:%M %p')"/>
+                                    </p>
+                                    <p>
+                                        <i class="fa fa-hospital-o"/>
+                                        <t t-esc="app.preferred_location_id.name"/>
+                                    </p>
+
+                                    <p>
+                                        <i class="fa fa-user-md"/>
+                                        Dr.
+                                        <t t-esc="app.employee_id.name"/>
+                                    </p>
+                                    <p>
+                                        <t t-esc="app.service_type.name"/>
+                                    </p>
+                                    <br/>
+                                    <button type="button" t-attf-onclick="AppointmentConfirm(#{app.id})">Confirm
+                                        Appointment
+                                    </button>
+                                </div>
+                            </t>
+                        </div>
+                        <t t-if="appointments == []">
+                            <br/>
+                            <div style="text-align:center; margin-top:50%;">
+                                <h5>No appointments to show</h5>
+                            </div>
+                        </t>
+                        <button type="button" class="appointment-div-button" t-attf-onclick="RequestAppointment()">
+                            Request Appointment
+                        </button>
+
+                    </div>
+                    <div class="col-sm display_div" style="overflow: hidden;">
+                        <h5><i class="fa fa-shopping-cart"/>Order History
+                        </h5>
+                        <br/>
+                        <t t-if="not len(order)">
+                            <div style="text-align:center; margin-top:50%;">
+                                <h5>No orders to show</h5>
+                            </div>
+                        </t>
+                        <t t-else="">
+                            <t t-if="not len(order_lines)">
+                                <div style="text-align:center; margin-top:50%;">
+                                    <h5>No order lines to show</h5>
+                                </div>
+                            </t>
+                        </t>
+                        <div class="scroll example" t-if="len(order_lines) and len(order)">
+                            <t t-foreach="order_lines" t-as="order_line">
+                                <div class="appointment-div" style="height:auto;">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <t t-esc="order_line.order_id.date_order.strftime('%b %d, %Y')"/>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-4 col-4">
+                                            <img style="width: inherit;"
+                                                 t-if="order_line.name[:order_line.name.rfind(' - ')] in ['Complete Pair','Frame Only']"
+                                                 src="/patient_portal/static/src/img/glasses.png"/>
+                                            <img style="width: inherit;"
+                                                 t-elif="order_line.name[:order_line.name.rfind(' - ')] in ['Contact Lens']"
+                                                 src="/patient_portal/static/src/img/contact_lens.png"/>
+                                        </div>
+                                        <div class="col-lg-4 col-4">
+                                            <t t-esc="order_line.name[order_line.name.rfind(' - ')+3:]"/>
+                                        </div>
+                                        <div class="col-lg-4 col-4">
+                                            <t t-esc="order_line.lab_details_id.order_status.name"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br/>
+                            </t>
+                        </div>
+                        <button type="button" class="appointment-div-button" onclick="window.location = '/my/orders'">
+                            View All
+                        </button>
+                    </div>
+                    <div class="col-sm display_div example">
+                        <h5><i class="fa fa-comments"/>Messages
+                        </h5>
+                        <br/>
+                        <t t-if="channels">
+                            <div class="scroll example">
+                                <t t-foreach="channels" t-as="channel">
+                                    <div class="appointment-div" style="height:auto;">
+                                        <h5 style="border-bottom:none;">
+                                            <t t-esc="channel.message_unread_counter"/>
+                                            New messages from
+                                            <t t-esc="channel.name"/>
+                                        </h5>
+                                    </div>
+                                </t>
+                            </div>
+                        </t>
+                        <t t-else="">
+                            <div style="text-align:center; margin-top:50%;">
+                                <h5>No new Messages.</h5>
+                            </div>
+                        </t>
+                        <button type="button" class="appointment-div-button" onclick="window.location = '/patient_portal/message'">
+                            New
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="intake_form_template" name="Patient Portal">
+        <t t-call="website.layout">
+            <div class="container" style="padding:15px;">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <input type="hidden" name="forms" t-att-value="json.dumps(forms)"/>
+                        <input type="hidden" name="appointment_id" t-att-value="appointment_id.id"/>
+                        <div class="form-left-side">
+                            <t t-foreach="form_selection_ids" t-as="form_selection_id">
+                                <h5 t-esc="form_selection_id.model_name"/>
+                            </t>
+                        </div>
+                    </div>
+                    <div class="col-lg-9 intake_form">
+                        <div class="head">
+                            <h5>Patient Forms</h5>
+                        </div>
+                        <div class="begin">
+                            <script type="text/javascript">
+                                window.onload = function () {
+                                if (window.location.href.includes('consent_form_1'))
+                                IntakeConsentShow();
+                                };
+                            </script>
+                            <input type="hidden" name="is_consent"/>
+                            <t t-if="not forms_list">
+                                <h5>Welcome!</h5>
+                                <h5>There are no pending forms at this time</h5>
+                                <h5>If you have any questions, please contact our office
+                                    <t t-esc="request.env.company.phone"/>
+                                </h5>
+                                <button style="color:white; background-color:#072e6b;" type="button"
+                                        onclick="window.location = '/patient_portal/'">Back
+                                </button>
+                            </t>
+                            <t t-else="">
+                                <h5 t-esc="form_id.welcome_message"/>
+                                <button type="button" onclick="intakeBegin()">Begin</button>
+                                <t t-if="forms_list > 1">
+                                    <h5>You have
+                                        <t t-esc="forms_list"/>
+                                        forms pending to fill.
+                                    </h5>
+                                    <h5>complete this then the next form will come.</h5>
+                                </t>
+                            </t>
+                        </div>
+                        <t t-if="forms_list" t-call="patient_portal.intake_form_body"/>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="intake_form_body" name="Patient Portal">
+        <t t-foreach="form_selection_ids" t-as="form_selection_id">
+            <t t-set="model_name" t-value="form_selection_id.model_name"/>
+            <t t-if="form_selection_id.ir_model_id.model == 'spec.insurance'">
+                <t t-set="form_selection_id.model_fields_ids"
+                   t-value="form_selection_id.model_fields_ids.sorted(key=lambda m: m.sequence)"/>
+                <t t-set="section"
+                   t-value="form_selection_id.model_fields_ids.filtered(lambda line: line.display_type == 'line_section')"/>
+                <t t-set="sequence" t-value="0"/>
+                <t t-set="stop" t-value="0"/>
+
+                <form t-att-name="form_selection_id.ir_model_id.model + '~' + section[0].name"
+                      t-attf-class="#{form_selection_id.ir_model_id.model.replace('.','_')} patient-form"
+                      style="display:None;">
+                    <div class="row">
+                        <div class="col-lg-8 col-8">
+                            <div class="row">
+                                <t t-foreach="form_selection_id.model_fields_ids.sorted(key=lambda m: m.sequence)"
+                                   t-as="model_fields_id">
+                                    <t>
+                                        <t t-if="not stop">
+                                            <div class="col-12" t-if="model_fields_id.display_type == 'line_section'">
+                                                <t t-if="sequence != 0">
+                                                    <t t-set="stop" t-value="sequence"/>
+                                                </t>
+                                                <h1 t-else="" t-esc="model_fields_id.name"/>
+                                            </div>
+                                            <div class="col-6"
+                                                 t-elif="model_fields_id.model_fields_id.ttype == 'integer'">
+                                                <label t-att-for="model_fields_id.model_fields_id.name">
+                                                    <t t-esc="model_fields_id.model_fields_id.field_description"/>
+                                                </label>
+                                                <input t-att-name="model_fields_id.model_fields_id.name" type="number"/>
+                                            </div>
+                                            <div class="col-6" t-elif="model_fields_id.model_fields_id.ttype == 'char'">
+                                                <label t-att-for="model_fields_id.model_fields_id.name">
+                                                    <t t-esc="model_fields_id.model_fields_id.field_description"/>
+                                                </label>
+                                                <input t-att-name="model_fields_id.model_fields_id.name" type="text"/>
+                                            </div>
+                                            <div class="col-6"
+                                                 t-elif="model_fields_id.model_fields_id.ttype == 'boolean'">
+                                                <label t-att-for="model_fields_id.model_fields_id.name">
+                                                    <t t-esc="model_fields_id.model_fields_id.field_description"/>
+                                                </label>
+                                                <input t-att-name="model_fields_id.model_fields_id.name"
+                                                       type="checkbox"/>
+                                            </div>
+                                            <div class="col-6" t-elif="model_fields_id.model_fields_id.ttype == 'date'">
+                                                <label t-att-for="model_fields_id.model_fields_id.name">
+                                                    <t t-esc="model_fields_id.model_fields_id.field_description"/>
+                                                </label>
+                                                <input t-att-name="model_fields_id.model_fields_id.name" type="date"/>
+                                            </div>
+                                            <div class="col-6"
+                                                 t-elif="model_fields_id.model_fields_id.ttype == 'datetime'">
+                                                <label t-att-for="model_fields_id.model_fields_id.name">
+                                                    <t t-esc="model_fields_id.model_fields_id.field_description"/>
+                                                </label>
+                                                <input t-att-name="model_fields_id.model_fields_id.name"
+                                                       type="datetime-local"/>
+                                            </div>
+                                            <div class="col-6"
+                                                 t-elif="model_fields_id.model_fields_id.ttype == 'selection'">
+                                                <label t-att-for="model_fields_id.model_fields_id.name">
+                                                    <t t-esc="model_fields_id.model_fields_id.field_description"/>
+                                                </label>
+                                                <select t-att-name="model_fields_id.model_fields_id.name">
+                                                    <t t-foreach="model_fields_id.model_fields_id.selection_ids"
+                                                       t-as="selection">
+                                                        <option t-att-value="selection.value">
+                                                            <t t-esc="selection.name"/>
+                                                        </option>
+                                                    </t>
+                                                </select>
+                                            </div>
+                                            <div class="col-6"
+                                                 t-elif="model_fields_id.model_fields_id.ttype == 'many2one'">
+                                                <label t-att-for="model_fields_id.model_fields_id.name">
+                                                    <t t-esc="model_fields_id.model_fields_id.field_description"/>
+                                                </label>
+                                                <select t-att-name="model_fields_id.model_fields_id.name">
+                                                    <t t-set="many2one"
+                                                       t-value="request.env[model_fields_id.model_fields_id.relation].sudo().search([])"/>
+                                                    <t t-if="model_fields_id.model_fields_id.name == 'carrier_id'">
+                                                        <t t-set="many2one"
+                                                           t-value="request.env[model_fields_id.model_fields_id.relation].sudo().search([('is_company','=',1), ('is_insurance','=',1)])"/>
+                                                    </t>
+                                                    <option t-att-value="0">
+                                                        No option selected
+                                                    </option>
+                                                    <t t-foreach="many2one" t-as="selection">
+                                                        <option t-att-value="selection.id">
+                                                            <t t-esc="selection.name"/>
+                                                        </option>
+                                                    </t>
+                                                </select>
+                                            </div>
+                                            <div class="col-6"
+                                                 t-elif="model_fields_id.model_fields_id.ttype != 'binary'">
+                                                <span t-field="model_fields_id.model_fields_id.name"/>
+                                            </div>
+                                        </t>
+                                        <t t-set="sequence" t-value="sequence + 1"/>
+                                    </t>
+                                </t>
+                            </div>
+                        </div>
+                        <t t-set="sequence" t-value="0"/>
+                        <t t-set="stop" t-value="0"/>
+                        <div class="col-4 col-lg-4">
+                            <div class="row">
+                                <div class="col-lg-12 col-12"/>
+                                <t t-foreach="form_selection_id.model_fields_ids.sorted(key=lambda m: m.sequence)"
+                                   t-as="model_fields_id">
+                                    <t>
+                                        <t t-if="not stop">
+                                            <t t-if="model_fields_id.display_type == 'line_section'">
+                                                <t t-if="sequence != 0">
+                                                    <t t-set="stop" t-value="sequence"/>
+                                                </t>
+                                            </t>
+                                            <div class="col-6"
+                                                 t-if="model_fields_id.model_fields_id.ttype == 'binary'">
+                                                <label t-att-for="model_fields_id.model_fields_id.name">
+                                                    <t t-esc="model_fields_id.model_fields_id.field_description"/>
+                                                </label>
+                                                <div class="image-upload-wrap">
+                                                    <input class="file-upload-input" type='file'
+                                                           onchange="readURL(this);"
+                                                           t-att-name="model_fields_id.model_fields_id.name"
+                                                           accept="image/*"/>
+                                                    <div class="drag-text">
+                                                        <i class="fa fa-picture-o"/>
+                                                    </div>
+                                                    <div class="file-upload-content">
+                                                        <img class="file-upload-image" src="#" alt="your image"/>
+
+                                                    </div>
+                                                </div>
+
+
+                                                <!--                            </div>-->
+                                            </div>
+                                        </t>
+                                        <t t-set="sequence" t-value="sequence + 1"/>
+                                    </t>
+                                </t>
+                            </div>
+                        </div>
+
+                        <!--                            <div class="file-upload">-->
+                        <!--                                <button class="file-upload-btn" type="button"-->
+                        <!--                                        onclick="$('.file-upload-input').trigger( 'click' )">Insurance Card-->
+                        <!--                                    <i class="fa fa-plus-circle"/>-->
+                        <!--                                </button>-->
+
+
+                        <!--                                <div class="file-upload-content">-->
+                        <!--                                    <img class="file-upload-image" src="#" alt="your image"/>-->
+                        <!--                                    <div class="image-title-wrap">-->
+                        <!--                                        <button type="button" onclick="removeUpload()" class="remove-image">Remove-->
+                        <!--                                            <span class="image-title">Uploaded Image</span>-->
+                        <!--                                        </button>-->
+                        <!--                                    </div>-->
+                        <!--                                </div>-->
+                        <!--                            </div>-->
+                    </div>
+
+                </form>
+                <t t-set="sequence" t-value="0"/>
+                <form t-att-name="form_selection_id.ir_model_id.model + '~' + section[1].name"
+                      t-attf-class="#{form_selection_id.ir_model_id.model.replace('.','_')} patient-form"
+                      style="display:None;">
+                    <div class="row">
+                        <div class="col-lg-8 col-8">
+                            <div class="row">
+                                <t t-foreach="form_selection_id.model_fields_ids.sorted(key=lambda m: m.sequence)"
+                                   t-as="model_fields_id">
+                                    <t>
+                                        <t t-if="stop &lt;= sequence">
+                                            <div class="col-12" t-if="model_fields_id.display_type == 'line_section'">
+                                                <h1 t-esc="model_fields_id.name"/>
+                                            </div>
+                                            <div class="col-6"
+                                                 t-if="model_fields_id.model_fields_id.ttype == 'integer'">
+                                                <label t-att-for="model_fields_id.model_fields_id.name">
+                                                    <t t-esc="model_fields_id.model_fields_id.field_description"/>
+                                                </label>
+                                                <input t-att-name="model_fields_id.model_fields_id.name" type="number"/>
+                                            </div>
+                                            <div class="col-6" t-elif="model_fields_id.model_fields_id.ttype == 'char'">
+                                                <label t-att-for="model_fields_id.model_fields_id.name">
+                                                    <t t-esc="model_fields_id.model_fields_id.field_description"/>
+                                                </label>
+                                                <input t-att-name="model_fields_id.model_fields_id.name" type="text"/>
+                                            </div>
+                                            <div class="col-6"
+                                                 t-elif="model_fields_id.model_fields_id.ttype == 'boolean'">
+                                                <label t-att-for="model_fields_id.model_fields_id.name">
+                                                    <t t-esc="model_fields_id.model_fields_id.field_description"/>
+                                                </label>
+                                                <input t-att-name="model_fields_id.model_fields_id.name"
+                                                       type="checkbox"/>
+                                            </div>
+                                            <div class="col-6" t-elif="model_fields_id.model_fields_id.ttype == 'date'">
+                                                <label t-att-for="model_fields_id.model_fields_id.name">
+                                                    <t t-esc="model_fields_id.model_fields_id.field_description"/>
+                                                </label>
+                                                <input t-att-name="model_fields_id.model_fields_id.name" type="date"/>
+                                            </div>
+                                            <div class="col-6"
+                                                 t-elif="model_fields_id.model_fields_id.ttype == 'datetime'">
+                                                <label t-att-for="model_fields_id.model_fields_id.name">
+                                                    <t t-esc="model_fields_id.model_fields_id.field_description"/>
+                                                </label>
+                                                <input t-att-name="model_fields_id.model_fields_id.name"
+                                                       type="datetime-local"/>
+                                            </div>
+                                            <div class="col-6"
+                                                 t-elif="model_fields_id.model_fields_id.ttype == 'selection'">
+                                                <label t-att-for="model_fields_id.model_fields_id.name">
+                                                    <t t-esc="model_fields_id.model_fields_id.field_description"/>
+                                                </label>
+                                                <select t-att-name="model_fields_id.model_fields_id.name">
+                                                    <t t-foreach="model_fields_id.model_fields_id.selection_ids"
+                                                       t-as="selection">
+                                                        <option t-att-value="selection.value">
+                                                            <t t-esc="selection.name"/>
+                                                        </option>
+                                                    </t>
+                                                </select>
+                                            </div>
+                                            <div class="col-6"
+                                                 t-elif="model_fields_id.model_fields_id.ttype == 'many2one'">
+                                                <label t-att-for="model_fields_id.model_fields_id.name">
+                                                    <t t-esc="model_fields_id.model_fields_id.field_description"/>
+                                                </label>
+                                                <select t-att-name="model_fields_id.model_fields_id.name">
+                                                    <t t-set="many2one"
+                                                       t-value="request.env[model_fields_id.model_fields_id.relation].sudo().search([])"/>
+                                                    <t t-if="model_fields_id.model_fields_id.name == 'carrier_id'">
+                                                        <t t-set="many2one"
+                                                           t-value="request.env[model_fields_id.model_fields_id.relation].sudo().search([('is_company','=',1), ('is_insurance','=',1)])"/>
+                                                    </t>
+                                                    <t t-foreach="many2one" t-as="selection">
+                                                        <option t-att-value="selection.id">
+                                                            <t t-esc="selection.name"/>
+                                                        </option>
+                                                    </t>
+                                                </select>
+                                            </div>
+                                            <div class="col-6"
+                                                 t-elif="model_fields_id.model_fields_id.ttype != 'binary'">
+                                                <span t-field="model_fields_id.model_fields_id.name"/>
+                                            </div>
+                                        </t>
+                                        <t t-set="sequence" t-value="sequence + 1"/>
+                                    </t>
+                                </t>
+                            </div>
+                        </div>
+                        <t t-set="sequence" t-value="0"/>
+                        <div class="col-4 col-lg-4">
+                            <div class="row">
+                                <div class="col-lg-12 col-12"/>
+                                <t t-foreach="form_selection_id.model_fields_ids.sorted(key=lambda m: m.sequence)"
+                                   t-as="model_fields_id">
+                                    <t>
+                                        <t t-if="stop &lt;= sequence">
+                                            <div class="col-6"
+                                                 t-if="model_fields_id.model_fields_id.ttype == 'binary'">
+                                                <label t-att-for="model_fields_id.model_fields_id.name">
+                                                    <t t-esc="model_fields_id.model_fields_id.field_description"/>
+                                                </label>
+                                                <div class="image-upload-wrap">
+                                                    <input class="file-upload-input" type='file'
+                                                           onchange="readURL(this);"
+                                                           t-att-name="model_fields_id.model_fields_id.name"
+                                                           accept="image/*"/>
+                                                    <div class="drag-text">
+                                                        <i class="fa fa-picture-o"/>
+                                                    </div>
+                                                    <div class="file-upload-content">
+                                                        <img class="file-upload-image" src="#" alt="your image"/>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </t>
+                                        <t t-set="sequence" t-value="sequence + 1"/>
+                                    </t>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </t>
+            <t t-elif="form_selection_id.ir_model_id.model == 'acs.consent.form.template'">
+                <!--                <h3><t t-esc="acs_consent_forms" /></h3>-->
+                <div t-foreach="acs_consent_forms" t-as="consent_forms"
+                     t-att-class="form_selection_id.ir_model_id.model.replace('.','_')" style="display:None;">
+                    <div style="border:1px solid black;">
+                        <h2>
+                            <t t-esc="consent_forms.name"/>
+                        </h2>
+                        <h2>
+                            <t t-esc="consent_forms.subject"/>
+                        </h2>
+                        <t t-if="consent_forms.state == 'draft'">
+                            <button style="color:white; background-color:#072e6b;"
+                                    t-attf-onclick="window.location = '/my/consentforms/#{consent_forms.id}?patient_portal=1'">
+                                Review &amp; Sign
+                            </button>
+                        </t>
+                        <t t-elif="consent_forms.state == 'tosign'">
+                            <button style="color:white; background-color:#072e6b;">Sign in progress</button>
+                        </t>
+                        <t t-else="">
+                            <button style="color:white; background-color:#072e6b;">Already Signed</button>
+                        </t>
+                    </div>
+                </div>
+            </t>
+            <t t-else="">
+                <form t-att-name="form_selection_id.ir_model_id.model + '~'"
+                      t-attf-class="#{form_selection_id.ir_model_id.model.replace('.','_')} patient-form"
+                      style="display:None;">
+                    <!--                    <t t-if="form_selection_id.model_name.rfind('(') != -1">-->
+                    <!--                        <h3>-->
+                    <!--                            <t t-esc="form_selection_id.model_name[form_selection_id.model_name.rindex('(')+1:len(form_selection_id.model_name)-1]"/>-->
+                    <!--                        </h3>-->
+                    <!--                    </t>-->
+                    <div class="row">
+                        <t t-foreach="form_selection_id.model_fields_ids.sorted(key=lambda m: m.sequence)"
+                           t-as="model_fields_id">
+                            <t>
+
+                                <div class="col-6" t-if="model_fields_id.display_type == 'line_section'">
+                                    <h1 t-esc="model_fields_id.name"/>
+                                </div>
+                                <div class="col-6" t-if="model_fields_id.model_fields_id.ttype == 'integer'">
+                                    <label t-att-for="model_fields_id.model_fields_id.name">
+                                        <t t-esc="model_fields_id.model_fields_id.field_description"/>
+                                    </label>
+                                    <input t-att-name="model_fields_id.model_fields_id.name" type="number"/>
+                                </div>
+                                <div class="col-6" t-elif="model_fields_id.model_fields_id.ttype == 'char'">
+                                    <label t-att-for="model_fields_id.model_fields_id.name">
+                                        <t t-esc="model_fields_id.model_fields_id.field_description"/>
+                                    </label>
+                                    <t t-if="model_fields_id.model_fields_id.name in ['first_name','last_name']">
+                                        <input t-att-name="model_fields_id.model_fields_id.name" type="text"
+                                               required="required"/>
+                                    </t>
+                                    <t t-else="">
+                                        <input t-att-name="model_fields_id.model_fields_id.name" type="text"/>
+                                    </t>
+                                </div>
+                                <div class="col-6" t-elif="model_fields_id.model_fields_id.ttype == 'boolean'">
+                                    <label t-att-for="model_fields_id.model_fields_id.name">
+                                        <t t-esc="model_fields_id.model_fields_id.field_description"/>
+                                    </label>
+                                    <input t-att-name="model_fields_id.model_fields_id.name" type="checkbox"/>
+                                </div>
+                                <div class="col-6" t-elif="model_fields_id.model_fields_id.ttype == 'date'">
+                                    <label t-att-for="model_fields_id.model_fields_id.name">
+                                        <t t-esc="model_fields_id.model_fields_id.field_description"/>
+                                    </label>
+                                    <t t-if="model_fields_id.model_fields_id.name in ['date_of_birth']">
+                                        <input t-att-name="model_fields_id.model_fields_id.name" type="date"
+                                               required="required"/>
+                                    </t>
+                                    <t t-else="">
+                                        <input t-att-name="model_fields_id.model_fields_id.name" type="date"/>
+                                    </t>
+                                </div>
+                                <div class="col-6" t-elif="model_fields_id.model_fields_id.ttype == 'datetime'">
+                                    <label t-att-for="model_fields_id.model_fields_id.name">
+                                        <t t-esc="model_fields_id.model_fields_id.field_description"/>
+                                    </label>
+                                    <input t-att-name="model_fields_id.model_fields_id.name" type="datetime-local"/>
+                                </div>
+                                <div class="col-6" t-elif="model_fields_id.model_fields_id.ttype == 'binary'">
+                                    <label t-att-for="model_fields_id.model_fields_id.name">
+                                        <t t-esc="model_fields_id.model_fields_id.field_description"/>
+                                    </label>
+                                    <input t-att-name="model_fields_id.model_fields_id.name" type="file"/>
+                                </div>
+                                <div class="col-6" t-elif="model_fields_id.model_fields_id.ttype == 'selection'">
+                                    <label t-att-for="model_fields_id.model_fields_id.name">
+                                        <t t-esc="model_fields_id.model_fields_id.field_description"/>
+                                    </label>
+                                    <select t-att-name="model_fields_id.model_fields_id.name">
+                                        <t t-foreach="model_fields_id.model_fields_id.selection_ids" t-as="selection">
+                                            <option t-att-value="selection.value">
+                                                <t t-esc="selection.name"/>
+                                            </option>
+                                        </t>
+                                    </select>
+                                </div>
+                                <div class="col-6" t-elif="model_fields_id.model_fields_id.ttype == 'many2one'">
+                                    <label t-att-for="model_fields_id.model_fields_id.name">
+                                        <t t-esc="model_fields_id.model_fields_id.field_description"/>
+                                    </label>
+                                    <select t-att-name="model_fields_id.model_fields_id.name">
+                                        <t t-set="many2one"
+                                           t-value="request.env[model_fields_id.model_fields_id.relation].sudo().search([])"/>
+                                        <t t-if="model_fields_id.model_fields_id.name == 'carrier_id'">
+                                            <t t-set="many2one"
+                                               t-value="request.env[model_fields_id.model_fields_id.relation].sudo().search([('is_company','=',1), ('is_insurance','=',1)])"/>
+                                        </t>
+                                        <t t-foreach="many2one" t-as="selection">
+                                            <option t-att-value="selection.id">
+                                                <t t-esc="selection.name"/>
+                                            </option>
+                                        </t>
+                                    </select>
+                                </div>
+                                <div class="col-6" t-else="">
+                                    <span t-field="model_fields_id.model_fields_id.name"/>
+                                </div>
+
+                            </t>
+                        </t>
+                    </div>
+                </form>
+            </t>
+        </t>
+        <br/>
+        <button type="button" class="next" onclick="IntakeNext()" style="display:None; background-color:#072e6b;">Next
+        </button>
+        <div style="display:None;" class="submit">
+            <div t-esc="form_id.completed_message"/>
+            <button type="button" class="submit-btn" onclick="intake_form_submit()">Submit</button>
+        </div>
+    </template>
+</odoo>

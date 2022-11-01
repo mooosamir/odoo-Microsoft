@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="authorization_form_many2one" model="ir.ui.view">
+            <field name="name">authorization.form</field>
+            <field name="model">spec.insurance.authorizations</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group colspan="4" col="4">
+
+                        <field name="authorizations_type"/>
+                        <field name="authorizations_number"/>
+                        <field name="insurance_id" domain="[('partner_id', '=', partner_id),('terminated','=',False)]" context="{'partner_id': partner_id, 'form_view_ref':'ivis_order_grouping.spec_insurance_form_many2one'}"/>
+                        <field name="authorizations_date" required="1"/>
+                        <field name="plan_id"/>
+                        <field name="expiration_date" required="1"/>
+                        <field name="benefit_char" invisible="1"/>
+                        <field name="employee_id" options="{'no_create': True, 'no_open': True}"/>
+                        <field name="partner_id" invisible="1"/>
+                    </group>
+                    <!-- Authorizations -->
+                    <group attrs="{'invisible':[('authorizations_type','!=','authorization')]}">
+                        <group>
+                            <field name="vision_medical" widget="radio" options="{'horizontal': true}" nolabel="1"/>
+                        </group>
+                        <!-- Vision -->
+                        <group colspan="4" attrs="{'invisible':[('vision_medical','!=','vision')]}">
+                            <group>
+                                <field name="exam" attrs="{'required':[('vision_medical','=','vision')]}"/>
+                                <field name="farme" attrs="{'required':[('vision_medical','=','vision')]}"/>
+                                <field name="lenses" attrs="{'required':[('vision_medical','=','vision')]}"/>
+                                <field name="contact_lens" attrs="{'required':[('vision_medical','=','vision')]}"/>
+                            </group>
+                            <group colspan="4">
+                                <group string="Copays">
+                                    <field name="exam_copay"/>
+                                    <field name="medical_copay"/>
+                                    <field name="currency_id" invisible="1"/>
+                                </group>
+                                <group string="Allowance">
+                                    <field name="frame_allowance"/>
+                                    <label for="frame_range" string="Frame Range"/>
+                                    <div class="o_row">
+                                        <field name="frame_range" class="oe_inline"/>
+                                        <label for="frame_range_to" string="to" class="oe_inline"/>
+                                        <field name="frame_range_to" class="oe_inline"/>
+                                    </div>
+                                    <field name="contact_lens_allowance"/>
+                                    <field name="total_allowance"/>
+                                </group>
+                                <group colspan="4" col="4">
+                                    <field name="post_contact_glasses" widget="radio" options="{'horizontal': true}"/>
+                                    <field name="surgery_date"/>
+                                    <field name="referring_provider" domain="[('provide', '=', 'outside_provide')]"/>
+                                </group>
+                            </group>
+                        </group>
+                        <!-- Medical -->
+                        <group colspan="4" attrs="{'invisible':[('vision_medical','!=','medical')]}">
+                            <group string="Benefits" colspan="4">
+                                <group colspan="4" col="6">
+                                    <field name="office_copay"/>
+                                    <field name="deductible_amount"/>
+                                    <field name="remaining_deductible_amount"/>
+                                    <field name="specialist_deductible"/>
+                                    <field name="family_deductible_amount"/>
+                                    <field name="family_remaining_deductible"/>
+                                    <field name="co_insurance"/>
+                                    <field name="out_of_pocket_max"/>
+                                    <field name="remaining_out_pocket_max"/>
+                                </group>
+                                <separator string="Additional Benefits"/>
+                                <group colspan="4" col="6">
+                                    <field name="cataract_co_manage" widget="radio" options="{'horizontal': true}"/>
+                                    <field name="cataract_referring_provider" domain="[('provide', '=', 'outside_provide')]"/>
+                                    <field name="cataract_surgery_date"/>
+                                    <field name="cataract_asm"/>
+                                    <field name="cataract_rql"/>
+                                    <field name="cataract_second_surgery"/>
+                                </group>
+                                <group colspan="4" col="6">
+                                    <field name="yag_co_manage" widget="radio" options="{'horizontal': true}"/>
+                                    <field name="yag_referring_provider" domain="[('provide', '=', 'outside_provide')]"/>
+                                    <field name="yag_surgery_date"/>
+                                    <field name="yag_asm"/>
+                                    <field name="yag_rql"/>
+                                    <field name="yag_second_surgery"/>
+                                </group>
+                            </group>
+                        </group>
+                    </group>
+                    <!-- Referral  -->
+                    <group attrs="{'invisible':[('authorizations_type','!=','referral')]}">
+                        <group colspan="4" col="6">
+                            <field name="referring_physician" domain="[('provide', '=', 'outside_provide')]"/>
+                            <field name="referring_physician_npi" attrs="{'invisible':[('referring_physician','=', False)]}"/>
+                            <field name="referring_physician_tel" attrs="{'invisible':[('referring_physician','=', False)]}"/>
+                            <field name="date_of_vist"/>
+                            <field name="number_of_vist"/>
+                        </group>
+                        <group colspan="4" col="4">
+                            <field name="procedure_code"/>
+                            <field name="diagnosis_code"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="notes"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

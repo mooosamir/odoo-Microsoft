@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="report_action_payment_transactions" model="ir.actions.report">
+        <field name="name">Payment Transactions Report</field>
+        <field name="model">account.payment.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">opt_reports.payment_transactions</field>
+        <field name="report_file">opt_reports.payment_transactions</field>
+        <field name="print_report_name">'Payment Transactions - %s to %s' % (object.from_date, object.to_date)</field>
+        <field name="paperformat_id" ref="opt_reports.portrait_paper_general_format"/>
+    </record>
+
+    <record id="report_action_payment_summary" model="ir.actions.report">
+        <field name="name">Payment Summary Report</field>
+        <field name="model">account.payment.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">opt_reports.payment_summary</field>
+        <field name="report_file">opt_reports.payment_summary</field>
+        <field name="print_report_name">'Payment Summary - %s to %s' % (object.from_date, object.to_date)</field>
+        <field name="paperformat_id" ref="opt_reports.portrait_paper_general_format"/>
+    </record>
+
+    <record id="report_action_product_sales" model="ir.actions.report">
+        <field name="name">Product Sales Report</field>
+        <field name="model">sale.order.line.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">opt_reports.product_sales</field>
+        <field name="report_file">opt_reports.product_sales</field>
+        <field name="print_report_name">'Product Sales - %s to %s' % (object.from_date, object.to_date)</field>
+        <field name="paperformat_id" ref="opt_reports.portrait_paper_general_format"/>
+    </record>
+
+    <record id="report_action_sales_session_report" model="ir.actions.report">
+        <field name="name">Sales Session Report</field>
+        <field name="model">sale.order.session.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">opt_reports.sales_session_report</field>
+        <field name="report_file">opt_reports.sales_session_report</field>
+        <field name="print_report_name">'Sales Session - %s to %s' % (object.from_date, object.to_date)</field>
+        <field name="paperformat_id" ref="opt_reports.portrait_paper_general_format"/>
+    </record>
+
+    <record id="report_action_daily_sales" model="ir.actions.report">
+        <field name="name">Daily Sales Report</field>
+        <field name="model">account.move.line.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">opt_reports.daily_sales</field>
+        <field name="report_file">opt_reports.daily_sales</field>
+        <field name="print_report_name">'Daily Sales - %s' % (object.from_date)</field>
+        <field name="paperformat_id" ref="opt_reports.portrait_paper_general_format"/>
+    </record>
+
+    <record id="report_action_promotions" model="ir.actions.report">
+        <field name="name">Promotions Report</field>
+        <field name="model">sale.order.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">opt_reports.promotions</field>
+        <field name="report_file">opt_reports.promotions</field>
+        <field name="print_report_name">'Promotions - %s to %s' % (object.from_date, object.to_date)</field>
+        <field name="paperformat_id" ref="opt_reports.portrait_paper_general_format"/>
+    </record>
+
+    <record id="report_action_sales_order_discounts" model="ir.actions.report">
+        <field name="name">Sales Order Discounts Report</field>
+        <field name="model">sale.order.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">opt_reports.sales_order_discounts</field>
+        <field name="report_file">opt_reports.sales_order_discounts</field>
+        <field name="print_report_name">'Sales Order Discounts - %s to %s' % (object.from_date, object.to_date)</field>
+        <field name="paperformat_id" ref="opt_reports.portrait_paper_general_format"/>
+    </record>
+
+    <record id="report_action_physician_production" model="ir.actions.report">
+        <field name="name">Provider Production Report</field>
+        <field name="model">sale.order.line.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">opt_reports.physician_production</field>
+        <field name="report_file">opt_reports.physician_production</field>
+        <field name="print_report_name">'Provider Production - %s to %s' % (object.from_date, object.to_date)</field>
+        <field name="paperformat_id" ref="opt_reports.portrait_paper_general_format"/>
+    </record>
+
+    <record id="report_action_sales_tax_report" model="ir.actions.report">
+        <field name="name">Sales Tax Report</field>
+        <field name="model">sale.order.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">opt_reports.sales_tax_report</field>
+        <field name="report_file">opt_reports.sales_tax_report</field>
+        <field name="print_report_name">'Sales Tax Report - %s to %s' % (object.from_date, object.to_date)</field>
+        <field name="paperformat_id" ref="opt_reports.portrait_paper_general_format"/>
+    </record>
+
+    <record id="report_action_post_sale_transactions_report" model="ir.actions.report">
+        <field name="name">Post Sale Transactions Report</field>
+        <field name="model">sale.order.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">opt_reports.post_sale_transactions_report</field>
+        <field name="report_file">opt_reports.post_sale_transactions_report</field>
+        <field name="print_report_name">'Post Sale Transactions - %s to %s' % (object.from_date, object.to_date)</field>
+        <field name="paperformat_id" ref="opt_reports.portrait_paper_general_format"/>
+    </record>
+
+    <record id="report_action_aged_receivables" model="ir.actions.report">
+        <field name="name">Aged Receivables Report</field>
+        <field name="model">sale.order.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">opt_reports.aged_receivables</field>
+        <field name="report_file">opt_reports.aged_receivables</field>
+        <field name="print_report_name">'Aged Receivables - cut of date %s' % (object.to_date)</field>
+        <field name="paperformat_id" ref="opt_reports.portrait_paper_general_format"/>
+    </record>
+
+</odoo>

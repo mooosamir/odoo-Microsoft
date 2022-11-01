@@ -1,0 +1,12 @@
+<odoo>
+    <data>
+        <record id="outside_doctor_dashboard" model="ir.actions.client">
+            <field name="name">Import Outside Doctor</field>
+            <field name="tag">outside_doctor</field>
+            <field name="context">{'no_user_create': 1}</field>
+        </record>
+
+        <menuitem id="menu_outside_doctor_menu" name="Import Outside Doctor" action="outside_doctor_dashboard" sequence="1"
+                  parent="opt_custom.general_configuration_menu" groups="base.group_user"/>
+    </data>
+</odoo>

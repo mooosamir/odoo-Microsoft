@@ -1,0 +1,5 @@
+requests_futures
+twilio
+img2pdf
+fpdf
+stripe

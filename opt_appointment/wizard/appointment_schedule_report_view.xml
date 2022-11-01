@@ -1,0 +1,36 @@
+<odoo>
+	<record id="appointment_report_print_form" model="ir.ui.view">
+	    <field name="name">appointment.report.form</field>
+	    <field name="model">appointment.report</field>
+	    <field name="arch" type="xml">
+            <form>
+                <group col='6' colspan='6'>
+                    <group col='2' colspan='2'>
+                        <field name='employee_id' required='1' 
+                        domain="[('appointment', '=', True), ('doctor', '=', True)]"
+                         options="{'no_open':True,'no_create': True}"/>
+                    </group>
+                    <group col='2' colspan='2'>
+                        <field name='date_from' required='1'/>
+                    </group>
+                    <group col='2' colspan='2'>
+                        <field name='date_to' required='1'/>
+                    </group>
+                </group>
+                <footer class="oe_edit_only">
+                    <button name="action_print_appointment" type="object" string="Print Appointments" class="oe_highlight"/>
+                    <button string="Cancel" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="appointment_report_print_form_action" model="ir.actions.act_window">
+        <field name="name">Appointment Schedule</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">appointment.report</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="appointment_report_print_form"/>
+        <field name="target">new</field>
+    </record>
+</odoo>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <template id="assets_backend" name="Book Appointment Assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+<!--                <script type="text/javascript" src="/opt_appointment/static/src/js/appointment_booking.js"/>-->
+                <link rel="stylesheet" href="/opt_appointment/static/src/css/style.css"/>
+                <link rel="stylesheet" type="text/css" href="/opt_appointment/static/src/scss/style.scss"/>
+<!--                <link rel="stylesheet" href="/opt_appointment/static/src/css/main.min.css"/>-->
+<!--            <script type="text/javascript" src="/opt_appointment/static/src/js/main.min.js"></script>-->
+                <script type="text/javascript" src="/opt_appointment/static/src/js/calendar_view/ResourcePopover.js"></script>
+                <script type="text/javascript" src="/opt_appointment/static/src/js/calendar_view/dashboard_model.js"></script>
+                <script type="text/javascript" src="/opt_appointment/static/src/js/calendar_view/dashboard_controller.js"></script>
+                <script type="text/javascript" src="/opt_appointment/static/src/js/calendar_view/dashboard_renderer.js"></script>
+                <script type="text/javascript" src="/opt_appointment/static/src/js/calendar_view/dashboard_view.js"></script>
+                <script type="text/javascript" src="/opt_appointment/static/src/js/view_registry.js"></script>
+                <script type="text/javascript" src="/opt_appointment/static/src/js/search_bar/search_bar.js"></script>
+                <script type="text/javascript" src="/opt_appointment/static/src/js/search_bar/controlpanel.js"></script>
+                <script type="text/javascript" src="/opt_appointment/static/src/js/list_view/list_controller.js"></script>
+                <script type="text/javascript" src="/opt_appointment/static/src/js/list_view/list_model.js"></script>
+                <script type="text/javascript" src="/opt_appointment/static/src/js/form_view/form_renderer.js"></script>
+            </xpath>
+        </template>
+    </data>
+</odoo>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="stock_scrap_form_view_inherit_got2" model="ir.ui.view">
+        <field name="name">stock.scrap.form.view.inherit.got2</field>
+        <field name="model">stock.scrap</field>
+        <field name="inherit_id" ref="stock.stock_scrap_form_view"/>
+        <field name="arch" type="xml">
+            <field name="product_uom_id" position="replace"/>
+            <field name="package_id" position="replace"/>
+
+
+        </field>
+    </record>
+
+    <menuitem
+        id="menu_stock_scrap"
+        name="Scrap"
+        parent="product_service_child_transaction"
+        action="stock.action_stock_scrap"
+        sequence="99"/>
+</odoo>
+

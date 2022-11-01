@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="payment_token_form_view" model="ir.ui.view">
+        <field name="name">payment.token.form.inherit</field>
+        <field name="model">payment.token</field>
+        <field name="inherit_id" ref="payment.payment_token_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr='//field[@name="acquirer_ref"]' position='after'>
+                <field name="brand"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

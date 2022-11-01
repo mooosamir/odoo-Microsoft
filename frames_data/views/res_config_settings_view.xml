@@ -1,0 +1,23 @@
+<odoo>
+    <record model="ir.ui.view" id="res_config_settings_frames_data_form_view">
+        <field name="name">res.config.settings.frames_data.form</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="100"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('settings')]" position="inside">
+                <div class="app_settings_block" data-string="FramesData" string="FramesData" data-key="FramesData">
+                    <h2>Frames Data</h2>
+                    <div class="col-12 o_setting_box" >
+                        <group colspan="4">
+                            <field name="fd_username"/>
+                            <field name="fd_szipcode"/>
+                            <field name="fd_bzipcode"/>
+                            <field name="fd_locations"/>
+                        </group>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

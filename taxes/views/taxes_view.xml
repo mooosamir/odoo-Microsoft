@@ -1,0 +1,70 @@
+<odoo>
+
+    <record id="new_view_tax_form" model="ir.ui.view">
+        <field name="name">account.tax.form.inherit</field>
+        <field name="model">account.tax</field>
+        <field name="inherit_id" ref="account.view_tax_form"/>
+        <field name="arch" type="xml">
+            <form position="replace">
+                <form>
+                    <group>
+                        <group>
+                            <field name="name"></field>
+                            <field name="amount_type_copy"></field>
+                            <field name="amount_type" invisible="1"/>
+                            <field name="amount" attrs="{'invisible': [('amount_type','!=','percent')]}"></field>
+                        </group>
+
+                        <group>
+                            <field name="type_tax_use"></field>
+                            <field name="active"></field>
+                        </group>
+                    </group>
+                    <field name="children_tax_ids" attrs="{'invisible': [('amount_type','!=','group')]}">
+                        <tree>
+                            <field name="name"/>
+                            <field name="amount_type_copy"/>
+                            <field name="amount"/>
+                        </tree>
+                    </field>
+                </form>
+            </form>
+
+
+        </field>
+    </record>
+
+    <record id="account_tax_tree_inherit" model="ir.ui.view">
+        <field name="name">account.tax.tree.inherit</field>
+        <field name="model">account.tax</field>
+        <field name="inherit_id" ref="account.view_tax_tree"/>
+        <field name="arch" type="xml">
+            <field name='name' position="after">
+                <field name="tax_group_id"/>
+
+            </field>
+            <field name="sequence" position="replace"></field>
+            <field name="type_tax_use" position="replace"></field>
+            <field name="description" position="replace"></field>
+
+
+        </field>
+    </record>
+
+    <record id="action_tax_form" model="ir.actions.act_window">
+        <field name="name">Taxes</field>
+        <field name="res_model">account.tax</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain" eval="False"/> <!-- Force empty -->
+        <field name="context">{'active_test': False}</field>
+        <field name="view_id" ref="account.view_tax_tree"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new tax
+            </p>
+        </field>
+    </record>
+
+    <menuitem action="action_tax_form" id="taxes" sequence="2"
+              parent="opt_custom.general_configuration_menu" name="Taxes"/>
+</odoo>

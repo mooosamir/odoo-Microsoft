@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data noupdate="1">
+	    <record id="opt_invoices" model="ir.module.category">
+	        <field name="name">OPT Invoices</field>
+	    </record>
+
+	    <record id="opt_invoices_create_edit" model="res.groups">
+	        <field name="name">Create/Edit</field>
+	        <field name="category_id" ref="opt_security.opt_invoices"/>
+	    </record>
+	    <record id="opt_invoices_delete" model="res.groups">
+	        <field name="name">Delete</field>
+	        <field name="category_id" ref="opt_security.opt_invoices"/>
+	    </record>
+	    <record id="opt_invoices_generate_payment_link" model="res.groups">
+	        <field name="name">Generate Payment Link</field>
+	        <field name="category_id" ref="opt_security.opt_invoices"/>
+	    </record>
+	    <record id="opt_invoices_share" model="res.groups">
+	        <field name="name">Share</field>
+	        <field name="category_id" ref="opt_security.opt_invoices"/>
+	    </record>
+	    <record id="opt_invoices_reset_to_draft" model="res.groups">
+	        <field name="name">Reset to Draft</field>
+	        <field name="category_id" ref="opt_security.opt_invoices"/>
+	    </record>
+	    <record id="opt_invoices_add_credit_note" model="res.groups">
+	        <field name="name">Add Credit Note</field>
+	        <field name="category_id" ref="opt_security.opt_invoices"/>
+	    </record>
+	    <record id="opt_invoices_manager" model="res.groups">
+	        <field name="name">Manager</field>
+	        <field name="category_id" ref="opt_security.opt_invoices"/>
+			<field name="implied_ids" eval="[(4, ref('opt_security.opt_invoices_create_edit')), (4, ref('opt_security.opt_invoices_delete')),
+				(4, ref('opt_security.opt_invoices_generate_payment_link')), (4, ref('opt_security.opt_invoices_share')),
+				(4, ref('opt_security.opt_invoices_reset_to_draft')), (4, ref('opt_security.opt_invoices_add_credit_note')),
+				]"/>
+	    </record>
+	</data>
+</odoo>

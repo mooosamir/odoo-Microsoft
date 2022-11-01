@@ -1,0 +1,28 @@
+<odoo>
+    <record id="patient_inventory_purchase_opt_custom" model="ir.ui.view">
+	    <field name="name">patient.inventory.purchase</field>
+	    <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="opt_custom.view_purchase_request_quotation_form"/>
+	    <field name="arch" type="xml">
+            <xpath expr="//button[@name='button_cancel']" position="attributes">
+                <attribute name="groups">opt_security.opt_inventory_cancel_request_po</attribute>
+            </xpath>
+            <xpath expr="//button[@name='button_confirm']" position="attributes">
+                <attribute name="groups">opt_security.opt_inventory_confirm_request_po</attribute>
+            </xpath>
+        </field>
+    </record>
+    <record id="patient_inventory_purchase_purchase" model="ir.ui.view">
+	    <field name="name">patient.inventory.purchase</field>
+	    <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+	    <field name="arch" type="xml">
+            <xpath expr="//button[@name='button_cancel']" position="attributes">
+                <attribute name="groups">opt_security.opt_inventory_cancel_request_po</attribute>
+            </xpath>
+            <xpath expr="//button[@name='button_confirm']" position="attributes">
+                <attribute name="groups">opt_security.opt_inventory_confirm_request_po</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

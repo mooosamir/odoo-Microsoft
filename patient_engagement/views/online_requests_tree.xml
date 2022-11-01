@@ -1,0 +1,207 @@
+<odoo>
+    <record id="online_requests_tree" model="ir.ui.view">
+        <field name="name">online.requests.tree</field>
+        <field name="model">online.requests</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="date_of_request"/>
+                <field name="type"/>
+                <field name="patient_name"/>
+                <field name="patient_status"/>
+<!--                Exam-->
+                <field name="appointment_datetime"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="online_requests_form" model="ir.ui.view">
+        <field name="name">online.requests.form</field>
+        <field name="model">online.requests</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="new_schedule" type="object" states="new" string="Schedule" class="oe_highlight"/>
+                    <button name="delete_schedule" type="object" states="cancel" string="Delete" class="oe_highlight"/>
+                    <button name="re_schedule" type="object" states="reschedule" string="Reschedule" class="oe_highlight"/>
+                    <field name="state" widget="statusbar" statusbar_visible="scheduled,rescheduled"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group attrs="{'readonly': [('state','in',['scheduled','rescheduled','deleted'])]}">
+                            <field name="type"/>
+                            <field name="re_schedule_id" states="reschedule"/>
+                            <field name="date_of_request"/>
+                            <field name="time_of_request" class="oe_inline" options="{'datepicker': {'stepping': 5}}" widget="timepicker"/>
+                            <field name="service_id" options="{'no_open': True, 'no_create': True}"/>
+
+                            <field name="appointment_type"/>
+                            <field name="appointment_doctor" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="appointment_date"/>
+                            <field name="appointment_time" class="oe_inline" options="{'datepicker': {'stepping': 5}}" widget="timepicker"/>
+                        </group>
+                        <group attrs="{'readonly': [('state','in',['scheduled','rescheduled','deleted'])]}">
+                            <field name="company_id"/>
+                            <field name="patient_name"/>
+                            <field name="patient_mobile"/>
+                            <field name="patient_dob"/>
+                            <field name="patient_email"/>
+                            <field name="patient_status"/>
+                            <field name="contacts_status"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="online_requests_search" model="ir.ui.view">
+        <field name="name">online.requests.search</field>
+        <field name="model">online.requests</field>
+        <field name="arch" type="xml">
+            <search>
+                <filter name="Yesterday" string="Yesterday" domain="[('date_of_request', '=', datetime.datetime.now()+relativedelta(days=-1))]"/>
+                <filter name="Today" string="Today" domain="[('date_of_request', '=', datetime.datetime.now())]"/>
+                <filter name="Tomorrow" string="Tomorrow" domain="[('date_of_request', '=', datetime.datetime.now()+relativedelta(days=1))]"/>
+                <filter name="Next 7 days" string="Next 7 days" domain="[('date_of_request', '&gt;=', datetime.datetime.now()),
+                ('date_of_request', '&lt;=', datetime.datetime.now()+relativedelta(days=6))]"/>
+                <filter name="This month" string="This month" domain="[('date_of_request', '&gt;=', datetime.datetime.now()+relativedelta(day=1)),
+                ('date_of_request', '&lt;=', datetime.datetime.now()+relativedelta(months=1))]"/>
+                <filter name="This year" string="This year" domain="[('date_of_request', '&gt;=', datetime.datetime.now()+relativedelta(day=1)+relativedelta(month=1)),
+                ('date_of_request', '&lt;=', datetime.datetime.now()+relativedelta(months=13))]"/>
+                <separator/>
+                <filter name="New" string="New" domain="[('type', '=', 'New Appointment Request')]"/>
+                <filter name="Reschedule" string="Reschedule" domain="[('type', '=', 'Appointment Reschedule Request')]"/>
+                <filter name="Cancel" string="Cancel" domain="[('type', '=', 'Cancel Appointment Request')]"/>
+                <separator/>
+                <filter name="scheduled" string="scheduled" domain="[('state', '=', 'scheduled')]"/>
+                <filter name="deleted" string="deleted" domain="[('state', '=', 'deleted')]"/>
+                <group string="Group By">
+                    <filter name="Date" string="Date" context="{'group_by': 'date_of_request'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="online_requests_kanban" model="ir.ui.view">
+        <field name="name">online.requests.kanban</field>
+        <field name="model">online.requests</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="appointment_datetime"/>
+                <field name="type"/>
+                <field name="state"/>
+                <field name="online_schedule"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click online_requests_kanban">
+                         <div class="container online.requests.kanban">
+                            <div class="row mb4">
+                                <div class="col-lg-3">
+                                    <t t-if="record.state.value == 'new'">
+                                        <span t-esc="record.state.value" style="color:orange;" class="color_orange"/>
+                                    </t>
+                                    <t t-elif="record.state.value == 'scheduled'">
+                                       <span t-esc="record.state.value" style="color:green;" class="color_green"/>
+                                    </t>
+                                    <t t-else="">
+                                       <field name="state"/>
+                                    </t>
+                                </div>
+                                <div class="col-lg-9">
+                                    <field name="date_of_request"/>
+                                    <field name="time_of_request"/>
+                                </div>
+                            </div>
+                            <div class="row mb4">
+                                <div class="col-lg-5">
+                                    <b style="text-decoration: underline;">Patient Name</b>
+                                    <field name="patient_name"/>
+                                </div>
+                                <div class="col-lg-4">
+                                    <b style="text-decoration: underline;">DOB</b>
+                                    <field name="patient_dob"/>
+                                </div>
+                                <div class="col-lg-3">
+                                    <b style="text-decoration: underline;">New Patient?</b>
+                                    <field name="patient_status"/>
+                                </div>
+                            </div>
+                            <div class="row mb4">
+                                <div class="col-lg-4">
+                                    <b style="text-decoration: underline;">Mobile</b>
+                                    <field name="patient_mobile"/>
+                                </div>
+                                <div class="col-lg-5">
+                                    <b style="text-decoration: underline;">Email</b>
+                                    <field name="patient_email"/>
+                                </div>
+                                <div class="col-lg-3">
+                                    <b style="text-decoration: underline;">Contacts?</b>
+                                    <field name="contacts_status"/>
+                                </div>
+                            </div>
+                            <hr/>
+                            <div class="row mb4">
+                                <div class="col-lg-9">
+                                    <b>Appointment Details</b>
+                                </div>
+                                <div class="col-lg-3 text-right">
+                                    <button name="contact_patient" type="object">Contact Patient</button>
+<!--                                    <br/><span>remove </span><field name="is_removed" widget="boolean_toggle"/>-->
+                                </div>
+                            </div>
+                            <div class="row mb4">
+                                <div class="col-lg-4">
+                                    <span style="text-decoration: underline;">Service Requested</span>
+                                </div>
+                                <div class="col-lg-4">
+                                    <field name="service_id"/>
+                                </div>
+                                <div class="col-lg-4 text-right">
+                                    <t t-if="!record.online_schedule.raw_value">
+                                        <button name="new_schedule" type="object" states="new">Schedule</button><br/>
+                                    </t>
+                                </div>
+                            </div>
+                            <div class="row mb4">
+                                <div class="col-lg-4">
+                                    <span style="text-decoration: underline;">Date/Time Requested</span>
+                                </div>
+                                <div class="col-lg-4">
+                                    <field name="appointment_date"/>
+                                    <field name="appointment_time"/>
+                                </div>
+                                <div class="col-lg-4 text-right">
+                                    <button name="remove_schedule" type="object" states="new">Remove</button><br/>
+                                </div>
+                            </div>
+                            <div class="row mb4">
+                                <div class="col-lg-4">
+                                    <span style="text-decoration: underline;">Provider</span>
+                                </div>
+                                <div class="col-lg-4">
+                                    <field name="appointment_doctor"/>
+                                </div>
+                                <div class="col-lg-4">
+                                </div>
+                            </div>
+                         </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="online_requests_action" model="ir.actions.act_window">
+        <field name="name">Online Requests</field>
+        <field name="res_model">online.requests</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="domain">[['state','!=', 'deleted'],['state','!=', 'removed'], ['active','!=', False]]</field>
+        <field name="search_view_id" ref="online_requests_search"/>
+    </record>
+
+    <menuitem id="online_requests_menuitem" action="online_requests_action" name='Online Requests'
+              parent="appointments_menuitem" sequence="2"/>
+</odoo>

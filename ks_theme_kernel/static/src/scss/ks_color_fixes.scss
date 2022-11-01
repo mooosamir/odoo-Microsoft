@@ -1,0 +1,106 @@
+// option {
+//     &:hover {
+//         background-color : $primary !important;
+//     }
+// }
+
+
+*{
+    select option:hover {
+        background-color : $primary !important;
+    }
+}
+
+#o_employee_right {
+    // ORGANIGRAM DESIGN
+    .o_org_chart_entry {
+        &.o_org_chart_entry_self {
+            .o_media_object {
+                border-color: $primary;
+            }
+        }
+    }
+}
+
+.tooltip .tooltip-inner .oe_tooltip_string {
+    background-color: $primary;
+}
+
+.o_form_view .o_form_statusbar > .o_statusbar_status > .o_arrow_button.btn-primary.disabled {
+    color: $primary;
+}
+
+.o_kanban_view.o_kanban_dashboard {
+    &.o_hr_recruitment_kanban {
+        .ribbon {
+            span {
+                background-color: $primary;
+            }
+        }
+    }
+}
+
+.daterangepicker {
+    .drp-calendar {
+        .calendar-table {
+            thead {
+                tr:first-child {
+                // color: #FFFFFF;
+                    background-color: $primary;
+                }
+            }
+        }
+    }
+}
+
+.o_lunch_kanban {
+    .o_lunch_purple {
+        color: $primary;
+    }
+}
+
+.o_thread_window {
+    .o_thread_window_header {
+        background-color: $primary;
+    }
+}
+
+.o_onboarding {
+    .o_onboarding_step {
+        .o_onboarding_progress {
+            .progress-bar {
+                background-image: linear-gradient(90deg, $o-brand-primary, $primary);
+            }
+        }
+        &.o_onboarding_current {
+            .o_onboarding_dot {
+                background: $primary;
+            }
+        }
+    }
+}
+
+
+
+//---------------------------------------------------------//
+
+// For appdrawer app text visibility
+.ks-main-app-dropdown {
+    background:
+        linear-gradient(
+          rgba(0, 0, 0, 0.6),
+          rgba(0, 0, 0, 0.6)
+        ),
+        url("/appdrawer/background") cover !important;
+}
+
+.ks-menu-apps .dropdown-menu .o_app .ks-app-name {
+    color: white;
+}
+
+
+
+//----------SOme Other Fixes-------------//
+.o_field_widget.o_field_many2manytags .badge .o_delete {
+    padding-top: 3px;
+}

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data noupdate="1">
+	    <record id="opt_products" model="ir.module.category">
+	        <field name="name">OPT Products</field>
+	    </record>
+
+	    <record id="opt_products_create_edit" model="res.groups">
+	        <field name="name">Create/Edit</field>
+	        <field name="category_id" ref="opt_security.opt_products"/>
+	    </record>
+	    <record id="opt_products_delete" model="res.groups">
+	        <field name="name">Delete</field>
+	        <field name="category_id" ref="opt_security.opt_products"/>
+	    </record>
+	    <record id="opt_products_import_export" model="res.groups">
+	        <field name="name">Import/Export</field>
+	        <field name="category_id" ref="opt_security.opt_products"/>
+	    </record>
+	    <record id="opt_products_archive" model="res.groups">
+	        <field name="name">Archive</field>
+	        <field name="category_id" ref="opt_security.opt_products"/>
+	    </record>
+	    <record id="opt_products_duplicate" model="res.groups">
+	        <field name="name">Duplicate</field>
+	        <field name="category_id" ref="opt_security.opt_products"/>
+	    </record>
+	    <record id="opt_products_synchronize" model="res.groups">
+	        <field name="name">Synchronize</field>
+	        <field name="category_id" ref="opt_security.opt_products"/>
+	    </record>
+	    <record id="opt_products_manager" model="res.groups">
+	        <field name="name">Manager</field>
+	        <field name="category_id" ref="opt_security.opt_products"/>
+			<field name="implied_ids" eval="[(4, ref('opt_security.opt_products_create_edit')), (4, ref('opt_security.opt_products_delete')),
+				(4, ref('opt_security.opt_products_import_export')), (4, ref('opt_security.opt_products_archive')),
+				(4, ref('opt_security.opt_products_duplicate')), (4, ref('opt_security.opt_products_synchronize')),
+				]"/>
+	    </record>
+	</data>
+</odoo>

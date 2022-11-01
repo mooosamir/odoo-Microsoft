@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="calendar_event_from_patient_form" model="ir.ui.view">
+        <field name="name">calendar.event.from.patient.form</field>
+        <field name="model">calendar.event</field>
+        <field name="arch" type="xml">
+            <tree string="Appointment" decoration-bf="message_needaction==True" create="0" export_xlsx="0">
+                <field name="message_needaction" invisible="1"/>
+                <field name="start_datetime" string="Start Date Time" options="{'custom_time_format': 'hh:mm A'}"
+                       readonly="1"/>
+                <field name="service_type" string="Service" readonly="1"/>
+                <field name="insurance_id" string="Insurance" readonly="1"/>
+                <field name="employee_id" readonly="1"/>
+                <field name="confirmation_status" string='Confirmation'/>
+                <field name="appointment_status" string='Status'/>
+                <field name="notes" string="Notes" readonly="0"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_calendar_event_appointment_tree" model="ir.ui.view">
+        <field name="name">view.calendar.event.appointment.tree</field>
+        <field name="model">calendar.event</field>
+        <field name="arch" type="xml">
+            <tree string="Appointment" decoration-bf="message_needaction==True" create="0" editable="top"
+                  export_xlsx="0">
+                <field name="patient_id" string="Patient" readonly="1"/>
+                <field name='age' readonly="1"/>
+                <field name='phone' readonly="1"/>
+                <field name='local_start_datetime' string="Start Date Time" readonly="1"/>
+                <field name="start_datetime" string="Start Date Time" options="{'custom_time_format': 'hh:mm A'}"
+                       readonly="1" invisible="1"/>
+                <field name="service_type" string="Service" readonly="1"/>
+                <field name="employee_id" readonly="1"/>
+                <field name="appointment_status" string='Appointment Status'/>
+                <field name="confirmation_status" string='Confirmation Status'/>
+                <field name="notes" string="Notes" readonly="0"/>
+                <field name="insurance_id" readonly="1"/>
+                <field name="message_needaction" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_opt_appointment_event_search" model="ir.ui.view">
+        <field name="name">opt_appointment.calendar.event.search</field>
+        <field name="model">calendar.event</field>
+        <field name="arch" type="xml">
+            <search>
+                <filter name="confirmation_status1" string="None" domain="[('confirmation_status', '=', 'none')]"/>
+                <filter name="confirmation_status2" string="Left Message"
+                        domain="[('confirmation_status', '=', 'left_message')]"/>
+                <filter name="confirmation_status3" string="Not Available"
+                        domain="[('confirmation_status', '=', 'not_available')]"/>
+                <filter name="confirmation_status4" string="Confirmed"
+                        domain="[('confirmation_status', '=', 'confirmed')]"/>
+                <separator/>
+                <group string="Group By">
+                    <filter name="today_filter" string="Today" context="{'group_by': 'start_datetime'}"/>
+                    <!--                    <filter string="Privacy" name="privacy" domain="[]" context="{'group_by': 'privacy'}"/>-->
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_calendar_event_form_appointment_1" model="ir.ui.view">
+        <field name="name">view.calendar.event.form.appointment.a</field>
+        <field name="model">calendar.event</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <field name="state" invisible="1"/>
+                    <field name="active" invisible="1"/>
+                    <field name="start" invisible="1"/>
+                    <field name="stop" invisible="1"/>
+                    <field name="id" invisible="1"/>
+                    <field name="appointment_type" invisible="1"/>
+                    <field name="start" attrs="{'invisible': True}"/>
+                    <field name="stop" attrs="{'invisible': True}"/>
+                    <field name="id" attrs="{'invisible': True}"/>
+                    <field name="company_event_tz" readonly="1" invisible="1"/>
+                    <field name="start_datetime" required='1' options="{'custom_time_format': 'hh:mm A'}"
+                           string="Appointment Date"
+                           attrs="{'readonly': [('id', '!=', False), ('recurrency','=',True)]}" invisible="1"/>
+                    <field name="stop_datetime" invisible="1"/>
+
+                    <group>
+                        <group>
+                            <!--                            <field name="name"/>-->
+                            <field name="patient_id" required="1" domain="[('patient', '=', True)]"
+                                   context="{'form_view_ref': 'opt_custom.view_patent_profile_form', 'default_patient': True, 'new_size':'max-width_1180px'}"/>
+                            <field name="age"/>
+                            <field name="service_type" required="1" options='{"no_open": True, "no_create": True}'/>
+                            <!--                            <field name="insurance_id" options='{"no_open": True, "no_create": True}'-->
+                            <!--                                   domain="[('partner_id', '=', patient_id)]"/>-->
+                            <field name="phone"/>
+                            <!--                            <field name="branch_id" options='{"no_open": True, "no_create": True}' readonly="1"/>-->
+                            <field name="employee_id" options='{"no_open": True, "no_create": True}'
+                                   domain="[('appointment', '=', True), '|',  ('doctor', '=', True), ('is_outside_doctor', '=', True)]"
+                                   readonly="0"/>
+                            <field name="preferred_location_id" options='{"no_open": True, "no_create": True}'
+                                   readonly="1"/>
+                            <field name="local_start_datetime" widget="char_datetime_widget"
+                                       options="{'field':'start_datetime'}" string="Date/Time"/>
+                            <field name="duration" widget="float_time" string="Duration" class="oe_inline"/>
+                            <field name="recurrency" style="float: right;"/>
+                            <field name="telehealth" style="float: right;"/>
+                            <field name="pre_appointment" style="float: right;"/>
+                        </group>
+                        <group col="2">
+                            <group string="Confirmation Status">
+                                <field name="confirmation_status" widget="radio" nolabel="1"/>
+                            </group>
+                            <group string="Appointment Status">
+                                <field name="appointment_status" widget="radio" nolabel="1"/>
+                            </group>
+                            <group col="2" colspan="2">
+                                <field name="notes" class="text_box_height" strind="Appointment Notes"/>
+                            </group>
+                        </group>
+                    </group>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-6 no_theme_label">
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-6 no_theme_label">
+                            <div style="width: 100%;">
+                                <h5>
+                                    <div>
+                                        <table style="width: 100%;">
+                                            <tr>
+                                                <td width='33%' class="patient_balance">
+                                                    <label for="" string="Patient Balance: "/>
+                                                </td>
+                                                <td width='14%'>
+                                                </td>
+                                                <td width='33%'>
+                                                    <label for="" string="Cancellations: "/>
+                                                    <field name="cancellations_count" readonly="1"/>
+                                                </td>
+                                                <td width='5%'>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width='40%' class="family_balance">
+                                                    <label for="" string="Family Balance: "/>
+                                                </td>
+                                                <td width='14%'>
+                                                </td>
+                                                <td width='40%'>
+                                                    <label for="" string="No Shows: "/>
+                                                    <field name="no_shows_count" readonly="1"/>
+                                                </td>
+                                                <td width='5%'>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width='40%'>
+                                                </td>
+                                                <td width='14%'>
+                                                </td>
+                                                <td width='40%'>
+                                                    <label for="" string="Reschedule: "/>
+                                                    <field name="reschedule_count" readonly="1"/>
+                                                </td>
+                                                <td width='5%'>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+
+                    <group attrs="{'invisible': [('recurrency', '=', False)]}">
+                        <group>
+                            <label for="interval"/>
+                            <div class="o_row">
+                                <field name="interval" attrs="{'required': [('recurrency', '=', True)]}"/>
+                                <field name="rrule_type" attrs="{'required': [('recurrency', '=', True)]}"/>
+                            </div>
+                            <label string="Until" for="end_type"/>
+                            <div class="o_row">
+                                <field name="end_type" attrs="{'required': [('recurrency', '=', True)]}"/>
+                                <field name="count"
+                                       attrs="{'invisible': [('end_type', '!=', 'count')], 'required': [('recurrency', '=', True)]}"/>
+                                <field name="final_date"
+                                       attrs="{'invisible': [('end_type', '!=', 'end_date')], 'required': [('end_type', '=', 'end_date'), ('recurrency', '=', True)]}"/>
+                            </div>
+                        </group>
+                        <group col="1" attrs="{'invisible': [('rrule_type', '!=', 'weekly')]}" name="weekdays">
+                            <table style="width:100%;" col="1">
+                                <tr>
+                                    <td style="display: table-cell;">
+                                        <label for="mo" style="font-weight: bold;"/>
+                                    </td>
+                                    <td style="display: table-cell;">
+                                        <field name="mo" nolabel="1"
+                                               style="float: right;"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="display: table-cell;">
+                                        <label for="tu" style="font-weight: bold;"/>
+                                    </td>
+                                    <td style="display: table-cell;">
+                                        <field name="tu" nolabel="1"
+                                               style="float: right;"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="display: table-cell;">
+                                        <label for="we" style="font-weight: bold;"/>
+                                    </td>
+                                    <td style="display: table-cell;">
+                                        <field name="we" nolabel="1"
+                                               style="float: right;"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="display: table-cell;">
+                                        <label for="th" style="font-weight: bold;"/>
+                                    </td>
+                                    <td style="display: table-cell;">
+                                        <field name="th" nolabel="1"
+                                               style="float: right;"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="display: table-cell;">
+                                        <label for="fr" style="font-weight: bold;"/>
+                                    </td>
+                                    <td style="display: table-cell;">
+                                        <field name="fr" nolabel="1"
+                                               style="float: right;"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="display: table-cell;">
+                                        <label for="sa" style="font-weight: bold;"/>
+                                    </td>
+                                    <td style="display: table-cell;">
+                                        <field name="sa" nolabel="1"
+                                               style="float: right;"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="display: table-cell;">
+                                        <label for="su" style="font-weight: bold;"/>
+                                    </td>
+                                    <td style="display: table-cell;">
+                                        <field name="su" nolabel="1"
+                                               style="float: right;"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </group>
+                        <group attrs="{'invisible': [('rrule_type', '!=', 'monthly')]}">
+                            <label string="Day of Month" for="month_by"/>
+                            <div class="o_row">
+                                <field name="month_by"/>
+                                <field name="day"
+                                       attrs="{'required': [('month_by', '=', 'date'), ('rrule_type', '=', 'monthly')],
+                                            'invisible': [('month_by', '!=', 'date')]}"/>
+                                <field name="byday" string="The"
+                                       attrs="{'required': [('recurrency', '=', True), ('month_by', '=', 'day'), ('rrule_type', '=', 'monthly')],
+                                            'invisible': [('month_by', '!=', 'day')]}"/>
+                                <field name="week_list" nolabel="1"
+                                       attrs="{'required': [('recurrency', '=', True), ('month_by', '=', 'day'), ('rrule_type', '=', 'monthly')],
+                                            'invisible': [('month_by', '!=', 'day')]}"/>
+                            </div>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_calendar_event_calendar_appointment" model="ir.ui.view">
+        <field name="name">calendar.event.calendar.appointment</field>
+        <field name="model">calendar.event</field>
+        <field name="inherit_id" ref="calendar.view_calendar_event_calendar"/>
+        <field name="arch" type="xml">
+            <calendar js_class="attendee_calendar" position="attributes">
+                <attribute name="string">Appointment</attribute>
+            </calendar>
+        </field>
+    </record>
+
+    <!--commented this record because unbale to upgrade other related modules-->
+    <record id="view_calendar_event_appointment_dash_board" model="ir.ui.view">
+        <field name="name">view.calendar.event.appointment.dashboard</field>
+        <field name="model">calendar.event</field>
+        <field name="arch" type="xml">
+            <dashboard string="Appointment" date_start="start" date_stop="stop" date_delay="duration" all_day="allday"
+                       event_open_popup="true"
+                       event_limit="5"
+                       color="partner_id">
+                <field name="start" string="Start Date Time"/>
+            </dashboard>
+        </field>
+    </record>
+
+    <record id="action_calendar_event_appointment" model="ir.actions.act_window">
+        <field name="name">Appointment</field>
+        <field name="res_model">calendar.event</field>
+        <field name="view_mode">tree,form</field>
+        <field name='context'>{'default_appointment_type' : 'appointment', 'search_default_Today': 1, 'virtual_id':False}</field>
+        <field name='domain'>[('appointment_type', '=', 'appointment')]</field>
+        <field name="view_id" ref="view_calendar_event_calendar_appointment"/>
+        <field name="search_view_id" ref="view_opt_appointment_event_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No Appointment Found.
+            </p>
+        </field>
+    </record>
+
+    <record id="action_view_calendar_event_tree_appointment" model="ir.actions.act_window.view">
+        <field name="act_window_id" ref="action_calendar_event_appointment"/>
+        <field name="sequence" eval="2"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_calendar_event_appointment_tree"/>
+        <!--        <field name="domain">[('start_datetime', '=',-->
+        <!--            datetime.strptime(str(datetime.now())[:10] + ' ' + '00:00:00', "%Y-%m-%d %H:%M:%S"))]</field>-->
+        <!--        <field name="domain">['&amp;', ('start_datetime', '>=',-->
+        <!--            datetime.strptime(str(datetime.now())[:10] + ' ' + '00:00:00', "%Y-%m-%d %H:%M:%S")),-->
+        <!--            ('start_datetime', &lt;=', datetime.strptime(str(datetime.now())[:10] + ' ' + '23:59:59', "%Y-%m-%d %H:%M:%S"))]</field>-->
+    </record>
+
+        <!--commented this record because unbale to upgrade other related modules-->
+    <record id="action_view_calendar_event_tree_appointment22" model="ir.actions.act_window.view">
+        <field name="act_window_id" ref="action_calendar_event_appointment"/>
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">dashboard</field>
+        <field name="view_id" ref="view_calendar_event_appointment_dash_board"/>
+    </record>
+
+    <record id="action_view_calendar_event_form_appointment" model="ir.actions.act_window.view">
+        <field name="act_window_id" ref="action_calendar_event_appointment"/>
+        <field name="sequence" eval="3"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_calendar_event_form_appointment_1"/>
+    </record>
+
+    <menuitem id="appointment_menu_appointment" name="Appointment" sequence="2"/>
+    <menuitem id="appointments_menu" action="action_calendar_event_appointment"
+              parent="appointment_menu_appointment" sequence="1"/>
+
+
+</odoo>

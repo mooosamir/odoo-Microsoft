@@ -1,0 +1,20 @@
+<odoo>
+    <data>
+        <template id="stripe_returns">
+            <t t-foreach="account_payment_ids" t-as="account_payment_id">
+                <tr>
+                    <td><t t-esc="account_payment_id.payment_transaction_id.date"/></td>
+                    <td><t t-esc="account_payment_id.communication"/></td>
+                    <td><t t-esc="account_payment_id.amount_remaining"/></td>
+<!--                    <td><t t-esc="account_payment_id.payment_transaction_id.acquirer_reference"/></td>-->
+                    <td><t t-esc="account_payment_id.payment_token_id.name[-4:]"/></td>
+                    <td><t t-esc="account_payment_id.payment_token_id.brand"/></td>
+<!--                    <td><t t-esc="account_payment_id.payment_transaction_id.amount"/></td>-->
+                    <td t-if="account_payment_id.amount_remaining != 0">
+                        <button type="button" class="button btn btn-primary return" t-att-data-id="account_payment_id.id" style="border-radius: 20px;margin: 2px;">Return</button>
+                    </td>
+                </tr>
+            </t>
+        </template>
+    </data>
+</odoo>

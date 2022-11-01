@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_theme_setting,theme.setting,model_theme_setting,,1,1,1,1
+access_theme_setting_home,theme.setting.home,model_ks_home_view,,1,1,1,1
+access_theme_setting_mode,theme.setting.mode,model_ks_color_mode,,1,1,1,1
+access_theme_setting_company,theme.setting.company,model_ks_color_company,,1,1,1,1
+access_theme_setting_favourite,theme.setting.favourite,model_ks_favourite_menu,,1,1,1,1
+access_theme_singleton_icon,ks.menu.icon.singleton,model_ks_menu_icon_singleton,,1,1,1,1
+

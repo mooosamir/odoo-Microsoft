@@ -1,0 +1,8 @@
+access_spec_era_auto_adjustment,access_spec_era_auto_adjustment,model_spec_era_auto_adjustment,base.group_user,1,1,1,1
+access_spec_formulary_procedure_grouping,access_spec_formulary_procedure_grouping,model_spec_formulary_procedure_grouping,base.group_user,1,1,1,1
+access_spec_procedure_code_line,access_spec_procedure_code_line,model_spec_procedure_code_line,base.group_user,1,1,1,1
+access_spec_copy_cms_setting,access_spec_copy_cms_setting,model_spec_copy_cms_setting,base.group_user,1,1,1,1
+access_claim_manager,access_claim_manager,model_claim_manager,base.group_user,1,1,1,1
+access_claim_line,access_claim_line,model_claim_line,base.group_user,1,1,1,1
+access_transmission_type,access_transmission_type,model_transmission_type,base.group_user,1,1,1,1
+access_claim_supplemental_information,access_claim_supplemental_information,model_claim_supplemental_information,base.group_user,1,1,1,1

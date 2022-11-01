@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+
+    <record id="action_patient_form" model="ir.actions.act_window">
+        <field name="name">Patient Form</field>
+        <field name="res_model">patient.form.line</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new Patient
+            </p>
+        </field>
+    </record>
+    <menuitem action="action_patient_form" id="patient_form" parent="opt_custom.patient_engagement_configuration_menu"
+              name="Patient Form" sequence="3"/>
+</odoo>

@@ -1,0 +1,15 @@
+.returns table, .returns tr, .returns td{
+    border: 1px solid black
+}
+.o_is_line_section , .o_is_line_section .o_section_and_note_text_cell{
+    padding-left: 0px !important;
+}
+.post_sale_return_ribbon .bg-success{
+    padding-left: 16px;
+    padding-top: 58px;
+    z-index: 1;
+    margin-left: -13px;
+}
+.post_sale_ribbon .bg-success{
+    z-index: 2;
+}

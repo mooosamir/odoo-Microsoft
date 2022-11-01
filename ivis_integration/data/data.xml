@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="1">
+        <record id="frames_data" model="res.integration">
+            <field name="name">Frames Data</field>
+            <field name="res_integration_lines" eval="[(0, 0, {'key':'username', 'value': ''}),
+            (0, 0, {'key':'szipcode', 'value': ''}),(0, 0, {'key':'bzipcode' , 'value': ''}),
+            (0, 0, {'key':'locations' , 'value': ''})]"/>
+        </record>
+
+        <record id="twilio" model="res.integration">
+            <field name="name">Twilio</field>
+            <field name="res_integration_lines" eval="[(0, 0, {'key':'Account Sid', 'value': ''}),
+            (0, 0, {'key':'Auth Token', 'value': ''}),(0, 0, {'key':'From number', 'value': ''}),
+            (0, 0, {'key':'Website Address', 'value': ''}),(0, 0, {'key':'Message Outgoing WebHook', 'value': ''}),
+            (0, 0, {'key':'Call Outgoing WebHook', 'value': ''}),(0, 0, {'key':'Message Incoming WebHook', 'value': ''}),
+            (0, 0, {'key':'Call Incoming WebHook', 'value': ''})]"/>
+        </record>
+
+        <record id="vision_web" model="res.integration">
+            <field name="name">Vision Web</field>
+            <field name="res_integration_lines" eval="[(0, 0, {'key':'username', 'value': ''}),
+            (0, 0, {'key':'password', 'value': ''}),(0, 0, {'key':'sloid', 'value': ''})]"/>
+        </record>
+
+        <record id="stripe" model="res.integration">
+            <field name="name">Stripe</field>
+            <field name="res_integration_lines" eval="[(0, 0, {'key':'Secret Key', 'value': ''}),
+            (0, 0, {'key':'Publishable Key', 'value': ''})]"/>
+        </record>
+    </data>
+</odoo>

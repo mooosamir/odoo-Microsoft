@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record model="appointment.status.wizard" id="appointment_status_wizard_1">
+        <field name="name">Scheduled</field>
+        <field name="code">none</field>
+    </record>
+    <record model="appointment.status.wizard" id="appointment_status_wizard_2">
+        <field name="name">No Show</field>
+        <field name="code">no_show</field>
+    </record>
+    <record model="appointment.status.wizard" id="appointment_status_wizard_3">
+        <field name="name">Checked In</field>
+        <field name="code">checked_in</field>
+    </record>
+    <record model="appointment.status.wizard" id="appointment_status_wizard_4">
+        <field name="name">Checked Out</field>
+        <field name="code">checked_out</field>
+    </record>
+    <record model="appointment.status.wizard" id="appointment_status_wizard_5">
+        <field name="name">Walk In</field>
+        <field name="code">walk_in</field>
+    </record>
+    <record model="appointment.status.wizard" id="appointment_status_wizard_6">
+        <field name="name">Rescheduled</field>
+        <field name="code">rescheduled</field>
+    </record>
+    <record model="appointment.status.wizard" id="appointment_status_wizard_7">
+        <field name="name">Cancelled</field>
+        <field name="code">cancel</field>
+    </record>
+</odoo>

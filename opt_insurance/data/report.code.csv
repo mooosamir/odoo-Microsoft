@@ -1,0 +1,42 @@
+id,name
+report_code_1,Benchmark Testing Results
+report_code_2,Baseline
+report_code_3,Blanket Test Results
+report_code_4,Chiropractic Justification
+report_code_5,Consent Form(s)
+report_code_6,Certification
+report_code_7,Drug Profile Document
+report_code_8,Dental Models
+report_code_9,Durable Medical Equipment Description
+report_code_10,Diagnostic Report
+report_code_11,Discharge Monitoring Report
+report_code_12,Discharge Summary
+report_code_13,Explanation of Benefits (Coordination of Benefits or Medicare Secondary Payer)
+report_code_14,Health Certificate HR Health Clinic Records
+report_code_15,Immunization Record
+report_code_16,State School Immunization Records
+report_code_17,Laboratory Results
+report_code_18,Medical Record Attachment
+report_code_19,Models
+report_code_20,Nursing Notes
+report_code_21,Operative Note
+report_code_22,Oxygen Content Averaging Report
+report_code_23,Orders and Treatments Document
+report_code_24, Objective Physical Examination (including vital signs) Document
+report_code_25,Oxygen Therapy Certification
+report_code_26,Support Data for Claim
+report_code_27,Pathology Report
+report_code_28,Patient Medical History Document
+report_code_29,Parenteral or Enteral Certification
+report_code_30,Physical Therapy Notes
+report_code_31,Prosthetics or Orthotic Certification
+report_code_32,Paramedical Results
+report_code_33,Physician's Report
+report_code_34,Physical Therapy Certification
+report_code_35,Radiology Films
+report_code_36,Radiology Reports
+report_code_37,Report of Tests and Analysis Report
+report_code_38,Renewable Oxygen Content Averaging Report
+report_code_39,Symptoms Document
+report_code_40,Death Notification
+report_code_41,Photographs

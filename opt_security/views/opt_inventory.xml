@@ -1,0 +1,14 @@
+<odoo>
+    <record model="ir.ui.menu" id="purchase.menu_purchase_rfq">
+      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_inventory_requests_purchase_order')])]"/>
+    </record>
+    <record model="ir.ui.menu" id="purchase.menu_purchase_form_action">
+      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_inventory_requests_purchase_order')])]"/>
+    </record>
+    <record model="ir.ui.menu" id="opt_custom.menu_request">
+      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_inventory_requests_purchase_order')])]"/>
+    </record>
+    <record model="ir.ui.menu" id="opt_custom.menu_purchase_order">
+      <field name="groups_id" eval="[(6,0,[ref('opt_security.opt_inventory_requests_purchase_order')])]"/>
+    </record>
+</odoo>

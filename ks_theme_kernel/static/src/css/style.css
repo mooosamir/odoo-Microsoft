@@ -1,0 +1,11 @@
+.o_user_company_menu {
+    position: absolute;
+    width: 100%;
+    top: 0px;
+    z-index: 1;
+    border-bottom: 1px solid #e1e1e1;
+    padding: 0px;
+    margin: 0px;
+    margin-top: -10px;
+    max-height: 45px;
+}

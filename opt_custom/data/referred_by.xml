@@ -1,0 +1,55 @@
+<odoo>
+	<data>
+		<!-- activities Data-->
+	    <record id="referred_by_1" model="spec.referred.by">
+	        <field name	="name">Corporate</field>
+	    </record>
+
+	    <record id="referred_by_2" model="spec.referred.by">
+	        <field name	="name">Customer</field>
+	    </record>
+
+	    <record id="referred_by_3" model="spec.referred.by">
+	        <field name	="name">Direct Mail</field>
+	    </record>
+
+	    <record id="referred_by_4" model="spec.referred.by">
+	        <field name	="name">Doctor</field>
+	    </record>
+
+	    <record id="referred_by_5" model="spec.referred.by">
+	        <field name	="name">Walk-in</field>
+	    </record>
+
+	    <record id="referred_by_6" model="spec.referred.by">
+	        <field name	="name">Employee</field>
+	    </record>
+
+	    <record id="referred_by_7" model="spec.referred.by">
+	        <field name	="name"> Friends and Family</field>
+	    </record>
+		<record id="referred_by_8" model="spec.referred.by">
+	        <field name	="name"> Insurance</field>
+	    </record>
+		<record id="referred_by_9" model="spec.referred.by">
+	        <field name	="name"> Website</field>
+	    </record>
+		<record id="referred_by_10" model="spec.referred.by">
+	        <field name	="name"> Yelp</field>
+	    </record>
+
+		<record id="referred_by_11" model="spec.referred.by">
+	        <field name	="name"> Google</field>
+	    </record>
+		<record id="referred_by_12" model="spec.referred.by">
+	        <field name	="name"> Social Media</field>
+	    </record>
+		<record id="referred_by_13" model="spec.referred.by">
+	        <field name	="name"> ZocDoc</field>
+	    </record>
+		<record id="referred_by_14" model="spec.referred.by">
+	        <field name	="name"> Other</field>
+	    </record>
+
+	</data>
+</odoo>

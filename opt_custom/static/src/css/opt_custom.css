@@ -1,0 +1,58 @@
+.o2m_form_field_inline{
+    padding-left: 10px !important;
+    width: 105px !important;
+}
+
+.o2m_form_base_field_inline{
+    padding-left: 10px !important;
+    width: 120px !important;
+}
+
+.notebook_page_vertical li{
+	border:1px solid black;
+	width:100%;
+}
+.notebook_page_vertical .nav-link.active{
+	background-color: #f3f2f2;
+}
+
+.image_fortmat_change img{
+    max-width: 430px;
+    max-height:200px;
+    width: 430px;
+    height:158px;
+    border: 1px solid black;
+}
+
+.image_fortmat_change_accessory img{
+    max-width: 479px;
+    max-height:200px;
+    width: 452px;
+    height:158px;
+    border: 1px solid black;
+}
+
+.custom .o_field_widget > .o_field_color{
+    border: 2px solid rgba(0, 0, 0, 0.25);
+    border-radius: 0px;
+    width: 30px;
+    height: 30px;
+    margin: 0 5px 0 0;
+    display: inline-block;
+}
+/*
+.arrow{
+border:solid-black;
+border-width: 0 3px 3px 0;
+display: inline-block;
+padding:3px
+transform: rotate(45deg)
+}
+*/
+.border_black{
+    border: 1px solid black !important;
+}
+
+.layout_auto .o_list_table{
+    table-layout: auto !important;
+}

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="product_tree_miscellaneous" model="ir.ui.view">
+            <field name="name">miscellaneous.tree.view</field>
+            <field name="model">product.product</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="category_id"/>
+                    <field name="variant"/>
+                </tree>
+            </field>
+        </record>
+        <record id="product_tree_lenstreatment_products" model="ir.ui.view">
+            <field name="name">lenstreatment_products.tree.view</field>
+            <field name="model">product.product</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="category_id" string="Category"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="frame_tree_view" model="ir.ui.view">
+            <field name="name">frame.tree.view</field>
+            <field name="model">product.product</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="product"/>
+                    <field name="variant"/>
+                    <field name="barcode"/>
+                    <field name="list_price"/>
+                    <field name="qty_available"/>
+                </tree>
+            </field>
+        </record>
+    </data>
+</odoo>

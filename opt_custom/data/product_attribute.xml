@@ -1,0 +1,36 @@
+<odoo>
+	<data noupdate="1">
+		<!-- UPC Attribute Data-->
+	    <record id="product_attribute_upc" model="product.attribute">
+	        <field name="name">UPC</field>
+            <field name="create_variant">no_variant</field>
+	    </record>
+
+		<!-- Lens Type Data -->
+		<record id="spec_lens_type_1" model="spec.lens.type">
+	        <field name="name">Single Vision</field>
+	    </record>
+
+		<record id="spec_lens_type_2" model="spec.lens.type">
+	        <field name="name">Bifocal</field>
+	    </record>
+
+		<record id="spec_lens_type_3" model="spec.lens.type">
+	        <field name="name">Trifocal</field>
+	    </record>
+
+		<record id="spec_lens_type_4" model="spec.lens.type">
+	        <field name="name">Progressive</field>
+	    </record>
+
+		<!-- UOM DATA -->
+		<record id="uom_pair_lens" model="uom.uom">
+	        <field name="name">Pair</field>
+			<field name="category_id" ref="uom.product_uom_categ_unit"/>
+			<field name="uom_type">bigger</field>
+			<field name="rounding">0.01000</field>
+			<field name="factor_inv">2.0</field>
+	    </record>
+
+	</data>
+</odoo>

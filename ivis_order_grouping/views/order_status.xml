@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="order_status_tree" model="ir.ui.view">
+            <field name="name">order.status.tree.view</field>
+            <field name="model">order.status</field>
+            <field name="arch" type="xml">
+                <tree string="Order Status" editable="bottom">
+                    <field colspan="4" name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="order_status_form" model="ir.ui.view">
+            <field name="name">order.status.form</field>
+            <field name="model">order.status</field>
+            <field name="arch" type="xml">
+                <form string="Order Status">
+                    <sheet>
+                        <group>
+                            <field name="name" string="Order Status"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_order_status_tree" model="ir.actions.act_window">
+            <field name="name">Order Status</field>
+            <field name="res_model">order.status</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+</odoo>

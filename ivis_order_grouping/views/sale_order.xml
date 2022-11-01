@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="so_inherit_form" model="ir.ui.view">
+            <field name="name">Order Grouping Buttons</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='button_box']" position="inside">
+                    <button name="action_view_insurance" type="object" class="oe_stat_button" icon="fa-pencil-square-o" attrs="{'invisible': [('invoice_count', '=', 0)]}">
+                        <field name="insurance_count" widget="statinfo" string="Claims"/>
+                    </button>
+                </xpath>
+                <xpath expr="//field[@name='date_order']" position="after">
+                    <field name="physician_id" options="{'no_create':True}"/>
+                    <field name="secondary_insurance_id"/>
+                </xpath>
+                <xpath expr="//button[@name='recompute_coupon_lines']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='date_order']" position="after">
+                    <field name="insurance_id"
+                           context="{'partner_id': partner_id, 'form_view_ref':'ivis_order_grouping.spec_insurance_form_many2one'}"
+                           widget="selection"/>
+                    <field name="authorization_id"
+                           context="{'form_view_ref':'ivis_order_grouping.authorization_form_many2one','default_partner_id':partner_id}"
+                           attrs="{'readonly': [('insurance_id','=',False)],'required': [('insurance_id','!=',False)]}"/>
+                </xpath>
+                <xpath position="attributes" expr="//field[@name='order_line']//tree">
+                    <attribute name="create">0</attribute>
+                </xpath>
+                <xpath expr="//field[@name='partner_id']" position="attributes">
+                    <attribute name="widget"></attribute>
+                </xpath>
+
+                <!--                <xpath position="attributes" expr="//field[@name='order_line']//tree//field[@name='product_template_id']">-->
+                <!--                    <field name="optional">hide</field>-->
+                <!--                </xpath>-->
+                <xpath expr="//group[1]" position="after">
+                    <div id="headingOne5">
+                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne5"
+                                aria-expanded="true" aria-controls="collapseOne5">
+                            <separator string='Diagnosis Codes ⌄' aria-controls="collapseOne5"/>
+                        </button>
+                    </div>
+                    <hr/>
+                    <div id="collapseOne5" aria-labelledby="headingOne5" width='100%' class='row collapse hide'
+                         style='margin-left:10px;margin-right:10px'>
+                        <field name="diagnosis_lines" context="{'diagnosis_lines': diagnosis_lines}">
+                            <tree editable="bottom">
+                                <field name="seq" readonly="1" force_save="1"/>
+                                <field name="diagnosis_code_id"/>
+                            </tree>
+                        </field>
+                    </div>
+                    <br/>
+                    <button name="action_complete_pair" string="Complete Pair"
+                            style="text-transform: capitalize;border-radius: 50px 50px 50px 50px;" type="object"
+                            class="btn-primary mx-1"/>
+                    <button name="action_contact_lens" string="Contact Lens"
+                            style="text-transform: capitalize;border-radius: 50px 50px 50px 50px;" type="object"
+                            class="btn-primary mx-1"/>
+                    <button name="action_frame_only" string="Frame Only"
+                            style="text-transform: capitalize;border-radius: 50px 50px 50px 50px;" type="object"
+                            class="btn-primary mx-1"/>
+                    <button name="action_lens_only" string="Lenses Only"
+                            style="text-transform: capitalize;border-radius: 50px 50px 50px 50px;" type="object"
+                            class="btn-primary mx-1"/>
+                    <button name="action_services" string="Services"
+                            style="text-transform: capitalize;border-radius: 50px 50px 50px 50px;" type="object"
+                            class="btn-primary mx-1"/>
+                    <button name="action_miscellaneous" string="Miscellaneous"
+                            style="text-transform: capitalize;border-radius: 50px 50px 50px 50px;" type="object"
+                            class="btn-primary mx-1"/>
+                </xpath>
+                <xpath expr="//field[@name='order_line']//tree//field[@name='name']" position="after">
+                    <field name="prescription_id" widget="many2one_button" optional="hide"/>
+                    <field name="lab_details_id" invisible="1"/>
+                    <!--                    <field name="insurance_id" string="Insurance" optional="hide"/>-->
+                    <!--                    <field name="authorization_id" string="Authorization" optional="hide"/>-->
+                </xpath>
+                <xpath expr="//field[@name='order_line']//tree//field[@name='price_unit']" position="attributes">
+                    <attribute name="string">Retails</attribute>
+                </xpath>
+                <xpath expr="//button[@name='%(sale_coupon.sale_coupon_apply_code_action)d']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='order_line']//tree//field[@name='sequence']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='order_line']//tree//field[@name='product_packaging']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='order_line']//tree//field[@name='discount']" position="after">
+                    <button type="object" name="apply_discount" icon="fa-money"/>
+                    <field name="order_id" invisible="1"/>
+                    <!--                    <field name="co_pay" attrs="{'readonly': [('insurance_id', '=', False)]}" widget="monetary"/>-->
+                    <!--                    <field name="pt_resp" attrs="{'readonly': [('insurance_id', '=', False)]}" widget="monetary"/>-->
+                    <field name="pt_total" force_save="1" widget="monetary"/>
+                    <!--                    <field name="insur" attrs="{'readonly': [('insurance_id', '=', False)]}" widget="monetary"/>-->
+                    <field name="DX" widget="many2many_tags"/>
+                </xpath>
+                <xpath expr="//field[@name='order_line']//tree//field[@name='discount']" position="after">
+                    <field name="discount_amount" readonly="1"/>
+                    <field name="discount_reason" readonly="1"/>
+                </xpath>
+                <xpath expr="//field[@name='order_line']//tree//field[@name='discount']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='order_line']//tree//field[@name='discount']" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                    <attribute name="options">{&quot;widget&quot;: &quot;False&quot;}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='order_line']//tree//field[@name='product_uom']" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='order_line']//form//field[@name='route_id']" position="after">
+                    <field name="prescription_id"/>
+                    <field name="lab_details_id"/>
+                </xpath>
+                <xpath expr="//field[@name='partner_invoice_id']" position="before">
+                    <field name="date_fo_birth"/>
+                    <field name="cell"/>
+                    <field name="email"/>
+                </xpath>
+                <xpath expr="//field[@name='partner_id']" position="attributes">
+                    <attribute name="context">{'form_view_ref':'opt_custom.view_patent_profile_form', 'default_patient':
+                        True, 'new_size':'max-width_1180px'}
+                    </attribute>
+                </xpath>
+                <xpath expr="//field[@name='partner_invoice_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='partner_shipping_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='validity_date']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='pricelist_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='payment_term_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//group[@name='note_group']" position="after">
+                    <group col="6" name="invoice_payments">
+                        <group colspan="4">
+
+                        </group>
+                        <group colspan="2" class="oe_subtotal_footer oe_right">
+                            <field name="invoice_payments_widget"
+                                   colspan="2"
+                                   nolabel="1"
+                                   widget="payment"/>
+                            <field name="invoice_amount_residual" string="Patient Due"
+                                   class="oe_subtotal_footer_separator"
+                                   attrs="{'invisible': [('state', '=', 'draft')]}"/>
+                            <newline/>
+                            <field name="invoice_outstanding_credits_debits_widget"
+                                   colspan="2" nolabel="1" widget="payment"/>
+                        </group>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="sale_management_inherit_form" model="ir.ui.view">
+            <field name="name">Sale Management Inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale_management.sale_order_form_quote"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='optional_products']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_quotation_tree" model="ir.ui.view">
+            <field name="name">View Quotation Tree</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_quotation_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='commitment_date']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='website_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='expected_date']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='user_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='company_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='name']" position="before">
+                    <field name="company_id" groups="base.group_multi_company" readonly="1" string="Company"/>
+                </xpath>
+                <xpath expr="//field[@name='name']" position="attributes">
+                    <attribute name="string">Order</attribute>
+                </xpath>
+                <xpath expr="//field[@name='amount_untaxed']" position="attributes">
+                    <attribute name="optional">show</attribute>
+                </xpath>
+                <xpath expr="//field[@name='amount_tax']" position="attributes">
+                    <attribute name="optional">show</attribute>
+                </xpath>
+                <xpath expr="//field[@name='invoice_status']" position="attributes">
+                    <attribute name="optional">show</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="sale_order_tree" model="ir.ui.view">
+            <field name="name">Sale Order</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_quotation_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="insurance_id"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_order_tree_inherit" model="ir.ui.view">
+            <field name="name">View Order Tree Inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='amount_total']" position="after">
+                    <field name="state"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="sale.action_quotations_with_onboarding" model="ir.actions.act_window">
+            <field name="view_mode">tree,kanban,form,pivot,activity</field>
+        </record>
+
+    </data>
+</odoo>

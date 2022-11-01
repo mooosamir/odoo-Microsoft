@@ -1,0 +1,1358 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Main Configurations Spectacle Lens Menu -->
+        <menuitem id="root_lens_configuration_menu" name="Lenses" parent="root_configrastion_menu" sequence="2"/>
+
+        <!-- Child Menu Of Spectacle Lens-->
+        <!--        <menuitem id="lens_configuration_menu" name="Lens Configurations" parent="root_lens_configuration_menu"-->
+        <!--                  sequence="1"/>-->
+        <menuitem id="lens_admin_configuration_menu" name="Admin Configurations" parent="root_lens_configuration_menu"
+                  sequence="1"/>
+
+        <!-- Tree View of Lens Type -->
+        <record id="lens_type_tree_view" model="ir.ui.view">
+            <field name="name">lens.type.tree.view</field>
+            <field name="model">spec.lens.type</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="code"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form View of Lens Type -->
+        <record id="lens_type_form_view" model="ir.ui.view">
+            <field name="name">lens.type.form.view</field>
+            <field name="model">spec.lens.type</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="code"/>
+                                <field name="name"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Action of Lens Type -->
+        <record id="lens_type_action" model="ir.actions.act_window">
+            <field name="name">Lens Type</field>
+            <field name="res_model">spec.lens.type</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Lens Type Menu -->
+        <menuitem id="lens_menu" action="lens_type_action" parent="lens_admin_configuration_menu" sequence="1"/>
+
+
+        <!-- Tree View of Lens Brand -->
+        <record id="lens_brand_tree_view" model="ir.ui.view">
+            <field name="name">lens.brand.tree.view</field>
+            <field name="model">spec.lens.brand</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form View of Lens Brand -->
+        <record id="lens_brand_form_view" model="ir.ui.view">
+            <field name="name">lens.brand.form.view</field>
+            <field name="model">spec.lens.brand</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Action of Lens Brand -->
+        <record id="lens_brand_action" model="ir.actions.act_window">
+            <field name="name">Lens Brand</field>
+            <field name="res_model">spec.lens.brand</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Lens Brand Menu -->
+        <menuitem id="lens_brand_menu" action="lens_brand_action" parent="lens_admin_configuration_menu" sequence="2"/>
+
+        <!-- Tree View of Lens Style -->
+        <record id="lens_style_tree_view" model="ir.ui.view">
+            <field name="name">lens.style.tree.view</field>
+            <field name="model">spec.lens.style</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form View of Lens Style -->
+        <record id="lens_style_form_view" model="ir.ui.view">
+            <field name="name">lens.style.form.view</field>
+            <field name="model">spec.lens.style</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Action of Lens Style -->
+        <record id="lens_style_action" model="ir.actions.act_window">
+            <field name="name">Lens Style</field>
+            <field name="res_model">spec.lens.style</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Lens Style Menu -->
+        <menuitem id="lens_style_menu" action="lens_style_action" parent="lens_admin_configuration_menu" sequence="3"/>
+
+        <!-- Tree View of Lens Material -->
+        <record id="lens_material_tree_view" model="ir.ui.view">
+            <field name="name">lens.material.tree.view</field>
+            <field name="model">spec.lens.material</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="code"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form View of Lens Material -->
+        <record id="lens_material_form_view" model="ir.ui.view">
+            <field name="name">lens.material.form.view</field>
+            <field name="model">spec.lens.material</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="code"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Action of Lens Material -->
+        <record id="lens_material_action" model="ir.actions.act_window">
+            <field name="name">Lens Material</field>
+            <field name="res_model">spec.lens.material</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Lens Style Material -->
+        <menuitem id="lens_material_menu" action="lens_material_action" parent="lens_admin_configuration_menu"
+                  sequence="4"/>
+
+        <!-- Tree View of Lens Filter -->
+        <record id="lens_filter_tree_view" model="ir.ui.view">
+            <field name="name">lens.filter.tree.view</field>
+            <field name="model">spec.lens.filter</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="code"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form View of Lens Filter -->
+        <record id="lens_filter_form_view" model="ir.ui.view">
+            <field name="name">lens.filter.form.view</field>
+            <field name="model">spec.lens.filter</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="code"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Action of Lens Material -->
+        <record id="lens_filter_action" model="ir.actions.act_window">
+            <field name="name">Lens Filter</field>
+            <field name="res_model">spec.lens.filter</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Lens Style Material -->
+        <menuitem id="lens_filter_menu" action="lens_filter_action" parent="lens_admin_configuration_menu"
+                  sequence="5"/>
+
+        <!-- Tree View of Lens Colors -->
+        <record id="lens_colors_tree_view" model="ir.ui.view">
+            <field name="name">lens.colors.tree.view</field>
+            <field name="model">spec.lens.colors</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="code"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form View of Lens Colors -->
+        <record id="lens_colors_form_view" model="ir.ui.view">
+            <field name="name">lens.colors.form.view</field>
+            <field name="model">spec.lens.colors</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="code"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Action of Lens Colors -->
+        <record id="lens_colors_action" model="ir.actions.act_window">
+            <field name="name">Lens Colors</field>
+            <field name="res_model">spec.lens.colors</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Lens colors Menu-->
+        <menuitem id="lens_colors_menu" action="lens_colors_action" parent="lens_admin_configuration_menu"
+                  sequence="6"/>
+
+        <!-- Tree View of Procedure code -->
+        <record id="procudure_code_tree_view" model="ir.ui.view">
+            <field name="name">procudure.code.tree.view</field>
+            <field name="model">spec.procedure.code</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="description"/>
+                    <field name="lens_type_id"/>
+                    <field name="sphere_or_cyclinder" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form View of Procedure code -->
+        <record id="procudure_code_form_view" model="ir.ui.view">
+            <field name="name">procudure.code.form.view</field>
+            <field name="model">spec.procedure.code</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="lens_type_id"/>
+                                <field name="min_sphere" groups="base.group_no_one"/>
+                                <field name="min_cylinder"
+                                       attrs="{'invisible':[('sphere_or_cyclinder', '!=', 'sphereocyclinder')]}"/>
+                                <field name="min_sphere_2" groups="base.group_no_one"/>
+                                <field name="min_cylinder_2"
+                                       attrs="{'invisible':[('sphere_or_cyclinder', '!=', 'sphereocyclinder')]}"/>
+                            </group>
+                            <group>
+                                <field name="description"/>
+                                <field name="sphere_or_cyclinder" invisible="1"/>
+                                <field name="max_sphere" groups="base.group_no_one"/>
+                                <field name="max_cylinder"
+                                       attrs="{'invisible':[('sphere_or_cyclinder', '!=', 'sphereocyclinder')]}"/>
+                                <field name="max_sphere_2" groups="base.group_no_one"/>
+                                <field name="max_cylinder_2"
+                                       attrs="{'invisible':[('sphere_or_cyclinder', '!=', 'sphereocyclinder')]}"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Action of Procedure code -->
+        <record id="procedure_code_action" model="ir.actions.act_window">
+            <field name="name">Procedure</field>
+            <field name="res_model">spec.procedure.code</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Tree View of Procedure code -->
+        <record id="modifier_tree_view" model="ir.ui.view">
+            <field name="name">procudure.code.tree.view</field>
+            <field name="model">spec.lens.modifier</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form View of Procedure code -->
+        <record id="modifier_form_view" model="ir.ui.view">
+            <field name="name">procudure.code.form.view</field>
+            <field name="model">spec.lens.modifier</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Action of Procedure code -->
+        <record id="modifier_action" model="ir.actions.act_window">
+            <field name="name">Modifier</field>
+            <field name="res_model">spec.lens.modifier</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Tree View of Lens Category -->
+        <record id="lens_category_tree_view" model="ir.ui.view">
+            <field name="name">lens.category.tree.view</field>
+            <field name="model">spec.lens.category</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="short_code"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form View of Lens Category -->
+        <record id="lens_category_form_view" model="ir.ui.view">
+            <field name="name">lens.category.form.view</field>
+            <field name="model">spec.lens.category</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="short_code"/>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Action of Lens Category -->
+        <record id="lens_category_action" model="ir.actions.act_window">
+            <field name="name">Lens Treatment Category</field>
+            <field name="res_model">spec.lens.category</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Lens colors Menu-->
+        <menuitem id="lens_category_menu" action="lens_category_action" parent="lens_admin_configuration_menu"
+                  sequence="9"/>
+
+        <!-- Tree View of Lens Treatment -->
+        <record id="lens_treatment_tree_view" model="ir.ui.view">
+            <field name="name">lens.treatment.tree.view</field>
+            <field name="model">spec.lens.treatment</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="category_id"/>
+                    <field name="brand_id"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form View of Lens Treatment -->
+        <record id="lens_treatment_form_view" model="ir.ui.view">
+            <field name="name">lens.treatment.form.view</field>
+            <field name="model">spec.lens.treatment</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="category_id" required='1' options="{'no_open':True,'no_create': True}"/>
+                                <field name="brand_id" required='1' options="{'no_open':True,'no_create': True}"/>
+                            </group>
+                            <group>
+                                <field name="name" required='1'/>
+                                <field name="pair_each" widget="radio" options="{'horizontal': true}"/>
+                            </group>
+                        </group>
+                        <group string='Treatment Line'>
+                            <field name='treatment_line_ids' nolabel="1">
+                                <tree editable="bottom">
+                                    <field name="pro_code_id" options="{'no_open':True,'no_create': True}"/>
+                                    <field name="price"/>
+                                    <field name="treatment_id" options="{'no_open':True,'no_create': True}"
+                                           invisible="1"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Action of Lens Treatment -->
+        <record id="lens_treatment_action" model="ir.actions.act_window">
+            <field name="name">Lens Treatments</field>
+            <field name="res_model">spec.lens.treatment</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Lens Treatment Menu-->
+        <!-- <menuitem id="lens_treatment_menu" action="lens_treatment_action" parent="lens_admin_configuration_menu" sequence="1"/> -->
+
+        <!-- Tree View of Lens Measurement Type -->
+        <record id="lens_memgnt_type_tree_view" model="ir.ui.view">
+            <field name="name">lens.memgnt.type.tree.view</field>
+            <field name="model">spec.lens.measurement.type</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="min_value"/>
+                    <field name="max_value"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form View of Lens Measurement Type -->
+        <record id="lens_memgnt_type_form_view" model="ir.ui.view">
+            <field name="name">lens.memgnt.type.form.view</field>
+            <field name="model">spec.lens.measurement.type</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="min_value"/>
+                            <field name="max_value"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Action of Lens Measurement Type -->
+        <record id="lens_mgemgnt_action" model="ir.actions.act_window">
+            <field name="name">Lens Measurement Type</field>
+            <field name="res_model">spec.lens.measurement.type</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Lens Procedure code Menu-->
+        <menuitem id="lens_memgnt_type_menu" action="lens_mgemgnt_action" parent="lens_admin_configuration_menu"
+                  sequence="2"/>
+
+        <!-- Inherit Edge type Tree frame -->
+        <record id="edge_type_tree_extend_lens" model="ir.ui.view">
+            <field name="name">edge.type.tree.extend.lens</field>
+            <field name="model">spec.edge.type</field>
+            <field name="inherit_id" ref="opt_custom.edge_type_tree_view"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="procedure_code_id"/>
+                    <field name="suggested_retail"/>
+                </field>
+            </field>
+        </record>
+
+        <!-- Inherit Edge type from frame -->
+        <record id="edge_type_form_extend_lens" model="ir.ui.view">
+            <field name="name">edge.type.form.extend.lens</field>
+            <field name="model">spec.edge.type</field>
+            <field name="inherit_id" ref="opt_custom.edge_type_from_view"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="procedure_code_id" options="{'no_open':True,'no_create': True}"/>
+                    <field name="suggested_retail"/>
+                </field>
+            </field>
+        </record>
+
+        <!-- Edge Type Menu-->
+        <menuitem id="lens_edge_menu" action="opt_custom.edge_type_action" parent="lens_admin_configuration_menu"
+                  sequence="3"/>
+
+        <!-- Tree View of Lens Power Grid -->
+        <record id="lens_power_grid_tree_view" model="ir.ui.view">
+            <field name="name">lens.power.grid.tree.view</field>
+            <field name="model">spec.lens.power.grid</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form View of Lens Power Grid -->
+        <record id="lens_power_grid_form_view" model="ir.ui.view">
+            <field name="name">lens.power.grid.form.view</field>
+            <field name="model">spec.lens.power.grid</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="pair_each" widget="radio" options="{'horizontal': true}"/>
+                        </group>
+                        <group string="Add Power">
+                            <field name="add_power_ids" nolabel="1">
+                                <tree editable="bottom">
+                                    <field name="power"/>
+                                    <field name="suggested_retail"/>
+                                    <field name="power_grid_id" invisible="1"/>
+                                </tree>
+                            </field>
+                        </group>
+                        <group>
+                            <field name="power_grid_param_ids" nolabel="1">
+                                <tree editable="bottom">
+                                    <field name="sphere_from"/>
+                                    <field name="sphere_to"/>
+                                    <field name="cylinder_from"/>
+                                    <field name="cylinder_to"/>
+                                    <field name="suggested_retail"/>
+                                    <field name="sphere_cylinder_grid_id" invisible="1"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Action of Lens Power Grid-->
+        <record id="power_grid_action" model="ir.actions.act_window">
+            <field name="name">Power Grid Pricing</field>
+            <field name="res_model">spec.lens.power.grid</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Lens Procedure code Menu-->
+        <menuitem id="power_grid_menu" action="power_grid_action" parent="lens_admin_configuration_menu" sequence="4"/>
+
+        <!-- Tree View of Lens Prism Grid -->
+        <record id="lens_prism_grid_tree_view" model="ir.ui.view">
+            <field name="name">lens.prism.grid.tree.view</field>
+            <field name="model">spec.lens.prism.grid</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form View of Lens Power Grid -->
+        <record id="lens_prism_grid_form_view" model="ir.ui.view">
+            <field name="name">lens.prism.grid.form.view</field>
+            <field name="model">spec.lens.prism.grid</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="eye_combine" widget="radio" options="{'horizontal': true}"/>
+                        </group>
+                        <group string="Add Power">
+                            <field name="add_prism_ids" nolabel="1">
+                                <tree editable="bottom">
+                                    <field name="power"/>
+                                    <field name="price"/>
+                                    <field name="prism_grid_id" invisible="1"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Action of Lens Power Grid-->
+        <record id="prism_grid_action" model="ir.actions.act_window">
+            <field name="name">Prism Grid Pricing</field>
+            <field name="res_model">spec.lens.prism.grid</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Lens Procedure code Menu-->
+        <menuitem id="prism_grid_menu" action="prism_grid_action" parent="lens_admin_configuration_menu" sequence="5"/>
+
+        <!-- Tree View of Over Size Pricing -->
+        <record id="oversize_pricing_tree_view" model="ir.ui.view">
+            <field name="name">oversize.pricing.tree.view</field>
+            <field name="model">spec.oversized.pricing</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="suggested_retail"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form View of Over Size Pricing -->
+        <record id="oversize_pricing_form_view" model="ir.ui.view">
+            <field name="name">oversize.pricing.tree.view</field>
+            <field name="model">spec.oversized.pricing</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="suggested_retail"/>
+                            </group>
+                            <group>
+                                <label for="ed_over"/>
+                                <div>
+                                    <field name="ed_over" class="oe_inline"/>
+                                    <field name="ed_over_text" class="oe_inline"/>
+                                </div>
+                                <label for="blank_size_over"/>
+                                <div>
+                                    <field name="blank_size_over" class="oe_inline"/>
+                                    <field name="blank_size_over_text" class="oe_inline"/>
+                                </div>
+                                <label for="pair_each"/>
+                                <div>
+                                    <field name="pair_each" widget="radio" options="{'horizontal': true}"/>
+                                </div>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Action of Over Size Pricing-->
+        <record id="oversize_pricing_action" model="ir.actions.act_window">
+            <field name="name">Oversized Pricing</field>
+            <field name="res_model">spec.oversized.pricing</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Over Size Pricing Menu-->
+        <menuitem id="oversize_pricing_menu" action="oversize_pricing_action" parent="lens_admin_configuration_menu"
+                  sequence="6"/>
+
+        <!-- Tree View of Lens Selection Table-->
+        <record id="lens_selection_table_tree_view" model="ir.ui.view">
+            <field name="name">lens.selection.table.tree.view</field>
+            <field name="model">spec.lens.selection</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form view of Lens Selection Table-->
+        <record id="lens_selection_table_form_view" model="ir.ui.view">
+            <field name="name">lens.selection.table.from.view</field>
+            <field name="model">spec.lens.selection</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                        <group string="Lens Parameters" invisible="context.get('invisible_lens_parameter', False)">
+                            <field name="lens_selection_line_ids" nolabel="1">
+                                <tree editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="name"/>
+                                    <field name="lens_type_id" options="{'no_open':True,'no_create': True}"/>
+                                    <field name="material_id" options="{'no_open':True,'no_create': True}"/>
+                                    <field name="coating_id" options="{'no_open':True,'no_create': True}"/>
+                                    <field name="filter_id" options="{'no_open':True,'no_create': True}"/>
+                                    <field name="color_id" options="{'no_open':True,'no_create': True}"/>
+                                    <field name="manufacturer_id" options="{'no_open':True,'no_create': True}"/>
+                                    <field name="finish_semi"/>
+                                    <field name="company_id" invisible='1'/>
+                                </tree>
+                            </field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Action of Lens Selection Table-->
+        <record id="lens_selection_table_action" model="ir.actions.act_window">
+            <field name="name">Lens Selection Priority</field>
+            <field name="res_model">spec.lens.selection</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Over Size Pricing Menu-->
+        <menuitem id="lens_selection_table_menu" action="lens_selection_table_action"
+                  parent="lens_admin_configuration_menu"
+                  sequence="7"/>
+
+        <!-- Tree View of Lens Parameter-->
+        <record id="lens_parameter_tree_view" model="ir.ui.view">
+            <field name="name">lens.parameter.tree.view</field>
+            <field name="model">product.supplierinfo</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="lens_type_id"/>
+                    <field name="material_id"/>
+                    <field name="coating_id"/>
+                    <field name="filter_id"/>
+                    <field name="color_id"/>
+                    <field name="manufacturer_id"/>
+                    <field name="finish_semi"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form View of Lens Parameter-->
+        <record id="lens_parameter_form_view" model="ir.ui.view">
+            <field name="name">lens.parameter.form.view</field>
+            <field name="model">product.supplierinfo</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="company_id"/>
+                            <field name="finish_semi"/>
+                            <field name="lens_type_id" options="{'no_open':True,'no_create': True}"/>
+                            <field name="coating_id" options="{'no_open':True,'no_create': True}"/>
+                            <field name="color_id" options="{'no_open':True,'no_create': True}"/>
+                        </group>
+                        <group>
+                            <field name="wholesale"/>
+                            <field name="material_id" options="{'no_open':True,'no_create': True}"/>
+                            <field name="filter_id" options="{'no_open':True,'no_create': True}"/>
+                            <field name="manufacturer_id"/>
+                            <field name="asherical"/>
+                        </group>
+                    </group>
+                    <group string='Finished Lens Parameters' attrs="{'invisible':[('finish_semi','!=','finished')]}">
+                        <field name="finish_child_ids" nolabel="1">
+                            <tree editable="bottom">
+                                <field name="diameter"/>
+                                <field name="sphere"/>
+                                <field name="cylinder"/>
+                                <field name="base_curve"/>
+                                <field name="center_thickness"/>
+                                <field name="right_opc"/>
+                                <field name="left_opc"/>
+                                <field name="product_finish_lens_id" invisible="1"/>
+                            </tree>
+                        </field>
+                    </group>
+                    <group string='Semi Finished Lens Parameters' attrs="{'invisible':[('finish_semi','!=','semi')]}">
+                        <field name="semi_finish_child_ids" nolabel="1">
+                            <tree editable="bottom">
+                                <field name="diameter"/>
+                                <field name="base_curve"/>
+                                <field name="add"/>
+                                <field name="true_curve"/>
+                                <field name="front_radius"/>
+                                <field name="sag"/>
+                                <field name="back_curve"/>
+                                <field name="back_radius"/>
+                                <field name="ct_nominal"/>
+                                <field name="et_nominal"/>
+                                <field name="drop"/>
+                                <field name="inset"/>
+                                <field name="right_opc"/>
+                                <field name="left_opc"/>
+                                <field name="product_finish_lens_id" invisible="1"/>
+                            </tree>
+                        </field>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <!-- Action of Lens Parameter-->
+        <record id="lens_parameter_action" model="ir.actions.act_window">
+            <field name="name">Lens Parameter</field>
+            <field name="res_model">product.supplierinfo</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Over Size Pricing Menu-->
+        <!-- <menuitem id="lens_parameter_menu" action="lens_parameter_action" parent="lens_admin_configuration_menu" sequence="8"/> -->
+
+        <!-- Added Spectacle Lens Parameters Selection Tree View  -->
+        <!-- This tree view is show data from Lens Parameter -->
+
+        <!-- Tree View of Lens Parameter-->
+        <record id="lens_parameter_selection_tree_view" model="ir.ui.view">
+            <field name="name">lens.parameter.tree.view</field>
+            <field name="model">product.supplierinfo</field>
+            <field name="arch" type="xml">
+                <tree create="false" edit="false">
+                    <field name="name"/>
+                    <field name="lens_type_id"/>
+                    <field name="material_id"/>
+                    <field name="coating_id"/>
+                    <field name="filter_id"/>
+                    <field name="color_id"/>
+                    <field name="manufacturer_id"/>
+                    <field name="finish_semi"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Action of Lens Parameter Selection-->
+        <record id="lens_parameter_selection_action" model="ir.actions.act_window">
+            <field name="name">Lens Parameter Selection</field>
+            <field name="res_model">product.supplierinfo</field>
+            <field name="view_id" ref="lens_parameter_selection_tree_view"/>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <!-- Menu of Lens Parameter Selection-->
+        <menuitem id="lens_parameter_selection_menu" name="Lens Parameter Selection"
+                  action="lens_parameter_selection_action" parent="lens_admin_configuration_menu" sequence="9"/>
+
+        <!-- Tree View of Lens Listing-->
+        <record id="lens_list_tree_view" model="ir.ui.view">
+            <field name="name">lens.list.tree.view</field>
+            <field name="model">product.template</field>
+            <field name="priority">18</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="style_id"/>
+                    <field name="material_id"/>
+                    <field name="name"/>
+                    <field name="list_price" widget='monetary' string='Retail'/>
+                    <field name="currency_id" invisible='1'/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form View of Lens Listing -->
+        <record id="product_template_lens_view_form" model="ir.ui.view">
+            <field name="name">product.template.lens.view.form</field>
+            <field name="model">product.template</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+<!--                            <field name="is_published" widget="website_redirect_button"-->
+<!--                                   attrs="{'invisible': [('sale_ok','=',False)]}"/>-->
+                            <button name="138" type="action" icon="fa-sitemap" class="oe_stat_button"
+                                    attrs="{'invisible': [('product_variant_count', '&lt;=', 1)]}">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value" widget="statinfo">
+                                        <field name="product_variant_count" nolabel='1' class="mr4" widget="statinfo"/>
+                                    </span>
+                                    <span class="o_stat_text">
+                                        Variants
+                                    </span>
+                                </div>
+                            </button>
+                            <button type="object" name="action_open_quants"
+                                    attrs="{'invisible':[('type', '!=', 'product')]}" class="oe_stat_button"
+                                    icon="fa-cubes">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value" widget="statinfo">
+                                        <field name="qty_available" widget="statinfo" nolabel="1" class="mr4"/>
+                                        <field name="uom_name"/>
+                                    </span>
+                                    <span class="o_stat_text">
+                                        On Hand
+                                    </span>
+                                </div>
+                            </button>
+                            <button type="object" name="action_product_tmpl_forecast_report"
+                                    attrs="{'invisible':[('type', '!=', 'product')]}"
+                                    context="{'default_product_tmpl_id': id}" class="oe_stat_button" icon="fa-cubes">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value">
+                                        <field name="virtual_available" widget="statinfo" nolabel="1" class="mr4"/>
+                                        <field name="uom_name"/>
+                                    </span>
+                                    <span class="o_stat_text">
+                                        Forecasted
+                                    </span>
+                                </div>
+                            </button>
+                            <button string="Traceability" type="object" name="action_view_stock_move_lines"
+                                    attrs="{'invisible':[('type', 'not in', ['product', 'consu'])]}"
+                                    class="oe_stat_button" icon="fa-exchange"/>
+                            <button type="object" name="action_view_orderpoints"
+                                    attrs="{'invisible':['|',('type', '!=', 'product'),('nbr_reordering_rules', '!=', 1)]}"
+                                    class="oe_stat_button" icon="fa-refresh">
+                                <div class="o_field_widget o_stat_info mr4">
+                                    <span class="o_stat_text">
+                                        Min:
+                                    </span>
+                                    <span class="o_stat_text">
+                                        Max:
+                                    </span>
+                                </div>
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value">
+                                        <field name="reordering_min_qty"/>
+                                    </span>
+                                    <span class="o_stat_value">
+                                        <field name="reordering_max_qty"/>
+                                    </span>
+                                </div>
+                            </button>
+                            <button type="object" name="action_view_orderpoints"
+                                    attrs="{'invisible':['|',('type', '!=', 'product'),('nbr_reordering_rules', '==', 1)]}"
+                                    class="oe_stat_button" icon="fa-refresh">
+                                <field name="nbr_reordering_rules" widget="statinfo"/>
+                            </button>
+                            <button string="Lot/Serial Numbers" type="object" name="action_open_product_lot"
+                                    class="oe_stat_button" icon="fa-bars" invisible="1"/>
+                            <button string="Routes" type="action" name="194" class="oe_stat_button" icon="fa-cogs"
+                                    context="{'default_product_tmpl_id': id}" invisible="1"/>
+                            <button string="Putaway Rules" type="object" name="action_view_related_putaway_rules"
+                                    class="oe_stat_button" icon="fa-random"
+                                    context="{'invisible_handle': True, 'single_product': product_variant_count == 1,}"
+                                    invisible="1"/>
+                            <button class="oe_stat_button" name="action_view_po" type="object" icon="fa-shopping-cart"
+                                    attrs="{'invisible': [('purchase_ok', '=', False)]}"
+                                    help="Purchased in the last 365 days">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value">
+                                        <field name="purchased_product_qty" widget="statinfo" nolabel="1" class="mr4"/>
+                                        <field name="uom_name"/>
+                                    </span>
+                                    <span class="o_stat_text">
+                                        Purchased
+                                    </span>
+                                </div>
+                            </button>
+                            <button class="oe_stat_button" name="action_view_sales" type="object" icon="fa-signal"
+                                    help="Sold in the last 365 days" attrs="{'invisible': [('sale_ok', '=', False)]}">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value">
+                                        <field name="sales_count" widget="statinfo" nolabel="1" class="mr4"/>
+                                        <field name="uom_name"/>
+                                    </span>
+                                    <span class="o_stat_text">
+                                        Sold
+                                    </span>
+                                </div>
+                            </button>
+                        </div>
+                        <field name="sale_ok" invisible='1'/>
+                        <field name="purchase_ok" invisible='1'/>
+                        <field name="retail_price_lens" invisible='1'/>
+                        <div>
+                            <h1>
+                                <field name='header_name'/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name='name'/>
+                                <field name='lens_type_id' options="{'no_open':True,'no_create': True}"/>
+                                <field name='style_id'/>
+                                <field name='material_id'/>
+                                <field name='filter_id'/>
+                                <field name='color_id'/>
+                            </group>
+                            <group>
+<!--                                <field name='oversized_id'/>-->
+<!--                                <field name='power_grid_id'/>-->
+<!--                                <field name='prism_grid_id'/>-->
+                                <field name='active'/>
+                                <!--								<field name="branch_id"/>-->
+                            </group>
+                        </group>
+                        <table width='100%' groups="base.group_no_one">
+                            <tr>
+                                <td width='50%'>
+                                </td>
+                                <td width='25%'>
+                                    <group>
+                                        <field name='vw_code_type' readonly="1" class='oe_inline'/>
+                                    </group>
+                                </td>
+                                <td width='25%'>
+                                    <group>
+                                        <field name='vw_code_style' readonly="1" class='oe_inline'/>
+                                    </group>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width='50%'>
+                                </td>
+                                <td width='25%'>
+                                    <group>
+                                        <field name='vw_code_material' readonly="1"/>
+                                    </group>
+                                </td>
+                            </tr>
+                        </table>
+                        <notebook>
+                            <page string="Information" name="information">
+                                <group>
+                                    <group name="group_general">
+                                        <field name="prd_categ_name" invisible="1"/>
+                                        <field name="type" invisible='1'/>
+                                        <field name="product_lens_type"/>
+                                        <field name="categ_id" string="Product Category"/>
+                                        <field name='barcode' string="UPC"/>
+                                        <field name='default_code' string="SKU"/>
+                                        <field name="pair_each" widget="radio" options="{'horizontal': true}" invisible="1"/>
+                                    </group>
+                                    <group name="group_standard_price">
+                                        <field name="taxes_id" string='Tax' widget='many2many_tags'/>
+                                        <label for="list_price" string='Retail Price'/>
+                                        <div name="pricing">
+                                            <field name="list_price" class="oe_inline" widget='monetary'
+                                                   options="{'currency_field': 'currency_id', 'field_digits': True}"/>
+<!--                                            <button name="open_pricelist_rules" icon="fa-arrow-right" type="object"-->
+<!--                                                    groups="product.group_product_pricelist" class="oe_inline">-->
+<!--                                                <field name="pricelist_item_count"-->
+<!--                                                       attrs="{'invisible': [('pricelist_item_count', '=', 0)]}"/>-->
+<!--                                                <span attrs="{'invisible': [('pricelist_item_count', '=', 1)]}">-->
+<!--                                                    Extra Prices-->
+<!--                                                </span>-->
+<!--                                                <span attrs="{'invisible': [('pricelist_item_count', '!=', 1)]}">-->
+<!--                                                    Extra Price-->
+<!--                                                </span>-->
+<!--                                            </button>-->
+                                        </div>
+                                        <field name="valuation" invisible="1" readonly="1"/>
+                                        <field name="cost_method" invisible="1" readonly="1"/>
+                                        <label for="standard_price"/>
+                                        <div class="o_row" name="update_cost_price">
+                                            <field name="standard_price"
+                                                   attrs="{'readonly':[('cost_method', '!=', 'fifo')]}"
+                                                   widget='monetary'
+                                                   options="{'currency_field': 'cost_currency_id', 'field_digits': True}"
+                                                   class="oe_inline"/>
+                                            <button string="Update Cost" type="action"
+                                                    name="%(stock_account.action_view_change_standard_price)d"
+                                                    attrs="{'invisible':[('cost_method', '=', 'fifo')]}"
+                                                    class="oe_link oe_inline"/>
+                                        </div>
+                                        <field name="company_id" options="{'no_create': True}"/>
+                                        <field name="uom_id" required='1' invisible="0" options="{'no_create': True}"
+                                            domain="[('name', 'in', ['Pair','Each'])]"/>
+                                        <field name="uom_po_id" required='0' invisible="1"
+                                               options="{'no_create': True}"/>
+                                        <field name="currency_id" invisible="1"/>
+                                        <field name="cost_currency_id" invisible="1"/>
+                                        <field name="product_variant_id" invisible="1"/>
+                                    </group>
+                                </group>
+                                <group string="Internal Notes">
+                                    <field name="description" nolabel="1"
+                                           placeholder="This note is only for internal purposes."/>
+                                </group>
+                            </page>
+                            <page string="HCPCS">
+                                <field name='treatment_line_ids'>
+                                    <tree editable="bottom">
+                                        <field name="pro_code_id" options="{'no_create':True, 'no_open':True}"
+                                               required='1'/>
+                                        <field name="modifier_id" options="{'no_create':True, 'no_open':True}"
+                                               required='0'/>
+                                        <field name="price" widget='monetary'/>
+                                        <field name="currency_id" invisible='1'/>
+                                    </tree>
+                                </field>
+                            </page>
+
+                            <page string="Treatments">
+                                <field name="treatment_child_ids">
+                                    <tree editable="bottom">
+                                        <field name="lnclude"/>
+                                        <field name="category_id" options="{'no_create':True, 'no_open':True}"/>
+                                        <field name="lens_treatment_id" domain="[('category_id', '=', category_id)]"/>
+                                        <field name="lens_selection_id"  options="{'no_create':True, 'no_open':True}" invisible="1"/>
+                                        <field name="lens_id" options="{'no_create':True, 'no_open':True}"
+                                               invisible="1"/>
+                                    </tree>
+                                    <form>
+                                        <group>
+                                            <group>
+                                                <field name="lnclude"/>
+                                                <field name="category_id" options="{'no_create':True, 'no_open':True}"/>
+                                            </group>
+                                            <group>
+                                                <field name="lens_selection_id" options="{'no_create':True, 'no_open':True}" invisible="1"/>
+                                                <field name="lens_treatment_id"
+                                                       domain="[('category_id', '=', category_id)]"/>
+                                            </group>
+                                        </group>
+                                    </form>
+                                </field>
+                            </page>
+                            <page string="Measurements" invisible="1">
+                                <field name="measurement_child_ids">
+                                    <tree editable="bottom">
+                                        <field name="lnclude"/>
+                                        <field name="measurement_id"/>
+                                        <field name="min_value"/>
+                                        <field name="max_value"/>
+                                        <field name="lens_id" options="{'no_create':True, 'no_open':True}"
+                                               invisible="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Technical" attrs="{'invisible':[('prd_categ_name','!=','Lens')]}">
+                                <group>
+                                    <group>
+                                        <field name="minimum_fitting_height"/>
+                                        <field name="fitting_cross"/>
+                                        <field name="manufactuering_process"/>
+                                        <field name="progressive_design_type"/>
+                                    </group>
+                                    <group>
+                                        <field name="fitting_centration_chart"
+                                               filename="fitting_centration_chart_file_name"/>
+                                        <field name="engraving_nasal" filename="engraving_nasal_file_name"/>
+                                        <field name="available_rebate" filename="available_rebate_file_name"/>
+                                        <field name="website" widget="url"/>
+                                        <field name="fitting_centration_chart_file_name" invisible="1"/>
+                                        <field name="engraving_nasal_file_name" invisible="1"/>
+                                        <field name="available_rebate_file_name" invisible="1"/>
+                                    </group>
+                                </group>
+                                <group>
+                                    <label for="note"/>
+                                    <field name="note" nolabel="1"/>
+                                </group>
+                            </page>
+                            <page string="Lens Parameters" name="lens_parameters">
+                                <field name="semi_finish_lens_ids" context="{'default_prd_categ_name': 'Lens Parameter',
+																			 'default_lens_type_id': lens_type_id,
+																			 'default_material_id': material_id,
+																			 'default_filter_id': filter_id,
+																			 'default_color_id': color_id,
+																			 'default_type': 'product'}">
+                                    <tree>
+                                        <field name="vendor_id"/>
+                                        <field name="manufacturer_id"/>
+                                        <field name="lens_selection_id"/>
+                                        <field name="finish_semi"/>
+                                    </tree>
+                                    <form>
+                                        <sheet>
+                                            <group>
+                                                <group>
+                                                    <field name="sale_ok" invisible='1'/>
+                                                    <field name="type" invisible='1'/>
+                                                    <field name='prd_categ_name' invisible='1'/>
+                                                    <field name='name' invisible='1'/>
+                                                    <field name="lens_selection_id"
+                                                           context="{'invisible_lens_parameter': True}"/>
+                                                    <field name="finish_semi" required='1'/>
+                                                    <field name="lens_type_id"
+                                                           options="{'no_open':True,'no_create': True}" required='1'/>
+                                                    <field name="material_id"
+                                                           options="{'no_open':True,'no_create': True}" required='1'/>
+                                                    <field name="coating_id"
+                                                           options="{'no_open':True,'no_create': True}"/>
+                                                    <field name="filter_id" options="{'no_open':True,'no_create': True}"
+                                                           required='1'/>
+                                                    <field name="color_id" options="{'no_open':True,'no_create': True}"
+                                                           required='1'/>
+                                                    <field name="company_id" invisible='1'/>
+                                                    <field name="currency_id" invisible='1'/>
+                                                </group>
+                                                <group>
+                                                    <field name="manufacturer_id" required='1'/>
+                                                    <field name="vendor_id" required='1'
+                                                           domain="[('supplier_rank', '>=', 1)]"
+                                                           context="{'default_supplier_rank': 1}"/>
+                                                    <field name="wholesale_cost" widget='monetary'/>
+                                                    <label for="price" string='Cost'/>
+                                                    <div class="o_row">
+                                                        <field name="price" widget='monetary'/>
+                                                    </div>
+                                                    <field name="asherical"/>
+                                                </group>
+                                            </group>
+                                            <notebook>
+                                                <page string='Finished Lens Parameters'
+                                                      attrs="{'invisible':[('finish_semi','!=','finished')]}">
+                                                    <field name="finish_child_ids" nolabel="1">
+                                                        <tree editable="bottom">
+                                                            <field name="diameter"/>
+                                                            <field name="sphere"/>
+                                                            <field name="cylinder"/>
+                                                            <field name="base_curve"/>
+                                                            <field name="center_thickness"/>
+                                                            <field name="right_opc"/>
+                                                            <field name="left_opc"/>
+                                                            <field name="product_finish_lens_id" invisible="1"/>
+                                                        </tree>
+                                                    </field>
+                                                </page>
+                                                <page string='Semi Finished Lens Parameters'
+                                                      attrs="{'invisible':[('finish_semi','!=','semi')]}">
+                                                    <field name="semi_finish_child_ids" nolabel="1">
+                                                        <tree editable="bottom">
+                                                            <field name="diameter"/>
+                                                            <field name="base_curve"/>
+                                                            <field name="add"/>
+                                                            <field name="true_curve"/>
+                                                            <field name="front_radius"/>
+                                                            <field name="sag"/>
+                                                            <field name="back_curve"/>
+                                                            <field name="back_radius"/>
+                                                            <field name="ct_nominal"/>
+                                                            <field name="et_nominal"/>
+                                                            <field name="drop"/>
+                                                            <field name="inset"/>
+                                                            <field name="right_opc"/>
+                                                            <field name="left_opc"/>
+                                                            <field name="product_finish_lens_id" invisible="1"/>
+                                                        </tree>
+                                                    </field>
+                                                </page>
+                                                <page string='Inventory'>
+                                                    <group name="inventory">
+                                                        <group string="Operations" name="operations">
+                                                            <field name="route_ids" widget="many2many_checkboxes"
+                                                                   attrs="{'invisible': [('type', 'in', ['service', 'digital'])]}"
+                                                                   can_create="true" can_write="true"/>
+
+                                                            <field name="route_from_categ_ids" widget="many2many_tags"
+                                                                   readonly="1"
+                                                                   attrs="{'invisible': [('route_from_categ_ids', '=', [])]}"
+                                                                   can_create="true" can_write="true"/>
+                                                            <label for="sale_delay"
+                                                                   attrs="{'invisible': [('sale_ok', '=', False)]}"/>
+                                                            <div attrs="{'invisible': [('sale_ok', '=', False)]}">
+                                                                <field name="sale_delay" class="oe_inline"
+                                                                       style="vertical-align:baseline"/>
+                                                                days
+
+                                                            </div>
+                                                        </group>
+                                                        <group string="Traceability" name="traceability"
+                                                               attrs="{'invisible': [('type', '=', 'consu')]}">
+                                                            <field name="tracking" widget="radio"
+                                                                   attrs="{'invisible': [('type', 'in', ['service', 'digital'])]}"
+                                                                   on_change="1"/>
+                                                        </group>
+                                                        <group string="Counterpart Locations" name="stock_property">
+                                                            <field name="property_stock_production" can_create="true"
+                                                                   can_write="true"/>
+                                                            <field name="property_stock_inventory" can_create="true"
+                                                                   can_write="true"/>
+                                                        </group>
+                                                    </group>
+                                                    <group string="Description for Delivery Orders">
+                                                        <field name="description_pickingout" nolabel="1"
+                                                               placeholder="This note is added to delivery orders."/>
+                                                    </group>
+                                                    <group string="Description for Receipts">
+                                                        <field name="description_pickingin" nolabel="1"
+                                                               placeholder="This note is added to receipt orders (e.g. where to store the product in the warehouse)."/>
+                                                    </group>
+                                                    <group string="Description for Internal Transfers">
+                                                        <field name="description_picking"
+                                                               placeholder="This note is added to internal transfer orders (e.g. where to pick the product in the warehouse)."
+                                                               nolabel="1"/>
+                                                    </group>
+                                                </page>
+                                            </notebook>
+                                        </sheet>
+                                    </form>
+                                </field>
+                            </page>
+                            <page name="shop" string="eCommerce" invisible="1">
+<!--                            <page name="shop" string="eCommerce" attrs="{'invisible': [('sale_ok','=',False)]}">-->
+                                <group name="shop">
+                                    <group string="Shop">
+                                        <field name="website_url" invisible="1"/>
+                                        <field name="website_id" options="{'no_create': True}"
+                                               groups="website.group_multi_website"/>
+                                        <field name="website_sequence" groups="base.group_no_one"/>
+                                        <field name="public_categ_ids" widget="many2many_tags" string="Categories"/>
+                                        <field name="alternative_product_ids" widget="many2many_tags"
+                                               domain="[('id', '!=', active_id), '|', ('company_id', '=', company_id), ('company_id', '=', False)]"/>
+                                        <field name="accessory_product_ids" widget="many2many_tags"/>
+                                        <field name="website_style_ids" widget="many2many_tags"
+                                               groups="base.group_no_one"/>
+                                    </group>
+                                </group>
+                                <group name="product_template_images" string="Extra Product Media">
+                                    <field name="product_template_image_ids" class="o_website_sale_image_list"
+                                           context="{'default_name': name}" mode="kanban"
+                                           options="{'create_text':'Add a Media'}" nolabel="1"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Overwritten action of product template for display only Lens type product -->
+        <record id="product_template_action_lens" model="ir.actions.act_window">
+            <field name="name">Lenses</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.template</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="search_view_id" ref="stock.product_template_search_form_view_stock"/>
+            <field name="context">{'default_prd_categ_name': 'Lens'}</field>
+            <field name="domain">[('prd_categ_name','=','Lens')]</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a new product
+                </p>
+            </field>
+        </record>
+        >
+
+        <!-- Display custom tree view instead of product template tree view -->
+        <record id="lens_action_tree_view" model="ir.actions.act_window.view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="lens_list_tree_view"/>
+            <field name="act_window_id" ref="product_template_action_lens"/>
+        </record>
+
+        <record id="lens_action_form_view" model="ir.actions.act_window.view">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="product_template_lens_view_form"/>
+            <field name="act_window_id" ref="product_template_action_lens"/>
+        </record>
+
+        <!-- Lens Listing Menu-->
+        <menuitem id="lens_list_menu" action="product_template_action_lens" parent="product_service_child_product"
+                  sequence="2"/>
+        <!-- Lens Treatment Menu-->
+        <!-- <menuitem id="lens_treatment_menu" action="lens_treatment_action" parent="root_product_service_menu" sequence="3"/> -->
+    </data>
+</odoo>

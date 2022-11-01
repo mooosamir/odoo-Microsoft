@@ -1,0 +1,13 @@
+$theme-color-plate: #292961, #3b3d5a, #02393e, #660d33, #ff9800, #a1324f, #84adea, #183819, #31323c, #b5e8f3;
+$i : 1;
+@each $color in $theme-color-plate {
+    .color-primary-#{$i} {
+        background: $color;
+    }
+    .color-alternate-#{$i} {
+        background: $color;
+        opacity: 0.5;
+    }
+
+    $i : $i+1;
+}

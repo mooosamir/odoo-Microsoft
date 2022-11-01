@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+    <t t-extend="ListView.buttons">
+        <t t-jquery="div.o_list_buttons" t-operation='append'>
+<!--            <t t-if="widget.modelName == 'outside.doctor.class'">-->
+<!--                <button type="button" class="import_out_side_doctor btn btn-primary">-->
+<!--                            Import Doctor-->
+<!--                </button>-->
+<!--            </t>-->
+            <t t-if="widget.modelName == 'hr.employee' &amp;&amp; widget._title == 'Employees'">
+                <button type="object" name="emoployee_inside_doctor_class"
+                        class="btn btn-primary">
+                    NPI Import
+                </button>
+            </t>
+            <t t-if="widget.modelName == 'hr.employee' &amp;&amp; widget._title == 'Outside Doctor'">
+                <button type="object" name="outside_emoployee_inside_doctor_class"
+                        class="btn btn-primary">
+                    NPI Import
+                </button>
+            </t>
+        </t>
+    </t>
+    <t t-extend="KanbanView.buttons">
+        <t t-jquery="button" t-operation="after">
+            <t t-if="widget &amp;&amp; widget.modelName == 'hr.employee' &amp;&amp; widget._title == 'Employees'">
+                <button type="button" class="btn btn-primary emoployee_inside_doctor_class">
+                    NPI Import
+                </button>
+            </t>
+            <t t-if="widget &amp;&amp; widget.modelName == 'hr.employee' &amp;&amp; widget._title == 'Outside Doctor'">
+                <button type="button" class="btn btn-primary outside_emoployee_inside_doctor_class">
+                    NPI Import
+                </button>
+            </t>
+        </t>
+    </t>
+
+</templates>

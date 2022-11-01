@@ -1,0 +1,20 @@
+<odoo>
+	<data>
+        <record id="frame_type_1" model="spec.frame.type">
+	        <field name	="name">Metal Edge</field>
+	    </record>
+        <record id="frame_type_2" model="spec.frame.type">
+	        <field name	="name">Zyl Edge</field>
+	    </record>
+        <record id="frame_type_3" model="spec.frame.type">
+	        <field name	="name">Drilled Rimless</field>
+	    </record>
+
+        <record id="frame_type_4" model="spec.frame.type">
+	        <field name	="name">Grooved Rimless</field>
+	    </record>
+        <record id="frame_type_5" model="spec.frame.type">
+	        <field name	="name">Industrial Edge</field>
+	    </record>
+    </data>
+</odoo>

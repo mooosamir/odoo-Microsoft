@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="product_sales">
+        <t t-call="web.html_container">
+            <t t-call="opt_reports.product_sale" t-lang="o.partner_id.lang"/>
+        </t>
+    </template>
+
+    <template id="product_sale">
+        <t t-call="general_template.creative_external_layout">
+            <t t-set="o" t-value="o.with_context({'lang':o.partner_id.lang})"/>
+            <t t-set="theme_color" t-value="o.company_id and o.company_id.theme_color"/>
+            <t t-set="theme_text_color" t-value="o.company_id and o.company_id.theme_text_color"/>
+            <t t-set="company_color" t-value="o.company_id and o.company_id.company_color"/>
+            <t t-set="company_address_color" t-value="o.company_id and o.company_id.company_address_color"/>
+            <t t-set="customer_color" t-value="o.company_id and o.company_id.customer_color"/>
+            <t t-set="customer_address_color" t-value="o.company_id and o.company_id.customer_address_color"/>
+            <t t-set="text_color" t-value="o.company_id and o.company_id.text_color"/>
+            <div class="page"
+                 t-att-style="'font-family:'+o.company_id.font_id.family+';font-size:'+str(o.company_id.font_size)+'px;'">
+                <!--                <t t-call="opt_reports.custom_footer"></t>-->
+                <div class="oe_structure"/>
+                <t t-call="general_template.template_watermark"/>
+                <table BORDERCOLOR="#{theme_color or '#000000'}" border="1" cellpadding="0" cellspacing="0"
+                       class="table table-bordered"
+                       style="border:0.5px solid #ccc;  border-collapse: collapse; text-transform:capitalize; padding:15px;border-bottom:1px solid #ccc;"
+                       width="100%">
+                    <thead>
+                        <tr t-attf-style="page-break-inside: avoid !important;background-color: #{theme_color or '#000000'}; color: #{theme_text_color or '#000000'};">
+                            <th align="center" class="text-center"
+                                t-att-style="'padding:5px 10px; border:0.5px solid #ccc !important; border-right:0px solid #ccc !important;'">
+                                <b>Date</b>
+                            </th>
+                            <th align="center" class="text-center"
+                                t-att-style="'padding:5px 10px; border:0.5px solid #ccc !important; border-right:0px solid #ccc !important;'">
+                                <b>Order</b>
+                            </th>
+                            <th align="center" class="text-center"
+                                t-att-style="'padding:5px 10px; border:0.5px solid #ccc !important; border-right:0px solid #ccc !important;'">
+                                <b>Product</b>
+                            </th>
+                            <th align="center" class="text-center"
+                                t-att-style="'padding:5px 10px; border:0.5px solid #ccc !important; border-right:0px solid #ccc !important;'">
+                                <b>Cost</b>
+                            </th>
+                            <th align="center" class="text-center"
+                                t-att-style="'padding:5px 10px; border:0.5px solid #ccc !important; border-right:0px solid #ccc !important;'">
+                                <b>Qty</b>
+                            </th>
+                            <th align="center" class="text-center"
+                                t-att-style="'padding:5px 10px; border:0.5px solid #ccc !important; border-right:0px solid #ccc !important;'">
+                                <b>Retail</b>
+                            </th>
+                            <th align="center" class="text-center"
+                                t-att-style="'padding:5px 10px; border:0.5px solid #ccc !important; border-right:0px solid #ccc !important;'">
+                                <b>Discount</b>
+                            </th>
+                            <th align="center" class="text-center"
+                                t-att-style="'padding:5px 10px; border:0.5px solid #ccc !important; border-right:0px solid #ccc !important;'">
+                                <b>Net</b>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody style="border-top: 1px solid black;">
+                        <t t-set="is_odd" t-value="0"/>
+                        <t t-foreach="docs.sale_order_line_ids" t-as="sale_order_line_id">
+                            <t t-set="is_odd" t-value="is_odd + 1"/>
+                            <t t-if="is_odd % 2 == 0">
+                                <t t-set="ol_color" t-value="o.company_id.even_party_color"/>
+                            </t>
+                            <t t-else="">
+                                <t t-set="ol_color" t-value="o.company_id.odd_party_color"/>
+                            </t>
+                            <tr t-att-style="'page-break-inside: avoid !important;background-color: '+ ol_color + '; color: '+ text_color">
+                                <td align="center" class="text-center"
+                                    t-att-style="'padding:5px 10px; border:0.5px solid #ccc !important; border-right:0px solid #ccc !important;'">
+                                    <t t-if="sale_order_line_id.order_id.date_order">
+                                        <t t-esc="sale_order_line_id.order_id.date_order.strftime('%b %d, %Y')"/>
+                                    </t>
+                                </td>
+                                <td align="center" class="text-center"
+                                    t-att-style="'padding:5px 10px; border:0.5px solid #ccc !important; border-right:0px solid #ccc !important;'">
+                                    <t t-esc="sale_order_line_id.order_id.name"/>
+                                </td>
+                                <td align="center" class="text-center"
+                                    t-att-style="'padding:5px 10px; border:0.5px solid #ccc !important; border-right:0px solid #ccc !important;'">
+                                    <t t-esc="sale_order_line_id.name"/>
+                                </td>
+                                <td align="right" class="text-right"
+                                    t-att-style="'padding:5px 10px; border:0.5px solid #ccc !important; border-right:0px solid #ccc !important;'">
+                                    <t t-esc="sale_order_line_id.product_id.standard_price"
+                                       t-options='{"widget": "monetary", "display_currency": currency_id}'/>
+                                </td>
+                                <td align="right" class="text-right"
+                                    t-att-style="'padding:5px 10px; border:0.5px solid #ccc !important; border-right:0px solid #ccc !important;'">
+                                    <t t-esc="int(sale_order_line_id.product_uom_qty)"/>
+                                </td>
+                                <td align="right" class="text-right"
+                                    t-att-style="'padding:5px 10px; border:0.5px solid #ccc !important; border-right:0px solid #ccc !important;'">
+                                    <t t-esc="sale_order_line_id.price_unit * sale_order_line_id.product_qty"
+                                       t-options='{"widget": "monetary", "display_currency": currency_id}'/>
+                                </td>
+                                <td align="right" class="text-right"
+                                    t-att-style="'padding:5px 10px; border:0.5px solid #ccc !important; border-right:0px solid #ccc !important;'">
+                                    <t t-if="sale_order_line_id.discount">
+                                        <t t-esc="sale_order_line_id.price_unit * sale_order_line_id.discount/100  * sale_order_line_id.product_qty"
+                                           t-options='{"widget": "monetary", "display_currency": currency_id}'/>
+                                    </t>
+                                    <t t-else="">
+                                        <t t-esc="0.00"/>
+                                    </t>
+<!--                                    <t t-esc="'{:.2f}'.format(sale_order_line_id.discount)"/>%-->
+                                </td>
+                                <td align="right" class="text-right"
+                                    t-att-style="'padding:5px 10px; border:0.5px solid #ccc !important; border-right:0px solid #ccc !important;'">
+                                    <t t-if="sale_order_line_id.discount">
+                                        <t t-esc="sale_order_line_id.price_unit - (sale_order_line_id.price_unit * sale_order_line_id.discount/100)  * sale_order_line_id.product_qty"
+                                           t-options='{"widget": "monetary", "display_currency": currency_id}'/>
+                                    </t>
+                                    <t t-else="">
+                                        <t t-esc="sale_order_line_id.price_unit * sale_order_line_id.product_qty"
+                                           t-options='{"widget": "monetary", "display_currency": currency_id}'/>
+                                    </t>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+                <div class="oe_structure"/>
+            </div>
+            <t t-call="general_template.report_barcode"/>
+        </t>
+    </template>
+</odoo>

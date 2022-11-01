@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="assets_backend" name="assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" href="/outside_doctor/static/src/css/lib/nv.d3.css"/>
+            <script type="text/javascript" src="/outside_doctor/static/src/js/outside_doctor.js"/>
+            <script type="text/javascript" src="/outside_doctor/static/src/js/lib/d3.min.js"/>
+            <script type="text/javascript" src="/outside_doctor/static/src/js/list_controller.js"></script>
+            <script type="text/javascript" src="/outside_doctor/static/src/js/kanban_controller.js"></script>
+        </xpath>
+    </template>
+</odoo>

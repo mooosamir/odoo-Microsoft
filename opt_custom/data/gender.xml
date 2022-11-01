@@ -1,0 +1,24 @@
+<odoo>
+	<data>
+		<!-- Gender Data-->
+	    <record id="gender_data_1" model="spec.gender.type">
+	        <field name="name">Male</field>
+	    </record>
+	    
+	    <record id="gender_data_2" model="spec.gender.type">
+	        <field name="name">Female</field>
+	    </record>
+	    
+	    <record id="gender_data_3" model="spec.gender.type">
+	        <field name="name">Unisex</field>
+	    </record>
+<!-- 	    
+	    <record id="gender_data_4" model="spec.gender.type">
+	        <field name="name">Youth</field>
+	    </record>
+	    
+	    <record id="gender_data_5" model="spec.gender.type">
+	        <field name="name">Adult</field>
+	    </record> -->
+	</data>
+</odoo>

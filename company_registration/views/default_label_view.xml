@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="action_default_label" model="ir.actions.act_window">
+		<field name="name">Integrated Labels</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">default.label</field>
+		<field name="view_mode">tree,form</field>
+		<field name="help" type="html">
+			<p class="o_view_nocontent_smiling_face">
+			Link your integrated label here
+			</p>
+		</field>
+	</record>
+
+    <menuitem action="action_default_label" id="menu_action_default_label"
+		parent="opt_custom.inventory_configuration_menu" sequence="5" name="Integrated Label"/>
+</odoo>

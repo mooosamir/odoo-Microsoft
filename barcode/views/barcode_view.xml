@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+<!--    <record id="barcode_product_product_search_view" model="ir.ui.view">-->
+<!--        <field name="name">barcode.product.product.search.view</field>-->
+<!--        <field name="model">product.product</field>-->
+<!--        <field name="mode">primary</field>-->
+<!--        <field name="inherit_id" ref="product.product_search_form_view"/>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <xpath expr="//filter[@name='consumable']" position="after">-->
+<!--                <separator/>-->
+
+<!--                <filter string="Spec Product Type" name="Spec Product Type" context="{'group_by':'spec_product_type'}"/>-->
+<!--            </xpath>-->
+<!--        </field>-->
+<!--    </record>-->
+
+    <record id="barcode_tree_view" model="ir.ui.view">
+        <field name="name">barcode.tree.view</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_product_tree_view"/>
+        <field name="arch" type="xml">
+            <tree position="replace">
+                <tree>
+                    <field name="product"/>
+                    <field name="variant"/>
+                    <field name="barcode"/>
+                    <field name="list_price"/>
+                    <field name="qty_available"/>
+                    <!--					<field name="w_price_min"/>-->
+                    <!--					<field name="w_price_max"/>-->
+                    <!--					<field name="multiplier"/>-->
+                    <!--					<field name="additional_amt"/>-->
+                    <!--					<field name="next_ten"/>-->
+                    <!--					<field name="ends_with"/>-->
+                </tree>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="action_barcode_view" model="ir.actions.act_window">
+        <field name="name">Barcode Printing</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.product</field>
+        <field name="view_mode">tree</field>
+        <field name="domain">[('product_tmpl_id.categ_id.name','in',('Frames', 'Lens',
+            'Lens Treatment','Services','Contact Lens','Accessory'))]
+        </field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Link your integrated label here
+            </p>
+        </field>
+    </record>
+
+
+    <menuitem
+            action="action_barcode_view"
+            id="menu_action_barcode_view"
+            parent="opt_custom.root_product_service_menu"
+            sequence="7"
+            name="Barcode Printing"/>
+
+</odoo>

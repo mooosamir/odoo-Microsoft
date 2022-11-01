@@ -1,0 +1,37 @@
+<odoo>
+	<data>
+		<!-- sequence for Formulary Procedure Code Grouping in Item field-->
+	    <record id="formulary_grouping_item_sequence" model="ir.sequence">
+	        <field name="name">Formulary Grouping Procedure Item</field>
+	        <field name="code">spec.grouping.item</field>
+	    </record>
+		<!-- sequence for Insurance ID in Profile-->
+	    <record id="insurance_sequence" model="ir.sequence">
+	        <field name="name">Insurance ID</field>
+	        <field name="code">spec.insurance.id</field>
+	    </record>
+	    
+	    <!-- sequence for Patient Profile Login-->
+        <record id="seq_patient_profile_login" model="ir.sequence">
+            <field name="name">Patient Profile Login</field>
+            <field name="code">patient.profile.login</field>
+            <field name="prefix">PTT/</field>
+            <field name="padding">5</field>
+        </record>
+
+		<!-- Insurance claim sequence  -->
+		<record id="seq_claim_number_login" model="ir.sequence">
+            <field name="name">Claim Number</field>
+            <field name="code">claim.number</field>
+            <field name="padding">5</field>
+        </record>
+
+		<!-- Insurance Remittance Advice  -->
+		<record id="seq_remittance_advice" model="ir.sequence">
+            <field name="name">Remittance Advice</field>
+            <field name="code">remittance.advice</field>
+            <field name="padding">5</field>
+			<field name="prefix">RA</field>
+        </record>
+	</data>
+</odoo>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--    COLOR PALETTE TEMPLATES-->
+    <template priority="103" id="ks_theme_kernel.backend_color_1" name="color_1" active="False"
+              inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet"
+                  type="text/scss"
+                  href="/ks_theme_kernel/static/src/scss/themes/color_1.scss"
+            />
+        </xpath>
+    </template>
+    <template priority="104" id="ks_theme_kernel.backend_color_2" name="color_2"
+              inherit_id="web.assets_backend" active="False">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet"
+                  type="text/scss"
+                  href="/ks_theme_kernel/static/src/scss/themes/color_2.scss"
+            />
+        </xpath>
+    </template>
+    <template priority="106" id="ks_theme_kernel.backend_color_3" name="color_3"
+              inherit_id="web.assets_backend" active="False">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet"
+                  type="text/scss"
+                  href="/ks_theme_kernel/static/src/scss/themes/color_3.scss"
+            />
+        </xpath>
+    </template>
+    <template priority="107" id="ks_theme_kernel.backend_color_4" name="color_4"
+              inherit_id="web.assets_backend" active="False">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet"
+                  type="text/scss"
+                  href="/ks_theme_kernel/static/src/scss/themes/color_4.scss"
+            />
+        </xpath>
+    </template>
+    <template priority="108" id="ks_theme_kernel.backend_color_5" name="color_5"
+              inherit_id="web.assets_backend" active="False">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet"
+                  type="text/scss"
+                  href="/ks_theme_kernel/static/src/scss/themes/color_5.scss"
+            />
+        </xpath>
+    </template>
+    <template priority="109" id="ks_theme_kernel.backend_color_6" name="color_6"
+              inherit_id="web.assets_backend" active="False">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet"
+                  type="text/scss"
+                  href="/ks_theme_kernel/static/src/scss/themes/color_6.scss"
+            />
+        </xpath>
+    </template>
+    <template priority="110" id="ks_theme_kernel.backend_color_7" name="color_7"
+              inherit_id="web.assets_backend" active="False">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet"
+                  type="text/scss"
+                  href="/ks_theme_kernel/static/src/scss/themes/color_7.scss"
+            />
+        </xpath>
+    </template>
+    <template priority="111" id="ks_theme_kernel.backend_color_8" name="color_8"
+              inherit_id="web.assets_backend" active="False">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet"
+                  type="text/scss"
+                  href="/ks_theme_kernel/static/src/scss/themes/color_8.scss"
+            />
+        </xpath>
+    </template>
+    <template priority="112" id="ks_theme_kernel.backend_color_9" name="color_9"
+              inherit_id="web.assets_backend" active="False">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet"
+                  type="text/scss"
+                  href="/ks_theme_kernel/static/src/scss/themes/color_9.scss"
+            />
+        </xpath>
+    </template>
+    <template priority="113" id="ks_theme_kernel.backend_color_10" name="color_10"
+              inherit_id="web.assets_backend" active="False">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet"
+                  type="text/scss"
+                  href="/ks_theme_kernel/static/src/scss/themes/color_10.scss"
+            />
+        </xpath>
+    </template>
+<!--    Dark mode scss-->
+    <template priority="113" id="ks_theme_kernel.backend_dark_color" name="Dark"
+              inherit_id="web.assets_backend" active="False">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet"
+                  type="text/scss"
+                  href="/ks_theme_kernel/static/src/scss/themes/dark_mode.scss"
+            />
+        </xpath>
+    </template>
+</odoo>

@@ -1,0 +1,12 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_service_products,access_service_products,model_service_products,base.group_user,1,1,1,1
+access_multi_order_type,access.multi.order.type,model_multi_order_type,,1,1,1,1
+access_multi_order_type_historical,access.multi.order.type.historical,model_multi_order_type_historical,,1,1,1,1
+access_sale_diagnosis_setup,access_sale_diagnosis_setup,model_sale_diagnosis_setup,base.group_user,1,1,1,1
+access_miscellaneous_products,access_miscellaneous_products,model_miscellaneous_products,base.group_user,1,1,1,1
+access_sale_line_diagnosis_setup,access_sale_line_diagnosis_setup,model_sale_line_diagnosis_setup,base.group_user,1,1,1,1
+access_sale_order_line_hcpcs,access_sale_order_line_hcpcs,model_sale_order_line_hcpcs,base.group_user,1,1,1,1
+
+access_dispensing_notes,access_dispensing_notes,model_dispensing_notes,base.group_user,1,1,1,1
+access_order_status,access_order_status,model_order_status,base.group_user,1,1,1,1
+access_discount_reason,access_discount_reason,model_discount_reason,base.group_user,1,1,1,1

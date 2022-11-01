@@ -1,0 +1,30 @@
+<odoo>
+
+    <record id="accessory_change_cost_price_view" model="ir.ui.view">
+        <field name="name">Change Cost Price</field>
+        <field name="model">spec.accessorry.change.cost.price</field>
+        <field name="arch" type="xml">
+            <form string="Change Cost Price">
+                <separator string="Change Price"/>
+                <group>
+                    <field name="new_price" string="Cost"/>
+                    <field name="currency_id" invisible="1"/>
+                </group>
+                <footer class="oe_edit_only">
+                        <button name="action_change_price" type="object" string="Apply" class="oe_highlight"/>
+                        <button string="Cancel" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="accessory_change_cost_price_action" model="ir.actions.act_window">
+        <field name="name">Change Cost Price</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">spec.accessorry.change.cost.price</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="accessory_change_cost_price_view"/>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

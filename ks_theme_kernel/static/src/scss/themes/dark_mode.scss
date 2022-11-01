@@ -1,0 +1,81 @@
+$primary: #303238;
+$text-primary: #fff;
+$primary-light: #46af74;
+$sidebar-bg-color: #303238;
+$topmenu-bg-color: $primary;
+$border-color: rgba(255, 255, 255, 0.25);
+$sidemenu-icon-bg-color: #484a78;
+$sidebar-width: 70px;
+$page-bg-color: #212327;
+$badge-bg: #e75e40;
+$sidebar-icon-color: #7c7c7c;
+$dark-gray: #dfdfe6;
+$light-gray: #f7f7f7;
+$ks-theme-radius: 4px;
+
+$sidebar-text-color: #fff; //#000;
+$invert: 1; //0;
+$icons-opacity: 1; //0.7;
+$drawer-bg: $page-bg-color;
+$app-name-color: #fff; //$primary;
+$search-bg: #fff; //$sidebar-bg-color;
+$secondary-color: $page-bg-color;
+$user-info-bg: $secondary-color; //#fff;
+$menu-level-bg: rgba(0,0,0,0.25);  //#fafafa;
+$kanban-bg: $sidebar-bg-color; //#dedee3;
+$text-muted: #b4b4b4; //#4f4f4f;
+$btn-outlined-color: #fff;  //$primary;
+$input-bg: $primary; //#ececef;
+$table-border-color: rgba(255, 255, 255, 0.1); //#dee2e6;
+$table-text-color: #fff; //#232323;
+$table-text-muted: $text-muted;  //#7c7e80;
+$table-hover-color: #303238; // #464971; //#dcdce7;
+$table-row-focus: #303238; // #232438; //#fafafa;
+$chekbox-color: #fff; //#4c4c4c;
+
+$notification-bg: $primary; //#f8f9fa;
+$primary-on-light: #fff; //$primary;
+$searchbar-bg-color: $page-bg-color; //#fff;
+$searchbar-border-color: #818299; // #ccc;
+
+$primary-and-grey: $primary;//#e9ecef;
+$label-color: #e7a037; //$primary-light;
+$text-white-gray: #ffffff; //#3a3a3a;
+$nav-active: $page-bg-color; // #fff;
+$placeholder-text: #ccc; //#7e7e7e;
+
+$btn-primary : $primary-light;
+$ks-dis-sidebar : $primary;
+$ks-message-body: $page-bg-color;
+$ks-message-search: $primary;
+$ks-search-input : #fff;
+
+.ks_clock {
+    background: $page-bg-color !important;
+    cursor: url(/ks_theme_kernel/static/src/images/icons/speaker-white.svg), pointer !important;
+
+    .ks_clock_text {
+        color: #daf6ff !important;
+        text-shadow: 0 0 20px rgba(10, 175, 230, 0.7), 0 0 20px rgba(10, 175, 230, 0);
+    }
+}
+
+.ks-header-size .ks_searchfilter_overlay,
+.search-filter-open .ks_searchfilter_overlay {
+    @media (min-width: 769px) {
+        cursor: url(/ks_theme_kernel/static/src/images/icons/close-white.svg), auto !important;
+    }
+}
+
+.o_account_reports_page.o_account_assets_report .o_account_reports_table tr:not(:hover) td:nth-child(2n+6),
+.o_account_reports_page.o_account_assets_report .o_account_reports_table tr:not(:first-child) th:nth-child(2n+6) {
+    background-color: #474a51;
+}
+
+body .o_base_settings .o_setting_container .settings .highlighter {
+    background: #774d0e;
+}
+
+.sidebar-sub-menu {
+    border-right: 1px solid #58595d;
+}

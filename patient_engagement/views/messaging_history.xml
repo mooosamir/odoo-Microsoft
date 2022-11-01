@@ -1,0 +1,61 @@
+<odoo>
+
+    <record id="messaging_history_tree" model="ir.ui.view">
+        <field name="name">messaging.history.tree</field>
+        <field name="model">messaging.history</field>
+        <field name="arch" type="xml">
+            <tree class="messaging_history_tree_view">
+                <field name="company_id"/>
+                <field name="datetime_of_request" widget="datetime" options="{'format': '%d/%m/%Y %I:%M %p'}" />
+                <field name="patient_id"/>
+                <field name="message" string="Template"/>
+                <field name="details"/>
+                <field name="method"/>
+                <field name="status" class="status"/>
+
+                <field name="message_sid" invisible="1"/>
+                <field name="voice_sid" invisible="1"/>
+                <field name="email" invisible="1"/>
+                <field name="email_status" invisible="1"/>
+                <field name="message_status" invisible="1"/>
+                <field name="voice_status" invisible="1"/>
+
+<!--                <button string="email" icon="fa-envelope" type="object" attrs="{'invisible':[('email','=',False)]}"/>-->
+<!--                <button string="email" icon="fa-check-square-o" class="red_status " type="object" attrs="{'invisible':[('email_status','!=','not send')]}"/>-->
+<!--                <button string="email" icon="fa-check-square-o" class="green_status" type="object" attrs="{'invisible':[('email_status','!=','sent')]}"/>-->
+
+<!--                <button string="message" icon="fa-comment" type="object" attrs="{'invisible':[('message_sid','=',False)]}"/>-->
+<!--                <button string="message" icon="fa-check-square-o" class="red_status" type="object" attrs="{'invisible':[('message_status','not in',['failed','undelivered','not send'])]}"/>-->
+<!--                <button string="message" icon="fa-check-square-o" class="orange_status" type="object" attrs="{'invisible':[('message_status', 'not in',['in progress','sent','sending','queued','scheduled','accepted'])]}"/>-->
+<!--                <button string="message" icon="fa-check-square-o" class="green_status" type="object" attrs="{'invisible':[('message_status','!=','delivered')]}"/>-->
+
+<!--                <button string="voice" icon="fa-phone" type="object" attrs="{'invisible':[('voice_sid','=',False)]}"/>-->
+<!--                <button string="voice" icon="fa-check-square-o" class="red_status" type="object" attrs="{'invisible':[('voice_status','not in',['busy','no-answer','canceled','failed','not send'])]}"/>-->
+<!--                <button string="voice" icon="fa-check-square-o" class="orange_status" type="object" attrs="{'invisible':[('voice_status', 'not in',['queued','initiated','ringing','in-progress'])]}"/>-->
+<!--                <button string="voice" icon="fa-check-square-o" class="green_status" type="object" attrs="{'invisible':[('voice_status','!=','completed')]}"/>-->
+
+            </tree>
+        </field>
+    </record>
+
+    <record id="messaging_history_form" model="ir.ui.view">
+        <field name="name">messaging.history.tree</field>
+        <field name="model">messaging.history</field>
+        <field name="arch" type="xml">
+            <form>
+                <field name="message_body"/>
+            </form>
+        </field>
+    </record>
+
+    <record id="messaging_history_action" model="ir.actions.act_window">
+        <field name="name">History</field>
+        <field name="res_model">messaging.history</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="patient_engagement_history_menu_item" action="messaging_history_action" name='History'
+              parent="patient_engagement_menu" sequence="4"/>
+    <menuitem id="patient_engagement_consent_form_menu_item" action="acs_consent_form.action_acs_consent_form" name='Consent Form List'
+              parent="patient_engagement_menu" sequence="5"/>
+</odoo>

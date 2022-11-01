@@ -1,0 +1,31 @@
+.frames_data_wizard #style_configurations, .frames_data_wizard #upc_style_configurations{
+    border: 1px solid black;
+    width: 100%;
+}
+.frames_data_wizard #style_configurations tr, .frames_data_wizard #upc_style_configurations tr{
+    border: 1px solid black;
+}
+.frames_data_wizard{
+    min-height: 400px;
+}
+
+.heading {
+    font-family: Inter, sans-serif;
+    font-size: medium;
+    font-weight: 500;
+    letter-spacing: -0.2px;
+
+}
+
+#upc_style_configurations thead, #style_configurations thead, .frames_data_wizard .table_heading{
+    background-color:rgb(238, 238, 238);
+    border-bottom: 1px solid rgb(202, 202, 202);
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+.frames_data_wizard .fa-trash{
+    cursor: pointer;
+    padding-right: 10px;
+}

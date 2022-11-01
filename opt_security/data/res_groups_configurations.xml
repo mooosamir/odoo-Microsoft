@@ -1,0 +1,496 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data noupdate="0">
+	    <record id="opt_configurations" model="ir.module.category">
+	        <field name="name">OPT Configurations</field>
+	    </record>
+			<record id="opt_configurations_insurance_configurations" model="res.groups">
+				<field name="name">Insurance Configurations</field>
+				<field name="category_id" ref="opt_security.opt_configurations"/>
+			</record>
+			<record id="opt_configurations_product_configurations" model="res.groups">
+				<field name="name">Product Configurations</field>
+				<field name="category_id" ref="opt_security.opt_configurations"/>
+			</record>
+			<record id="opt_configurations_company_configurations" model="res.groups">
+				<field name="name">Company Configurations</field>
+				<field name="category_id" ref="opt_security.opt_configurations"/>
+			</record>
+
+			<record id="opt_configurations_frames" model="ir.module.category">
+				<field name="name">OPT Configurations/Frames</field>
+				<field name="parent_id" ref="opt_security.opt_configurations"/>
+			</record>
+				<record id="opt_configurations_frames_configuration" model="ir.module.category">
+					<field name="name">OPT Configurations/Frames/Configurations</field>
+					<field name="parent_id" ref="opt_security.opt_configurations_frames"/>
+				</record>
+					<record id="opt_configurations_frames_configuration_brands" model="res.groups">
+						<field name="name">Brands</field>
+						<field name="category_id" ref="opt_security.opt_configurations_frames_configuration"/>
+					</record>
+					<record id="opt_configurations_frames_configuration_collections" model="res.groups">
+						<field name="name">Collections</field>
+						<field name="category_id" ref="opt_security.opt_configurations_frames_configuration"/>
+					</record>
+					<record id="opt_configurations_frames_configuration_manager" model="res.groups">
+						<field name="name">Manager</field>
+						<field name="category_id" ref="opt_security.opt_configurations_frames_configuration"/>
+						<field name="implied_ids" eval="[(4, ref('opt_security.opt_configurations_frames_configuration_brands')),
+							(4, ref('opt_security.opt_configurations_frames_configuration_collections')),
+							]"/>
+					</record>
+				<record id="opt_configurations_frames_admin_configuration" model="ir.module.category">
+					<field name="name">OPT Configurations/Frames/Admin Configuration</field>
+					<field name="parent_id" ref="opt_security.opt_configurations_frames"/>
+				</record>
+					<record id="opt_configurations_frames_admin_configuration_frame_material" model="res.groups">
+						<field name="name">Frame Material</field>
+						<field name="category_id" ref="opt_security.opt_configurations_frames_admin_configuration"/>
+					</record>
+					<record id="opt_configurations_frames_admin_configuration_temple_material" model="res.groups">
+						<field name="name">Temple Material</field>
+						<field name="category_id" ref="opt_security.opt_configurations_frames_admin_configuration"/>
+					</record>
+					<record id="opt_configurations_frames_admin_configuration_shape" model="res.groups">
+						<field name="name">Shape</field>
+						<field name="category_id" ref="opt_security.opt_configurations_frames_admin_configuration"/>
+					</record>
+					<record id="opt_configurations_frames_admin_configuration_color_family" model="res.groups">
+						<field name="name">Color Family</field>
+						<field name="category_id" ref="opt_security.opt_configurations_frames_admin_configuration"/>
+					</record>
+					<record id="opt_configurations_frames_admin_configuration_geo_fit_bridge" model="res.groups">
+						<field name="name">Geo Fit / Bridge</field>
+						<field name="category_id" ref="opt_security.opt_configurations_frames_admin_configuration"/>
+					</record>
+					<record id="opt_configurations_frames_admin_configuration_hinge_type" model="res.groups">
+						<field name="name">Hinge Type</field>
+						<field name="category_id" ref="opt_security.opt_configurations_frames_admin_configuration"/>
+					</record>
+					<record id="opt_configurations_frames_admin_configuration_edge_type" model="res.groups">
+						<field name="name">Edge Type</field>
+						<field name="category_id" ref="opt_security.opt_configurations_frames_admin_configuration"/>
+					</record>
+					<record id="opt_configurations_frames_admin_configuration_tags" model="res.groups">
+						<field name="name">Tags</field>
+						<field name="category_id" ref="opt_security.opt_configurations_frames_admin_configuration"/>
+					</record>
+					<record id="opt_configurations_frames_admin_configuration_lens_shape_catalog" model="res.groups">
+						<field name="name">Lens Shape Catalog</field>
+						<field name="category_id" ref="opt_security.opt_configurations_frames_admin_configuration"/>
+					</record>
+					<record id="opt_configurations_frames_admin_configuration_color_code" model="res.groups">
+						<field name="name">Color Code</field>
+						<field name="category_id" ref="opt_security.opt_configurations_frames_admin_configuration"/>
+					</record>
+					<record id="opt_configurations_frames_admin_configuration_frame_type" model="res.groups">
+						<field name="name">Frame Type</field>
+						<field name="category_id" ref="opt_security.opt_configurations_frames_admin_configuration"/>
+					</record>
+					<record id="opt_configurations_frames_admin_configuration_manager" model="res.groups">
+						<field name="name">Manager</field>
+						<field name="category_id" ref="opt_security.opt_configurations_frames_admin_configuration"/>
+						<field name="implied_ids" eval="[(4, ref('opt_security.opt_configurations_frames_admin_configuration_frame_material')),
+							(4, ref('opt_security.opt_configurations_frames_admin_configuration_temple_material')),
+							(4, ref('opt_security.opt_configurations_frames_admin_configuration_shape')),
+							(4, ref('opt_security.opt_configurations_frames_admin_configuration_color_family')),
+							(4, ref('opt_security.opt_configurations_frames_admin_configuration_geo_fit_bridge')),
+							(4, ref('opt_security.opt_configurations_frames_admin_configuration_hinge_type')),
+							(4, ref('opt_security.opt_configurations_frames_admin_configuration_edge_type')),
+							(4, ref('opt_security.opt_configurations_frames_admin_configuration_tags')),
+							(4, ref('opt_security.opt_configurations_frames_admin_configuration_lens_shape_catalog')),
+							(4, ref('opt_security.opt_configurations_frames_admin_configuration_color_code')),
+							(4, ref('opt_security.opt_configurations_frames_admin_configuration_frame_type')),
+							]"/>
+					</record>
+				<record id="opt_configurations_frames_manager" model="res.groups">
+					<field name="name">Manager</field>
+					<field name="category_id" ref="opt_security.opt_configurations_frames"/>
+					<field name="implied_ids" eval="[(4, ref('opt_security.opt_configurations_frames_configuration_manager')),
+						(4, ref('opt_security.opt_configurations_frames_admin_configuration_manager')),
+						]"/>
+				</record>
+
+
+			<record id="opt_configurations_lenses" model="ir.module.category">
+				<field name="name">OPT Configurations/Lenses</field>
+				<field name="parent_id" ref="opt_security.opt_configurations"/>
+			</record>
+				<record id="opt_configurations_lenses_lens_configurations" model="ir.module.category">
+					<field name="name">OPT Configurations/Lenses/Lens Configurations</field>
+					<field name="parent_id" ref="opt_security.opt_configurations_lenses"/>
+				</record>
+					<record id="opt_configurations_lenses_lens_configurations_lens_measurement_type" model="res.groups">
+						<field name="name">Lens Measurement Type</field>
+						<field name="category_id" ref="opt_security.opt_configurations_lenses_lens_configurations"/>
+					</record>
+					<record id="opt_configurations_lenses_lens_configurations_edge_type" model="res.groups">
+						<field name="name">Edge Type</field>
+						<field name="category_id" ref="opt_security.opt_configurations_lenses_lens_configurations"/>
+					</record>
+					<record id="opt_configurations_lenses_lens_configurations_power_grid_pricing" model="res.groups">
+						<field name="name">Power Grid Pricing</field>
+						<field name="category_id" ref="opt_security.opt_configurations_lenses_lens_configurations"/>
+					</record>
+					<record id="opt_configurations_lenses_lens_configurations_prism_grid_pricing" model="res.groups">
+						<field name="name">Prism Grid Pricing</field>
+						<field name="category_id" ref="opt_security.opt_configurations_lenses_lens_configurations"/>
+					</record>
+					<record id="opt_configurations_lenses_lens_configurations_oversized_pricing" model="res.groups">
+						<field name="name">Oversized Pricing</field>
+						<field name="category_id" ref="opt_security.opt_configurations_lenses_lens_configurations"/>
+					</record>
+					<record id="opt_configurations_lenses_lens_configurations_lens_selection_priority" model="res.groups">
+						<field name="name">Lens Selection Priority</field>
+						<field name="category_id" ref="opt_security.opt_configurations_lenses_lens_configurations"/>
+					</record>
+					<record id="opt_configurations_lenses_lens_configurations_lens_parameter" model="res.groups">
+						<field name="name">Lens Parameter</field>
+						<field name="category_id" ref="opt_security.opt_configurations_lenses_lens_configurations"/>
+					</record>
+					<record id="opt_configurations_lenses_lens_configurations_lens_parameter_selection" model="res.groups">
+						<field name="name">Lens Parameter Selection</field>
+						<field name="category_id" ref="opt_security.opt_configurations_lenses_lens_configurations"/>
+					</record>
+					<record id="opt_configurations_lenses_lens_configurations_manager" model="res.groups">
+						<field name="name">Manager</field>
+						<field name="category_id" ref="opt_security.opt_configurations_lenses_lens_configurations"/>
+						<field name="implied_ids" eval="[(4, ref('opt_security.opt_configurations_lenses_lens_configurations_lens_measurement_type')),
+							(4, ref('opt_security.opt_configurations_lenses_lens_configurations_edge_type')),
+							(4, ref('opt_security.opt_configurations_lenses_lens_configurations_power_grid_pricing')),
+							(4, ref('opt_security.opt_configurations_lenses_lens_configurations_prism_grid_pricing')),
+							(4, ref('opt_security.opt_configurations_lenses_lens_configurations_oversized_pricing')),
+							(4, ref('opt_security.opt_configurations_lenses_lens_configurations_lens_selection_priority')),
+							(4, ref('opt_security.opt_configurations_lenses_lens_configurations_lens_parameter')),
+							(4, ref('opt_security.opt_configurations_lenses_lens_configurations_lens_parameter_selection')),
+							]"/>
+					</record>
+				<record id="opt_configurations_lenses_admin_configurations" model="ir.module.category">
+					<field name="name">OPT Configurations/Lenses/Admin Configurations</field>
+					<field name="parent_id" ref="opt_security.opt_configurations_lenses"/>
+				</record>
+					<record id="opt_configurations_lenses_admin_configurations_lens_type" model="res.groups">
+						<field name="name">Lens Type</field>
+						<field name="category_id" ref="opt_security.opt_configurations_lenses_admin_configurations"/>
+					</record>
+					<record id="opt_configurations_lenses_admin_configurations_lens_brand" model="res.groups">
+						<field name="name">Lens Brand</field>
+						<field name="category_id" ref="opt_security.opt_configurations_lenses_admin_configurations"/>
+					</record>
+					<record id="opt_configurations_lenses_admin_configurations_lens_style" model="res.groups">
+						<field name="name">Lens Style</field>
+						<field name="category_id" ref="opt_security.opt_configurations_lenses_admin_configurations"/>
+					</record>
+					<record id="opt_configurations_lenses_admin_configurations_lens_material" model="res.groups">
+						<field name="name">Lens Material</field>
+						<field name="category_id" ref="opt_security.opt_configurations_lenses_admin_configurations"/>
+					</record>
+					<record id="opt_configurations_lenses_admin_configurations_lens_filter" model="res.groups">
+						<field name="name">Lens Filter</field>
+						<field name="category_id" ref="opt_security.opt_configurations_lenses_admin_configurations"/>
+					</record>
+					<record id="opt_configurations_lenses_admin_configurations_lens_colors" model="res.groups">
+						<field name="name">Lens Colors</field>
+						<field name="category_id" ref="opt_security.opt_configurations_lenses_admin_configurations"/>
+					</record>
+					<record id="opt_configurations_lenses_admin_configurations_lens_treatment_category" model="res.groups">
+						<field name="name">Lens Treatment Category</field>
+						<field name="category_id" ref="opt_security.opt_configurations_lenses_admin_configurations"/>
+					</record>
+					<record id="opt_configurations_lenses_admin_configurations_manager" model="res.groups">
+						<field name="name">Manager</field>
+						<field name="category_id" ref="opt_security.opt_configurations_lenses_admin_configurations"/>
+						<field name="implied_ids" eval="[(4, ref('opt_security.opt_configurations_lenses_admin_configurations_lens_type')),
+							(4, ref('opt_security.opt_configurations_lenses_admin_configurations_lens_brand')),
+							(4, ref('opt_security.opt_configurations_lenses_admin_configurations_lens_style')),
+							(4, ref('opt_security.opt_configurations_lenses_admin_configurations_lens_material')),
+							(4, ref('opt_security.opt_configurations_lenses_admin_configurations_lens_filter')),
+							(4, ref('opt_security.opt_configurations_lenses_admin_configurations_lens_colors')),
+							(4, ref('opt_security.opt_configurations_lenses_admin_configurations_lens_treatment_category')),
+							]"/>
+					</record>
+				<record id="opt_configurations_lenses_manager" model="res.groups">
+					<field name="name">Manager</field>
+					<field name="category_id" ref="opt_security.opt_configurations_lenses"/>
+					<field name="implied_ids" eval="[(4, ref('opt_security.opt_configurations_lenses_lens_configurations_manager')),
+						(4, ref('opt_security.opt_configurations_lenses_admin_configurations_manager')),
+						]"/>
+				</record>
+
+			<record id="opt_configurations_contact_lens" model="ir.module.category">
+				<field name="name">OPT Configurations/Contact Lens</field>
+				<field name="parent_id" ref="opt_security.opt_configurations"/>
+			</record>
+				<record id="opt_configurations_contact_lens_admin_configurations" model="ir.module.category">
+					<field name="name">OPT Configurations/Contact Lens/Admin Configurations</field>
+					<field name="parent_id" ref="opt_security.opt_configurations_contact_lens"/>
+				</record>
+					<record id="opt_configurations_contact_lens_admin_configurations_color_type" model="res.groups">
+						<field name="name">Color Type</field>
+						<field name="category_id" ref="opt_security.opt_configurations_contact_lens_admin_configurations"/>
+					</record>
+					<record id="opt_configurations_contact_lens_admin_configurations_wear_period" model="res.groups">
+						<field name="name">Wear Period</field>
+						<field name="category_id" ref="opt_security.opt_configurations_contact_lens_admin_configurations"/>
+					</record>
+					<record id="opt_configurations_contact_lens_admin_configurations_replacement_schedule" model="res.groups">
+						<field name="name">Replacement Schedule</field>
+						<field name="category_id" ref="opt_security.opt_configurations_contact_lens_admin_configurations"/>
+					</record>
+					<record id="opt_configurations_contact_lens_admin_configurations_indication" model="res.groups">
+						<field name="name">Indication</field>
+						<field name="category_id" ref="opt_security.opt_configurations_contact_lens_admin_configurations"/>
+					</record>
+					<record id="opt_configurations_contact_lens_admin_configurations_manager" model="res.groups">
+						<field name="name">Manager</field>
+						<field name="category_id" ref="opt_security.opt_configurations_contact_lens_admin_configurations"/>
+						<field name="implied_ids" eval="[(4, ref('opt_security.opt_configurations_contact_lens_admin_configurations_color_type')),
+							(4, ref('opt_security.opt_configurations_contact_lens_admin_configurations_wear_period')),
+							(4, ref('opt_security.opt_configurations_contact_lens_admin_configurations_replacement_schedule')),
+							(4, ref('opt_security.opt_configurations_contact_lens_admin_configurations_indication')),
+							]"/>
+					</record>
+
+			<record id="opt_configurations_accessory" model="ir.module.category">
+				<field name="name">OPT Configurations/Accessory</field>
+				<field name="parent_id" ref="opt_security.opt_configurations"/>
+			</record>
+				<record id="opt_configurations_accessory_configurations" model="ir.module.category">
+					<field name="name">OPT Configurations/Accessory/Configurations</field>
+					<field name="parent_id" ref="opt_security.opt_configurations_accessory"/>
+				</record>
+					<record id="opt_configurations_accessory_configurations_accessory_category" model="res.groups">
+						<field name="name">Accessory Category</field>
+						<field name="category_id" ref="opt_security.opt_configurations_accessory_configurations"/>
+					</record>
+					<record id="opt_configurations_accessory_configurations_brands" model="res.groups">
+						<field name="name">Brands</field>
+						<field name="category_id" ref="opt_security.opt_configurations_accessory_configurations"/>
+					</record>
+					<record id="opt_configurations_accessory_configurations_manager" model="res.groups">
+						<field name="name">Manager</field>
+						<field name="category_id" ref="opt_security.opt_configurations_accessory_configurations"/>
+						<field name="implied_ids" eval="[(4, ref('opt_security.opt_configurations_accessory_configurations_accessory_category')),
+							(4, ref('opt_security.opt_configurations_accessory_configurations_brands')),
+							]"/>
+					</record>
+
+			<record id="opt_configurations_insurance" model="ir.module.category">
+				<field name="name">OPT Configurations/Insurance</field>
+				<field name="parent_id" ref="opt_security.opt_configurations"/>
+			</record>
+				<record id="opt_configurations_insurance_insurance_network" model="res.groups">
+					<field name="name">Insurance Network</field>
+					<field name="category_id" ref="opt_security.opt_configurations_insurance"/>
+				</record>
+				<record id="opt_configurations_insurance_insurance_company" model="res.groups">
+					<field name="name">Insurance Company</field>
+					<field name="category_id" ref="opt_security.opt_configurations_insurance"/>
+				</record>
+				<record id="opt_configurations_insurance_insurance_plan" model="res.groups">
+					<field name="name">Insurance Plan</field>
+					<field name="category_id" ref="opt_security.opt_configurations_insurance"/>
+				</record>
+				<record id="opt_configurations_insurance_insurance_chargeback" model="res.groups">
+					<field name="name">Insurance Chargeback</field>
+					<field name="category_id" ref="opt_security.opt_configurations_insurance"/>
+				</record>
+				<record id="opt_configurations_insurance_group_allowance" model="res.groups">
+					<field name="name">Group Allowance</field>
+					<field name="category_id" ref="opt_security.opt_configurations_insurance"/>
+				</record>
+				<record id="opt_configurations_insurance_dispensing_fee" model="res.groups">
+					<field name="name">Dispensing Fee</field>
+					<field name="category_id" ref="opt_security.opt_configurations_insurance"/>
+				</record>
+				<record id="opt_configurations_insurance_fitting_fee" model="res.groups">
+					<field name="name">Fitting Fee</field>
+					<field name="category_id" ref="opt_security.opt_configurations_insurance"/>
+				</record>
+				<record id="opt_configurations_insurance_manager" model="res.groups">
+					<field name="name">Manager</field>
+					<field name="category_id" ref="opt_security.opt_configurations_insurance"/>
+					<field name="implied_ids" eval="[(4, ref('opt_security.opt_configurations_insurance_insurance_network')),
+						(4, ref('opt_security.opt_configurations_insurance_insurance_plan')),
+						(4, ref('opt_security.opt_configurations_insurance_insurance_chargeback')),
+						(4, ref('opt_security.opt_configurations_insurance_group_allowance')),
+						(4, ref('opt_security.opt_configurations_insurance_dispensing_fee')),
+						(4, ref('opt_security.opt_configurations_insurance_fitting_fee')),
+						(4, ref('opt_security.opt_configurations_insurance_insurance_network')),
+						(4, ref('opt_security.opt_configurations_insurance_insurance_company')),
+						]"/>
+				</record>
+
+				<record id="opt_configurations_insurance_procedure_code_groups" model="ir.module.category">
+					<field name="name">OPT Configurations/Insurance/Procedure Code Groups</field>
+					<field name="parent_id" ref="opt_security.opt_configurations_insurance"/>
+				</record>
+					<record id="opt_configurations_insurance_procedure_code_groups_insurance_network_groups" model="res.groups">
+						<field name="name">Insurance Network Groups</field>
+						<field name="category_id" ref="opt_security.opt_configurations_insurance_procedure_code_groups"/>
+					</record>
+					<record id="opt_configurations_insurance_procedure_code_groups_group_co_pay" model="res.groups">
+						<field name="name">Group Co-Pay</field>
+						<field name="category_id" ref="opt_security.opt_configurations_insurance_procedure_code_groups"/>
+					</record>
+					<record id="opt_configurations_insurance_procedure_code_groups_formulary_procedure_grouping" model="res.groups">
+						<field name="name">Formulary Procedure Code Grouping</field>
+						<field name="category_id" ref="opt_security.opt_configurations_insurance_procedure_code_groups"/>
+					</record>
+					<record id="opt_configurations_insurance_procedure_code_groups_manager" model="res.groups">
+						<field name="name">Manager</field>
+						<field name="category_id" ref="opt_security.opt_configurations_insurance_procedure_code_groups"/>
+						<field name="implied_ids" eval="[(4, ref('opt_security.opt_configurations_insurance_procedure_code_groups_insurance_network_groups')),
+							(4, ref('opt_security.opt_configurations_insurance_procedure_code_groups_group_co_pay')),
+							(4, ref('opt_security.opt_configurations_insurance_procedure_code_groups_formulary_procedure_grouping')),
+							]"/>
+					</record>
+
+				<record id="opt_configurations_insurance_configuration" model="ir.module.category">
+					<field name="name">OPT Configurations/Insurance/Configurations</field>
+					<field name="parent_id" ref="opt_security.opt_configurations_insurance"/>
+				</record>
+					<record id="opt_configurations_insurance_configuration_auto_adjustment_rules" model="res.groups">
+						<field name="name">ERA Auto-Adjustment Rules</field>
+						<field name="category_id" ref="opt_security.opt_configurations_insurance_configuration"/>
+					</record>
+
+			<record id="opt_configurations_company" model="ir.module.category">
+				<field name="name">OPT Configurations/Company</field>
+				<field name="parent_id" ref="opt_security.opt_configurations"/>
+			</record>
+				<record id="opt_configurations_company_admin_configurations" model="ir.module.category">
+					<field name="name">OPT Configurations/Company/Admin Configurations</field>
+					<field name="parent_id" ref="opt_security.opt_configurations_company"/>
+				</record>
+					<record id="opt_configurations_company_invoicing" model="ir.module.category">
+						<field name="name">OPT Configurations/Company/Admin Configurations/Invoicing</field>
+						<field name="parent_id" ref="opt_security.opt_configurations_company_admin_configurations"/>
+					</record>
+						<record id="opt_configurations_company_invoicing_payment_methods" model="res.groups">
+							<field name="name">Payment Methods</field>
+							<field name="category_id" ref="opt_security.opt_configurations_insurance"/>
+						</record>
+					<record id="opt_configurations_company_admin_configurations_RMA_reasons" model="res.groups">
+						<field name="name">RMA Reasons</field>
+						<field name="category_id" ref="opt_security.opt_configurations_company_admin_configurations"/>
+					</record>
+					<record id="opt_configurations_company_admin_configurations_promotion" model="res.groups">
+						<field name="name">Promotion</field>
+						<field name="category_id" ref="opt_security.opt_configurations_company_admin_configurations"/>
+					</record>
+					<record id="opt_configurations_company_admin_configurations_product_category" model="res.groups">
+						<field name="name">Product Category</field>
+						<field name="category_id" ref="opt_security.opt_configurations_company_admin_configurations"/>
+					</record>
+					<record id="opt_configurations_company_admin_configurations_taxes" model="res.groups">
+						<field name="name">Taxes</field>
+						<field name="category_id" ref="opt_security.opt_configurations_company_admin_configurations"/>
+					</record>
+					<record id="opt_configurations_company_admin_configurations_procedure" model="res.groups">
+						<field name="name">Procedure</field>
+						<field name="category_id" ref="opt_security.opt_configurations_company_admin_configurations"/>
+					</record>
+					<record id="opt_configurations_company_admin_configurations_modifier" model="res.groups">
+						<field name="name">Modifier</field>
+						<field name="category_id" ref="opt_security.opt_configurations_company_admin_configurations"/>
+					</record>
+					<record id="opt_configurations_company_admin_configurations_appointments" model="res.groups">
+						<field name="name">Appointments</field>
+						<field name="category_id" ref="opt_security.opt_configurations_company_admin_configurations"/>
+					</record>
+					<record id="opt_configurations_company_admin_configurations_integrated_label" model="res.groups">
+						<field name="name">Integrated Label</field>
+						<field name="category_id" ref="opt_security.opt_configurations_company_admin_configurations"/>
+					</record>
+					<record id="opt_configurations_company_admin_configurations_branch" model="res.groups">
+						<field name="name">Branch</field>
+						<field name="category_id" ref="opt_security.opt_configurations_company_admin_configurations"/>
+					</record>
+					<record id="opt_configurations_company_admin_configurations_coupon_programs" model="res.groups">
+						<field name="name">Coupon Programs</field>
+						<field name="category_id" ref="opt_security.opt_configurations_company_admin_configurations"/>
+					</record>
+					<record id="opt_configurations_company_admin_configurations_promotion_programs" model="res.groups">
+						<field name="name">Promotion Programs</field>
+						<field name="category_id" ref="opt_security.opt_configurations_company_admin_configurations"/>
+					</record>
+					<record id="opt_configurations_company_admin_configurations_diagnosis" model="res.groups">
+						<field name="name">Diagnosis</field>
+						<field name="category_id" ref="opt_security.opt_configurations_company_admin_configurations"/>
+					</record>
+					<record id="opt_configurations_company_admin_configurations_outside_doctor" model="res.groups">
+						<field name="name">Outside Doctor</field>
+						<field name="category_id" ref="opt_security.opt_configurations_company_admin_configurations"/>
+					</record>
+					<record id="opt_configurations_company_admin_configurations_patient_form" model="res.groups">
+						<field name="name">Patient Form</field>
+						<field name="category_id" ref="opt_security.opt_configurations_company_admin_configurations"/>
+					</record>
+					<record id="opt_configurations_company_admin_configurations_post_sale_reasons" model="res.groups">
+						<field name="name">Post Sale Reasons</field>
+						<field name="category_id" ref="opt_security.opt_configurations_company_admin_configurations"/>
+					</record>
+					<record id="opt_configurations_company_admin_configurations_vendors" model="res.groups">
+						<field name="name">Vendors</field>
+						<field name="category_id" ref="opt_security.opt_configurations_company_admin_configurations"/>
+					</record>
+					<record id="opt_configurations_company_admin_configurations_shipping_methods" model="res.groups">
+						<field name="name">Shipping Methods</field>
+						<field name="category_id" ref="opt_security.opt_configurations_company_admin_configurations"/>
+					</record>
+					<record id="opt_configurations_company_admin_configurations_consent_form_template" model="res.groups">
+						<field name="name">Consent Form Template</field>
+						<field name="category_id" ref="opt_security.opt_configurations_company_admin_configurations"/>
+					</record>
+					<record id="opt_configurations_company_admin_configurations_manager" model="res.groups">
+						<field name="name">Manager</field>
+						<field name="category_id" ref="opt_security.opt_configurations_company_admin_configurations"/>
+						<field name="implied_ids" eval="[(4, ref('opt_security.opt_configurations_company_admin_configurations_RMA_reasons')),
+							(4, ref('opt_security.opt_configurations_company_admin_configurations_promotion')),
+							(4, ref('opt_security.opt_configurations_company_admin_configurations_product_category')),
+							(4, ref('opt_security.opt_configurations_company_admin_configurations_taxes')),
+							(4, ref('opt_security.opt_configurations_company_admin_configurations_procedure')),
+							(4, ref('opt_security.opt_configurations_company_admin_configurations_modifier')),
+							(4, ref('opt_security.opt_configurations_company_admin_configurations_appointments')),
+							(4, ref('opt_security.opt_configurations_company_admin_configurations_integrated_label')),
+							(4, ref('opt_security.opt_configurations_company_admin_configurations_branch')),
+							(4, ref('opt_security.opt_configurations_company_admin_configurations_coupon_programs')),
+							(4, ref('opt_security.opt_configurations_company_admin_configurations_promotion_programs')),
+							(4, ref('opt_security.opt_configurations_company_admin_configurations_diagnosis')),
+							(4, ref('opt_security.opt_configurations_company_admin_configurations_outside_doctor')),
+							(4, ref('opt_security.opt_configurations_company_admin_configurations_patient_form')),
+							(4, ref('opt_security.opt_configurations_company_admin_configurations_post_sale_reasons')),
+							(4, ref('opt_security.opt_configurations_company_admin_configurations_vendors')),
+							(4, ref('opt_security.opt_configurations_company_admin_configurations_shipping_methods')),
+							(4, ref('opt_security.opt_configurations_company_admin_configurations_consent_form_template')),
+							]"/>
+					</record>
+
+					<record id="opt_configurations_company_product" model="ir.module.category">
+						<field name="name">OPT Configurations/Company/Admin Configurations/Product</field>
+						<field name="parent_id" ref="opt_security.opt_configurations_company_admin_configurations"/>
+					</record>
+						<record id="opt_configurations_company_product_product_categories" model="res.groups">
+							<field name="name">Product Categories</field>
+							<field name="category_id" ref="opt_security.opt_configurations_company_product"/>
+						</record>
+						<record id="opt_configurations_company_product_units_of_measure" model="res.groups">
+							<field name="name">Units Of Measure</field>
+							<field name="category_id" ref="opt_security.opt_configurations_company_product"/>
+						</record>
+						<record id="opt_configurations_company_product_units_of_measure_categories" model="res.groups">
+							<field name="name">Units Of Measure Categories</field>
+							<field name="category_id" ref="opt_security.opt_configurations_company_product"/>
+						</record>
+						<record id="opt_configurations_company_product_manager" model="res.groups">
+							<field name="name">Manager</field>
+							<field name="category_id" ref="opt_security.opt_configurations_company_product"/>
+							<field name="implied_ids" eval="[(4, ref('opt_security.opt_configurations_company_product_product_categories')),
+								(4, ref('opt_security.opt_configurations_company_product_units_of_measure')),
+								(4, ref('opt_security.opt_configurations_company_product_units_of_measure_categories')),
+								]"/>
+						</record>
+	</data>
+</odoo>

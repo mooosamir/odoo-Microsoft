@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="twilio_mobile_view" model="ir.ui.view">
+        <field name="name">res.config.settings</field>
+        <field name="model">res.config.settings</field>
+            <form string="Twilio Integration">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="account_sid" required="1"/>
+                            <field name="account_token" required="1"/>
+                            <field name="from_mobile" required="1"/>
+                            <field name="global_send"/>
+                            <field name="email_from"/>
+                            <field name="api_email_key"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="twilio_mobile_tree" model="ir.ui.view">
+        <field name="name">res.config.settings.tree</field>
+        <field name="model">res.config.settings</field>
+        <field name="arch" type="xml">
+            <tree string="Twilio">
+                <field name="account_sid"/>
+                <field name="account_token"/>
+                <field name="from_mobile"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="twilio_mobile_action" model="ir.actions.act_window">
+            <field name="name">Twilio Configuration</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.config.settings</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="twilio_menu"
+            name="Twilio"
+            sequence="3"/>
+
+        <menuitem id="twilio_sub_menu"
+            action="twilio_mobile_action"
+            parent="twilio_menu"
+            />
+
+
+</odoo>

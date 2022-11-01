@@ -1,0 +1,146 @@
+<odoo>
+  <data>
+
+    <record id="sale_order_session_kanban" model="ir.ui.view">
+        <field name="name">sale.order.session.kanban.view</field>
+        <field name="model">sale.order.session</field>
+        <field name="arch" type="xml">
+            <kanban create="1" class="o_kanban_dashboard o_pos_kanban">
+                <field name="name"/>
+                <field name="state"/>
+                <field name="closing_date"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div>
+                            <div class="o_kanban_card_header">
+                                <div class="o_kanban_card_header_title mb16">
+                                    <div class="o_primary">
+                                        <t t-esc="record.name.value"/>
+                                    </div>
+<!--                                    <t t-if="record.pos_session_state.raw_value == 'new_session'">-->
+<!--                                        <div class="badge badge-info o_kanban_inline_block">New session</div>-->
+<!--                                    <t t-if="record.pos_session_state.raw_value == 'closing_control'">-->
+<!--                                        <div class="badge badge-info o_kanban_inline_block">Closing Control</div>-->
+<!--                                    </t>-->
+<!--                                    <t t-if="record.pos_session_state.raw_value == 'opened' and record.pos_session_duration.raw_value > 1">-->
+<!--                                        <div t-attf-class="badge badge-#{record.pos_session_duration.raw_value > 3 and 'danger' or 'warning'} o_kanban_inline_block"-->
+<!--                                             title="The session has been opened for an unusually long period. Please consider closing.">-->
+<!--                                             To Close-->
+<!--                                        </div>-->
+<!--                                    </t>-->
+                                </div>
+                            </div>
+                            <div class="container o_kanban_card_content">
+                                <div class="row">
+                                    <div class="col-6 o_kanban_primary_left">
+                                        <button t-if="record.state.raw_value == 'in_progress'" class="btn btn-secondary" name="close_session" type="object">Close</button>
+                                        <button t-if="record.state.raw_value == 'draft'" class="btn btn-primary" name="start_session" type="object">Start Session</button>
+                                    </div>
+                                    <div class="col-6 o_kanban_primary_right">
+                                        <div t-if="record.state.raw_value != 'draft'" class="row">
+                                            <div class="col-6">
+                                                <span>Closing Date</span>
+                                            </div>
+                                            <div class="col-6">
+                                                <span><t t-esc="record.closing_date.value"/></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="sale_order_session_tree" model="ir.ui.view">
+        <field name="name">sale.order.session.tree.view</field>
+        <field name="model">sale.order.session</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="state"/>
+                <field name="closing_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="sale_order_session_form" model="ir.ui.view">
+        <field name="name">sale.order.session.form.view</field>
+        <field name="model">sale.order.session</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button class="btn btn-primary" name="open_session"
+                            attrs="{'invisible': [('state', '!=', 'draft')]}"
+                            type="object" string="Open Session"/>
+                    <button class="btn btn-primary" name="start_session"
+                            attrs="{'invisible': [('state', '!=', 'opening_control')]}"
+                            type="object" string="Start Session"/>
+                    <button class="btn btn-secondary"
+                            attrs="{'invisible': [('state', '!=', 'in_progress')]}"
+                            name="close_session" type="object" string="Close Session"/>
+                    <button class="btn btn-secondary"
+                            attrs="{'invisible': [('state', '!=', 'closing_control')]}"
+                            name="close_and_post_session" type="object" string="Close &amp; Post Entries"/>
+                    <field name="state" widget="statusbar" readonly="True"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_order" class="oe_stat_button" icon="fa-shopping-basket" type="object">
+                            <field name="order_count" widget="statinfo" string="Orders"/>
+                        </button>
+                        <button name="action_view_payments" class="oe_stat_button" icon="fa-shopping-basket" type="object">
+                            <field name="payments_count" widget="statinfo" string="Payments"/>
+                        </button>
+                        <button name="action_view_payments_lines" class="oe_stat_button" icon="fa-shopping-basket" type="object">
+                            <field name="payments_lines_count" widget="statinfo" string="Payment Lines"/>
+                        </button>
+                        <button name="action_view_invoices" class="oe_stat_button" icon="fa-shopping-basket" type="object">
+                            <field name="invoices_count" widget="statinfo" string="Invoices"/>
+                        </button>
+                        <button name="action_view_invoices_lines" class="oe_stat_button" icon="fa-shopping-basket" type="object">
+                            <field name="invoices_lines_count" widget="statinfo" string="Invoice Lines"/>
+                        </button>
+                        <button name="action_view_journal_lines" class="oe_stat_button" icon="fa-shopping-basket" type="object">
+                            <field name="journal_lines_count" widget="statinfo" string="Journal Lines"/>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                            <field name="opened_by" readonly="True"/>
+                            <field name="closed_by" readonly="True"/>
+                            <field name="closing_date" readonly="True"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Cash Control">
+                            <field name="payments_total" invisible="1"/>
+                            <field name="payments_total_widget" widget="zif_session_widget" string="Widget"
+                            options="{'value': 'payments_total'}"/>
+                        </page>
+                    </notebook>
+
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record model="ir.actions.act_window" id="sale_order_session_action_window">
+      <field name="name">sale order session</field>
+      <field name="res_model">sale.order.session</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+<!--    <menuitem id="admin_configuration_sale_order_main_menu"-->
+<!--              parent="opt_custom.admin_configuration_menu_new" sequence="0" name="Sale Order"/>-->
+    <menuitem id="sale_order_session_main_menu" action="sale_order_session_action_window"
+              parent="ivis_order_grouping.pos_root_order_menu" sequence="1" name="SO Session"/>
+  </data>
+</odoo>

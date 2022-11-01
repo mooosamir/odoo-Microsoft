@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data noupdate="1">
+	    <record id="opt_inventory" model="ir.module.category">
+	        <field name="name">OPT Inventory</field>
+	    </record>
+
+	    <record id="opt_inventory_create_edit" model="res.groups">
+	        <field name="name">Create/Edit</field>
+	        <field name="category_id" ref="opt_security.opt_inventory"/>
+	    </record>
+	    <record id="opt_inventory_delete" model="res.groups">
+	        <field name="name">Delete</field>
+	        <field name="category_id" ref="opt_security.opt_inventory"/>
+	    </record>
+	    <record id="opt_inventory_duplicate" model="res.groups">
+	        <field name="name">Duplicate</field>
+	        <field name="category_id" ref="opt_security.opt_inventory"/>
+	    </record>
+	    <record id="opt_inventory_import_export" model="res.groups">
+	        <field name="name">Import/Export</field>
+	        <field name="category_id" ref="opt_security.opt_inventory"/>
+	    </record>
+	    <record id="opt_inventory_unlock" model="res.groups">
+	        <field name="name">Unlock</field>
+	        <field name="category_id" ref="opt_security.opt_inventory"/>
+	    </record>
+	    <record id="opt_inventory_return" model="res.groups">
+	        <field name="name">Return</field>
+	        <field name="category_id" ref="opt_security.opt_inventory"/>
+	    </record>
+	    <record id="opt_inventory_scrap" model="res.groups">
+	        <field name="name">Scrap</field>
+	        <field name="category_id" ref="opt_security.opt_inventory"/>
+	    </record>
+	    <record id="opt_inventory_generate_vendor_bill" model="res.groups">
+	        <field name="name">Generate a Vendor Bill</field>
+	        <field name="category_id" ref="opt_security.opt_inventory"/>
+	    </record>
+	    <record id="opt_inventory_requests_purchase_order" model="res.groups">
+	        <field name="name">Requests &amp; Purchase Order</field>
+	        <field name="category_id" ref="opt_security.opt_inventory"/>
+	    </record>
+	    <record id="opt_inventory_confirm_request_po" model="res.groups">
+	        <field name="name">Confirm Request/PO</field>
+	        <field name="category_id" ref="opt_security.opt_inventory"/>
+	    </record>
+	    <record id="opt_inventory_create_edit_request_po" model="res.groups">
+	        <field name="name">Create/Edit Request/PO</field>
+	        <field name="category_id" ref="opt_security.opt_inventory"/>
+	    </record>
+	    <record id="opt_inventory_delete_request_po" model="res.groups">
+	        <field name="name">Delete Request/PO</field>
+	        <field name="category_id" ref="opt_security.opt_inventory"/>
+	    </record>
+	    <record id="opt_inventory_cancel_request_po" model="res.groups">
+	        <field name="name">Cancel Request/PO</field>
+	        <field name="category_id" ref="opt_security.opt_inventory"/>
+	    </record>
+	    <record id="opt_inventory_manager" model="res.groups">
+	        <field name="name">Manager</field>
+	        <field name="category_id" ref="opt_security.opt_inventory"/>
+			<field name="implied_ids" eval="[(4, ref('opt_security.opt_inventory_create_edit')), (4, ref('opt_security.opt_inventory_delete')),
+				(4, ref('opt_security.opt_inventory_duplicate')), (4, ref('opt_security.opt_inventory_import_export')),
+				(4, ref('opt_security.opt_inventory_unlock')), (4, ref('opt_security.opt_inventory_return')),
+				(4, ref('opt_security.opt_inventory_scrap')), (4, ref('opt_security.opt_inventory_generate_vendor_bill')),
+				(4, ref('opt_security.opt_inventory_requests_purchase_order')), (4, ref('opt_security.opt_inventory_confirm_request_po')),
+				(4, ref('opt_security.opt_inventory_create_edit_request_po')), (4, ref('opt_security.opt_inventory_delete_request_po')),
+				(4, ref('opt_security.opt_inventory_cancel_request_po')),
+			]"/>
+	    </record>
+	</data>
+</odoo>

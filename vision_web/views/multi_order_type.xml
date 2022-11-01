@@ -1,0 +1,29 @@
+<odoo>
+    <record model="ir.ui.view" id="lab_details_form">
+        <field name="name">multi.order.type.form</field>
+        <field name="model">multi.order.type</field>
+        <field name="priority" eval="100"/>
+        <field name="inherit_id" ref="ivis_order_grouping.lab_details_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@class='invisible']" position="before">
+                <div class="oe_button_box" name="button_box">
+                    <button name="update_order_status" type="object" class="oe_stat_button" icon="fa-refresh"
+                            attrs="{'invisible': [('vw_order_id', 'in', ['', None])]}">
+                        <div class="o_field_widget o_stat_info">
+                            <span class="o_stat_text">
+                                Update Vw Status
+                            </span>
+                        </div>
+                    </button>
+                </div>
+            </xpath>
+            <xpath expr="//div[@class='lab_details']/div[@class='row'][last()]" position="inside">
+                <div class="col-4 col-md-4 col-lg-4">
+                    <b>VisionWeb Order Id:</b> <field name="vw_order_id" readonly="1"/>
+                    <br/>
+                    <b>VisionWeb Order Status:</b> <field name="vw_order_status" readonly="1"/>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

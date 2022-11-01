@@ -1,0 +1,152 @@
+.padding_bottom_10px{
+    padding-bottom: 10px;
+}
+.padding_top_30px{
+    padding-top: 30px;
+}
+.input_margin_10px input{
+    margin: 10px;
+}
+.margin_bottom_20px{
+    margin-bottom: 20px;
+}
+#tab1_box {
+    display: block;
+}
+#tab2_box ,.insurance_q, #tab3_box, .appointment_confirmed, .appointment_error{
+    display: none;
+}
+.appointment_confirmed label{
+    font-weight: 900;
+}
+.appointment_confirmed p{
+    padding-left: 20px;
+}
+#no_ajax_tabs li{
+    padding: 20px;
+    border-bottom: 1px solid black;
+    padding-bottom: 12px;
+}
+.tab_active{
+    font-weight: bolder;
+    background-color: #f2f2f2;
+}
+.right{
+    display: block;
+    text-align: -webkit-right;
+    text-align: right;
+}
+#appointment .next, .not_sure{
+    min-width: 100px;
+    border-radius: 0px 30px 30px 0px;
+    color: white;
+    background-color: #3952ad;
+    border-color: #e4f1ed;
+}
+.edit{
+    min-width: 100px;
+    color: white;
+    background-color: #3952ad;
+    border-color: #e4f1ed;
+}
+.back, .yes{
+    min-width: 100px;
+    border-radius: 30px 0px 0px 30px;
+    color: white;
+    background-color: #3952ad;
+    border-color: #e4f1ed;
+}
+.image_container .doctor_image{
+    max-height: -webkit-fill-available;
+    max-width: -webkit-fill-available;
+}
+.acknowledge{
+    font-size: 10px;
+}
+.input_select_full_width input, .input_select_full_width select{
+    width: 100%;
+}
+.input_select_full_width label{
+    margin-top: 20px;
+}
+#tab1_box .tooltip {
+    position: relative;
+    display: inline-block;
+    opacity: 1;
+    font-size: 15px;
+}
+#tab1_box .tooltip .tooltiptext {
+    visibility: hidden;
+    width: 285px;
+    background-color: white;
+    text-align: center;
+    border-radius: 6px;
+    border: 1px solid black;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    top: -25px;
+    left: 105%;
+}
+#tab1_box .tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+.radio_into_button {
+     list-style-type:none;
+     margin:25px 0 0 0;
+     padding:0;
+}
+
+.select_exam .radio_into_button li {
+    float:left;
+    margin:0 5px 0 0;
+    width:250px;
+    height:40px;
+    position:relative;
+}
+
+.radio_into_button li {
+     float:left;
+     margin:0 5px 0 0;
+    width:100px;
+    height:40px;
+    position:relative;
+}
+
+.radio_into_button label, .radio_into_button input {
+    display:block;
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+}
+
+.radio_into_button input[type="radio"] {
+    opacity:0.011;
+    z-index:100;
+}
+
+.radio_into_button input[type="radio"]:checked + label {
+    background:#0075ffbf;
+}
+
+.radio_into_button .doctor_image_container input[type="radio"]:checked + label {
+    border: 3px solid black;
+    background: transparent;
+}
+.radio_into_button label {
+     padding:5px;
+     border:1px solid #CCC;
+     cursor:pointer;
+    z-index:90;
+}
+
+.radio_into_button label:hover {
+     background:#DDD;
+}
+.radio_into_button .doctor_image_container label:hover {
+     background:#DDD;
+    opacity: 0.5;
+}

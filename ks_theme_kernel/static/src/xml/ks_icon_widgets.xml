@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <!-- Font icon replace view for icon set-->
+    <t t-name="KsFieldBinaryImageKernel">
+    <div class="o_field_image ks_font_icon_div" aria-atomic="true">
+        <t t-if="widget.mode !== 'readonly'">
+            <div class="o_form_image_controls">
+                <button type="button" class=" fa fa-image fa-lg ks_image_widget_icon_container_kernel float-left"
+                        title="Select Icons">
+                </button>
+                <button class="fa fa-trash-o fa-lg float-right o_clear_file_button" title="Clear"
+                        aria-label="Clear"/>
+                <span class="o_form_binary_progress">Uploading...</span>
+            </div>
+        </t>
+    </div>
+    </t>
+
+    <!-- Special Icons Modal Template : Modal TO show When clicked on Open Icons Container -->
+    <t t-name="KsSpecialIconView">
+        <div class="modal fade" id="ks_kernel_icon_container_modal_id" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                        <h4 class="modal-title">Select Icon</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                                tabindex="-1">×</button>
+                    </div>
+                <div class="modal-body">
+                    <div class="tab-content d-flex ks-icons-selector">
+                        <nav>
+                            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                <a class="nav-item nav-link active" id="threeD-tab" data-toggle="tab" href="#threeD"
+                                role="tab" aria-controls="nav-home" aria-selected="true">3-D</a>
+                                <a class="nav-item nav-link" id="twoD-tab" data-toggle="tab" href="#twoD" role="tab"
+                                aria-controls="nav-profile" aria-selected="false">2-D</a>
+                                <a class="nav-item nav-link" id="Default-tab" data-toggle="tab" href="#Default" role="tab"
+                                aria-controls="nav-contact" aria-selected="false">Default</a>
+                            </div>
+                        </nav>
+                        <div class="tab-content" id="nav-tabContent">
+                            <div class="tab-pane fade show active" id="threeD" role="tabpanel"
+                            aria-labelledby="threeD-tab">
+                                <ul class="ks_icon_container_grid_view d-flex flex-wrap mx-auto my-0 p-2 list-unstyled justify-content-center">
+                                    <t t-foreach="ks_special_icons_set[0]" t-as="icon_name">
+                                        <li class="position-relative m-2 ks_special_icon_list">
+                                            <div class="d-flex align-items-center h-100">
+                                                <img class="img img-fluid"
+                                                     t-att-src="'ks_theme_kernel/static/src/logo/threed/' + icon_name"
+                                                     t-att-alt="icon_name"
+                                                     t-att-title="icon_name.split('.')[0]"/>
+                                            </div>
+                                        </li>
+                                    </t>
+                                </ul>
+                            </div>
+                            <div class="tab-pane fade" id="twoD" role="tabpanel"
+                             aria-labelledby="twoD-tab">
+<!--                                <h1 class="text-muted text-center mt-5" >No Icons For Now</h1>-->
+                            <ul class="ks_icon_container_grid_view d-flex flex-wrap mx-auto my-0 p-2 list-unstyled justify-content-center">
+                                <t t-foreach="ks_special_icons_set[1]" t-as="icon_name">
+                                    <li class="position-relative m-2 ks_special_icon_list">
+                                        <div class="d-flex align-items-center h-100">
+                                            <img class="img img-fluid"
+                                                 t-att-src="'ks_theme_kernel/static/src/logo/twod/' + icon_name"
+                                                 t-att-alt="icon_name"
+                                                 t-att-title="icon_name.split('.')[0]"/>
+                                        </div>
+                                    </li>
+                                </t>
+                            </ul>
+                            </div>
+                            <div class="tab-pane fade" id="Default" role="tabpanel"
+                                 aria-labelledby="Default-tab">
+                                <ul class="ks_icon_container_grid_view d-flex flex-wrap mx-auto my-0 p-2 list-unstyled justify-content-center">
+                                    <t t-foreach="ks_special_icons_set[2]" t-as="icon_name">
+                                        <li class="position-relative m-2 ks_special_icon_list">
+                                            <div class="d-flex align-items-center h-100">
+                                                <img class="img img-fluid"
+                                                     t-att-src="'ks_theme_kernel/static/src/logo/default/' + icon_name"
+                                                     t-att-alt="icon_name"
+                                                     t-att-title="icon_name.split('.')[0]"/>
+                                            </div>
+                                        </li>
+                                    </t>
+                                </ul>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary ks_icon_container_close_button"
+                                aria-label="Close" href="#ks_kernel_icon_container_modal_id"
+                                data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary ks_icon_container_open_button_kernel"
+                            data-dismiss="modal">Select</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+</templates>

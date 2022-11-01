@@ -1,0 +1,692 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_claim_page_inherit" model="ir.ui.view">
+        <field name="name">account.move.inherit</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='invoice_date']" position="after">
+                <field name="claim_status" attrs="{'invisible':[('insured_id', '=', False)]}"/>
+            </xpath>
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="%(action_report_cms_1500)d" type="action" icon="fa-external-link"
+                        class="oe_stat_button" attrs="{'invisible':[('insured_id', '=', False)]}">
+                    CMS Preview
+                </button>
+            </xpath>
+            <notebook position="inside">
+                <page string="Insurance" attrs="{'invisible':[('insured_id', '=', False)]}" name="insurance">
+                    <field name="patient_id" invisible="1"/>
+                    <field name="service_date" invisible="1"/>
+                    <field name="sale_order_id" invisible="1"/>
+                    <field name="primary_insurance_company_id" invisible="1"/>
+                    <field name="insured_sequence" invisible="1"/>
+                    <field name="insured_id" invisible="1"/>
+                    <div>
+                        <div id="collapseOne1" aria-labelledby="headingOne1" width='100%' class='row collapse show'
+                             style='margin-left:10px;margin-right:10px'>
+                            <group>
+                                <div width='100%' class='row' style='margin-left:10px;margin-right:10px'>
+                                    <div width='49%'>
+                                        <table width='100%'>
+                                            <tr>
+                                                <td colspan='3'>
+                                                    <b>Insurance Type (1)</b>
+                                                </td>
+                                                <td colspan='3'>
+                                                    <field name='insurance_type_id'/>
+                                                </td>
+                                                <td colspan='3'>
+                                                    <b>
+                                                        Insured ID (1a)
+                                                    </b>
+                                                </td>
+                                                <td colspan='3'>
+                                                    <field name='insured_sequence'/>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </group>
+                        </div>
+                    </div>
+                    <hr/>
+                    <div>
+                        <div id="collapseOne2" aria-labelledby="headingOne2" width='100%' class='row collapse show'
+                             style='margin-left:10px;margin-right:10px'>
+                            <group>
+                                <div width='100%' class='row' style='margin-left:10px;margin-right:10px'>
+                                    <div width='49%'>
+                                        <table width='100%'>
+                                            <tr>
+                                                <td colspan='12'>
+                                                    <h3>Patient</h3>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan='3'>
+                                                    <b>Name (2)</b>
+                                                </td>
+                                                <td colspan="9">
+                                                    <field name="patient_name" class="o_address_street"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan='4'>
+                                                    <b>Date of Birth (3)</b>
+                                                </td>
+                                                <td colspan='2'>
+                                                    <field name='patient_date_of_birth'/>
+                                                </td>
+                                                <td colspan='6'>
+                                                    <field name='patient_gender'/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan='3'>
+                                                    <b>Address (5)</b>
+                                                </td>
+                                                <td colspan="9">
+                                                    <field name="patient_address_line" placeholder="Street..."
+                                                           class="o_address_street"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3"/>
+                                                <td colspan='4'>
+                                                    <field name="patient_city" placeholder="City"
+                                                           class="o_address_city"/>
+                                                </td>
+                                                <td colspan='4'>
+                                                    <field name='country_id' invisible='1'/>
+                                                    <field name="patient_state_id" class="o_address_state"
+                                                           placeholder="State"
+                                                           options='{"no_open": True}'/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3"/>
+                                                <td colspan='3'>
+                                                    <field name="patient_zip" placeholder="ZIP" class="o_address_zip"/>
+                                                </td>
+                                                <td colspan="9">
+                                                    <field name='patient_phone'/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan='3'>
+                                                    <b>Relationship (6)</b>
+                                                </td>
+                                                <td colspan="9">
+                                                    <field name="relationship"/>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div width='2%'/>
+                                    <div width='49%'>
+                                        <table width='100%'>
+                                            <tr>
+                                                <td colspan='12'>
+                                                    <h3>Insured</h3>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan='3'>
+                                                    <b>Name (4)</b>
+                                                </td>
+                                                <td colspan="9">
+                                                    <field name="subscriber_name" class="o_address_street"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan='3'>
+                                                    <b>Address (7)</b>
+                                                </td>
+                                                <td colspan="9">
+                                                    <field name="subscriber_address_line" placeholder="Street..."
+                                                           class="o_address_street"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3"/>
+                                                <td colspan='4'>
+                                                    <field name="subscriber_city" placeholder="City"
+                                                           class="o_address_city"/>
+                                                </td>
+                                                <td colspan='4'>
+                                                    <field name="subscriber_state_id" class="o_address_state"
+                                                           placeholder="State"
+                                                           options='{"no_open": True}'/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3"/>
+                                                <td colspan='3'>
+                                                    <field name="subscriber_zip" placeholder="ZIP"
+                                                           class="o_address_zip"/>
+                                                </td>
+                                                <td colspan="9">
+                                                    <field name='subscriber_phone'/>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </group>
+                        </div>
+                    </div>
+                    <hr/>
+                    <div>
+                        <div id="collapseOne3" aria-labelledby="headingOne3" width='100%' class='row collapse show'
+                             style='margin-left:10px;margin-right:10px'>
+                            <group>
+                                <div width='100%' class='row' style='margin-left:10px;margin-right:10px'>
+                                    <div width='49%'>
+                                        <table width='100%'>
+                                            <tr>
+                                                <td colspan='4'>
+                                                    <b>Secondary Insurance (09)</b>
+                                                </td>
+                                                <td colspan='6'>
+                                                    <field name="secondary_insurance_company_id"/>
+                                                </td>
+                                                <td colspan='2'>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan='4'>
+                                                    <b>Insured policy group or FECA Number (11)</b>
+                                                </td>
+                                                <td colspan='6'>
+                                                    <field name='policy_group'/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan='4'>
+                                                     <b>Other Claim ID (11b)</b>
+                                                </td>
+                                                <td colspan='6'>
+                                                    <field name='other_claim_1'/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan='3'>
+                                                    <b>Insured Auth (13)</b>
+                                                </td>
+                                                <td>
+                                                    <field name="insured_auth" class="oe_inline"/>
+                                                    <b>Yes</b>
+                                                </td>
+                                                <td colspan='8'>
+                                                    <field name="insured_date" class="oe_inline"
+                                                           attrs="{'invisible':['|',('insured_auth', '=', False)]}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan='4'>
+                                                    <b>Other Date (15)</b>
+                                                </td>
+                                                <td colspan='2'>
+                                                    <field name='other_date'/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan='4'>
+                                                    <b>Referring Provider (17)</b>
+                                                </td>
+                                                <td colspan='2'>
+                                                    <field name='edit_qualifier'/>
+                                                </td>
+                                                <td colspan='6'>
+                                                    <field name='partner_edit_doctors_id' options='{"no_open": True}'/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan='4'>
+                                                    <b>Referring Provider NPI (17b)</b>
+                                                </td>
+                                                <td colspan='6'>
+                                                    <field name='referring_provider_npi'/>
+                                                </td>
+                                                <td colspan='2'>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan='3'>
+                                                    <b>Additional Claim Information (19)</b>
+                                                </td>
+                                                <td>
+                                                </td>
+                                                <td colspan='8'>
+                                                    <field name='edit_additional_information'/>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div width='2%'>
+                                    </div>
+                                    <div width='49%'>
+                                        <table width='100%'>
+                                            <tr>
+                                                <td colspan='3'>
+                                                    <b>Patient’s Condition Related to (10)</b>
+                                                </td>
+                                                <td colspan='3'>
+                                                    <field name='condition_related'/>
+                                                </td>
+                                                <td colspan='3'>
+                                                    <b>State</b>
+                                                </td>
+                                                <td colspan='3'>
+                                                    <field name='condition_related_state_id'/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan='4'>
+                                                    <b>Date of Birth (11a)</b>
+                                                </td>
+                                                <td colspan='2'>
+                                                    <field name='patient_date_of_birth'/>
+                                                </td>
+                                                <td colspan='6'>
+                                                    <field name='patient_gender'/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan='3'>
+                                                    <b>HIPAA Signature on file (12)</b>
+                                                </td>
+                                                <td colspan="3">
+                                                    <field name="hipaa_sign" class="oe_inline"/>
+                                                    <b>Yes</b>
+                                                </td>
+                                                <td colspan="3"/>
+                                                <td colspan='3'>
+                                                    <field name="hipaa_date" class="oe_inline"
+                                                           attrs="{'invisible':['|',('hipaa_sign', '=', False)]}"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan='3'>
+                                                    <b>Date of Current Illness (14)</b>
+                                                </td>
+                                                <td colspan='3'>
+                                                    <field name='date_of_current_illness'/>
+                                                </td>
+                                                <td colspan='3'>
+                                                    <b>Qualif</b>
+                                                </td>
+                                                <td colspan='3'>
+                                                    <field name='qualif'/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan='3'>
+                                                    <b>Dates Unable to Work (16)</b>
+                                                </td>
+                                                <td colspan='3'>
+                                                    <field name='dates_unable_1'/>
+                                                </td>
+                                                <td colspan='3'>
+                                                    <b>To</b>
+                                                </td>
+                                                <td colspan='3'>
+                                                    <field name='dates_unable_2'/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan='3'>
+                                                    <b>Referring Provider ID (17a)</b>
+                                                </td>
+                                                <td colspan='4'>
+                                                    <field name='referring_provider'/>
+                                                </td>
+                                                <td colspan="1"/>
+                                                <td colspan='4'>
+                                                    <field name='qualifier_text'/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan='3'>
+                                                    <b>Hospitalization (18)</b>
+                                                </td>
+                                                <td colspan='3'>
+                                                    <field name='dates_hospitalization_1'/>
+                                                </td>
+                                                <td colspan='3'>
+                                                    <b>To</b>
+                                                </td>
+                                                <td colspan='3'>
+                                                    <field name='dates_hospitalization_2'/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan='3'>
+                                                    <b>Outside Lab (20)</b>
+                                                </td>
+                                                <td>
+                                                    <field name='outside_lab'/>
+                                                    <b>Yes</b>
+                                                </td>
+                                                <td colspan='8'>
+                                                    <field name='outside_lab_charge' widget="monetary"
+                                                           attrs="{'invisible': [('outside_lab', '=', False)]}"/>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </group>
+                        </div>
+                        <hr/>
+                        <label for="collapseOne5" string="Diagnosis or Nature of Illness or Injury (21)"
+                               style='margin-left:10px;'/>
+                        <div id="collapseOne5" aria-labelledby="headingOne5" width='100%' class='row collapse show'
+                             style='margin-left:10px;margin-right:10px' name="collapseOne5">
+                            <group>
+                                <div width='100%' class='row' style='margin-left:10px;margin-right:10px'>
+                                    <div width='4%'>
+                                    </div>
+                                    <div width='3%'>
+                                        <b>A</b>
+                                    </div>
+                                    <div width='10%'>
+                                        <field name='a_diagnosis_code_id'/>
+                                    </div>
+                                    <div width='3%'>
+                                    </div>
+                                    <div width='3%'>
+                                        <b>B</b>
+                                    </div>
+                                    <div width='10%'>
+                                        <field name='b_diagnosis_code_id'/>
+                                    </div>
+                                    <div width='3%'>
+                                    </div>
+                                    <div width='3%'>
+                                        <b>C</b>
+                                    </div>
+                                    <div width='10%'>
+                                        <field name='c_diagnosis_code_id'/>
+                                    </div>
+                                    <div width='3%'>
+                                    </div>
+                                    <div width='3%'>
+                                        <b>D</b>
+                                    </div>
+                                    <div width='10%'>
+                                        <field name='d_diagnosis_code_id'/>
+                                    </div>
+                                    <div width='3%'>
+                                    </div>
+                                    <div width='3%'>
+                                        <b>E</b>
+                                    </div>
+                                    <div width='10%'>
+                                        <field name='e_diagnosis_code_id'/>
+                                    </div>
+                                    <div width='3%'>
+                                    </div>
+                                    <div width='3%'>
+                                        <b>F</b>
+                                    </div>
+                                    <div width='10%'>
+                                        <field name='f_diagnosis_code_id'/>
+                                    </div>
+                                    <div width='7%'>
+                                    </div>
+                                </div>
+                            </group>
+                            <group>
+                                <div width='100%' class='row' style='margin-left:10px;margin-right:10px'>
+                                    <div width='4%'>
+                                    </div>
+                                    <div width='3%'>
+                                        <b>G</b>
+                                    </div>
+                                    <div width='10%'>
+                                        <field name='g_diagnosis_code_id'/>
+                                    </div>
+                                    <div width='3%'>
+                                    </div>
+                                    <div width='3%'>
+                                        <b>H</b>
+                                    </div>
+                                    <div width='10%'>
+                                        <field name='h_diagnosis_code_id'/>
+                                    </div>
+                                    <div width='3%'>
+                                    </div>
+                                    <div width='3%'>
+                                        <b>I</b>
+                                    </div>
+                                    <div width='10%'>
+                                        <field name='i_diagnosis_code_id'/>
+                                    </div>
+                                    <div width='3%'>
+                                    </div>
+                                    <div width='3%'>
+                                        <b>J</b>
+                                    </div>
+                                    <div width='10%'>
+                                        <field name='j_diagnosis_code_id'/>
+                                    </div>
+                                    <div width='3%'>
+                                    </div>
+                                    <div width='3%'>
+                                        <b>K</b>
+                                    </div>
+                                    <div width='10%'>
+                                        <field name='k_diagnosis_code_id'/>
+                                    </div>
+                                    <div width='3%'>
+                                    </div>
+                                    <div width='3%'>
+                                        <b>L</b>
+                                    </div>
+                                    <div width='10%'>
+                                        <field name='l_diagnosis_code_id'/>
+                                    </div>
+                                    <div width='7%'>
+                                    </div>
+                                </div>
+                            </group>
+                        </div>
+                        <hr/>
+                        <div>
+                            <div id="collapseOne3" aria-labelledby="headingOne3" width='100%' class='row collapse show'
+                                 style='margin-left:10px;margin-right:10px'>
+                                <group>
+                                    <div width='100%' class='row' style='margin-left:10px;margin-right:10px'>
+                                        <div width='49%'>
+                                            <table width='100%'>
+                                                <tr>
+                                                    <td colspan='3'>
+                                                        <b>Resubmission Code (22)</b>
+                                                    </td>
+                                                    <td colspan="3">
+                                                        <field name='edit_resubmission_qualifier'/>
+                                                    </td>
+                                                    <td colspan='3'>
+                                                        <b>Original Ref No.</b>
+                                                    </td>
+                                                    <td colspan='3'>
+                                                        <field name='condition_related_state_id'/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan='3'>
+                                                        <b>Federal Tax ID (25)</b>
+                                                    </td>
+                                                    <td colspan="3">
+                                                        <field name='provider_tax'/>
+                                                    </td>
+                                                    <td colspan='3'>
+                                                        <b>SSN/EIN</b>
+                                                    </td>
+                                                    <td colspan='3'>
+                                                        <field name='ssn_ein'/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan='3'>
+                                                        <b>Accept Assignment (27)</b>
+                                                    </td>
+                                                    <td colspan="3">
+                                                        <field name='accept_assignment'/>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <div width='2%'/>
+                                        <div width='49%'>
+                                            <table width='100%'>
+                                                <tr>
+                                                    <td colspan='3'>
+                                                        <b>Prior Auth (23)</b>
+                                                    </td>
+                                                    <td colspan="3">
+                                                        <field name='prior_auth'/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan='3'>
+                                                        <b>Patient Acct # (26)</b>
+                                                    </td>
+                                                    <td colspan="3">
+                                                        <field name='patient_acct'/>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </group>
+                            </div>
+                        </div>
+                        <hr/>
+                        <div>
+                            <div id="collapseOne4" aria-labelledby="headingOne4" width='100%' class='row collapse show'
+                                 style='margin-left:10px;margin-right:10px'>
+                                <group>
+                                    <div width='100%' class='row' style='margin-left:10px;margin-right:10px'>
+                                        <div width='49%'>
+                                            <table width='100%'>
+                                                <tr>
+                                                    <td colspan='12'>
+                                                        <h3>
+                                                            Service facility Location Info (32)
+                                                        </h3>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan='3'>
+                                                        <b>Address (32)</b>
+                                                    </td>
+                                                    <td colspan="9">
+                                                        <field name="bill_address_line" placeholder="Street..."
+                                                               class="o_address_street"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="3"/>
+                                                    <td colspan='3'>
+                                                        <field name="bill_city" placeholder="City"
+                                                               class="o_address_city"/>
+                                                    </td>
+                                                    <td colspan='3'>
+                                                        <field name="bill_state_id" class="o_address_state"
+                                                               placeholder="State"
+                                                               options='{"no_open": True}'/>
+                                                    </td>
+                                                    <td colspan='3'>
+                                                        <field name="bill_zip" placeholder="ZIP" class="o_address_zip"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan='3'>
+                                                        <b>NPI (32a)</b>
+                                                    </td>
+                                                    <td colspan="9">
+                                                        <field name='location_npi'/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan='4'>
+                                                        <b>Facility Qual (32b)</b>
+                                                    </td>
+                                                    <td colspan='2'>
+                                                        <field name='bill_qualifier'/>
+                                                    </td>
+                                                    <td colspan='6'>
+                                                        <field name='bill_other_id'/>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <div width='2%'/>
+                                        <div width='49%'>
+                                            <table width='100%'>
+                                                <tr>
+                                                    <td colspan='12'>
+                                                        <h3>Billing Provider Info (32)</h3>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan='3'>
+                                                        <b>Address (33)</b>
+                                                    </td>
+                                                    <td colspan="9">
+                                                        <field name="provider_bill_address_line"
+                                                               placeholder="Street..."
+                                                               class="o_address_street"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="3"/>
+                                                    <td colspan='3'>
+                                                        <field name="provider_bill_city" placeholder="City"
+                                                               class="o_address_city"/>
+                                                    </td>
+                                                    <td colspan='3'>
+                                                        <field name="provider_bill_state_id" class="o_address_state"
+                                                               placeholder="State"
+                                                               options='{"no_open": True}'/>
+                                                    </td>
+                                                    <td colspan='3'>
+                                                        <field name="provider_bill_zip" placeholder="ZIP"
+                                                               class="o_address_zip"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan='3'>
+                                                        <b>NPI (32a)</b>
+                                                    </td>
+                                                    <td colspan="9">
+                                                        <field name='provider_bill_qualifier'/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan='4'>
+                                                        <b>Facility Qual (32b)</b>
+                                                    </td>
+                                                    <td colspan='2'>
+                                                        <field name='provider_bill_qualifier'/>
+                                                    </td>
+                                                    <td colspan='6'>
+                                                        <field name='provider_bill_other_id'/>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </group>
+                            </div>
+                        </div>
+                    </div>
+                </page>
+            </notebook>
+        </field>
+    </record>
+</odoo>

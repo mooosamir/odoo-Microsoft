@@ -1,0 +1,167 @@
+<odoo>
+    <record id="product_lens_parameter_tree_view" model="ir.ui.view">
+        <field name="name">lens.parameter.tree.view</field>
+        <field name="model">product.template</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="category_id"/>
+                <field name="name"/>
+                <field name="vendor_id"/>
+                <field name="lens_type_id"/>
+                <field name="material_id"/>
+                <field name="coating_id"/>
+                <field name="filter_id"/>
+                <field name="color_id"/>
+                <field name="manufacturer_id"/>
+                <field name="finish_semi"/>
+<!--                <field name="vendor_id"/>-->
+<!--                <field name="lens_type_id"/>-->
+<!--                <field name="material_id"/>-->
+<!--                <field name="coating_id"/>-->
+<!--                <field name="filter_id"/>-->
+<!--                <field name="color_id"/>-->
+<!--                <field name="manufacturer_id"/>-->
+<!--                <field name="finish_semi"/>-->
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View of Lens Parameter-->
+	    <record id="product_lens_parameter_form_view" model="ir.ui.view">
+	        <field name="name">lens.parameter.form.view</field>
+	        <field name="model">product.template</field>
+	        <field name="arch" type="xml">
+	            <form>
+                    <sheet>
+                       <group>
+                            <group>
+                                <field name="sale_ok" invisible='1'/>
+                                <field name="type" invisible='1'/>
+                                <field name='prd_categ_name' invisible='1'/>
+                                <field name='name' invisible='1'/>
+                                <field name="lens_selection_id" context="{'invisible_lens_parameter': True}"/>
+                                <field name="finish_semi" required='1'/>		
+                                <field name="lens_type_id" options="{'no_open':True,'no_create': True}" required='1'/>
+                                <field name="material_id" options="{'no_open':True,'no_create': True}" required='1'/>
+                                <field name="coating_id" options="{'no_open':True,'no_create': True}" required='1'/>
+                                <field name="filter_id" options="{'no_open':True,'no_create': True}" required='1'/>
+                                <field name="color_id" options="{'no_open':True,'no_create': True}" required='1'/>		
+                                <field name="company_id" invisible='1'/>
+                                <field name="currency_id" invisible='1'/>
+                            </group>
+                            <group>
+                                <field name="manufacturer_id" required='1'/>
+                                <field name="vendor_id" required='1' domain="[('supplier_rank', '>=', 1)]" context="{'default_supplier_rank': 1}"/>
+                                <field name="wholesale_cost" widget='monetary'/>
+                                <label for="price" string='Cost'/>
+                                <div class="o_row">
+                                    <field name="price" widget='monetary'/>
+                                </div>
+                                <field name="asherical"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string='Finished Lens Parameters' attrs="{'invisible':[('finish_semi','!=','finished')]}">
+                                <field name="finish_child_ids" nolabel="1">
+                                    <tree editable="bottom">
+                                        <field name="diameter"/>
+                                        <field name="sphere"/>
+                                        <field name="cylinder"/>
+                                        <field name="base_curve"/>
+                                        <field name="center_thickness"/>
+                                        <field name="right_opc"/>
+                                        <field name="left_opc"/>
+                                        <field name="product_finish_lens_id" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string='Semi Finished Lens Parameters' attrs="{'invisible':[('finish_semi','!=','semi')]}">
+                                <field name="semi_finish_child_ids" nolabel="1">
+                                    <tree editable="bottom">
+                                        <field name="diameter"/>
+                                        <field name="base_curve"/>
+                                        <field name="add"/>
+                                        <field name="true_curve"/>
+                                        <field name="front_radius"/>
+                                        <field name="sag"/>
+                                        <field name="back_curve"/>
+                                        <field name="back_radius"/>
+                                        <field name="ct_nominal"/>
+                                        <field name="et_nominal"/>
+                                        <field name="drop"/>
+                                        <field name="inset"/>
+                                        <field name="right_opc"/>
+                                        <field name="left_opc"/>
+                                        <field name="product_finish_lens_id" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string='Inventory'>
+                                <group name="inventory">
+                                    <group string="Operations" name="operations">
+                                        <field name="route_ids" widget="many2many_checkboxes" attrs="{'invisible': [('type', 'in', ['service', 'digital'])]}" can_create="true" can_write="true" />
+                                        
+                                        <field name="route_from_categ_ids" widget="many2many_tags" readonly="1" attrs="{'invisible': [('route_from_categ_ids', '=', [])]}" can_create="true" can_write="true"/>
+                                        <label for="sale_delay" attrs="{'invisible': [('sale_ok', '=', False)]}" />
+                                        <div attrs="{'invisible': [('sale_ok', '=', False)]}" >
+                                            <field name="sale_delay" class="oe_inline" style="vertical-align:baseline"/>
+                                            days
+                                        
+                                        </div>
+                                    </group>
+                                    <group string="Traceability" name="traceability" attrs="{'invisible': [('type', '=', 'consu')]}" >
+                                        <field name="tracking" widget="radio" attrs="{'invisible': [('type', 'in', ['service', 'digital'])]}" on_change="1" />
+                                    </group>
+                                    <group string="Counterpart Locations" name="stock_property">
+                                        <field name="property_stock_production" can_create="true" can_write="true"/>
+                                        <field name="property_stock_inventory" can_create="true" can_write="true"/>
+                                    </group>
+                                </group>
+                                <group string="Description for Delivery Orders">
+                                    <field name="description_pickingout" nolabel="1" placeholder="This note is added to delivery orders."/>
+                                </group>
+                                <group string="Description for Receipts">
+                                    <field name="description_pickingin" nolabel="1" placeholder="This note is added to receipt orders (e.g. where to store the product in the warehouse)."/>
+                                </group>
+                                <group string="Description for Internal Transfers">
+                                    <field name="description_picking" placeholder="This note is added to internal transfer orders (e.g. where to pick the product in the warehouse)." nolabel="1"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+	            </form>
+	        </field>
+	    </record>
+	    
+	    <!-- Action of Lens Parameter-->
+	    <record id="product_lens_parameter_action" model="ir.actions.act_window">
+	        <field name="name">Lens Parameter</field>
+	        <field name="type">ir.actions.act_window</field>
+	        <field name="res_model">product.template</field>
+	        <field name="view_mode">kanban,tree,form</field>
+	        <field name="search_view_id" ref="stock.product_template_search_form_view_stock"/>
+	        <field name="context">{'default_type': 'product', 'default_prd_categ_name': 'Lens Parameter'}</field>
+	        <field name="domain">[('prd_categ_name','=','Lens Parameter')]</field>
+	        <field name="help" type="html">
+	            <p class="o_view_nocontent_smiling_face">
+	                Create a new product
+	            </p>
+	        </field>
+    	</record>
+
+        <record id="product_lens_parameter_action_tree_view" model="ir.actions.act_window.view">
+	        <field name="sequence" eval="1"/>
+	        <field name="view_mode">tree</field>
+	        <field name="view_id" ref="product_lens_parameter_tree_view"/>
+	        <field name="act_window_id" ref="product_lens_parameter_action"/>
+    	</record>
+		 <record id="product_lens_parameter_action_form_view" model="ir.actions.act_window.view">
+	        <field name="sequence" eval="2"/>
+	        <field name="view_mode">form</field>
+	        <field name="view_id" ref="product_lens_parameter_form_view"/>
+	        <field name="act_window_id" ref="product_lens_parameter_action"/>
+    	</record>
+	    
+	    <!-- Over Size Pricing Menu-->
+	    <menuitem id="product_lens_parameter_menu" action="product_lens_parameter_action" parent="lens_admin_configuration_menu" sequence="8"/>
+</odoo>

@@ -1,0 +1,19 @@
+.vision_web_wizard .radio_into_button label, .vision_web_wizard .radio_into_button input{
+    display:block;
+    position:inherit;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+}
+.vision_web_wizard .radio_into_button label{
+    height: 100%;
+    margin: 0px;
+}
+.vision_web_wizard .radio_into_button input[type="checkbox"] {
+    opacity: 0.011;
+    z-index: 100;
+}
+.vision_web_wizard .radio_into_button input[type="checkbox"]:checked + label {
+    background: #0075ffbf;
+}

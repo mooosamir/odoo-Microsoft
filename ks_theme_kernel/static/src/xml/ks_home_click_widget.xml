@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="GroupByMenuGenerator">
+        <div t-if="widget.presentedFields.length !== 0 &amp;&amp; widget.items.length !== 0" role="separator"
+             class="dropdown-divider o_generator_menu"/>
+        <button t-if="widget.presentedFields.length !== 0" type="button"
+                class="dropdown-item o_generator_menu o_add_custom_group"
+                aria-expanded="false">Add Custom Group</button>
+        <div class="ks-groupby-menu-generator">
+            <div t-if="widget.generatorMenuIsOpen" class="dropdown-item-text o_generator_menu">
+                <select class="w-auto o_input o_group_selector o_add_group">
+                    <t t-foreach="widget.presentedFields" t-as="field">
+                        <option t-att-value="field.name"><t t-esc="field.string"/></option>
+                    </t>
+                </select>
+            </div>
+            <div t-if="widget.generatorMenuIsOpen" class="dropdown-item-text o_generator_menu">
+                <button type="button" class="btn btn-primary o_apply_group o_add_group">Apply</button>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="FilterMenuGenerator">
+        <div t-if="Object.keys(widget.fields).length !== 0 &amp;&amp; widget.items.length !== 0" role="separator"
+             class="dropdown-divider o_generator_menu"/>
+        <button t-if="Object.keys(widget.fields).length !== 0" type="button"
+                class="dropdown-item o_generator_menu o_add_custom_filter"
+                aria-expanded="false">Add Custom Filter</button>
+        <!--  should be one line -->
+        <div class="ks-filter-menu-generator"><div t-if="widget.generatorMenuIsOpen" class="dropdown-item-text o_generator_menu o_add_filter_menu"><button class="btn btn-primary o_apply_filter mr-2" type="button">Apply</button><button class="btn btn-secondary o_add_condition" type="button"><span class="fa fa-plus-circle"/>Add a condition</button></div></div>
+    </t>
+
+    <t t-extend="ControlPanel">
+        <t t-jquery=".o_cp_searchview" t-operation="replace"/>
+        <t t-jquery=".o_search_options" t-operation="replace"/>
+
+        <t t-jquery=".o_cp_right" t-operation="append">
+            <div class="o_cp_searchview ks_resize_window" role="search">
+                <t t-if="widget.withSearchBar" t-call="SearchView"/>
+            </div>
+
+        </t>
+        <t t-jquery=".o_control_panel" t-operation="append">
+            <div class="btn-group o_search_options position-static" role="search"/>
+        </t>
+    </t>
+
+    <t t-extend="UserMenu">
+         <t t-jquery=".dropdown-menu-right" t-operation="prepend">
+             <div class="ks-user-info-inside-dropdown border-bottom pb-2">
+                <img class="rounded-circle oe_topbar_avatar" t-att-src="_s + '/web/static/src/img/user_menu_avatar.png'"
+                     alt="Avatar"/>
+                 <span class="oe_topbar_name"/>
+             </div>
+         </t>
+     </t>
+
+    <t t-extend="Menu">
+        <t t-jquery=".o_menu_apps" t-operation="replace"/>
+        <t t-jquery=".o_menu_systray" t-operation="replace"/>
+
+        <!--             <t t-jquery=".o_menu_brand" t-operation="replace"/>-->
+        <!--             <t t-jquery=".o_menu_sections" t-operation="replace"/>-->
+
+    </t>
+
+    <t t-extend="WebClient.DebugManager.Backend">
+         <t t-jquery="a:first" t-operation="before">
+             <a role="button" class="ks-debug-close ks-mail-chat-close">
+                 <img src="/ks_theme_kernel/static/src/images/icons/close-white.svg"/>
+                 <span>Debugger</span>
+             </a>
+     </t>
+     </t>
+
+    <t t-extend="mail.systray.MessagingMenu">
+         <t t-jquery=".o_mail_systray_dropdown_top" t-operation="before">
+             <a role="button" class="ks-mail-chat-close">
+                 <img src="/ks_theme_kernel/static/src/images/icons/close-white.svg"/>
+                 <span>Messages</span>
+             </a>
+         </t>
+     </t>
+
+    <t t-extend="mail.systray.ActivityMenu">
+         <t t-jquery=".o_mail_systray_dropdown_items" t-operation="before">
+             <a role="button" class="ks-mail-chat-close"><img src="/ks_theme_kernel/static/src/images/icons/close-white.svg" />
+                 <span>Notifications</span>
+             </a>
+         </t>
+     </t>
+
+    <t t-extend="SwitchCompanyMenu">
+        <t t-jquery=".dropdown-menu" t-operation="prepend">
+            <a role="button" class="ks-mail-chat-close mb-3"><img src="/ks_theme_kernel/static/src/images/icons/close-white.svg" />
+                <span>Companies</span>
+             </a>
+        </t>
+        <t t-jquery=".o_switch_company_menu a:first" t-operation="attributes">
+            <attribute name="title">Switch Company Menu</attribute>
+        </t>
+    </t>
+
+    <t t-extend="AppsMenu">
+
+        <t t-jquery=".dropdown-menu" t-operation="replace">
+             <div class="dropdown-menu ks-main-app-dropdown" role="menu">
+                 <div class="main-home-view">
+                     <div class="ks-app-loader d-none">
+                         <div class="spinner-border"/>
+                     </div>
+                     <t t-foreach="widget.getApps()" t-as="app">
+                        <a role="menuitem" t-attf-href="#menu_id=#{app.menuID}"
+                           class="dropdown-item o_app"
+                           t-att-data-menu-id="app.menuID"
+                           t-att-data-menu-xmlid="app.xmlID"
+                           t-att-data-action-id="app.actionID">
+                                <t t-esc="app.name"/>
+                        </a>
+                     </t>
+                 </div>
+             </div>
+        </t>
+
+
+        <t t-jquery=".o_app" t-operation="attributes">
+            <attribute name="t-attf-href">#menu_id=#{app.menuID}&amp;action_id=#{app.actionID}</attribute>
+        </t>
+        <t t-jquery=".o_app &gt; t" t-operation="replace">
+<!--            <t t-debug="pdb"/>-->
+            <img t-if="app.web_icon_data" class="ks-icon-app icon"
+                 t-attf-src="/web/image/ir.ui.menu/{{app.menuID}}/web_icon_data/50x50"/>
+
+            <div t-elif="app.web_icon" class="o_app_icon o_app_icon_has_pictogram">
+                <i t-attf-class="#{app.web_icon.split(',')[0]} fa-lg fa-fw"
+                   t-attf-style="color: #{app.web_icon.split(',')[1]};"/>
+            </div>
+            <img t-else="" class="ks-icon-app icon"
+                 t-attf-src="/ks_theme_kernel/static/src/logo/twod/Modules.png"/>
+            <span class="ks-app-name">
+                <t t-esc="app.name"/>
+            </span>
+        </t>
+
+        <t t-jquery=".main-home-view" t-operation="before">
+            <div class="ks_menu_items_search ks-search-container form-row align-items-center justify-content-center ks-page-input-search ">
+                <div class="ks-search-input">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <i class="fa fa-search"/>
+                            </div>
+                        </div>
+                        <input type="search" autocomplete="off" placeholder="Menu Items..." class="form-control"/>
+                    </div>
+                </div>
+                <div class="ks-search-values"/>
+            </div>
+        </t>
+    </t>
+
+    <t t-name="ks_theme_backend.ks_menu_items_value">
+        <t t-foreach="ks_values" t-as="value">
+            <!--<t t-debug="pdb"/>-->
+            <div class="ks-search-element">
+                <t t-set="menu" t-value="ks_menus._ksmenuDetail(value.original)"/>
+                <t t-if="!menu.parent_id">
+                    <img t-if="menu.web_icon_data" class="ks-search-icon-app icon"
+                         t-attf-src="/web/image/ir.ui.menu/{{menu.id}}/web_icon_data/50x50"/>
+                    <div t-elif="menu.web_icon" class="o_app_icon o_app_icon_has_pictogram">
+                        <i t-attf-class="#{menu.web_icon.split(',')[0]} ks-search-fa-icon"
+                           t-attf-style="color: #{menu.web_icon.split(',')[1]};"/>
+                    </div>
+                </t>
+                <a t-attf-class="ks-menu-search-value dropdown-item #{result_first ? 'active' : ''}"
+                   t-attf-href="#menu_id=#{menu.id}&amp;action_id=#{menu.action_id}"
+                   t-att-data-menu-id="menu.id"
+                   t-att-data-action-id="menu.action_id"
+                   t-att-data-parent-id="menu.parent_id[0]"
+                   t-raw="value.string"/>
+            </div>
+        </t>
+    </t>
+
+    <t t-extend="Menu">
+        <t t-jquery=".o_main_navbar" t-operation="append">
+            <t t-if="widget.ks_theme_settings">
+                <a class="ks_configuration ks-icon-outer float-right ks_resize_window" role="button">
+                    <img src="/ks_theme_kernel/static/src/images/icons/filters/setting-white.svg"/>
+                </a>
+            </t>
+        </t>
+
+        <t t-jquery=".o_main_navbar" t-operation="prepend">
+            <t t-if="widget.ks_company_logo">
+                <div class="ks_curr_company_logo_outer">
+                    <img t-att-src="'web/image/res.company/'+widget.comp_id+'/logo'" class="ks_curr_company_logo"
+                         alt="Company Logo" style="max-height: 22px;"/>
+                    <span style="display: block;color: white;max-height: 6px;">
+                        <t t-esc="widget.company_name"/>
+                    </span>
+                 </div>
+            </t>
+        </t>
+
+        <t t-jquery=".o_menu_sections" t-operation="replace">
+            <t t-if="widget.ks_horizontal_menu">
+                <ul class="o_menu_sections" role="menu"/>
+            </t>
+        </t>
+
+        <t t-jquery=".o_menu_brand" t-operation="replace">
+            <t t-if="widget.ks_horizontal_menu">
+                <a class="o_menu_brand" role="button"/>
+            </t>
+        </t>
+    </t>
+
+</templates>

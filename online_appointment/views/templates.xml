@@ -1,0 +1,999 @@
+<odoo>
+    <!-- Index -->
+    <template id="online_scheduling_locations" name="Online Scheduling">
+        <t t-call="website.layout">
+            <div id="wrap" class="o_wevent_index">
+                <!-- Drag/Drop Area -->
+                <div id="oe_structure_we_index_1" class="oe_structure"/>
+                <!-- Content -->
+                <div class="container-fluid">
+                    <t t-call="online_appointment.locations"/>
+                </div>
+                <!-- Drag/Drop Area -->
+                <div id="oe_structure_we_index_2" class="oe_structure"/>
+            </div>
+        </t>
+    </template>
+
+    <template id="locations" name="Locations">
+        <div class="row branch_map_online_appointment">
+            <div class="col-lg-5" style="padding:20px 20px; padding-right:15px;">
+
+                <div class="btn_panel"
+                     style="border:1px solid black; height:50px; width:450px; margin-left:15px; display:none;">
+                    <input id="google_maps_search" placeholder="Search by city and state or ZIP"
+                           style="border:none; width:380px; height:100%; padding:10px;"/>
+                    <button id="search_location" style="border:none; background-color:transparent;">
+                        <i class="fa fa-search"></i>
+                    </button>
+                    <button id="current_location" style="border:none;">
+                        <i class="fa fa-location-arrow"></i>
+                    </button>
+                </div>
+                <br/>
+                <br/>
+                <div class="branches">
+
+                </div>
+                <!--                <div class="btn_panel" style="display:none;">-->
+                <!--                    <button id="dark_mode">Dark Mode</button>-->
+                <!--                    <button id="current_location">Find distance based on current location</button>-->
+                <!--                </div>-->
+            </div>
+            <div class="col-lg-7">
+                <div id="GoogleMapForBranches" style="width:100%;height:700px;"/>
+            </div>
+        </div>
+    </template>
+
+    <template id="states">
+        <option>state</option>
+        <t t-foreach="states" t-as="state">
+            <option t-attf-value="#{state.id}">
+                <t t-esc="state.name"/>
+            </option>
+        </t>
+    </template>
+
+    <template id="branches">
+        <t t-foreach="branch_ids" t-as="branch">
+            <div t-attf-class="branch_#{branch_ids[branch]['branch'].id} row"
+                 style="border: 2px solid black;margin: 0px;padding: 2%;margin-bottom: 3%; width:450px; margin-left:15px;">
+                <div class="col-lg-12">
+                    <div class="row" style="margin-bottom: 10px;">
+                        <div class="col-lg-2">
+                            <t t-esc="branch + 1"/>
+                        </div>
+                        <div class="col-lg 6">
+                            <t t-esc="branch_ids[branch]['branch'].name"/>
+                        </div>
+                        <div class="col-lg 4 right">
+                            <t t-esc="branch_ids[branch]['distance']"/>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-bottom: 10px;">
+                        <div class="col-lg-2"/>
+                        <div class="col-lg-10">
+                            <t t-esc="branch_ids[branch]['branch'].address"/>
+                            <br/>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-bottom: 10px;">
+                        <div class="col-lg-2"/>
+                        <div class="col-lg-10">
+                            <t t-esc="branch_ids[branch]['branch'].phone"/>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin: 10px;">
+                        <div class="col-lg-12 right">
+                            <button t-attf-class="btn_branch" t-attf-value="#{branch_ids[branch]['branch'].id}">Schedule
+                                Eye Exam
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <!-- Index -->
+    <template id="online_scheduling_index" name="Online Scheduling">
+        <t t-call="website.layout">
+            <div id="wrap" class="o_wevent_index">
+                <!-- Drag/Drop Area -->
+                <div id="oe_structure_we_index_1" class="oe_structure"/>
+                <!-- Content -->
+                <div class="container online_appointment_tabs">
+                    <t t-call="online_appointment.appointment"/>
+                </div>
+                <!-- Drag/Drop Area -->
+                <div id="oe_structure_we_index_2" class="oe_structure"/>
+            </div>
+        </t>
+    </template>
+
+    <template id="appointment" name="Appointment">
+        <div class="row scheduling_appointment">
+            <div class="col-lg-12" style="margin: 30px;">
+                <h1>
+                    <center>Schedule Eye Exam</center>
+                </h1>
+            </div>
+        </div>
+        <div class="row scheduling_appointment">
+            <div class="col-lg-3"/>
+            <div class="col-lg-9">
+                <ul class="nav nav-pills" id="no_ajax_tabs">
+                    <li id="no_ajax_tabs_tab_1" class="tab_active">Exam Information</li>
+                    <li id="no_ajax_tabs_tab_2">Appointment</li>
+                    <li id="no_ajax_tabs_tab_3">Patient Information</li>
+                </ul>
+            </div>
+        </div>
+        <div class="row scheduling_appointment">
+            <div class="col-lg-3">
+                <div class="row">
+                    <div class="col-lg-12 padding_bottom_10px">
+                        Location
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-1"/>
+                    <div class="col-lg-10">
+                        <t t-esc="branch_id.address"/>
+                        <br/>
+                        <br/>
+                        <!--                        <a href="#">Browse Glasses</a>-->
+                        <!--                        <br/>-->
+                        <!--                        <a href="#">Order Contacts</a>-->
+                        <!--                        <br/>-->
+                    </div>
+                    <div class="col-lg-1"/>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 padding_bottom_10px">
+                        Hours
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-1"/>
+                    <div class="col-lg-10">
+                        <p>
+                            <t t-foreach="week_timings" t-as="week_time">
+                                <t t-if="week_time.permanent_closed">
+                                    <t t-esc="week_time.day_select"/>
+                                    closed
+                                    <br/>
+                                </t>
+                                <t t-else="">
+                                    <t t-esc="week_time.day_select"/>
+                                    <t t-esc="week_time.open"/>
+                                    -
+                                    <t t-esc="week_time.close"/>
+                                    <br/>
+                                </t>
+                            </t>
+                        </p>
+                    </div>
+                    <div class="col-lg-1"/>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <form id="online_scheduling_form">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                    <input type="hidden" name="branch" t-att-value="branch_id.id"/>
+                    <input type="hidden" name="validation_check" value="0"/>
+                    <input type="hidden" name="not_sure" value="0"/>
+                    <div id="tab1_box" class="col-lg-12 padding_top_30px input_margin_10px">
+                        <div class="row">
+                            <div class="col-lg-12 select_exam">
+                                <!--                                <br/><br/>-->
+                                <p>Select Exam</p>
+                                <t t-set="counter" t-value="0"/>
+                                <ul class="radio_into_button">
+                                    <t t-if="online_services" t-foreach="online_services" t-as="online_service">
+                                        <t t-set="counter" t-value="counter + 1"/>
+                                        <li>
+                                            <input type="radio" class="online_service" name="online_service"
+                                                   t-attf-id="online_service_#{online_service.id}"
+                                                   t-attf-value="#{online_service.id}"/>
+                                            <label t-attf-for="online_service_#{online_service.id}">
+                                                <t t-esc="online_service.online_description"/>
+                                            </label>
+                                            <t t-if="counter == 3">
+                                                <br/>
+                                            </t>
+                                        </li>
+                                    </t>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <p>Do you currently wear contacts?
+                                    <i class="fa fa-question-circle-o tooltip" style="padding-left: 8px;">
+                                        <span class="tooltiptext">We set aside extra time for first-time wearers</span>
+                                    </i>
+                                </p>
+                                <input type="radio" class="contacts" name="contacts" value="Yes">Yes</input>
+                                <br/>
+                                <input type="radio" class="contacts" name="contacts" value="No">No</input>
+                                <br/>
+                                <input type="radio" class="contacts" name="contacts" value="Interested">No, but I am
+                                    interested
+                                </input>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 padding_top_30px right margin_bottom_20px">
+                                <button class="next">Next</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tab2_box" class="padding_top_30px">
+                        <div class="row radio_into_button">
+                            <!--                            <t t-if="selected_doctor">-->
+                            <!--                                <t t-set="doctors" t-value="selected_doctor"/>-->
+                            <!--                            </t>-->
+                            <t t-if="doctors" t-foreach="doctors" t-as="doctor">
+                                <div class="col-lg-2 flex-columns align-items-center doctor_image_container"
+                                     t-attf-style="padding: 20px;margin: 20px;">
+                                    <center>
+                                        <div class="image_container">
+                                            <t t-if="doctor.provider_id.image_1920">
+                                                <img id="output" class="image doctor_image"
+                                                     t-attf-src="data:image/*;base64,{{doctor.provider_id.image_1920}}"
+                                                     style="margin-top: 10px;"/>
+                                                <br/>
+                                            </t>
+                                            <t t-else="">
+                                                <img id="output" class="image doctor_image"
+                                                     src="/online_appointment/static/src/images/doctor_default.png"
+                                                     style="margin-top: 10px;"/>
+                                                <br/>
+                                            </t>
+                                        </div>
+                                        <t t-if="selected_doctor != 0 and selected_doctor == doctor.provider_id.id">
+                                            <input type="radio" name="doctor" t-attf-id="doctor_#{doctor.id}"
+                                                   t-attf-value="#{doctor.id}" checked="checked"
+                                                   t-attf-value2="#{doctor.online_description}"/>
+                                            <input name="selected_doctor" type="hidden"/>
+                                        </t>
+                                        <t t-else="">
+                                            <input type="radio" name="doctor" t-attf-id="doctor_#{doctor.id}"
+                                                   t-attf-value="#{doctor.id}" t-attf-value3="#{doctor.provider_id.id}"
+                                                   t-attf-value2="#{doctor.online_description}"/>
+                                        </t>
+                                        <label t-attf-for="doctor_#{doctor.id}" style="margin: 0px;">
+                                            <t t-esc="doctor.online_description"/>
+                                        </label>
+                                    </center>
+                                </div>
+                            </t>
+                        </div>
+                        <div class="row">
+                            <br/>
+                            <br/>
+                            <div class="calender"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 padding_top_30px right margin_bottom_20px">
+                                <button class="back">Back</button>
+                                <button class="next">Next</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tab3_box" class="padding_top_30px">
+                        <div class="row input_select_full_width">
+                            <div class="col-lg 5">
+                                <label>First Name</label>
+                                <input name="first_name" tabindex="1" style="text-transform: capitalize;"/>
+                                <label>Date of Birth</label>
+                                <input name="dob" type="date" tabindex="3"/>
+                                <label>Mobile</label>
+                                <input name="mobile" tabindex="5"/>
+                                <br/>
+                                <input name="acknowledge" type="checkbox" style="width: auto;margin-top: 20px;"
+                                       checked="checked" value="Y">
+                                    <span class="acknowledge">Yes, i would like to receive appointment reminders via
+                                        text message
+                                    </span>
+                                </input>
+                            </div>
+                            <div class="col-lg-2"/>
+                            <div class="col-lg 5">
+                                <label>Last Name</label>
+                                <input name="last_name" tabindex="2" style="text-transform: capitalize;"/>
+                                <label>Gender</label>
+                                <select name="gender" tabindex="4">
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="unspecified">Unspecified</option>
+                                </select>
+                                <label>Email</label>
+                                <input name="email" tabindex="6"/>
+                            </div>
+                        </div>
+                        <div class="row padding_top_30px input_margin_10px" style="display:none;">
+                            <div class="col-lg-5">
+                                <p>Will you be using Insurance for your visit?</p>
+                                <input type="radio" name="insurance_q" class="insurance_question" value="Y">Yes</input>
+                                <br/>
+                                <input type="radio" name="insurance_q" class="insurance_question" value="N"
+                                       checked="checked">No
+                                </input>
+                                <br/>
+                            </div>
+                        </div>
+                        <div class="row input_select_full_width insurance_q">
+                            <div class="col-lg-12 input_margin_10px">
+                                <label>Insurance</label>
+                                <select name="insurance">
+                                    <t t-foreach="insurance_companies" t-as="insurance_company">
+                                        <option t-attf-value="#{insurance_company.id}">
+                                            <t t-esc="insurance_company.name"/>
+                                        </option>
+                                    </t>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row input_select_full_width insurance_q">
+                            <div class="col-lg 5">
+                                <label>Primary Insured</label>
+                                <input name="primary_insured"/>
+                                <label>Gender</label>
+                                <select name="insured_gender">
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="unspecified">Unspecified</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-2"/>
+                            <div class="col-lg 5">
+                                <label>Insured Date of Birth</label>
+                                <input name="insured_dob" type="date"/>
+                                <label>Insurance ID or Last 4 SSN</label>
+                                <input name="ssn"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 padding_top_30px right margin_bottom_20px">
+                                <button class="back">Back</button>
+                                <button class="next">Next</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row appointment_error">
+            <div class="col-lg-2"/>
+            <div class="col-lg-8 padding_top_30px input_margin_10px input_select_full_width"
+                 style="border: 1px solid black;margin: 20px;">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h3>
+                            <b>
+                                <center>Unable to Locate Patient Record</center>
+                            </b>
+                        </h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <center>
+                            <br/>
+                            <p>Are you a new patient to our practice?</p>
+                            <br/>
+                            <p>If you have been to our office, please verify the
+                                <br/>
+                                information entered.
+                            </p>
+                        </center>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 padding_top_30px right margin_bottom_20px">
+                        <button class="yes">Yes</button>
+                        <button class="edit">Edit</button>
+                        <button class="not_sure">Not Sure</button>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-lg-2"/>
+        </div>
+        <div class="row appointment_confirmed">
+            <div class="col-lg-2"/>
+            <div class="col-lg-8 padding_top_30px input_margin_10px input_select_full_width"
+                 style="border: 1px solid black;margin: 20px;">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h3>Review Appointment Details</h3>
+                        <label>Date and Time</label>
+                        <p>
+                            <i class="fa fa-calendar" style="padding-right: 8px;"/>
+                            <span class="ra_dab"/>
+                        </p>
+                        <label>Location</label>
+                        <p>
+                            <i class="fa fa-map-marker" style="padding-right: 8px;"/>
+                            <span t-esc="branch_id.address"/>
+                        </p>
+                        <label>Doctor</label>
+                        <p>
+                            <i class="fa fa-stethoscope" style="padding-right: 8px;"/>
+                            <span class="ra_doc"/>
+                        </p>
+                        <hr/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-5">
+                        <label>Name</label>
+                        <p class="ra_name"/>
+                        <label>Date of Birth</label>
+                        <p class="ra_dob"/>
+                    </div>
+                    <div class="col-lg-2"/>
+                    <div class="col-lg-5">
+                        <label>Mobile</label>
+                        <p class="ra_mob"/>
+                        <label>Email</label>
+                        <p class="ra_email"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 padding_top_30px right margin_bottom_20px">
+                        <button class="back">Back</button>
+                        <button class="next">Schedule</button>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-lg-2"/>
+        </div>
+    </template>
+
+    <!-- Index -->
+    <template id="online_scheduling_confirmation" name="Online Scheduling Confirmation">
+        <t t-call="website.layout">
+            <div id="wrap" class="o_wevent_index">
+                <!-- Drag/Drop Area -->
+                <div id="oe_structure_we_index_1" class="oe_structure"/>
+                <!-- Content -->
+                <div class="container">
+                    <t t-call="online_appointment.confirmation_box"/>
+                </div>
+                <!-- Drag/Drop Area -->
+                <div id="oe_structure_we_index_2" class="oe_structure"/>
+            </div>
+        </t>
+    </template>
+
+    <template id="confirmation_box" name="Confirmation Box">
+        <div class="row">
+            <div class="col-lg-2"/>
+            <div class="col-lg-8 padding_top_30px input_margin_10px input_select_full_width"
+                 style="border: 1px solid black;margin: 20px;">
+                <div class="row" t-if="appointment == 'add'">
+                    <div class="col-lg-12">
+                        <center>
+                            <i class="fa fa-calendar-check-o"
+                               style="color: green;font-size: 75px;margin-bottom: 20px;"/>
+                        </center>
+                        <center>
+                            <p>
+                                <t t-esc="patient.first_name"/>
+                                , your appointment is scheduled. We look forward to seeing you!
+                            </p>
+                        </center>
+                        <br/>
+                        <t t-if="appointment_id.start_datetime">
+                            <t t-set="local_start_datetime"
+                               t-value="datetime.strptime(appointment_id.local_start_datetime, '%m/%d/%Y %I:%M %p')"/>
+                            <center>
+                                <h2>
+                                    <t t-esc="local_start_datetime.strftime('%A, %B %d, %Y')"/>
+                                </h2>
+                            </center>
+                            <center>
+                                <h2>
+                                    <t t-esc="local_start_datetime.strftime('%I:%M %p')"/>
+                                    |
+                                    <t t-esc="online_requests.appointment_doctor.online_description"/>
+                                </h2>
+                            </center>
+                            <br/>
+                        </t>
+                        <center>
+                            <a href="#">Add to Calender</a>
+                        </center>
+                        <br/>
+                        <center>
+                            <button t-attf-onclick="window.location.replace('/web/signup');">Register for Portal
+                                Access
+                            </button>
+                        </center>
+                        <br/>
+                        <br/>
+                        <center>
+                            <p>Need new glasses? Browse our selection of
+                                <a href="#">Frames</a>
+                            </p>
+                        </center>
+                    </div>
+                </div>
+                <div class="row" t-else="">
+                    <div class="col-lg-12">
+                        <center>
+                            <i class="fa fa-check" style="color: green;font-size: 75px;margin-bottom: 20px;"/>
+                        </center>
+                        <center>
+                            <p>
+                                <t t-esc="patient.first_name"/>
+                                , your appointment request has been received!
+                            </p>
+                        </center>
+                        <br/>
+                        <center>
+                            <p>Once the appointment is confirmed you will receive an email.</p>
+                        </center>
+                        <center>
+                            <p>If you need immediate assistant for your appointment please call the
+                                <br/>
+                                office at
+                                <t t-esc="branch.phone"/>
+                            </p>
+                        </center>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <center>
+                            <p>Need new glasses? Browse our selection of
+                                <a href="#">Frames</a>
+                            </p>
+                        </center>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2"/>
+        </div>
+    </template>
+
+    <template id="doctor_calender_view" name="Calender Box">
+        <div class="row">
+            <div class="col-lg-12 margin_bottom_20px">
+                <center>
+                    <h4>
+                        <t t-esc="request.env['pe.setting.provider'].sudo().search([('id', '=', doctor)]).online_description"/>
+                        's Schedule (
+                        <t t-esc="date[0]"/>
+                        -<t t-esc="date[6]"/>)
+                    </h4>
+                </center>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-1">
+                <i class="fa fa-chevron-left" t-attf-value="#{date_record[0]}" t-if="pre_date"
+                   style="cursor: pointer;"/>
+            </div>
+            <div class="col-lg-3">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <t t-esc="week[0]"/>
+                        <br/>
+                        <t t-esc="date[0]"/>
+                        <br/>
+                        <br/>
+                        <t t-set="day_0"
+                           t-value="request.env['appointments.open.close'].sudo().search([('appointments_hours_id', '=', appointments_hours),('day_select', '=', day[0])], limit=1)"/>
+                        <t t-if="not day_0.permanent_closed">
+                            <t t-if="day_0.opening_time != False">
+                                <t t-set="open_time" t-value="fields.Datetime.context_timestamp(day_0.with_context(tz=company_event_tz), datetime.strptime(str(day_0.opening_time),
+                                                                                      DEFAULT_SERVER_DATETIME_FORMAT))"/>
+                            </t>
+                            <t t-if="day_0.closing_time != False">
+                                <t t-set="close_time" t-value="fields.Datetime.context_timestamp(day_0.with_context(tz=company_event_tz), datetime.strptime(str(day_0.closing_time),
+                                                                                      DEFAULT_SERVER_DATETIME_FORMAT))"/>
+                            </t>
+                            <t t-if="open_time != False">
+                                <t t-set="closing_time" t-value="relativedelta(minutes=int(duration_block))"/>
+                            </t>
+                            <t t-set="minutes"
+                               t-value="int(((close_time - open_time).total_seconds() / 60.0) / duration_block)"/>
+                            <ul class="radio_into_button">
+                                <t t-foreach="range(minutes)" t-as="i">
+                                    <li t-if="open_time.strftime('%I:%M %p') not in day0">
+                                        <input type="radio" name="date_time"
+                                               t-attf-id="date_time#{day_0.id}_#{open_time.strftime('%I:%M %p')}"
+                                               t-attf-value="#{open_time.strftime('%I:%M %p')}"
+                                               t-attf-value2="#{date_record[0]}"/>
+                                        <label style="width: 85px;"
+                                               t-attf-for="date_time#{day_0.id}_#{open_time.strftime('%I:%M %p')}">
+                                            <t t-esc="open_time.strftime('%I:%M %p')"/>
+                                        </label>
+                                    </li>
+                                    <t t-set="open_time"
+                                       t-value="open_time + relativedelta(minutes=int(duration_block))"/>
+                                    <t t-set="closing_time"
+                                       t-value="closing_time + relativedelta(minutes=int(duration_block))"/>
+                                </t>
+                                <t t-foreach="day00" t-as="j">
+                                    <li t-if="j not in day0">
+                                        <input type="radio" name="date_time" t-attf-id="date_time#{day_0.id}_#{j}"
+                                               t-attf-value="#{j}" t-attf-value2="#{date_record[0]}"/>
+                                        <label style="width: 85px;" t-attf-for="date_time#{day_0.id}_#{j}">
+                                            <t t-esc="j"/>
+                                        </label>
+                                    </li>
+                                </t>
+                            </ul>
+                        </t>
+                        <t t-else="">
+                            <br/>
+                            <center>_____</center>
+                        </t>
+                    </div>
+                    <div class="col-lg-6">
+                        <t t-esc="week[1]"/>
+                        <br/>
+                        <t t-esc="date[1]"/>
+                        <br/>
+                        <br/>
+                        <t t-set="day_1"
+                           t-value="request.env['appointments.open.close'].sudo().search([('appointments_hours_id', '=', appointments_hours),('day_select', '=', day[1])], limit=1)"/>
+                        <t t-if="not day_1.permanent_closed">
+                            <t t-set="open_time" t-value="fields.Datetime.context_timestamp(day_1.with_context(tz=company_event_tz), datetime.strptime(str(day_1.opening_time),
+                                                                                      DEFAULT_SERVER_DATETIME_FORMAT))"/>
+                            <t t-set="close_time" t-value="fields.Datetime.context_timestamp(day_1.with_context(tz=company_event_tz), datetime.strptime(str(day_1.closing_time),
+                                                                                      DEFAULT_SERVER_DATETIME_FORMAT))"/>
+
+                            <t t-set="closing_time" t-value="open_time + relativedelta(minutes=int(duration_block))"/>
+                            <t t-set="minutes"
+                               t-value="int(((close_time - open_time).total_seconds() / 60.0) / duration_block)"/>
+                            <ul class="radio_into_button">
+                                <t t-foreach="range(minutes)" t-as="i">
+                                    <li t-if="open_time.strftime('%I:%M %p') not in day1">
+                                        <input type="radio" name="date_time"
+                                               t-attf-id="date_time#{day_1.id}_#{open_time.strftime('%I:%M %p')}"
+                                               t-attf-value="#{open_time.strftime('%I:%M %p')}"
+                                               t-attf-value2="#{date_record[1]}"/>
+                                        <label style="width: 85px;"
+                                               t-attf-for="date_time#{day_1.id}_#{open_time.strftime('%I:%M %p')}">
+                                            <t t-esc="open_time.strftime('%I:%M %p')"/>
+                                        </label>
+                                    </li>
+                                    <t t-set="open_time"
+                                       t-value="open_time + relativedelta(minutes=int(duration_block))"/>
+                                    <t t-set="closing_time"
+                                       t-value="closing_time + relativedelta(minutes=int(duration_block))"/>
+                                </t>
+                                <t t-foreach="day11" t-as="j">
+                                    <li t-if="j not in day1">
+                                        <input type="radio" name="date_time" t-attf-id="date_time#{day_1.id}_#{j}"
+                                               t-attf-value="#{j}" t-attf-value2="#{date_record[0]}"/>
+                                        <label style="width: 85px;" t-attf-for="date_time#{day_1.id}_#{j}">
+                                            <t t-esc="j"/>
+                                        </label>
+                                    </li>
+                                </t>
+                            </ul>
+                        </t>
+                        <t t-else="">
+                            <br/>
+                            <center>_____</center>
+                        </t>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <t t-esc="week[2]"/>
+                        <br/>
+                        <t t-esc="date[2]"/>
+                        <br/>
+                        <br/>
+                        <t t-set="day_2"
+                           t-value="request.env['appointments.open.close'].sudo().search([('appointments_hours_id', '=', appointments_hours),('day_select', '=', day[2])], limit=1)"/>
+                        <t t-if="not day_2.permanent_closed">
+                            <t t-set="open_time" t-value="fields.Datetime.context_timestamp(day_2.with_context(tz=company_event_tz), datetime.strptime(str(day_2.opening_time),
+                                                                              DEFAULT_SERVER_DATETIME_FORMAT))"/>
+                            <t t-set="close_time" t-value="fields.Datetime.context_timestamp(day_2.with_context(tz=company_event_tz), datetime.strptime(str(day_2.closing_time),
+                                                                              DEFAULT_SERVER_DATETIME_FORMAT))"/>
+
+                            <t t-set="closing_time" t-value="open_time + relativedelta(minutes=int(duration_block))"/>
+                            <t t-set="minutes"
+                               t-value="int(((close_time - open_time).total_seconds() / 60.0) / duration_block)"/>
+                            <ul class="radio_into_button">
+                                <t t-foreach="range(minutes)" t-as="i">
+                                    <li t-if="open_time.strftime('%I:%M %p') not in day2">
+                                        <input type="radio" name="date_time"
+                                               t-attf-id="date_time#{day_2.id}_#{open_time.strftime('%I:%M %p')}"
+                                               t-attf-value="#{open_time.strftime('%I:%M %p')}"
+                                               t-attf-value2="#{date_record[2]}"/>
+                                        <label style="width: 85px;"
+                                               t-attf-for="date_time#{day_2.id}_#{open_time.strftime('%I:%M %p')}">
+                                            <t t-esc="open_time.strftime('%I:%M %p')"/>
+                                        </label>
+                                    </li>
+                                    <t t-set="open_time"
+                                       t-value="open_time + relativedelta(minutes=int(duration_block))"/>
+                                    <t t-set="closing_time"
+                                       t-value="closing_time + relativedelta(minutes=int(duration_block))"/>
+                                </t>
+                                <t t-foreach="day22" t-as="j">
+                                    <li t-if="j not in day2">
+                                        <input type="radio" name="date_time" t-attf-id="date_time#{day_2.id}_#{j}"
+                                               t-attf-value="#{j}" t-attf-value2="#{date_record[0]}"/>
+                                        <label style="width: 85px;" t-attf-for="date_time#{day_2.id}_#{j}">
+                                            <t t-esc="j"/>
+                                        </label>
+                                    </li>
+                                </t>
+                            </ul>
+                        </t>
+                        <t t-else="">
+                            <br/>
+                            <center>_____</center>
+                        </t>
+                    </div>
+                    <div class="col-lg-6">
+                        <t t-esc="week[3]"/>
+                        <br/>
+                        <t t-esc="date[3]"/>
+                        <br/>
+                        <br/>
+                        <t t-set="day_3"
+                           t-value="request.env['appointments.open.close'].sudo().search([('appointments_hours_id', '=', appointments_hours),('day_select', '=', day[3])], limit=1)"/>
+                        <t t-if="not day_3.permanent_closed">
+                            <t t-set="open_time" t-value="fields.Datetime.context_timestamp(day_3.with_context(tz=company_event_tz), datetime.strptime(str(day_3.opening_time),
+                                                                              DEFAULT_SERVER_DATETIME_FORMAT))"/>
+                            <t t-set="close_time" t-value="fields.Datetime.context_timestamp(day_3.with_context(tz=company_event_tz), datetime.strptime(str(day_3.closing_time),
+                                                                              DEFAULT_SERVER_DATETIME_FORMAT))"/>
+
+                            <t t-set="closing_time" t-value="open_time + relativedelta(minutes=int(duration_block))"/>
+                            <t t-set="minutes"
+                               t-value="int(((close_time - open_time).total_seconds() / 60.0) / duration_block)"/>
+                            <ul class="radio_into_button">
+                                <t t-foreach="range(minutes)" t-as="i">
+                                    <li t-if="open_time.strftime('%I:%M %p') not in day3">
+                                        <input type="radio" name="date_time"
+                                               t-attf-id="date_time#{day_3.id}_#{open_time.strftime('%I:%M %p')}"
+                                               t-attf-value="#{open_time.strftime('%I:%M %p')}"
+                                               t-attf-value2="#{date_record[3]}"/>
+                                        <label style="width: 85px;"
+                                               t-attf-for="date_time#{day_3.id}_#{open_time.strftime('%I:%M %p')}">
+                                            <t t-esc="open_time.strftime('%I:%M %p')"/>
+                                        </label>
+                                    </li>
+                                    <t t-set="open_time"
+                                       t-value="open_time + relativedelta(minutes=int(duration_block))"/>
+                                    <t t-set="closing_time"
+                                       t-value="closing_time + relativedelta(minutes=int(duration_block))"/>
+                                </t>
+                                <t t-foreach="day33" t-as="j">
+                                    <li t-if="j not in day3">
+                                        <input type="radio" name="date_time" t-attf-id="date_time#{day_3.id}_#{j}"
+                                               t-attf-value="#{j}" t-attf-value2="#{date_record[0]}"/>
+                                        <label style="width: 85px;" t-attf-for="date_time#{day_3.id}_#{j}">
+                                            <t t-esc="j"/>
+                                        </label>
+                                    </li>
+                                </t>
+                            </ul>
+                        </t>
+                        <t t-else="">
+                            <br/>
+                            <center>_____</center>
+                        </t>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <t t-esc="week[4]"/>
+                        <br/>
+                        <t t-esc="date[4]"/>
+                        <br/>
+                        <br/>
+                        <t t-set="day_4"
+                           t-value="request.env['appointments.open.close'].sudo().search([('appointments_hours_id', '=', appointments_hours),('day_select', '=', day[4])], limit=1)"/>
+                        <t t-if="not day_4.permanent_closed">
+                            <t t-set="open_time" t-value="fields.Datetime.context_timestamp(day_4.with_context(tz=company_event_tz), datetime.strptime(str(day_4.opening_time),
+                                                                              DEFAULT_SERVER_DATETIME_FORMAT))"/>
+                            <t t-set="close_time" t-value="fields.Datetime.context_timestamp(day_4.with_context(tz=company_event_tz), datetime.strptime(str(day_4.closing_time),
+                                                                              DEFAULT_SERVER_DATETIME_FORMAT))"/>
+
+                            <t t-set="closing_time" t-value="open_time + relativedelta(minutes=int(duration_block))"/>
+                            <t t-set="minutes"
+                               t-value="int(((close_time - open_time).total_seconds() / 60.0) / duration_block)"/>
+                            <ul class="radio_into_button">
+                                <t t-foreach="range(minutes)" t-as="i">
+                                    <li t-if="open_time.strftime('%I:%M %p') not in day4">
+                                        <input type="radio" name="date_time"
+                                               t-attf-id="date_time#{day_4.id}_#{open_time.strftime('%I:%M %p')}"
+                                               t-attf-value="#{open_time.strftime('%I:%M %p')}"
+                                               t-attf-value2="#{date_record[4]}"/>
+                                        <label style="width: 85px;"
+                                               t-attf-for="date_time#{day_4.id}_#{open_time.strftime('%I:%M %p')}">
+                                            <t t-esc="open_time.strftime('%I:%M %p')"/>
+                                        </label>
+                                    </li>
+                                    <t t-set="open_time"
+                                       t-value="open_time + relativedelta(minutes=int(duration_block))"/>
+                                    <t t-set="closing_time"
+                                       t-value="closing_time + relativedelta(minutes=int(duration_block))"/>
+                                </t>
+                                <t t-foreach="day44" t-as="j">
+                                    <li t-if="j not in day4">
+                                        <input type="radio" name="date_time" t-attf-id="date_time#{day_4.id}_#{j}"
+                                               t-attf-value="#{j}" t-attf-value2="#{date_record[0]}"/>
+                                        <label style="width: 85px;" t-attf-for="date_time#{day_4.id}_#{j}">
+                                            <t t-esc="j"/>
+                                        </label>
+                                    </li>
+                                </t>
+                            </ul>
+                        </t>
+                        <t t-else="">
+                            <br/>
+                            <center>_____</center>
+                        </t>
+                    </div>
+                    <div class="col-lg-6">
+                        <t t-esc="week[5]"/>
+                        <br/>
+                        <t t-esc="date[5]"/>
+                        <br/>
+                        <br/>
+                        <t t-set="day_5"
+                           t-value="request.env['appointments.open.close'].sudo().search([('appointments_hours_id', '=', appointments_hours),('day_select', '=', day[5])], limit=1)"/>
+                        <t t-if="not day_5.permanent_closed">
+                            <t t-set="open_time" t-value="fields.Datetime.context_timestamp(day_5.with_context(tz=company_event_tz), datetime.strptime(str(day_5.opening_time),
+                                                                              DEFAULT_SERVER_DATETIME_FORMAT))"/>
+                            <t t-set="close_time" t-value="fields.Datetime.context_timestamp(day_5.with_context(tz=company_event_tz), datetime.strptime(str(day_5.closing_time),
+                                                                              DEFAULT_SERVER_DATETIME_FORMAT))"/>
+
+                            <t t-set="closing_time" t-value="open_time + relativedelta(minutes=int(duration_block))"/>
+                            <t t-set="minutes"
+                               t-value="int(((close_time - open_time).total_seconds() / 60.0) / duration_block)"/>
+                            <ul class="radio_into_button">
+                                <t t-foreach="range(minutes)" t-as="i">
+                                    <li t-if="open_time.strftime('%I:%M %p') not in day5">
+                                        <input type="radio" name="date_time"
+                                               t-attf-id="date_time#{day_5.id}_#{open_time.strftime('%I:%M %p')}"
+                                               t-attf-value="#{open_time.strftime('%I:%M %p')}"
+                                               t-attf-value2="#{date_record[5]}"/>
+                                        <label style="width: 85px;"
+                                               t-attf-for="date_time#{day_5.id}_#{open_time.strftime('%I:%M %p')}">
+                                            <t t-esc="open_time.strftime('%I:%M %p')"/>
+                                        </label>
+                                    </li>
+                                    <t t-set="open_time"
+                                       t-value="open_time + relativedelta(minutes=int(duration_block))"/>
+                                    <t t-set="closing_time"
+                                       t-value="closing_time + relativedelta(minutes=int(duration_block))"/>
+                                </t>
+                                <t t-foreach="day55" t-as="j">
+                                    <li t-if="j not in day5">
+                                        <input type="radio" name="date_time" t-attf-id="date_time#{day_5.id}_#{j}"
+                                               t-attf-value="#{j}" t-attf-value2="#{date_record[0]}"/>
+                                        <label style="width: 85px;" t-attf-for="date_time#{day_5.id}_#{j}">
+                                            <t t-esc="j"/>
+                                        </label>
+                                    </li>
+                                </t>
+                            </ul>
+                        </t>
+                        <t t-else="">
+                            <br/>
+                            <center>_____</center>
+                        </t>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <div class="row">
+                    <div class="col-lg-9">
+                        <t t-esc="week[6]"/>
+                        <br/>
+                        <t t-esc="date[6]"/>
+                        <br/>
+                        <br/>
+                        <t t-set="day_6"
+                           t-value="request.env['appointments.open.close'].sudo().search([('appointments_hours_id', '=', appointments_hours),('day_select', '=', day[6])], limit=1)"/>
+                        <t t-if="not day_6.permanent_closed">
+                            <t t-set="open_time" t-value="fields.Datetime.context_timestamp(day_6.with_context(tz=company_event_tz), datetime.strptime(str(day_6.opening_time),
+                                                                              DEFAULT_SERVER_DATETIME_FORMAT))"/>
+                            <t t-set="close_time" t-value="fields.Datetime.context_timestamp(day_6.with_context(tz=company_event_tz), datetime.strptime(str(day_6.closing_time),
+                                                                              DEFAULT_SERVER_DATETIME_FORMAT))"/>
+
+                            <t t-set="closing_time" t-value="open_time + relativedelta(minutes=int(duration_block))"/>
+                            <t t-set="minutes"
+                               t-value="int(((close_time - open_time).total_seconds() / 60.0) / duration_block)"/>
+                            <ul class="radio_into_button">
+                                <t t-foreach="range(minutes)" t-as="i">
+                                    <li t-if="open_time.strftime('%I:%M %p') not in day6">
+                                        <input type="radio" name="date_time"
+                                               t-attf-id="date_time#{day_6.id}_#{open_time.strftime('%I:%M %p')}"
+                                               t-attf-value="#{open_time.strftime('%I:%M %p')}"
+                                               t-attf-value2="#{date_record[6]}"/>
+                                        <label style="width: 85px;"
+                                               t-attf-for="date_time#{day_6.id}_#{open_time.strftime('%I:%M %p')}">
+                                            <t t-esc="open_time.strftime('%I:%M %p')"/>
+                                        </label>
+                                    </li>
+                                    <t t-set="open_time"
+                                       t-value="open_time + relativedelta(minutes=int(duration_block))"/>
+                                    <t t-set="closing_time"
+                                       t-value="closing_time + relativedelta(minutes=int(duration_block))"/>
+                                </t>
+                                <t t-foreach="day66" t-as="j">
+                                    <li t-if="j not in day6">
+                                        <input type="radio" name="date_time" t-attf-id="date_time#{day_6.id}_#{j}"
+                                               t-attf-value="#{j}" t-attf-value2="#{date_record[0]}"/>
+                                        <label style="width: 85px;" t-attf-for="date_time#{day_6.id}_#{j}">
+                                            <t t-esc="j"/>
+                                        </label>
+                                    </li>
+                                </t>
+                            </ul>
+                        </t>
+                        <t t-else="">
+                            <br/>
+                            <center>_____</center>
+                        </t>
+                    </div>
+                    <div class="col-lg-33">
+                        <i class="fa fa-chevron-right" t-attf-value="#{date_record[7]}" style="cursor: pointer;"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="not_allowed_page">
+        <t t-call="web.frontend_layout">
+            <div id="wrap">
+                <t t-raw="0"/>
+                <div class="oe_structure oe_empty">
+                    <div class="container">
+                        <h1 class="mt-5">404: Page not allowed!</h1>
+                        <p>
+                            The page you were looking for could not be accessed.
+                            contact administrator.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="error_page">
+        <t t-call="web.frontend_layout">
+            <div id="wrap">
+                <t t-raw="0"/>
+                <div class="oe_structure oe_empty">
+                    <div class="container">
+                        <h1 class="mt-5">500: Internal Server Error!</h1>
+                        <p>
+                            The page you were looking for could not be accessed; due to internal error.
+                            Kindly try again in few seconds.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+</odoo>

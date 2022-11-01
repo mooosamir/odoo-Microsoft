@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_employee_extend_got2_inherit" model="ir.ui.view">
+        <field name="name">hr.employee.extend.got2</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="opt_insurance.hr_employee_extend_got2"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button string="NPI Import" type="object" name="emoployee_inside_doctor_class"
+                            class="btn btn-primary"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="hr.open_view_employee_list_my">
+        <field name="domain">[('is_outside_doctor', '!=', 1)]</field>
+    </record>
+
+</odoo>

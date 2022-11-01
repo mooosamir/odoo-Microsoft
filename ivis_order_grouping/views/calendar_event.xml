@@ -1,0 +1,17 @@
+<odoo>
+    <record id="view_calendar_event_form_appointment_1" model="ir.ui.view">
+        <field name="name">calendar.event.form</field>
+        <field name="model">calendar.event</field>
+        <field name="inherit_id" ref="opt_appointment.view_calendar_event_form_appointment_1"/>
+        <field name="arch" type="xml">
+            <xpath expr="//td[hasclass('patient_balance')]" position="replace">
+                <label for="patient_balance" string="Patient Balance: $"/>
+                <field name="patient_balance" readonly="1"/>
+            </xpath>
+            <xpath expr="//td[hasclass('family_balance')]" position="replace">
+                <label for="family_balance" string="Family Balance: $"/>
+                <field name="family_balance" readonly="1"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

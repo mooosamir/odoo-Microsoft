@@ -1,0 +1,157 @@
+<odoo>
+
+    <!-- Tree View of Insurance Company-->
+    <record id="insurance_company_listing_tree_view" model="ir.ui.view">
+        <field name="name">insurance.company.listing.tree.view</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="payer_id"/>
+                <field name="phone"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View of Insurance Company-->
+    <record id="insurance_company_listing_form_view" model="ir.ui.view">
+        <field name="name">insurance.company.form.view</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <form>
+                <group colspan="4">
+                    <group>
+                        <field name="first_name" required="1" widget="field_partner_autocomplete"/>
+                        <field name="phone"/>
+                        <field name="street" placeholder="Address Line 1" widget="gplaces_autocomplete"/>
+                        <field name="street2" placeholder="Address Line 2"/>
+                        <field name="city" placeholder="City" style="margin-right:7px;"/>
+                        <field name="state_id" placeholder="State" options='{"no_open": True}'
+                               context="{'country_id': country_id}"/>
+                        <field name="zip" placeholder="ZIP"/>
+                        <field name="country_id" invisible="0"/>
+                        <field name="company_id" invisible="0"/>
+                    </group>
+                    <group>
+                        <field name="payer_id"/>
+                        <field name="fax"/>
+                        <field name="insurance_type_id"/>
+                        <field name="activation_date"/>
+                        <field name="termination_date" confirm="Are you sure you want refund amount !!"/>
+                        <field name="active" readonly="1"/>
+                    </group>
+                </group>
+                <group>
+                    <field name="notes"/>
+                </group>
+                <notebook>
+                    <page string="CMS Settings">
+                        <group colspan="4">
+                            <button string="Copy CMS Settings" type="action"
+                                    name="%(opt_insurance.copy_cms_setting_action)d"
+                                    class="oe_highlight oe_left_oe_button_box oe_right"/>
+                        </group>
+                        <group colspan="4">
+                            <group>
+                                <group>
+                                    <field name="generate_claims" widget="radio" options="{'horizontal': true}"/>
+                                    <br/>
+                                    <field name="claim_output" widget="radio" options="{'horizontal': true}"/>
+                                    <br/>
+                                    <field name="pop_sec_ins_cms" widget="radio" options="{'horizontal': true}"/>
+                                    <br/>
+                                    <field name="pop_ref_ord_phy" widget="radio" options="{'horizontal': true}"/>
+                                    <br/>
+                                    <field name="place_of_service"/>
+                                    <br/>
+                                    <field name="contract_lens_unites"/>
+                                    <label for="rendering_provider_qualifier"
+                                           string="Box 24i Reordering Provider Qualifier"/>
+                                    <div>
+                                        <field name="rendering_provider_qualifier" class="oe_inline"/>
+                                        <label for="rendering_provider_qualifier_char" class="oe_inline" string=""/>
+                                        <field name="rendering_provider_qualifier_char" class="oe_inline"
+                                               attrs="{'invisible':[('rendering_provider_qualifier', '=', False)], 'required':[('rendering_provider_qualifier', '!=', False)]}"/>
+                                    </div>
+                                </group>
+                            </group>
+                            <group>
+                                <group>
+                                    <field name="accept_assignment" widget="radio" options="{'horizontal': true}"/>
+                                    <br/>
+                                    <field name="amount_paid"/>
+                                    <br/>
+                                    <field name="federal_tax_id"/>
+                                    <br/>
+                                    <field name="signature_physician_supplier"/>
+                                    <label for="service_facility_other_id" string="Box 32b Service Facility Other ID"/>
+                                    <div>
+                                        <field name="service_facility_other_id" class="oe_inline"/>
+                                        <label for="service_facility_other_id_char" string=""/>
+                                        <field name="service_facility_other_id_char" class="oe_inline"
+                                               attrs="{'invisible':[('service_facility_other_id', '=', False)],                           'required':[('service_facility_other_id', '!=', False)]}"/>
+                                        <br/>
+                                    </div>
+                                    <field name="billing_provider"/>
+                                    <br/>
+                                    <field name="billing_provider_npi"/>
+                                    <br/>
+                                    <field name="billing_provider_other_id"/>
+                                    <br/>
+                                </group>
+                            </group>
+                            <group>
+                                <group>
+                                    <field name="apply_tax" widget="radio" options="{'horizontal': true}"/>
+                                    <field name="add_tax_to_cms" widget="radio" options="{'horizontal': true}"/>
+                                     <field name="patient_tax_responsibility"/>
+                                    <br/>
+                                </group>
+                            </group>
+                        </group>
+                    </page>
+                    <page string="Plans">
+                        <group>
+                            <field name="insurance_plan_ids" nolabel="1">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="classification"/>
+                                    <field name="active"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </page>
+                    <page string="Required Fields">
+                        <group colspan="4" col="4">
+                            <field name="insured_first_name"/>
+                            <field name="insured_last_name"/>
+                            <field name="insured_birth_date"/>
+                            <field name="insured_ssn_sin"/>
+                            <field name="relation_to_insrured"/>
+                            <field name="patient_first_name"/>
+                            <field name="patient_last_name"/>
+                            <field name="patient_birth_date"/>
+                            <field name="Insurance_id"/>
+                            <field name="plan_name"/>
+                            <field name="policy_group"/>
+                            <field name="authorization"/>
+                        </group>
+                    </page>
+                </notebook>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action of Insurance Company-->
+    <record id="insurance_company_listing_action" model="ir.actions.act_window">
+        <field name="name">Insurance Company</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('insurance_company_listing_tree_view')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('insurance_company_listing_form_view')})]"/>
+        <field name="domain">[('is_company','=',1),('is_insurance','=',1)]</field>
+        <field name="context">{'default_is_company':1,'default_is_insurance':1}</field>
+    </record>
+
+</odoo>

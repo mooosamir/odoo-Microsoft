@@ -1,0 +1,20 @@
+<odoo>
+	<data>
+		<!-- region Data-->
+	    <record id="region_data_1" model="spec.region">
+	        <field name="name">North</field>
+	    </record>
+	    
+	    <record id="region_data_2" model="spec.region">
+	        <field name="name">South</field>
+	    </record>
+	    
+	    <record id="region_data_3" model="spec.region">
+	        <field name="name">East</field>
+	    </record>
+	    
+	    <record id="region_data_4" model="spec.region">
+	        <field name="name">West</field>
+	    </record>
+	</data>
+</odoo>

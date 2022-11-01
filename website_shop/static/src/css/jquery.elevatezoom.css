@@ -1,0 +1,12 @@
+
+.zoomContainer
+{
+    z-index: 100;
+    /*height : auto!important;*/
+    /*left: 70px!important;*/
+}
+
+.zoomWindowContainer div
+{
+    margin-left: 10px;
+}

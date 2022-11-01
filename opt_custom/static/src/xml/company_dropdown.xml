@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-extend="SwitchCompanyMenu">
+        <t t-jquery=".toggle_company" t-operation="replace">
+        </t>
+<!--        <t t-jquery=".text-muted" t-operation="replace">-->
+<!--            <span class='mr-3 company_label text-muted' style="text-decoration: line-through;">-->
+<!--                <t t-esc="company[1]"/>-->
+<!--            </span>-->
+<!--        </t>-->
+    </t>
+</templates>

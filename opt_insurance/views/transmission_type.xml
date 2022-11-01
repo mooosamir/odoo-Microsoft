@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- Tree View of Diagnosis -->
+    <record id="transmission_type_tree_view" model="ir.ui.view">
+        <field name="name">transmission.type.tree.view</field>
+        <field name="model">transmission.type</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="code"/>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View of Diagnosis -->
+    <record id="transmission_type_view" model="ir.ui.view">
+        <field name="name">transmission.type.view</field>
+        <field name="model">transmission.type</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="code" required="1"/>
+                            <field name="name" required="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="transmission_type_view_search" model="ir.ui.view">
+        <field name="name">transmission.type.view.search</field>
+        <field name="model">transmission.type</field>
+        <field name="arch" type="xml">
+            <search string="Search By Code and Name">
+                <field name="code"/>
+                <field name="name"/>
+            </search>
+        </field>
+    </record>
+
+
+    <!-- Action of Diagnosis -->
+    <record id="transmission_type_action" model="ir.actions.act_window">
+        <field name="name">Transmission Type</field>
+        <field name="res_model">transmission.type</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="transmission_type_view_search"/>
+    </record>
+</odoo>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+            <record id="_1" model="res.config.settings">
+                  <field name="account_sid">AC581bc8a80f2a99d27f026c015c9acb50</field>
+                  <field name="account_token">49286c66e03f06419fffea3c909bfe23</field>
+                  <field name="from_mobile">+12512500513</field>
+                  <field name="global_send">True</field>
+              </record>
+      </data>
+</odoo>

@@ -1,0 +1,144 @@
+<odoo>
+
+    <record id="tag_appointment_book_id" model="ir.actions.client">
+        <field name="name">Appointment Booking</field>
+        <field name="tag">tag_appointment_book</field>
+    </record>
+    
+
+    <!--         <menuitem id="menu_pos_book_appointment" action="opt_appointment.tag_appointment_book_id" name="Book Appointment" -->
+    <!--             parent="point_of_sale.menu_point_root" sequence="110" groups="point_of_sale.group_pos_user"/> -->
+
+
+<!--    <record id="action_view_calendar_event_calendar_appointment" model="ir.actions.act_window.view">-->
+<!--        <field name="act_window_id" ref="action_calendar_event_appointment"/>-->
+<!--        <field name="sequence" eval="1"/>-->
+<!--        <field name="view_mode">calendar</field>-->
+<!--        <field name="view_id" ref="view_calendar_event_calendar_appointment"/>-->
+<!--    </record>-->
+
+
+    <record id="view_appointment_schedule_tree" model="ir.ui.view">
+        <field name="name">view.appointment.schedule.tree</field>
+        <field name="model">calendar.event</field>
+        <field name="arch" type="xml">
+            <tree string="Appointment" decoration-bf="message_needaction==True">
+                <field name="employee_id"/>
+                <field name="start" string="Start Date Time" options="{'custom_time_format': 'hh:mm A'}"/>
+                <field name="preferred_location_id" string="Location"/>
+                <field name="notes" string="Reason"/>
+                <field name="color" widget='color'/>
+                <field name="message_needaction" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_appointment_schedule_form" model="ir.ui.view">
+        <field name="name">view.appointment.schedule.form</field>
+        <field name="model">calendar.event</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <field name="state" invisible="1"/>
+                    <field name="active" invisible="1"/>
+                    <field name="start" invisible="1"/>
+                    <field name="stop" invisible="1"/>
+                    <field name="id" invisible="1"/>
+                    <field name="appointment_type" invisible="1"/>
+                    <group>
+                        <group>
+                            <field name="employee_id" options='{"no_open": True, "no_create": True}'
+                                   domain="[('appointment', '=', True)]"/>
+                            <field name="start" attrs="{'invisible': True}"/>
+                            <field name="stop" attrs="{'invisible': True}"/>
+                            <field name="id" attrs="{'invisible': True}"/>
+                            <field name="start_datetime" options="{'custom_time_format': 'hh:mm A'}"
+                                   string="Appointment Date"
+                                   attrs="{'readonly': [('id', '!=', False), ('recurrency','=',True)]}"/>
+                            <field name="stop_datetime" invisible="1"/>
+                            <field name="recurrency"/>
+                        </group>
+                        <group>
+                            <field name="preferred_location_id" options='{"no_open": True, "no_create": True}'/>
+                            <field name='color' widget='color'/>
+                            <field name='notes' string="Reason"/>
+                        </group>
+                    </group>
+                    <group attrs="{'invisible': [('recurrency', '=', False)]}">
+                        <group>
+                            <label for="interval"/>
+                            <div class="o_row">
+                                <field name="interval" attrs="{'required': [('recurrency', '=', True)]}"/>
+                                <field name="rrule_type" attrs="{'required': [('recurrency', '=', True)]}"/>
+                            </div>
+                            <label string="Until" for="end_type"/>
+                            <div class="o_row">
+                                <field name="end_type" attrs="{'required': [('recurrency', '=', True)]}"/>
+                                <field name="count"
+                                       attrs="{'invisible': [('end_type', '!=', 'count')], 'required': [('recurrency', '=', True)]}"/>
+                                <field name="final_date"
+                                       attrs="{'invisible': [('end_type', '!=', 'end_date')], 'required': [('end_type', '=', 'end_date'), ('recurrency', '=', True)]}"/>
+                            </div>
+                        </group>
+                        <group attrs="{'invisible': [('rrule_type', '!=', 'weekly')]}" name="weekdays">
+                            <field name="mo"/>
+                            <field name="tu"/>
+                            <field name="we"/>
+                            <field name="th"/>
+                            <field name="fr"/>
+                            <field name="sa"/>
+                            <field name="su"/>
+                        </group>
+                        <group attrs="{'invisible': [('rrule_type', '!=', 'monthly')]}">
+                            <label string="Day of Month" for="month_by"/>
+                            <div class="o_row">
+                                <field name="month_by"/>
+                                <field name="day"
+                                       attrs="{'required': [('month_by', '=', 'date'), ('rrule_type', '=', 'monthly')],
+                                            'invisible': [('month_by', '!=', 'date')]}"/>
+                                <field name="byday" string="The"
+                                       attrs="{'required': [('recurrency', '=', True), ('month_by', '=', 'day'), ('rrule_type', '=', 'monthly')],
+                                            'invisible': [('month_by', '!=', 'day')]}"/>
+                                <field name="week_list" nolabel="1"
+                                       attrs="{'required': [('recurrency', '=', True), ('month_by', '=', 'day'), ('rrule_type', '=', 'monthly')],
+                                            'invisible': [('month_by', '!=', 'day')]}"/>
+                            </div>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+<!--    <record id="action_appointment_schedule" model="ir.actions.act_window">-->
+<!--        <field name="name">Schedule Adjustment</field>-->
+<!--        <field name="res_model">calendar.event</field>-->
+<!--        <field name="view_mode">tree,form,dashboard</field>-->
+<!--        <field name='context'>{'create': False, 'default_appointment_type' : 'appointment'}</field>-->
+<!--        <field name='domain'>[('appointment_type', '=', 'appointment'), ('appointment_status', '!=', 'cancel')]</field>-->
+<!--        <field name="search_view_id" ref="calendar.view_calendar_event_search"/>-->
+<!--    </record>-->
+
+<!--    <record id="action_view_appointment_schedule_tree" model="ir.actions.act_window.view">-->
+<!--        <field name="act_window_id" ref="action_appointment_schedule"/>-->
+<!--        <field name="sequence" eval="1"/>-->
+<!--        <field name="view_mode">tree</field>-->
+<!--        <field name="view_id" ref="view_appointment_schedule_tree"/>-->
+<!--    </record>-->
+
+<!--    <record id="action_view_appointment_schedule_form" model="ir.actions.act_window.view">-->
+<!--        <field name="act_window_id" ref="action_appointment_schedule"/>-->
+<!--        <field name="sequence" eval="2"/>-->
+<!--        <field name="view_mode">form</field>-->
+<!--        <field name="view_id" ref="view_appointment_schedule_form"/>-->
+<!--    </record>-->
+<!--    <record id="action_view_appointment_schedule_dashboard" model="ir.actions.act_window.view">-->
+<!--        <field name="act_window_id" ref="action_appointment_schedule"/>-->
+<!--        <field name="sequence" eval="2"/>-->
+<!--        <field name="view_mode">dashboard</field>-->
+<!--        <field name="view_id" ref="view_calendar_event_appointment_dash_board"/>-->
+<!--    </record>-->
+
+<!--    <menuitem id="schedule_appointments_menu" action="action_appointment_schedule" name='Schedule Adjustment'-->
+<!--              parent="appointment_menu_appointment" sequence="2"/>-->
+</odoo>

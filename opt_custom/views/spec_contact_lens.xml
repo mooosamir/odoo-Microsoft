@@ -1,0 +1,668 @@
+<odoo>
+    <record id="spec_contact_lenses_form" model="ir.ui.view">
+        <field name="name">spec.contact.lenses.form</field>
+        <field name="model">spec.contact.lenses</field>
+        <field name="arch" type="xml">
+            <form increase_dialog_size="1">
+                <group>
+                    <field name="rx" widget="radio" options="{'horizontal': true}" string="Prescription"/>
+                    <field name="rx_type_char" invisible="1" string="Type"/>
+                </group>
+                <group>
+                    <field name="provide" widget="radio" options="{'horizontal': true}"/>
+                    <field name="gls_custom_cyl"/>
+                </group>
+                <group colspan="4" col="2" class="provider" attrs="{'invisible':[('provide', '!=', 'provide')]}">
+                    <field name="name" context="{'form_view_ref':'hr.view_employee_form','inside_outside_doctor':True}"/>
+                </group>
+                <group colspan="4" col="2" class="provider" attrs="{'invisible':[('provide', '!=', 'outside_provide')]}">
+                    <field name="outsider_name" context="{'form_view_ref':'outside_doctor.outside_doctor_form_view','inside_outside_doctor':True}"/>
+                </group>
+                <group colspan="4" col="6">
+                    <field name="exam_date" string="Prescription Date"/>
+                    <field name="expiration_date"/>
+                    <field name="rx_usage_id" string="Usage"/>
+                    <field name="discontinue_reason"/>
+                    <field name="discontinue_date"/>
+                </group>
+                <!-- Group for Glasses Rx Type -->
+                <separator string="Prescription Information" class="oe_inline"/>
+                <!-- OD -->
+                <div class="row" attrs="{'invisible':[('rx', '!=', 'glasses')]}">
+                    <div style="padding-right: 20px; padding-left: 20px;">
+                        <label for="gls_sphere" string="  "/>
+                        <br/>
+                        <label for="gls_sphere" string="OD"
+                               style="background-color:#bcffbc;color:#495057;padding: 0px 15px;"/>
+                        <br/>
+                    </div>
+                    <div class="o2m_form_field_inline">
+                        <label for="gls_sphere"/>
+                        <br/>
+                        <field name="gls_sphere" attrs="{'required':[('rx', '=', 'glasses')]}"/>
+                    </div>
+                    <div class="o2m_form_field_inline">
+                        <label for="gls_cylinder"/>
+                        <br/>
+                        <field name="gls_cylinder" widget="selection"/>
+                    </div>
+                    <div class="o2m_form_field_inline">
+                        <label for="gls_axis"/>
+                        <br/>
+                        <field name="gls_axis"/>
+                    </div>
+                    <div class="o2m_form_field_inline">
+                        <label for="gls_add"/>
+                        <br/>
+                        <field name="gls_add"/>
+                    </div>
+                    <div class="o2m_form_field_inline">
+                        <label for="gls_h_prism"/>
+                        <br/>
+                        <field name="gls_h_prism"/>
+                    </div>
+                    <div class="o2m_form_field_inline">
+                        <label for="gls_h_base"/>
+                        <br/>
+                        <field name="gls_h_base"/>
+                    </div>
+                    <div class="o2m_form_field_inline">
+                        <label for="gls_v_prism"/>
+                        <br/>
+                        <field name="gls_v_prism"/>
+                    </div>
+                    <div class="o2m_form_field_inline">
+                        <label for="gls_v_base"/>
+                        <br/>
+                        <field name="gls_v_base" widget="selection"/>
+                    </div>
+                    <div class="o2m_form_field_inline">
+                        <label for="gls_pd"/>
+                        <br/>
+                        <field name="gls_pd"/>
+                    </div>
+                    <div class="o2m_form_field_inline">
+                        <label for="gls_va"/>
+                        <br/>
+                        <field name="gls_va"/>
+                    </div>
+                    <div class="o2m_form_field_inline">
+                        <label for="gls_near"/>
+                        <br/>
+                        <field name="gls_near" widget="selection"/>
+                    </div>
+                    <div class="o2m_form_field_inline">
+                        <label for="gls_balance"/>
+                        <br/>
+                        <field name="gls_balance"/>
+                    </div>
+                </div>
+                <!-- GLS Button -->
+                <group colspan="4" attrs="{'invisible':[('rx', '!=', 'glasses')]}">
+                    <button string="Copy to OS" type="object" name="copy_to_left_lens"
+                            class="oe_highlight oe_inline" style="width: 20%;"/>
+                </group>
+                <!-- OD -->
+                <div class="row" attrs="{'invisible':[('rx', '!=', 'glasses')]}">
+                    <div style="padding-right: 20px; padding-left: 20px;">
+                        <label for="gls_sphere" string="  "/>
+                        <br/>
+                        <label for="gls_sphere" string="OS"
+                               style="background-color:#b8b8fd;color:#495057;padding: 0px 15px;"/>
+                        <br/>
+                    </div>
+                    <div class="o2m_form_field_inline">
+                        <label for="gls_left_lens_sphere"/>
+                        <br/>
+                        <field name="gls_left_lens_sphere"
+                               attrs="{'required':[('gls_left_lens_sphere', '!=', False)]}"/>
+                    </div>
+                    <div class="o2m_form_field_inline">
+                        <label for="gls_left_lens_cylinder"/>
+                        <br/>
+                        <field name="gls_left_lens_cylinder" widget="selection"/>
+                    </div>
+                    <div class="o2m_form_field_inline">
+                        <label for="gls_left_lens_axis"/>
+                        <br/>
+                        <field name="gls_left_lens_axis"/>
+                    </div>
+                    <div class="o2m_form_field_inline">
+                        <label for="gls_left_lens_add"/>
+                        <br/>
+                        <field name="gls_left_lens_add"/>
+                    </div>
+                    <div class="o2m_form_field_inline">
+                        <label for="gls_left_lens_h_prism"/>
+                        <br/>
+                        <field name="gls_left_lens_h_prism"/>
+                    </div>
+                    <div class="o2m_form_field_inline">
+                        <label for="gls_left_h_base"/>
+                        <br/>
+                        <field name="gls_left_h_base"/>
+                    </div>
+                    <div class="o2m_form_field_inline">
+                        <label for="gls_left_lens_v_prism"/>
+                        <br/>
+                        <field name="gls_left_lens_v_prism"/>
+                    </div>
+                    <div class="o2m_form_field_inline">
+                        <label for="gls_left_v_base"/>
+                        <br/>
+                        <field name="gls_left_v_base" widget="selection"/>
+                    </div>
+                    <div class="o2m_form_field_inline">
+                        <label for="gls_left_pd"/>
+                        <br/>
+                        <field name="gls_left_pd"/>
+                    </div>
+                    <div class="o2m_form_field_inline">
+                        <label for="gls_left_va"/>
+                        <br/>
+                        <field name="gls_left_va"/>
+                    </div>
+                    <div class="o2m_form_field_inline">
+                        <label for="gls_left_near"/>
+                        <br/>
+                        <field name="gls_left_near" widget="selection"/>
+                    </div>
+                    <div class="o2m_form_field_inline">
+                        <label for="gls_left_balance"/>
+                        <br/>
+                        <field name="gls_left_balance"/>
+                    </div>
+                </div>
+                <group colspan="4" attrs="{'invisible':[('rx', '!=', 'glasses')]}">
+                    <group colspan="4">
+                        <button string="Transpose" type="object" name="action_convert"
+                                class="oe_highlight oe_inline oe_right" style="width: 20%;"/>
+                    </group>
+                </group>
+                <group colspan="4" attrs="{'invisible':[('rx', '!=', 'glasses')]}">
+                    <group string="Fitting Information" colspan="4" col="4">
+                        <field name="gls_distant" attrs="{'invisible':[('rx', '!=', 'glasses')]}"/>
+                        <field name="rx_notes"/>
+                    </group>
+                    <group string="Doctor Recommendations" colspan="4" col="6"
+                           attrs="{'invisible':[('rx', '!=', 'glasses')]}">
+                        <field name="gls_lens_style_id" style="display: table-cell;"
+                               attrs="{'invisible':[('rx', '!=', 'glasses')]}"/>
+                        <field name="gls_ar_coating" style="display: table-cell;"/>
+                        <field name="gls_photochromic" style="display: table-cell;"/>
+                        <field name="gls_lens_material_id" style="display: table-cell;"/>
+                        <field name="gls_polarized" style="display: table-cell;"/>
+                        <field name="gls_tint" style="display: table-cell;"/>
+                    </group>
+                </group>
+                <!-- Soft Contact Lens -->
+                <!-- OD -->
+                <div class="row" attrs="{'invisible':[('rx', '!=', 'soft')]}">
+                    <div style="padding-right: 20px; padding-left: 20px;">
+                        <label for="gls_sphere" string="  "/>
+                        <br/>
+                        <label for="gls_sphere" string="OD"
+                               style="background-color:#bcffbc;color:#495057;padding: 0px 15px;"/>
+                        <br/>
+                    </div>
+                    <div class="o2m_form_field_inline" style="width: auto !important;">
+                        <label for="soft_manufacturer_id"/>
+                        <br/>
+                        <field name="soft_manufacturer_id" style="width: 800px"
+                            
+                               attrs="{'required':[('rx', '=', 'soft')]}"/>
+                    </div>
+                </div>
+                <div class="row" attrs="{'invisible':[('rx', '!=', 'soft')]}">
+                    <!--                                        <div class="o2m_form_field_inline">-->
+                    <!--                                            <label for="soft_style"/>-->
+                    <!--                                            <br/>-->
+                    <!--                                            <field name="soft_style" attrs="{'required':[('rx', '=', 'soft')]}"/>-->
+                    <!--                                        </div>-->
+                    <div class="o2m_form_field_inline">
+                        <label for="select_soft_base_curve"/>
+                        <br/>
+                        <field name="select_soft_base_curve" class="soft_manufacturer_id_base_curve"/>
+                    </div>
+                    <div class="o2m_form_field_inline">
+                        <label for="select_soft_diameter"/>
+                        <br/>
+                        <field name="select_soft_diameter" class="soft_manufacturer_id_diameter"/>
+                    </div>
+                    <div class="o2m_form_field_inline">
+                        <label for="select_soft_color"/>
+                        <br/>
+                        <field name="select_soft_color" class="soft_manufacturer_id_color"/>
+                    </div>
+                    <div class="o2m_form_field_inline">
+                        <label for="select_soft_sphere"/>
+                        <br/>
+                        <field name="select_soft_sphere" class="soft_manufacturer_id_sphere"/>
+                    </div>
+                    <div class="o2m_form_field_inline">
+                        <label for="select_soft_cylinder"/>
+                        <br/>
+                        <field name="select_soft_cylinder" class="soft_manufacturer_id_cylinder"/>
+                    </div>
+                    <div class="o2m_form_field_inline">
+                        <label for="select_soft_axis"/>
+                        <br/>
+                        <field name="select_soft_axis" class="soft_manufacturer_id_axis"/>
+                    </div>
+                    <div class="o2m_form_field_inline">
+                        <label for="select_soft_add_power"/>
+                        <br/>
+                        <field name="select_soft_add_power" class="soft_manufacturer_id_add_power"/>
+                    </div>
+                    <div class="o2m_form_field_inline">
+                        <label for="select_soft_multifocal"/>
+                        <br/>
+                        <field name="select_soft_multifocal" class="soft_manufacturer_id_multi_focal"/>
+                    </div>
+
+                    <div class="o2m_form_field_inline">
+                        <label for="soft_va"/>
+                        <br/>
+                        <field name="soft_va"/>
+                    </div>
+                </div>
+                <!-- Button  style="color:blue;"-->
+                <group colspan="4" attrs="{'invisible':[('rx', '!=', 'soft')]}">
+                    <label for="soft_copy_to_left" string="OS"/>
+                    <button string="Copy to OS" type="object" name="soft_copy_to_left"
+                            class="oe_highlight oe_inline" style="width: 20%;"/>
+                </group>
+                <!-- OS -->
+                <div class="row" attrs="{'invisible':[('rx', '!=', 'soft')]}">
+                    <div style="padding-right: 20px; padding-left: 20px;">
+                        <label for="gls_sphere" string="  "/>
+                        <br/>
+                        <label for="gls_sphere" string="OS"
+                               style="background-color:#b8b8fd;color:#495057;padding: 0px 15px;"/>
+                        <br/>
+                    </div>
+                    <div class="o2m_form_field_inline" style="width: auto !important;">
+                        <label for="soft_left_manufacturer_id" colspan="4" col="2"/>
+                        <br/>
+                        <field name="soft_left_manufacturer_id" style="width: 800px !important;"
+                         
+                               attrs="{'required':[('rx', '=', 'soft'), ('soft_left_manufacturer_id', '!=', False)]}"/>
+                    </div>
+                    <!--                                        <div class="o2m_form_field_inline">-->
+                    <!--                                            <label for="soft_left_style"/>-->
+                    <!--                                            <br/>-->
+                    <!--                                            <field name="soft_left_style"-->
+                    <!--                                                   attrs="{'required':[('soft_left_manufacturer_id', '!=', False)]}"/>-->
+                    <!--                                        </div>-->
+                </div>
+                <div class="row" attrs="{'invisible':[('rx', '!=', 'soft')]}">
+                    <div class="o2m_form_field_inline">
+                        <label for="soft_left_base_curve"/>
+                        <br/>
+                        <field name="soft_left_base_curve" class="soft_left_manufacturer_id_base_curve"/>
+                    </div>
+                    <div class="o2m_form_field_inline">
+                        <label for="soft_left_diameter"/>
+                        <br/>
+                        <field name="soft_left_diameter" class="soft_left_manufacturer_id_diameter"/>
+                    </div>
+                    <div class="o2m_form_field_inline">
+                        <label for="soft_left_color"/>
+                        <br/>
+                        <field name="soft_left_color" class="soft_left_manufacturer_id_color"/>
+                    </div>
+                    <div class="o2m_form_field_inline">
+                        <label for="soft_left_sphere"/>
+                        <br/>
+                        <field name="soft_left_sphere" class="soft_left_manufacturer_id_sphere"/>
+                    </div>
+                    <div class="o2m_form_field_inline">
+                        <label for="soft_left_cylinder"/>
+                        <br/>
+                        <field name="soft_left_cylinder" class="soft_left_manufacturer_id_cylinder"/>
+                    </div>
+                    <div class="o2m_form_field_inline">
+                        <label for="soft_left_axis"/>
+                        <br/>
+                        <field name="soft_left_axis" class="soft_left_manufacturer_id_axis"/>
+                    </div>
+                    <div class="o2m_form_field_inline">
+                        <label for="soft_left_add_power"/>
+                        <br/>
+                        <field name="soft_left_add_power" class="soft_left_manufacturer_id_add_power"/>
+                    </div>
+                    <div class="o2m_form_field_inline">
+                        <label for="soft_left_multifocal"/>
+                        <br/>
+                        <field name="soft_left_multifocal" class="soft_left_manufacturer_id_multi_focal"/>
+                    </div>
+                    <div class="o2m_form_field_inline">
+                        <label for="soft_left_va"/>
+                        <br/>
+                        <field name="soft_left_va"/>
+                    </div>
+                </div>
+                <!-- Group for Soft Lens Rx Type -->
+                <group colspan="4" attrs="{'invisible':[('rx', '!=', 'soft')]}">
+                    <!-- OD -->
+                    <group string="OD" col="6" colspan="4" invisible="1">
+                        <field name="soft_base_curve"/>
+                        <field name="soft_diameter"/>
+                        <field name="soft_sphere"/>
+                        <field name="soft_cylinder"/>
+                        <field name="soft_axis"/>
+                        <field name="soft_add_power"/>
+                        <field name="soft_multifocal"/>
+                        <field name="soft_color"/>
+                        <field name="soft_va"/>
+                    </group>
+                    <group string="Schedule" colspan="4" col="4"
+                           attrs="{'invisible':[('rx', '!=', 'soft')]}">
+                        <field name="wearing_schedulen"
+                               options="{'no_open':True,'no_create': True}"/>
+                        <field name="replcement" options="{'no_open':True,'no_create': True}"/>
+                        <field name="rx_notes"/>
+                    </group>
+                </group>
+                <!-- Group for Hard Custom Lens Rx Type -->
+             
+
+                <div class="row" attrs="{'invisible':[('rx', '!=', 'hard')]}">
+                    <!-- OS -->
+                    <div style="padding-right: 20px; padding-left: 20px;">
+                        <label for="gls_sphere" string="  "/>
+                        <br/>
+                        <label for="gls_sphere" string="OS"
+                               style="background-color:#b8b8fd;color:#495057;padding: 0px 15px;"/>
+                        <br/>
+                    </div>
+                    <div class="o2m_form_field_inline" style="width: auto !important;">
+                        <label for="manufacturer_id" colspan="4" col="2"/>
+                        <br/>
+                        <field name="manufacturer_id" style="width: 800px !important;"
+                             attrs="{'required':[('rx', '=', 'hard')]}"/>
+                    </div>
+                </div>
+                    <group colspan="4" col="6">
+                        <div class="row" attrs="{'invisible':[('rx', '!=', 'hard')]}">
+                           
+                            <div class="o2m_form_field_inline">
+                                <label for="style"/>
+                                <br/>
+                                <field name="style" attrs="{'required':[('rx', '=', 'hard')]}"/>
+                            </div>
+                            <div class="o2m_form_field_inline">
+                                <label for="material"/>
+                                <br/>
+                                <field name="material"/>
+                            </div>
+                            <div class="o2m_form_field_inline">
+                                <label for="base_curve"/>
+                                <br/>
+                                <field name="base_curve"
+                                       options="{'number_only_with_single_precision':True}"
+                                       attrs="{'required':[('rx', '=', 'hard')]}"/>
+                            </div>
+                            <div class="o2m_form_field_inline">
+                                <label for="diameter"/>
+                                <br/>
+                                <field name="diameter"
+                                       options="{'number_only_with_double_precision':True}"
+                                       attrs="{'required':[('rx', '=', 'hard')]}"/>
+                            </div>
+                            <div class="o2m_form_field_inline">
+                                <label for="sphere"/>
+                                <br/>
+                                <field name="sphere"
+                                       options="{'number_only_with_double_precision_sign':True}"
+                                       attrs="{'required':[('rx', '=', 'hard')]}"/>
+                            </div>
+                            <div class="o2m_form_field_inline">
+                                <label for="cylinder"/>
+                                <br/>
+                                <field name="cylinder"
+                                       options="{'number_only_with_double_precision_sign':True}"/>
+                            </div>
+                            <div class="o2m_form_field_inline">
+                                <label for="axis"/>
+                                <br/>
+                                <field name="axis" options="{'number_only_with_three_digit':True}"/>
+                            </div>
+                            <div class="o2m_form_field_inline">
+                                <label for="add"/>
+                                <br/>
+                                <field name="add"
+                                       options="{'number_only_with_single_precision_plus_sign':True}"/>
+                            </div>
+                            <div class="o2m_form_field_inline">
+                                <label for="seg_height"/>
+                                <br/>
+                                <field name="seg_height"
+                                       options="{'number_only_with_single_precision':True}"/>
+                            </div>
+                            <div class="o2m_form_field_inline">
+                                <label for="pc_radius"/>
+                                <br/>
+                                <field name="pc_radius"
+                                       options="{'number_only_with_single_precision':True}"/>
+                            </div>
+                        </div>
+                    </group>
+                    <group colspan="4" col="6">
+                        <div class="row" attrs="{'invisible':[('rx', '!=', 'hard')]}">
+                            <div class="o2m_form_field_inline">
+                                <label for="pc_width"/>
+                                <br/>
+                                <field name="pc_width"
+                                       options="{'number_only_with_single_precision':True}"/>
+                            </div>
+                            <div class="o2m_form_field_inline">
+                                <label for="ct"/>
+                                <br/>
+                                <field name="ct"
+                                       options="{'number_only_with_single_precision':True}"/>
+                            </div>
+                            <div class="o2m_form_field_inline">
+                                <label for="oz"/>
+                                <br/>
+                                <field name="oz"
+                                       options="{'number_only_with_two_digit_single_precision':True}"/>
+                            </div>
+                            <div class="o2m_form_field_inline">
+                                <label for="base_curve_2"/>
+                                <br/>
+                                <field name="base_curve_2"
+                                       options="{'number_only_with_single_precision':True}"/>
+                            </div>
+                            <div class="o2m_form_field_inline">
+                                <label for="color"/>
+                                <br/>
+                                <field name="color"/>
+                            </div>
+                            <div class="o2m_form_field_inline">
+                                <label for="sphere_2"/>
+                                <br/>
+                                <field name="sphere_2"
+                                       options="{'number_only_with_double_precision_sign':True}"/>
+                            </div>
+                            <div class="o2m_form_field_inline">
+                                <label for="cylinder_2"/>
+                                <br/>
+                                <field name="cylinder_2"
+                                       options="{'number_only_with_double_precision_sign':True}"/>
+                            </div>
+                            <div class="o2m_form_field_inline">
+                                <label for="axis_2"/>
+                                <br/>
+                                <field name="axis_2"
+                                       options="{'number_only_with_three_digit':True}"/>
+                            </div>
+                            <div class="o2m_form_field_inline">
+                                <label for="add_diam_2"/>
+                                <br/>
+                                <field name="add_diam_2"
+                                       options="{'number_only_with_two_digit_single_precision':True}"/>
+                            </div>
+                            <div class="o2m_form_field_inline">
+                                <label for="dot"/>
+                                <br/>
+                                <field name="dot"/>
+                            </div>
+                        </div>
+                    </group>
+                    <!-- OD -->
+               
+                    <button string="Copy to OS" type="object" name="hard_copy_to_left" class="oe_highlight oe_inline" style="margin-left: 20px;margin-top: 4px;" attrs="{'invisible':[('rx', '!=', 'hard')]}"/>
+                    <br/>
+                     <div class="row" attrs="{'invisible':[('rx', '!=', 'hard')]}">
+                    <!-- OS -->
+                        <div style="padding-right: 20px; padding-left: 20px;">
+                            <label for="gls_sphere" string="  "/>
+                            <br/>
+                            <label for="gls_sphere_od" string="OD"
+                                   style="background-color:#b8b8fd;color:#495057;padding: 0px 15px;"/>
+                            <br/>
+                        </div>
+                        <div class="o2m_form_field_inline" style="width: auto !important;">
+                            <label for="left_manufacturer_id" colspan="4" col="2"/>
+                            <br/>
+                            <field name="left_manufacturer_id" style="width: 800px !important;"
+                                 attrs="{'required':[('rx', '=', 'hard'), ('left_manufacturer_id', '!=', False)]}"/>
+                        </div>
+                    </div>
+
+                    <group colspan="4" col="6">
+                        <div class="row" attrs="{'invisible':[('rx', '!=', 'hard')]}">
+                           
+                            <div class="o2m_form_field_inline">
+                                <label for="left_style"/>
+                                <br/>
+                                <field name="left_style"
+                                       attrs="{'required':[('rx', '!=', 'hard'), ('left_manufacturer_id', '!=', False)]}"/>
+                            </div>
+                            <div class="o2m_form_field_inline">
+                                <label for="left_material"/>
+                                <br/>
+                                <field name="left_material"/>
+                            </div>
+                            <div class="o2m_form_field_inline">
+                                <label for="left_base_curve"/>
+                                <br/>
+                                <field name="left_base_curve"
+                                       attrs="{'required':[('rx', '=', 'hard'), ('left_manufacturer_id', '!=', False)]}"/>
+                            </div>
+                            <div class="o2m_form_field_inline">
+                                <label for="left_diameter"/>
+                                <br/>
+                                <field name="left_diameter"
+                                       attrs="{'required':[('rx', '=', 'hard'), ('left_manufacturer_id', '!=', False)]}"/>
+                            </div>
+                            <div class="o2m_form_field_inline">
+                                <label for="left_sphere"/>
+                                <br/>
+                                <field name="left_sphere"
+                                       attrs="{'required':[('rx', '=', 'hard'), ('left_manufacturer_id', '!=', False)]}"/>
+                            </div>
+                            <div class="o2m_form_field_inline">
+                                <label for="left_cylinder"/>
+                                <br/>
+                                <field name="left_cylinder"/>
+                            </div>
+                            <div class="o2m_form_field_inline">
+                                <label for="left_axis"/>
+                                <br/>
+                                <field name="left_axis"/>
+                            </div>
+                            <div class="o2m_form_field_inline">
+                                <label for="left_add"/>
+                                <br/>
+                                <field name="left_add"/>
+                            </div>
+                            <div class="o2m_form_field_inline">
+                                <label for="left_seg_height"/>
+                                <br/>
+                                <field name="left_seg_height"/>
+                            </div>
+                            <div class="o2m_form_field_inline">
+                                <label for="left_pc_radius"/>
+                                <br/>
+                                <field name="left_pc_radius"/>
+                            </div>
+                        </div>
+                    </group>
+                    <group colspan="4" col="6">
+                        <div class="row" attrs="{'invisible':[('rx', '!=', 'hard')]}">
+                            <div class="o2m_form_field_inline">
+                                <label for="left_pc_width"/>
+                                <br/>
+                                <field name="left_pc_width"/>
+                            </div>
+                            <div class="o2m_form_field_inline">
+                                <label for="left_ct"/>
+                                <br/>
+                                <field name="left_ct"/>
+                            </div>
+                            <div class="o2m_form_field_inline">
+                                <label for="left_oz"/>
+                                <br/>
+                                <field name="left_oz"/>
+                            </div>
+                            <div class="o2m_form_field_inline">
+                                <label for="left_base_curve_2"/>
+                                <br/>
+                                <field name="left_base_curve_2"/>
+                            </div>
+                            <div class="o2m_form_field_inline">
+                                <label for="left_color"/>
+                                <br/>
+                                <field name="left_color"/>
+                            </div>
+                            <div class="o2m_form_field_inline">
+                                <label for="left_sphere_2"/>
+                                <br/>
+                                <field name="left_sphere_2"/>
+                            </div>
+                            <div class="o2m_form_field_inline">
+                                <label for="left_cylinder_2"/>
+                                <br/>
+                                <field name="left_cylinder_2"/>
+                            </div>
+                            <div class="o2m_form_field_inline">
+                                <label for="left_axis_2"/>
+                                <br/>
+                                <field name="left_axis_2"/>
+                            </div>
+                            <div class="o2m_form_field_inline">
+                                <label for="left_add_diam_2"/>
+                                <br/>
+                                <field name="left_add_diam_2"/>
+                            </div>
+                            <div class="o2m_form_field_inline">
+                                <label for="left_dot"/>
+                                <br/>
+                                <field name="left_dot"/>
+                            </div>
+                        </div>
+                    </group>
+                    <group string="Rx Notes" attrs="{'invisible':[('rx', '!=', 'hard')]}">
+                        <field name="rx_notes" nolabel="1"/>
+                    </group>
+              
+            </form>
+        </field>
+    </record>
+
+    <record id="spec_contact_lenses_tree" model="ir.ui.view" >
+        <field name="name">patient.prescription.tree</field>
+        <field name="model">spec.contact.lenses</field>
+        <field name="arch" type="xml">
+            <tree string="Patient Prescription" class="advance_expiration_date">
+                <field name="rx_type_char" string="Type"/>
+                <field name="exam_date" string="Date"/>
+                <field name="expiration_date" string="Expiry"/>
+                <button type="object" name="rx_report_button" icon="fa-print" />
+                <button type="object" name="rx_email_button" icon="fa-envelope-square" />
+            </tree>
+        </field>
+    </record>
+</odoo>

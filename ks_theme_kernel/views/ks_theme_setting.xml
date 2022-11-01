@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--BACKGROUND IMAGE AND MENU SELECTION OPTION IN RES CONFIG SETTINGS-->
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.ks_theme_kernel</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="5"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('settings')]" position="inside">
+                <div class="app_settings_block" data-string="Theme Settings" string="Theme Settings"
+                     data-key="ks_theme_kernel">
+                    <h2>Change Background Image</h2>
+                    <div class="content-group ks-theme-settings">
+                        <div class="row mb-4 pl-4">
+                            <div class="col-lg-4 col-md-6 pl-0">
+                                <label for="background_image" string="App Drawer"/>
+                                <field name="background_image" class="bg_image oe_avatar float-none" widget="image" force_save="1"/>
+                            </div>
+                            <div class="col-lg-4 col-md-6 pl-0">
+                                <label for="login_bg_image" string="Login Page"/>
+                                <field name="login_bg_image" class="bg_image oe_avatar float-none" widget="image" force_save="1"/>
+                            </div>
+                        </div>
+                        <div class="row mb-4 pl-4" >
+                            <h2 class="setting-heading" >Selection Options</h2>
+                            <div class="col-lg-4 col-md-6 pl-0" >
+                                <label for="menu_options" string="Menu Selection"/>
+                                <field name="menu_options" force_save="1"/>
+                                <field name="dummy_field" widget="html" invisible="1"/>
+                            </div>
+                            <div class="col-lg-4 col-md-6 pl-0">
+                                <label for="color_options" string="Color Selection"/>
+                                <field name="color_options" force_save="1"/>
+                            </div>
+                        </div>
+                        <div class="row pl-4 align-items-center">
+                            <h2 class="setting-heading">Other Options</h2>
+                            <div class="col-lg-4 col-md-6 pl-0 o_setting_box d-flex"
+                                 title="Check this if you want to display default company logo on header for all users.">
+                                <div class="o_setting_left_pane">
+                                    <field name="show_company_logo" force_save="1"/>
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="show_company_logo"/>
+                                    <div class="text-muted">
+                                        Show company logo on header.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6 pl-0">
+                                <button string="Click for App Icon Change" class="btn btn-primary btn-lg oe_stat_button" name="%(ks_theme_kernel.app_icon_selection_form)d" type="action" icon="fa-gear"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <!--    THEME SETTINGS MENU AND ITS ACTION-->
+    <record id="action_theme_settings" model="ir.actions.act_window">
+        <field name="name">Theme Settings</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field name="context">{'module' : 'ks_theme_kernel'}</field>
+    </record>
+
+    <menuitem
+            id="menu_config"
+            name="Theme Settings"
+            web_icon="ks_theme_kernel,static/description/settings.png"
+            parent="base.menu_administration"
+            sequence="3"
+            action="action_theme_settings"
+            groups="base.group_system"/>
+</odoo>

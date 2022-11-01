@@ -1,0 +1,13 @@
+<odoo>
+    <record model="ir.ui.view" id="product_template_frames_data_form">
+        <field name="name">product.template.frames_data.form</field>
+        <field name="model">product.template</field>
+        <field name="priority" eval="100"/>
+        <field name="inherit_id" ref="opt_custom.product_template_frame_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='image_1920']" position="replace">
+                <field name="frames_data_link" class="image_fortmat_change" nolabel="1" widget="image_url"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

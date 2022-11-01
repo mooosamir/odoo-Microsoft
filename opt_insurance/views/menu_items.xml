@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <!--    <menuitem id="hr_employee_menu_item_inherit" name="Employees" sequence="4"-->
+    <!--              parent="opt_custom.general_configuration_menu" action="hr_employee_action"/>-->
+
+    <!--    <menuitem id="root_claims_menu" name="Insurance" sequence="4"/>-->
+    <menuitem id="insurance_main_menu" name="Insurance" sequence="5"/>
+    <menuitem id="claim_manager_view_menu" action = 'claim_manager_view_action' name="Claim Manager"
+              parent="insurance_main_menu" sequence="1"/>
+    <menuitem id="insurance_compan_listing_menu" action="insurance_company_listing_action" parent="insurance_main_menu"
+              sequence="2"/>
+    <menuitem id="insurance_network_menu" action="insurance_network_action" parent="insurance_main_menu" sequence="2"/>
+    <menuitem id="insurance_plan_menu" action="insurance_plan_action" parent="insurance_main_menu" sequence="3"/>
+    <menuitem id="insurance_chargeback_menu" action="insurance_chargeback_action" parent="insurance_main_menu"
+              sequence="4"/>
+    <menuitem id="insurance_group_allowance_menu" action="insurance_group_allowance_action" parent="insurance_main_menu"
+              sequence="5"/>
+    <menuitem id="insurance_dispensing_fee_menu" action="insurance_dispensing_fee_action" parent="insurance_main_menu"
+              sequence="6"/>
+    <menuitem id="insurance_fitting_fee_menu" action="insurance_fitting_fee_action" parent="insurance_main_menu"
+              sequence="7"/>
+    <menuitem id="procedure_code_groups_main_menu" parent="insurance_main_menu" name="Procedure Code Groups"
+              sequence="8"/>
+    <menuitem id="insurance_network_groups_menu" action="insurance_network_groups_action"
+              parent="procedure_code_groups_main_menu" sequence="1"/>
+    <menuitem id="insurance_group_co_pay_menu" action="insurance_group_co_pay_action"
+              parent="procedure_code_groups_main_menu" sequence="2"/>
+    <menuitem id="insurance_formulary_procedure_grouping_menu" action="insurance_formulary_procedure_grouping_action"
+              parent="procedure_code_groups_main_menu" sequence="3"/>
+    <menuitem id="configuration_main_menu" parent="insurance_main_menu" name="Configurations" sequence="9"/>
+    <menuitem id="insurance_era_auto_adjustment_menu" action="insurance_era_auto_adjustment_action"
+              parent="configuration_main_menu" sequence="1"/>
+    <menuitem id="root_payments_manu" action='remittance_advice_view_action' name="Remittance"
+              parent="insurance_main_menu" sequence="10"/>
+    <menuitem id="procedure_code_menu" action="opt_custom.procedure_code_action"
+              parent="insurance_main_menu" sequence="11"/>
+    <menuitem id="modifier_code_menu" action="opt_custom.modifier_action"
+              parent="insurance_main_menu" sequence="12"/>
+    <menuitem id="menu_diagnosis" name="Diagnosis" action="opt_diagnosis.diagnosis_action"
+              parent="insurance_main_menu" sequence="13"/>
+    <menuitem id="menu_report_code" name="Report Code" action="opt_insurance.report_code_action"
+              parent="insurance_main_menu" sequence="14"/>
+    <menuitem id="transmission_type_code" name="Transmission Type" action="opt_insurance.transmission_type_action"
+              parent="insurance_main_menu" sequence="15"/>
+
+</odoo>

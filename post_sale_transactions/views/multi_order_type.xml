@@ -1,0 +1,38 @@
+<odoo>
+    <data>
+        <record id="multi_order_type_form" model="ir.ui.view">
+            <field name="name">multi.order.type</field>
+            <field name="model">multi.order.type</field>
+            <field name="inherit_id" ref="ivis_order_grouping.order_group_wizard_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='lens_products']" position="replace">
+                    <field name="lenstreatment_products_ids" invisible="1"/>
+                    <field name="frames_products_variants_return_location" invisible="1"/>
+                    <field name="lens_products_return_location" invisible="1"/>
+                    <field name="contact_lens_products_od_return_location" invisible="1"/>
+                    <field name="contact_lens_products_os_return_location" invisible="1"/>
+                    <field name="is_lens" invisible="1"/>
+                    <field name="is_post_sale" invisible="1"/>
+                    <field name="lenstreatment_products_ids" invisible="1"/>
+                    <field name="lens_products"
+                           attrs="{'required':[('order_type_name','in',['Complete Pair', 'Lenses Only'])],
+                               'readonly':[('is_lens','=', True)]}"
+                           context="{'form_view_ref': 'opt_custom.product_template_lens_view_form',
+                                       'tree_view_ref': 'ivis_order_grouping.frame_tree_view',
+                                       'new_size': 'max-width_1200px', 'group_by': 'style_id'}"
+                           nolabel="0"/>
+                </xpath>
+                <xpath expr="//field[@name='frames_products_variants']" position="replace">
+                    <field name="is_frame" invisible="1"/>
+                    <field name="frames_products_variants"
+                           attrs="{'required':[('order_type_name','in',['Complete Pair','Frame Only'])],
+                                   'readonly':[('is_frame','=', True)]}"
+                           context="{'form_view_ref': 'opt_custom.product_template_frame_view_form',
+                                       'tree_view_ref': 'ivis_order_grouping.frame_tree_view',
+                                       'group_by': 'collection_id'}"
+                           nolabel="0"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

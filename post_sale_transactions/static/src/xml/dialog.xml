@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates id="template" xml:space="preserve">
+
+    <t t-extend="Dialog">
+        <t t-jquery="button.close" t-operation='replace'>
+            <t t="if title != 'Stripe Checkout'">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" tabindex="-1">×</button>
+            </t>
+        </t>
+    </t>
+
+</templates>

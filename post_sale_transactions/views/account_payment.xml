@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <data>
+        <record id="view_account_payment_tree" model="ir.ui.view">
+            <field name="name">account.payment.inherit.tree</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="sale_order_session_id"/>
+                </xpath>
+                <xpath expr="//field[@name='journal_id']" position="replace">
+                    <field name="payment_type"/>
+                </xpath>
+                <xpath expr="//field[@name='partner_id']" position="attributes">
+                    <attribute name="string">Patient</attribute>
+                </xpath>
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="payment_token_brand"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="account_payment_inherit_form" model="ir.ui.view">
+            <field name="name">account.payment.inherit.form</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[hasclass('oe_button_box')]" position="inside">
+                    <button name="action_view_balance_reporting_wizard"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-list-alt"
+                            string="Balance Reporting">
+                    </button>
+                </xpath>
+                <xpath expr="//group[@name='right_column']" position="inside">
+                    <field name="reference_number"/>
+                    <field name="from_sale_order" invisible="1"/>
+                </xpath>
+                <xpath expr="//group[@name='payment_difference']" position="attributes">
+                    <attribute name="attrs">{'invisible': ['|', ('payment_difference', '=', 0.0), ('from_sale_order',
+                        '=', True)]}
+                    </attribute>
+                </xpath>
+                <!--                <xpath expr="//sheet/group" position="before">-->
+                <!--                    <group col="1" attrs="{'invisible': [('from_sale_order', '!=', True)]}">-->
+                <!--                        <button string="Stripe" name="open_stripe_gateway" type="object"-->
+                <!--                                class="oe_highlight" style="float: right;"/>-->
+                <!--                    </group>-->
+                <!--                </xpath>-->
+                <xpath expr="//sheet/group" position="after">
+                    <group col="6"
+                           attrs="{'invisible': ['|', ('from_sale_order', '=', False),'&amp;',('from_sale_order', '=', True),  ('state', '!=', 'draft')]}">
+                        <field name="so_cash"/>
+                        <field name="so_change"/>
+                        <field name="so_balance"/>
+                    </group>
+                </xpath>
+                <xpath expr="//field[@name='journal_id']" position="after">
+                    <field name="amount"
+                           attrs="{'invisible': [('from_sale_order', '!=', True)]}"/>
+                </xpath>
+                <xpath expr="//div[@name='amount_div']" position="replace">
+                    <div name="amount_div" class="o_row" attrs="{'invisible': [('from_sale_order', '=', True)]}">
+                        <field name="amount"/>
+                        <field name="currency_id" options="{'no_create': True, 'no_open': True}"
+                               groups="base.group_multi_currency"/>
+                    </div>
+                </xpath>
+                <xpath expr="//label[@for='amount']" position="replace">
+                    <label for="amount" attrs="{'invisible': [('from_sale_order', '=', True)]}"/>
+                </xpath>
+                <xpath expr="//field[@name='payment_token_id']" position="after">
+                    <field name="payment_token_brand"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

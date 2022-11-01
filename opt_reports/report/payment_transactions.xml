@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="payment_transactions">
+        <t t-call="web.html_container">
+            <t t-call="opt_reports.payment_transaction" t-lang="o.partner_id.lang"/>
+        </t>
+    </template>
+
+    <template id="payment_transaction">
+        <t t-call="general_template.creative_external_layout">
+            <t t-set="o" t-value="o.with_context({'lang':o.partner_id.lang})"/>
+            <t t-set="theme_color" t-value="o.company_id and o.company_id.theme_color"/>
+            <t t-set="theme_text_color" t-value="o.company_id and o.company_id.theme_text_color"/>
+            <t t-set="company_color" t-value="o.company_id and o.company_id.company_color"/>
+            <t t-set="company_address_color" t-value="o.company_id and o.company_id.company_address_color"/>
+            <t t-set="customer_color" t-value="o.company_id and o.company_id.customer_color"/>
+            <t t-set="customer_address_color" t-value="o.company_id and o.company_id.customer_address_color"/>
+            <t t-set="text_color" t-value="o.company_id and o.company_id.text_color"/>
+            <div class="page"
+                 t-att-style="'font-family:'+o.company_id.font_id.family+';font-size:'+str(o.company_id.font_size)+'px;'">
+                <!--                <t t-call="opt_reports.custom_footer"></t>-->
+                <div class="oe_structure"/>
+                <t t-call="general_template.template_watermark"/>
+                <table BORDERCOLOR="#{theme_color or '#000000'}" border="1" cellpadding="0" cellspacing="0"
+                       class="table table-bordered"
+                       style="border:0.5px solid #ccc;  border-collapse: collapse; text-transform:capitalize; padding:15px;border-bottom:1px solid #ccc;"
+                       width="100%">
+                    <thead>
+                        <tr t-attf-style="page-break-inside: avoid !important;background-color: #{theme_color or '#000000'}; color: #{theme_text_color or '#000000'};">
+                            <th align="center" class="text-center"
+                                t-att-style="'padding:5px 10px; border:0.5px solid #ccc !important; border-right:0px solid #ccc !important;'">
+                                <b>Order #</b>
+                            </th>
+                            <th align="center" class="text-center"
+                                t-att-style="'padding:5px 10px; border:0.5px solid #ccc !important; border-right:0px solid #ccc !important;'">
+                                <b>Payment Date</b>
+                            </th>
+                            <th align="center" class="text-center"
+                                t-att-style="'padding:5px 10px; border:0.5px solid #ccc !important; border-right:0px solid #ccc !important;'">
+                                <b>Patient</b>
+                            </th>
+                            <th align="center" class="text-center"
+                                t-att-style="'padding:5px 10px; border:0.5px solid #ccc !important; border-right:0px solid #ccc !important;'">
+                                <b>Amount</b>
+                            </th>
+                            <th align="center" class="text-center"
+                                t-att-style="'padding:5px 10px; border:0.5px solid #ccc !important; border-right:0px solid #ccc !important;'">
+                                <b>Employee</b>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody style="border-top: 1px solid black;">
+                        <t t-set="is_odd" t-value="0"/>
+                        <t t-set="total_amount" t-value="0"/>
+                        <t t-foreach="docs.account_payment_ids" t-as="account_payment_id">
+                            <t t-set="is_odd" t-value="is_odd + 1"/>
+                            <t t-if="is_odd % 2 == 0">
+                                <t t-set="ol_color" t-value="o.company_id.even_party_color"/>
+                            </t>
+                            <t t-else="">
+                                <t t-set="ol_color" t-value="o.company_id.odd_party_color"/>
+                            </t>
+                            <tr t-att-style="'page-break-inside: avoid !important;background-color: '+ ol_color + '; color: '+ text_color">
+                                <td align="center" class="text-center"
+                                    t-att-style="'padding:5px 10px; border:0.5px solid #ccc !important; border-right:0px solid #ccc !important;'">
+                                    <t t-esc="account_payment_id.communication"/>
+                                </td>
+                                <td align="center" class="text-center"
+                                    t-att-style="'padding:5px 10px; border:0.5px solid #ccc !important; border-right:0px solid #ccc !important;'">
+                                    <t t-esc="account_payment_id.payment_date.strftime('%b %d, %Y')"/>
+                                </td>
+                                <td align="center" class="text-center"
+                                    t-att-style="'padding:5px 10px; border:0.5px solid #ccc !important; border-right:0px solid #ccc !important;'">
+                                    <t t-esc="account_payment_id.partner_id.last_name"/>,
+                                    <t t-esc="account_payment_id.partner_id.first_name"/>
+                                    <t t-esc="account_payment_id.partner_id.middle_name"/>
+                                </td>
+                                <td align="right" class="text-right"
+                                    t-att-style="'padding:5px 10px; border:0.5px solid #ccc !important; border-right:0px solid #ccc !important;'">
+                                    <t t-esc="account_payment_id.amount"
+                                       t-options='{"widget": "monetary", "display_currency": currency_id}'/>
+                                    <t t-set="total_amount" t-value="total_amount + account_payment_id.amount"/>
+                                </td>
+                                <td align="center" class="text-center"
+                                    t-att-style="'padding:5px 10px; border:0.5px solid #ccc !important; border-right:0px solid #ccc !important;'">
+                                    <t t-if="account_payment_id.create_uid.name_get() and len(account_payment_id.create_uid.name_get()[0]) > 0">
+                                        <t t-esc="account_payment_id.create_uid.name_get()[0][1]"/>
+                                    </t>
+                                </td>
+                            </tr>
+                        </t>
+                        <t t-set="is_odd" t-value="is_odd + 1"/>
+                        <t t-if="is_odd % 2 == 0">
+                            <t t-set="ol_color" t-value="o.company_id.even_party_color"/>
+                        </t>
+                        <t t-else="">
+                            <t t-set="ol_color" t-value="o.company_id.odd_party_color"/>
+                        </t>
+                        <tr t-att-style="'page-break-inside: avoid !important;background-color: '+ ol_color + '; color: '+ text_color">
+                            <td align="left" class="text-left"
+                                t-att-style="'padding:5px 10px; border:0.5px solid #ccc !important; border-right:0px solid #ccc !important;'"
+                                colspan="3">
+                                <b>Total Amount</b>
+                            </td>
+                            <td align="center" class="text-center"
+                                t-att-style="'padding:5px 10px; border:0.5px solid #ccc !important; border-right:0px solid #ccc !important;'">
+                                <t t-esc="total_amount"
+                                   t-options='{"widget": "monetary", "display_currency": currency_id}'/>
+                            </td>
+                            <td align="center" class="text-center"
+                                t-att-style="'padding:5px 10px; border:0.5px solid #ccc !important; border-right:0px solid #ccc !important;'">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="oe_structure"/>
+            </div>
+            <t t-call="general_template.report_barcode"/>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_manufacturer_options_wizard,access_manufacturer_options_wizard,model_manufacturer_options_wizard,base.group_user,1,1,1,1
+access_base_curve_lines_wizard,access_base_curve_lines_wizard,model_base_curve_lines_wizard,base.group_user,1,1,1,1
+

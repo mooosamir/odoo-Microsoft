@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<template id="auth_signup_extend" inherit_id="auth_signup.fields">
+		<xpath expr="//div[hasclass('field-name')]" position="after">
+		    <div class="form-group field-business-type">
+		        <label for="login">Business Type</label>
+		        <input type="text" name="business_type" t-att-value="business_type" id="business_type" class="form-control form-control-sm" autofocus="autofocus"
+		            autocapitalize="off" required="required"/>
+		    </div>
+		
+		    <div class="form-group field-collection">
+		        <label for="login">Collections</label>
+		        <input type="text" name="collection" t-att-value="collection" id="collection" class="form-control form-control-sm" autofocus="autofocus"
+		            autocapitalize="off"/>
+		    </div>
+	    </xpath>
+	</template>
+
+	<t t-extend="web.calendar-box">
+        <t t-jquery="div.o_event_title" t-operation='after'>
+            <div class="o_event_title" t-esc="record.appointment_time"/>
+            <div class="o_event_title" t-esc="record.display_name"/>
+        </t>
+    </t>
+    <!-- <template>
+	     <t t-name="calendar-box">
+	        <div t-att-style="typeof color === 'string' ? ('background-color:' + color) + ';' : ''" t-attf-class="#{record.is_highlighted ? 'o_event_hightlight' : ''} #{typeof color === 'number' ? _.str.sprintf('o_calendar_color_%s', color) : 'o_calendar_color_1'}">
+	            <div class="o_event_title" t-esc="record.display_name"/>
+	            <div class="o_event_title" t-esc="record.appointment_time"/>
+	        </div>
+	    </t>
+	</template> -->
+</odoo>

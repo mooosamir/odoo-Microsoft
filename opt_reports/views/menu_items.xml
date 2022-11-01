@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <menuitem id="opt_reports_main_menu" name="Reports" sequence="20"/>
+        <menuitem id="opt_reports_inventory_main_menu" name="Inventory" sequence="1" parent="opt_reports_main_menu"/>
+            <menuitem id="menu_valuation" name="Inventory Valuation" parent="opt_reports_inventory_main_menu" sequence="1"
+                      action="stock_account.action_stock_inventory_valuation"/>
+            <menuitem id="stock_move_menu" name="Stock Moves" parent="opt_reports_inventory_main_menu" sequence="2"
+                      action="stock.stock_move_action"/>
+            <menuitem id="menu_valuation" name="Inventory Report" parent="opt_reports_inventory_main_menu" sequence="3"
+                      action="stock.action_view_quants"/>
+            <menuitem id="menu_forecast_inventory" name="Forecasted Inventory" parent="opt_reports_inventory_main_menu" sequence="4"
+                      action="stock.report_stock_quantity_action"/>
+            <menuitem id="stock_move_line_menu" name="Product Moves" parent="opt_reports_inventory_main_menu" sequence="5"
+                      action="stock.stock_move_line_action"/>
+        <menuitem id="opt_reports_attendance_main_menu" name="Attendance" sequence="2" parent="opt_reports_main_menu"/>
+            <menuitem id="menu_hr_attendance_report" name="Dashboard" parent="opt_reports_attendance_main_menu" sequence="1"
+                      action="hr_attendance.hr_attendance_action_graph"/>
+            <menuitem id="menu_hr_attendance_view_attendances" name="Employee Attendances" parent="opt_reports_attendance_main_menu" sequence="2"
+                      action="hr_attendance_action"/>
+        <menuitem id="opt_reports_appointment_main_menu" name="Appointment" sequence="3" parent="opt_reports_main_menu"/>
+            <menuitem id="appointment_schedule_report_menuitem" name="Appointment Schedule Report"
+                      parent="opt_reports_appointment_main_menu" sequence="1"
+                      action="action_appointment_schedule_report"/>
+            <menuitem id="appointment_services_count_menuitem" name="Appointment Services Count"
+                      parent="opt_reports_appointment_main_menu" sequence="2"
+                      action="action_appointment_services_count"/>
+            <menuitem id="appointment_details_report_menuitem" name="Appointment Details Report"
+                      parent="opt_reports_appointment_main_menu" sequence="3"
+                      action="action_appointment_details_report"/>
+        <menuitem id="opt_reports_sales_invoices_main_menu" name="Sales &amp; Invoices" sequence="4" parent="opt_reports_main_menu"/>
+            <menuitem id="payment_summary_menuitem" name="Payment Summary"
+                      parent="opt_reports_sales_invoices_main_menu" sequence="1"
+                      action="action_payment_summary"/>
+            <menuitem id="payment_transactions_menuitem" name="Payment Transactions"
+                      parent="opt_reports_sales_invoices_main_menu" sequence="2"
+                      action="action_payment_transactions"/>
+            <menuitem id="product_sales_menuitem" name="Product Sales"
+                      parent="opt_reports_sales_invoices_main_menu" sequence="3"
+                      action="action_product_sales"/>
+            <menuitem id="sales_session_report_menuitem" name="Sales Session Report"
+                      parent="opt_reports_sales_invoices_main_menu" sequence="4"
+                      action="action_sales_session_report"/>
+            <menuitem id="daily_sales_menuitem" name="Daily Sales"
+                      parent="opt_reports_sales_invoices_main_menu" sequence="5"
+                      action="action_daily_sales"/>
+            <menuitem id="promotions_menuitem" name="Promotions"
+                      parent="opt_reports_sales_invoices_main_menu" sequence="6"
+                      action="action_promotions"/>
+            <menuitem id="sales_order_discounts_menuitem" name="Sales Order Discounts"
+                      parent="opt_reports_sales_invoices_main_menu" sequence="7"
+                      action="action_sales_order_discounts"/>
+            <menuitem id="physician_production_menuitem" name="Provider Productions"
+                      parent="opt_reports_sales_invoices_main_menu" sequence="8"
+                      action="action_physician_production"/>
+            <menuitem id="post_sale_transactions_report_menuitem" name="Post Sale Transactions Report"
+                      parent="opt_reports_sales_invoices_main_menu" sequence="10"
+                      action="action_post_sale_transactions_report"/>
+            <menuitem id="aged_receivables_menuitem" name="Aged Receivables"
+                      parent="opt_reports_sales_invoices_main_menu" sequence="11"
+                      action="action_aged_receivables"/>
+</odoo>

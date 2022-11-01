@@ -1,0 +1,38 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_res_partner_create_edit, opt_security res.partner create/edit ,base.model_res_partner,opt_security.opt_patient_create_edit,0,1,1,0
+access_res_partner_read, opt_security res.partner read ,base.model_res_partner,opt_security.opt_patient_read,1,0,0,0
+access_res_partner_delete, opt_security res.partner delete ,base.model_res_partner,opt_security.opt_patient_delete,0,0,0,1
+access_spec_contact_lenses_delete, opt_security spec.contact.lenses delete ,opt_custom.model_spec_contact_lenses,opt_security.opt_patient_prescription_delete,0,0,0,1
+access_multi_image_delete, opt_security multi.images delete,web_widget_multi_image.model_multi_images,opt_security.opt_patient_document_delete,0,0,0,1
+access_spec_insurance_delete, opt_security spec.insurance delete,opt_insurance.model_spec_insurance,opt_security.opt_patient_insurance_delete,0,0,0,1
+access_spec_recall_type_line_delete, opt_security spec.recall.type.line delete,opt_custom.model_spec_recall_type_line,opt_security.opt_patient_recall_delete,0,0,0,1
+access_spec_insurance_authorizations_delete, opt_security spec.insurance.authorizations delete,opt_insurance.model_spec_insurance_authorizations,opt_security.opt_patient_authorization_delete,0,0,0,1
+
+access_appointments_holidays_create_edit, opt_security appointments.holidays create/edit ,opt_appointment.model_appointments_holidays,opt_security.opt_appointment_holidays_create_edit,0,1,1,0
+access_appointments_holidays_read, opt_security appointments.holidays read ,opt_appointment.model_appointments_holidays,opt_security.opt_appointment_holidays_read,1,0,0,0
+access_appointments_holidays_delete, opt_security appointments.holidays delete ,opt_appointment.model_appointments_holidays,opt_security.opt_appointment_holidays_delete,0,0,0,1
+
+access_schedule_appointment_create_edit, opt_security schedule.appointment create/edit ,opt_appointment.model_schedule_appointment,opt_security.opt_appointment_schedule_adjustment_create_edit,0,1,1,0
+access_schedule_appointment_delete, opt_security schedule.appointment delete ,opt_appointment.model_schedule_appointment,opt_security.opt_appointment_schedule_adjustment_delete,0,0,0,1
+
+access_sale_order_create_edit, opt_security sale.order create/edit ,sale.model_sale_order,opt_security.opt_order_create_edit,0,1,1,0
+access_sale_order_read, opt_security sale.order read ,sale.model_sale_order,opt_security.opt_order_read,1,0,0,0
+access_sale_order_delete, opt_security sale.order delete ,sale.model_sale_order,opt_security.opt_order_delete,0,0,0,1
+access_sale_order_line_delete, opt_security sale.order.line delete ,sale.model_sale_order_line,opt_security.opt_order_line_delete,0,0,0,1
+
+access_account_move_create_edit, opt_security account.move create/edit ,account.model_account_move,opt_security.opt_invoices_create_edit,0,1,1,0
+access_account_move_delete, opt_security account.move delete ,account.model_account_move,opt_security.opt_invoices_delete,0,0,0,1
+
+access_product_product_create_edit, opt_security product.product create/edit ,product.model_product_product,opt_security.opt_products_create_edit,0,1,1,0
+access_product_template_create_edit, opt_security product.template create/edit ,product.model_product_template,opt_security.opt_products_create_edit,0,1,1,0
+access_product_product_delete, opt_security product.product delete ,product.model_product_product,opt_security.opt_products_delete,0,0,0,1
+access_product_template_delete, opt_security product.template delete ,product.model_product_template,opt_security.opt_products_delete,0,0,0,1
+
+access_hr_attendance_create_edit, opt_security hr.attendance create/edit ,hr_attendance.model_hr_attendance,opt_security.opt_attendance_create_edit,0,1,1,0
+
+access_stock_picking_create_edit, opt_security stock.picking create/edit ,stock.model_stock_picking,opt_security.opt_inventory_create_edit,0,1,1,0
+access_stock_picking_delete, opt_security stock.picking delete ,stock.model_stock_picking,opt_security.opt_inventory_delete,0,0,0,1
+
+access_purchase_order_create_edit, opt_security purchase.order create/edit ,purchase.model_purchase_order,opt_security.opt_inventory_create_edit_request_po,0,1,1,0
+access_purchase_order_delete, opt_security purchase.order delete ,purchase.model_purchase_order,opt_security.opt_inventory_delete_request_po,0,0,0,1

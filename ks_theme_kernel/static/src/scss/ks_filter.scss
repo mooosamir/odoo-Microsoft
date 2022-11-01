@@ -1,0 +1,315 @@
+.ks_theme_layout {
+    background: $user-info-bg;
+    min-width: 340px;
+    max-width: 340px;
+    z-index: 1110;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    box-shadow: 0 0px 11px 0 rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    overflow: auto;
+    margin-right: -340px;
+    transition: all ease-in-out 0.3s;
+    @extend .scroll-style ;
+    // animation: slideLeft 0.5s ease-in-out;
+    //display: none;
+
+    &.ks-layout-open {
+        display: block;
+        margin-right: 0px;
+    }
+
+    @media (max-width: $mobile) {
+        min-width: 300px;
+        max-width: 300px;
+        transition: all ease-in-out 0.5s;
+    }
+
+    .card-body {
+        background-color: $user-info-bg !important;
+    }
+}
+
+.btn-filter-head {
+    background: $primary;
+    color: $text-primary;
+    width: 100%;
+    text-align: left;
+    border-radius: 0;
+    font-size: 14px;
+    padding: 10px;
+    border-color: $primary;
+    @include align-center();
+
+    &:hover {
+        color: $text-primary;
+    }
+
+    &.collapsed {
+        .btn-expanded {
+            .fa {
+                transform: rotate(180deg) translate(0px,-1px);
+            }
+        }
+    }
+}
+
+.ks-filter-radios {
+    label {
+        width: 100%;
+        font-size: 14px;
+        cursor: pointer;
+        @include align-center();
+
+        &:not(:last-child) {
+            margin-bottom: 1rem;
+        }
+
+        input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            &:checked {
+                + .ks-font-img,.ks-color-mode-img {
+                    .fa {
+                        display: inline-block;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.btn-expanded {
+    font-size: 8px;
+    background: $primary-light;
+    border-radius: 50%;
+    @include size(24px, 24px);
+    @include flex-center();
+
+    .fa {
+        transition: 0.3s ease-in-out;
+        transform-origin: center;
+    }
+}
+
+.ks-font-img,.ks-color-mode-img {
+    background: $primary-light;
+    border-radius: 2px;
+    position: relative;
+    @include size(24px, 24px);
+
+    .fa {
+        display: none;
+        color: $primary-on-light;
+        position: absolute;
+        right: -10px;
+        font-size: 12px;
+        top: -4px;
+    }
+}
+
+.ks-favourite-input {
+    .easy-autocomplete {
+        width: 100%;
+    }
+
+    .ks-favourite-search {
+        background: $searchbar-bg-color;
+        padding: 1rem;
+        padding-left: 30px;
+        border-color: $searchbar-border-color;
+        color: $sidebar-text-color;
+    }
+
+    .input-group-prepend {
+        position: absolute;
+        z-index: 1;
+        height: 100%;
+
+        .input-group-text {
+            background: transparent;
+            border: none;
+        }
+    }
+}
+
+.ks-favourite-menu-table {
+    thead {
+        background: $primary;
+        color: $text-primary;
+    }
+
+    tbody {
+        tr {
+            background: $menu-level-bg;
+            border-bottom: 1px solid $border-color;
+            color: $sidebar-text-color;
+        }
+    }
+
+    td {
+        padding: 5px;
+    }
+}
+
+.ks-input-outer {
+    input {
+        width: 100%;
+        padding: 5px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+    }
+}
+
+.error-text {
+    margin-top: 5px;
+    display: block;
+    color: #E91E63;
+}
+
+.ks-font-img-name {
+    height: 18px;
+}
+
+.ks-menu-edit {
+    > span img {
+        height: 15px;
+        filter: invert($invert);
+    }
+
+    .dropdown-menu {
+        background-color: $user-info-bg;
+        border-color: $user-info-bg;
+    }
+
+    .menu-rename,
+    .menu-delete {
+        color: $sidebar-text-color;
+    }
+}
+
+.ks-menu-name-edit {
+    max-width: 100px;
+}
+
+.ks-url-name-favourite {
+    max-width: 150px;
+}
+
+.ks-dropdown-icon {
+    filter: invert($invert);
+    @include size(18px);
+}
+
+.ks-color-box {
+    box-shadow: 0 9px 11px 0 rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    border-radius: $ks-theme-radius;
+    overflow: hidden;
+    @include size(46px);
+
+    @media (max-width: $mobile) {
+        @include size(40px);
+    }
+ }
+
+
+.ks_theme_color_pallete {
+    position: relative;
+    cursor: pointer;
+    margin-bottom: 0;
+
+    input[type="radio"] {
+        position: absolute;
+        opacity: 0;
+        width: 0;
+        height: 0;
+
+        &:checked {
+            + .fa {
+                display: inline-block;
+            }
+        }
+    }
+
+    .fa {
+        position: absolute;
+        right: -5px;
+        top: -5px;
+        z-index: 1;
+        display: none;
+        color: $primary-on-light;
+    }
+}
+
+
+$theme-color-plate: #292961, #3b3d5a,#02393e,#660d33,#ff9800,#ff6781,#84adea,#75e549,#31323c,#b5e8f3;
+$i : 1;
+@each $color in $theme-color-plate {
+    .color-primary-#{$i} {
+        background: $color;
+    }
+    .color-alternate-#{$i} {
+        background: $color;
+        opacity: 0.5;
+    }
+
+    $i : $i+1;
+}
+
+.color_picker_wrapper {
+    margin-bottom: 10px;
+
+    label {
+        min-width: 180px;
+    }
+
+    .sp-dd {
+        display: none;
+    }
+
+    .sp-preview {
+        width: 35px;
+        height: 25px;
+        border: none;
+        margin: 0;
+    }
+
+    .sp-replacer {
+        padding: 0;
+    }
+}
+
+.bg-overlay {
+    ~ .sp-container {
+        background: white;
+        border: none;
+        box-shadow: 0 9px 11px 0 rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+        border-radius: $ks-theme-radius;
+    }
+}
+.o_thread_composer:not(.o_chat_mini_composer){
+    padding-right: 100px !important;
+}
+
+.ks_font,.ks_color_mode {
+    span {
+        color: $sidebar-text-color;
+    }
+
+    &.active {
+        .fa {
+            display: inline-block;
+        }
+    }
+}
+
+.filter-icon {
+    width: 20px;
+    margin-right: 3px;
+}
+
+.filter-select-icon {
+    width: 18px;
+    margin-left: 3px;
+}

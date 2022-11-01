@@ -1,0 +1,37 @@
+# -*- coding: utf-8 -*-
+{
+    'name': "Optic Insurance",
+    'summary': """Optic Insurance""",
+    'description': """
+    """,
+    'author': "",
+    'website': "http://www.yourcompany.com",
+    'category': 'Uncategorized',
+    'version': '0.1',
+    'depends': ['base','mail','hr','account','opt_custom', 'hr_org_chart', 'hr_expense', 'gws_google_maps',
+                'opt_diagnosis'],
+    'data': [
+        'security/ir.model.access.csv',
+        'data/report.code.csv',
+        'data/transmission.type.csv',
+        'data/insurance_active_cron_view.xml',
+        'report/claim_manager.xml',
+        'report/report_cms_watermark.xml',
+        'wizard/copy_cms_setting_view.xml',
+        "views/assets.xml",
+        "views/insurance_view.xml",
+        "views/insurance_claims_view.xml",
+        "views/report_code.xml",
+        "views/transmission_type.xml",
+        "views/hr_employee_view.xml",
+        'views/vendor_form_inherit.xml',
+        'views/edit_claim_view.xml',
+        'views/account_journal_view.xml',
+        'views/patient_inherit_view.xml',
+        'views/res_partner.xml',
+        'views/claim_manager_server_actions.xml',
+        'views/remittance_advice_view.xml',
+
+        'views/menu_items.xml',
+    ],
+}

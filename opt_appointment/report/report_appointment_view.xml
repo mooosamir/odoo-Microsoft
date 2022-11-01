@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_appointment_template">
+        <t t-call="web.html_container">
+            <t t-call="web.basic_layout">
+                <div class="page">
+                    <div t-attf-class="header" t-att-style="report_header_style">
+                        <div class="o_boxed_header" style="border-bottom:1px solid black;">
+                            <div class="row mb8">
+                                <div class="col-12 text-center">
+                                    <h4 style="border-bottom:1px solid black;">
+                                        <b>Appointment Schedule Report</b>
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+                        <!--                        <table width="100%">-->
+                        <!--                            <tr style="border-bottom:1px solid black;">-->
+                        <!--                                <td>-->
+                        <!--                                    <h4>-->
+                        <!--                                        <center>-->
+                        <!--                                            <b>Appointment Schedule Report</b>-->
+                        <!--                                        </center>-->
+                        <!--                                    </h4>-->
+                        <!--                                </td>-->
+                        <!--                            </tr>-->
+                        <!--                        </table>-->
+                    </div>
+                    <t t-if="list_view">
+                        <table width="80%" class="table table-sm table-striped" style="font-size: 10px;">
+                            <thead>
+                                <tr>
+                                    <th style="text-align:center">
+                                        <b>Date/Time</b>
+                                    </th>
+                                    <!-- <th style="text-align:center"><b>Time</b></th> -->
+                                    <th style="text-align:center">
+                                        <b>Minutes</b>
+                                    </th>
+                                    <th style="text-align:center">
+                                        <b>Name</b>
+                                    </th>
+                                    <th style="text-align:center">
+                                        <b>Phone #</b>
+                                    </th>
+                                    <th style="text-align:center">
+                                        <b>Service Type</b>
+                                    </th>
+                                    <th style="text-align:center">
+                                        <b>Insurance</b>
+                                    </th>
+                                    <th style="text-align:center">
+                                        <b>Resource</b>
+                                    </th>
+                                    <th style="text-align:center">
+                                        <b>Appt. Notes</b>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody style="border-top: 1px solid black;">
+                                <t t-foreach="docs" t-as="line">
+                                    <tr>
+                                        <td style="text-align:center;">
+                                            <span t-field="line.with_context(tz=user.tz).start_datetime"
+                                                  t-options='{"format": "MM/dd/YYYY hh:mm a"}'/>
+                                        </td>
+                                        <!-- <td style="text-align:center;"><span t-field="line.appointment_time"/></td> -->
+                                        <td style="text-align:center;">
+                                            <span t-esc="int(line.duration * 60)"/>
+                                        </td>
+                                        <td style="text-align:center;">
+                                            <span t-field="line.patient_id.name"/>
+                                        </td>
+                                        <td style="text-align:center;">
+                                            <span t-field="line.patient_id.phone"/>
+                                        </td>
+                                        <td style="text-align:center;">
+                                            <span t-field="line.service_type"/>
+                                        </td>
+                                        <td style="text-align:center;">
+                                            <span t-field="line.insurance_id"/>
+                                        </td>
+                                        <td style="text-align:center;">
+                                            <span t-field="line.employee_id.name"/>
+                                        </td>
+                                        <td style="text-align:center;">
+                                            <span t-field="line.notes"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                        <p style="page-break-after: always;"/>
+                    </t>
+                    <t t-else="">
+                        <t t-foreach="date_list" t-as="dates">
+                            <t t-esc="dates"/>
+                            <t t-set="doc"
+                               t-value="docs.filtered(lambda appointments: appointments.start_datetime.date() == dates)"/>
+                            <table width="80%" class="table table-sm table-striped" style="font-size: 10px;">
+                                <thead>
+                                    <tr>
+                                        <th style="text-align:center">
+                                            <b>Date/Time</b>
+                                        </th>
+                                        <!-- <th style="text-align:center"><b>Time</b></th> -->
+                                        <th style="text-align:center">
+                                            <b>Minutes</b>
+                                        </th>
+                                        <th style="text-align:center">
+                                            <b>Name</b>
+                                        </th>
+                                        <th style="text-align:center">
+                                            <b>Phone #</b>
+                                        </th>
+                                        <th style="text-align:center">
+                                            <b>Service Type</b>
+                                        </th>
+                                        <th style="text-align:center">
+                                            <b>Insurance</b>
+                                        </th>
+                                        <th style="text-align:center">
+                                            <b>Resource</b>
+                                        </th>
+                                        <th style="text-align:center">
+                                            <b>Appt. Notes</b>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody style="border-top: 1px solid black;">
+                                    <t t-foreach="doc" t-as="line">
+                                        <tr>
+                                            <td style="text-align:center;">
+                                                <span t-field="line.with_context(tz=user.tz).start_datetime"
+                                                      t-options='{"format": "MM/dd/YYYY hh:mm a"}'/>
+                                            </td>
+                                            <!-- <td style="text-align:center;"><span t-field="line.appointment_time"/></td> -->
+                                            <td style="text-align:center;">
+                                                <span t-esc="int(line.duration * 60)"/>
+                                            </td>
+                                            <td style="text-align:center;">
+                                                <span t-field="line.patient_id.name"/>
+                                            </td>
+                                            <td style="text-align:center;">
+                                                <span t-field="line.patient_id.phone"/>
+                                            </td>
+                                            <td style="text-align:center;">
+                                                <span t-field="line.service_type"/>
+                                            </td>
+                                            <td style="text-align:center;">
+                                                <span t-field="line.insurance_id"/>
+                                            </td>
+                                            <td style="text-align:center;">
+                                                <span t-field="line.employee_id.name"/>
+                                            </td>
+                                            <td style="text-align:center;">
+                                                <span t-field="line.notes"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                            <p style="page-break-after: always;"/>
+                        </t>
+                    </t>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>
+ 

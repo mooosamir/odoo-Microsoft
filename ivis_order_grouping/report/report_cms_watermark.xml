@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_cms_1500_new">
+		<t t-foreach="get_claim_data()" t-as="claim">
+			<t t-set="o" t-value="claim.get('doc')"/>
+			<t t-set="clim_line" t-value="claim.get('line')"/>
+
+            <t t-call="web.basic_layout">
+                <div class="page container" style="position: relative;">
+                    <div class="watermark" style="font-size:3em;width:100%;height:100%;z-index:1000;">
+                        <img src="/ivis_order_grouping/static/src/img/CMS_1500_CORRECT_IMAGE-edit.jpg" />
+                    </div>
+                    <div>
+                        <div t-att-style="'left:1100px;top:100px;position:absolute;width:50%;font-size:20px;'">
+	                        <span t-field="o.primary_insurance_company_id"/> <br></br>
+<!--	                        <span t-field="o.primary_insurance_company_id.address_line_1"/><br></br>-->
+	                        <span t-field="o.primary_insurance_company_id.street"/><br></br>
+	                        <span t-field="o.primary_insurance_company_id.street2"/><br></br>
+	                        <span t-field="o.primary_insurance_company_id.city"/>
+	                        <span t-field="o.primary_insurance_company_id.state_id"/>
+	                        <span t-field="o.primary_insurance_company_id.zip"/>
+                        </div>
+	                    <t t-if="o.primary_insurance_company_id and o.primary_insurance_company_id.insurance_type_id == 'medicare'">
+	                        <span t-att-style="'left:75px;top:290px;position:absolute;width:50%;absolute;font-size:25px;'"><i class="fa fa-check" aria-hidden="true"></i></span>
+	                    </t>
+	                    <t t-elif="o.primary_insurance_company_id and o.primary_insurance_company_id.insurance_type_id == 'medicaid'">
+	                        <span t-att-style="'left:212px;top:290px;position:absolute;width:50%;absolute;font-size:25px;'"><i class="fa fa-check" aria-hidden="true"></i></span>
+	                    </t>
+	                    <t t-elif="o.primary_insurance_company_id and o.primary_insurance_company_id.insurance_type_id == 'tricare'">
+	                        <span t-att-style="'left:350px;top:290px;position:absolute;width:50%;absolute;font-size:25px;'"><i class="fa fa-check" aria-hidden="true"></i></span>
+	                    </t>
+	                    <t t-elif="o.primary_insurance_company_id and o.primary_insurance_company_id.insurance_type_id == 'champva'">
+	                        <span t-att-style="'left:530px;top:290px;position:absolute;width:50%;absolute;font-size:25px;'"><i class="fa fa-check" aria-hidden="true"></i></span>
+	                    </t>
+	                    <t t-elif="o.primary_insurance_company_id and o.primary_insurance_company_id.insurance_type_id == 'group_health_plan'">
+	                        <span t-att-style="'left:650px;top:290px;position:absolute;width:50%;absolute;font-size:25px;'"><i class="fa fa-check" aria-hidden="true"></i></span>
+	                    </t>
+	                    <t t-elif="o.primary_insurance_company_id and o.primary_insurance_company_id.insurance_type_id == 'feca_blklung'">
+	                        <span t-att-style="'left:835px;top:290px;position:absolute;width:50%;absolute;font-size:25px;'"><i class="fa fa-check" aria-hidden="true"></i></span>
+	                    </t>
+	                    <t t-elif="o.primary_insurance_company_id and o.primary_insurance_company_id.insurance_type_id == 'other'">
+	                        <span t-att-style="'left:950px;top:290px;position:absolute;width:50%;absolute;font-size:25px;'"><i class="fa fa-check" aria-hidden="true"></i></span>
+	                    </t>
+
+	                    <span t-field="o.insured_sequence" t-att-style="'left:1150px;top:290px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+						<!-- >>>>>>>>>>>>>>>>>>>>>>>>>>> -->
+                        <span t-field="o.patient_id.name" t-att-style="'left:100px;top:360px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+
+                        <span t-field="o.patient_id.date_of_birth" t-options="{'format':'MM'}" t-att-style="'left:675px;top:360px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+                        <span t-field="o.patient_id.date_of_birth" t-options="{'format':'dd'}" t-att-style="'left:750px;top:360px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+                        <span t-field="o.patient_id.date_of_birth" t-options="{'format':'yy'}" t-att-style="'left:800px;top:360px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+
+                        <t t-if="o.patient_id.gender == 'male'">
+                            <span t-att-style="'left:890px;top:360px;position:absolute;width:50%;absolute;font-size:25px;'"><i class="fa fa-check" aria-hidden="true"></i></span>
+                        </t>
+                        <t t-elif="o.patient_id.gender == 'female'">
+	                         <span t-att-style="'left:990px;top:360px;position:absolute;width:50%;absolute;font-size:25px;'"><i class="fa fa-check" aria-hidden="true"></i></span>
+	                    </t>
+						<span t-field="o.subscriber_name" t-att-style="'left:1100px;top:360px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+						<!-- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
+						<span t-field="o.patient_address_line_1" t-att-style="'left:100px;top:410px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+						<span t-field="o.patient_address_line_2" t-att-style="'left:100px;top:427px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+
+						<t t-if="o.relationship == 'self'">
+                            <span t-att-style="'left:715px;top:425px;position:absolute;width:50%;absolute;font-size:25px;'"><i class="fa fa-check" aria-hidden="true"></i></span>
+                        </t>
+						<t t-if="o.relationship == 'spouse'">
+                            <span t-att-style="'left:815px;top:425px;position:absolute;width:50%;absolute;font-size:25px;'"><i class="fa fa-check" aria-hidden="true"></i></span>
+                        </t>
+						<t t-if="o.relationship == 'child_depende'">
+                            <span t-att-style="'left:900px;top:425px;position:absolute;width:50%;absolute;font-size:25px;'"><i class="fa fa-check" aria-hidden="true"></i></span>
+                        </t>
+						<t t-if="o.relationship not in ['self', 'spouse', 'child_depende']">
+                            <span t-att-style="'left:1000px;top:425px;position:absolute;width:50%;absolute;font-size:25px;'"><i class="fa fa-check" aria-hidden="true"></i></span>
+                        </t>
+						<span t-field="o.subscriber_address_line_1" t-att-style="'left:1100px;top:410px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+						<span t-field="o.subscriber_address_line_2" t-att-style="'left:1100px;top:427px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+						<!-- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
+						<span t-field="o.patient_city" t-att-style="'left:100px;top:490px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+						<span t-field="o.patient_state_id.code" t-att-style="'left:575px;top:490px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+						<span t-field="o.subscriber_city" t-att-style="'left:1100px;top:490px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+						<span t-field="o.subscriber_state_id.code" t-att-style="'left:1580px;top:490px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+						<!-- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
+						<span t-field="o.patient_zip" t-att-style="'left:100px;top:550px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+						<span t-field="o.patient_phone" t-att-style="'left:367px;top:562px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+						<span t-field="o.subscriber_zip" t-att-style="'left:1100px;top:550px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+						<span t-field="o.subscriber_phone" t-att-style="'left:1378px;top:562px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+						<!-- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
+						<span t-field="o.secondary_patient_name" t-att-style="'left:100px;top:625px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+						<span t-field="o.policy_group" t-att-style="'left:1100px;top:625px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+						<!-- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
+						<span t-field="o.insured_sequence_other" t-att-style="'left:100px;top:690px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+						<span t-field="o.secondary_patient_date_of_birth" t-options="{'format':'MM'}" t-att-style="'left:1130px;top:700px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+                        <span t-field="o.secondary_patient_date_of_birth" t-options="{'format':'dd'}" t-att-style="'left:1180px;top:700px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+                        <span t-field="o.secondary_patient_date_of_birth" t-options="{'format':'yy'}" t-att-style="'left:1230px;top:700px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+
+                        <t t-if="o.secondary_patient_gender == 'male'">
+                            <span t-att-style="'left:1420px;top:700px;position:absolute;width:50%;absolute;font-size:25px;'"><i class="fa fa-check" aria-hidden="true"></i></span>
+                        </t>
+                        <t t-elif="o.secondary_patient_gender == 'female'">
+	                         <span t-att-style="'left:1555px;top:700px;position:absolute;width:50%;absolute;font-size:25px;'"><i class="fa fa-check" aria-hidden="true"></i></span>
+	                    </t>
+						<!-- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
+						<span t-field="o.other_claim_1" t-att-style="'left:1100px;top:760px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+						<span t-field="o.plan_id.name" t-att-style="'left:1100px;top:820px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+						<span t-field="o.secondary_plan_id.name" t-att-style="'left:100px;top:900px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+						<!-- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
+						<t t-if="o.condition_related == 'employment'">
+                            <span t-att-style="'left:750px;top:700px;position:absolute;width:50%;absolute;font-size:25px;'"><i class="fa fa-check" aria-hidden="true"></i></span>
+                        </t>
+						<t t-if="o.condition_related != 'employment'">
+                            <span t-att-style="'left:870px;top:700px;position:absolute;width:50%;absolute;font-size:25px;'"><i class="fa fa-check" aria-hidden="true"></i></span>
+                        </t>
+						<t t-if="o.condition_related == 'auto_accident'">
+                            <span t-att-style="'left:750px;top:763px;position:absolute;width:50%;absolute;font-size:25px;'"><i class="fa fa-check" aria-hidden="true"></i></span>
+							<span t-field="o.condition_related_state_id.code" t-att-style="'left:960px;top:763px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+                        </t>
+						<t t-if="o.condition_related != 'auto_accident'">
+                            <span t-att-style="'left:870px;top:763px;position:absolute;width:50%;absolute;font-size:25px;'"><i class="fa fa-check" aria-hidden="true"></i></span>
+                        </t>
+
+						<t t-if="o.condition_related == 'other_accident'">
+                            <span t-att-style="'left:750px;top:830px;position:absolute;width:50%;absolute;font-size:25px;'"><i class="fa fa-check" aria-hidden="true"></i></span>
+                        </t>
+						<t t-if="o.condition_related != 'other_accident'">
+                            <span t-att-style="'left:870px;top:830px;position:absolute;width:50%;absolute;font-size:25px;'"><i class="fa fa-check" aria-hidden="true"></i></span>
+                        </t>
+						<!-- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
+						<t t-if="o.hipaa_sign">
+							<span t-field="o.hipaa_date" t-att-style="'left:800px;top:1020px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+						</t>
+						<t t-if="o.insured_auth">
+							<span t-field="o.insured_date" t-att-style="'left:1200px;top:1020px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+						</t>
+						<!-- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
+						<span t-field="o.date_of_current_illness" t-options="{'format':'MM'}" t-att-style="'left:100px;top:1100px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+                        <span t-field="o.date_of_current_illness" t-options="{'format':'dd'}" t-att-style="'left:150px;top:1100px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+                        <span t-field="o.date_of_current_illness" t-options="{'format':'yy'}" t-att-style="'left:210px;top:1100px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+						<span t-field="o.qualif" t-att-style="'left:380px;top:1100px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+
+						<span t-field="o.other_date" t-options="{'format':'MM'}" t-att-style="'left:810px;top:1100px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+                        <span t-field="o.other_date" t-options="{'format':'dd'}" t-att-style="'left:860px;top:1100px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+                        <span t-field="o.other_date" t-options="{'format':'yy'}" t-att-style="'left:920px;top:1100px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+
+						<span t-field="o.dates_unable_1" t-options="{'format':'MM'}" t-att-style="'left:1150px;top:1100px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+                        <span t-field="o.dates_unable_1" t-options="{'format':'dd'}" t-att-style="'left:1210px;top:1100px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+                        <span t-field="o.dates_unable_1" t-options="{'format':'yy'}" t-att-style="'left:1270px;top:1100px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+
+						<span t-field="o.dates_unable_2" t-options="{'format':'MM'}" t-att-style="'left:1430px;top:1100px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+                        <span t-field="o.dates_unable_2" t-options="{'format':'dd'}" t-att-style="'left:1480px;top:1100px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+                        <span t-field="o.dates_unable_2" t-options="{'format':'yy'}" t-att-style="'left:1540px;top:1100px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+
+						<span t-field="o.dates_hospitalization_1" t-options="{'format':'MM'}" t-att-style="'left:1150px;top:1170px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+                        <span t-field="o.dates_hospitalization_1" t-options="{'format':'dd'}" t-att-style="'left:1210px;top:1170px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+                        <span t-field="o.dates_hospitalization_1" t-options="{'format':'yy'}" t-att-style="'left:1270px;top:1170px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+
+						<span t-field="o.dates_hospitalization_2" t-options="{'format':'MM'}" t-att-style="'left:1430px;top:1170px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+                        <span t-field="o.dates_hospitalization_2" t-options="{'format':'dd'}" t-att-style="'left:1480px;top:1170px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+                        <span t-field="o.dates_hospitalization_2" t-options="{'format':'yy'}" t-att-style="'left:1540px;top:1170px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+						<!-- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
+						<span t-field="o.edit_qualifier" t-att-style="'left:70px;top:1165px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+						<span t-field="o.partner_edit_doctors_id.display_name" t-att-style="'left:130px;top:1165px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+
+						<span t-field="o.referring_provider" t-att-style="'left:660px;top:1133px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+						<span t-field="o.qualifier_text" t-att-style="'left:710px;top:1133px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+						<span t-field="o.referring_provider_npi" t-att-style="'left:710px;top:1167px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+
+						<t t-if="o.outside_lab">
+                            <span t-att-style="'left:1100px;top:1230px;position:absolute;width:50%;absolute;font-size:25px;'"><i class="fa fa-check" aria-hidden="true"></i></span>
+							<span t-field="o.outside_lab_charge" t-att-style="'left:1500px;top:1230px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+                        </t>
+						<t t-if="not o.outside_lab">
+                            <span t-att-style="'left:1200px;top:1230px;position:absolute;width:50%;absolute;font-size:25px;'"><i class="fa fa-check" aria-hidden="true"></i></span>
+                        </t>
+						<!-- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
+						<span t-field="o.edit_additional_information" t-att-style="'left:70px;top:1230px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+						<span t-field="o.edit_resubmission_qualifier" t-att-style="'left:1100px;top:1300px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+						<span t-field="o.edit_resubmission_text" t-att-style="'left:1350px;top:1300px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+						<span t-field="o.prior_auth" t-att-style="'left:1100px;top:1370px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+						<!-- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
+						<span t-field="o.a_diagnosis_code_id.name" t-att-style="'left:110px;top:1300px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+						<span t-field="o.b_diagnosis_code_id.name" t-att-style="'left:370px;top:1300px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+						<span t-field="o.c_diagnosis_code_id.name" t-att-style="'left:640px;top:1300px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+						<span t-field="o.d_diagnosis_code_id.name" t-att-style="'left:905px;top:1300px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+
+						<span t-field="o.e_diagnosis_code_id.name" t-att-style="'left:110px;top:1335px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+						<span t-field="o.f_diagnosis_code_id.name" t-att-style="'left:370px;top:1335px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+						<span t-field="o.g_diagnosis_code_id.name" t-att-style="'left:640px;top:1335px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+						<span t-field="o.h_diagnosis_code_id.name" t-att-style="'left:905px;top:1335px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+
+						<span t-field="o.i_diagnosis_code_id.name" t-att-style="'left:110px;top:1370px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+						<span t-field="o.j_diagnosis_code_id.name" t-att-style="'left:370px;top:1370px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+						<span t-field="o.k_diagnosis_code_id.name" t-att-style="'left:640px;top:1370px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+						<span t-field="o.l_diagnosis_code_id.name" t-att-style="'left:905px;top:1370px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+						<!-- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
+						<span t-field="o.patient_acct" t-att-style="'left:510px;top:1900px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+						<span t-esc="int(str(o.total_charge).split('.')[0])" t-att-style="'left:1100px;top:1900px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+						<span t-esc="int(str(o.total_charge).split('.')[1])" t-att-style="'left:1230px;top:1900px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+						<span t-esc="int(str(o.amount_paid).split('.')[0])" t-att-style="'left:1320px;top:1900px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+						<span t-esc="int(str(o.amount_paid).split('.')[1])" t-att-style="'left:1430px;top:1900px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+						<!-- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
+						<span t-field="o.provider_tax" t-att-style="'left:100px;top:1900px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+						<t t-if="o.ssn_ein == 'SSN'">
+                            <span t-att-style="'left:395px;top:1900px;position:absolute;width:50%;absolute;font-size:25px;'"><i class="fa fa-check" aria-hidden="true"></i></span>
+                        </t>
+						<t t-if="o.ssn_ein == 'EIN'">
+                            <span t-att-style="'left:435px;top:1900px;position:absolute;width:50%;absolute;font-size:25px;'"><i class="fa fa-check" aria-hidden="true"></i></span>
+                        </t>
+						<t t-if="o.accept_assignment">
+                            <span t-att-style="'left:815px;top:1900px;position:absolute;width:50%;absolute;font-size:25px;'"><i class="fa fa-check" aria-hidden="true"></i></span>
+                        </t>
+						<t t-if="not o.accept_assignment">
+                            <span t-att-style="'left:915px;top:1900px;position:absolute;width:50%;absolute;font-size:25px;'"><i class="fa fa-check" aria-hidden="true"></i></span>
+                        </t>
+
+
+
+						<!-- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
+						<span t-field="o.bill_address_line_1" t-att-style="'left:510px;top:1960px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+						<span t-field="o.bill_address_line_2" t-att-style="'left:510px;top:1980px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+						<span t-field="o.bill_city" t-att-style="'left:510px;top:2000px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+						<span t-field="o.bill_zip" t-att-style="'left:510px;top:2020px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+						<span t-field="o.bill_state_id" t-att-style="'left:510px;top:2038px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+
+						<span t-field="o.provider_bill_address_line_1" t-att-style="'left:1080px;top:1960px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+						<span t-field="o.provider_bill_address_line_2" t-att-style="'left:1080px;top:1980px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+						<span t-field="o.provider_bill_city" t-att-style="'left:1080px;top:2000px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+						<span t-field="o.provider_bill_zip" t-att-style="'left:1080px;top:2020px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+						<span t-field="o.provider_bill_state_id" t-att-style="'left:1080px;top:2038px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+						<!-- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
+						<span t-field="o.provider_signature" t-att-style="'left:70px;top:2055px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+						<span t-esc="time.strftime('%m/%d/%Y')" t-att-style="'left:340px;top:2055px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+						<span t-field="o.location_npi" t-att-style="'left:530px;top:2080px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+						<span t-att-style="'left:748px;top:2080px;position:absolute;width:50%;absolute;font-size:25px;'">
+							<span t-field="o.bill_qualifier"/>
+							-
+							<span t-field="o.bill_other_id"/>
+						</span>
+						<span t-field="o.provider_location_npi" t-att-style="'left:1100px;top:2080px;position:absolute;width:50%;absolute;font-size:25px;'"/>
+						<span t-att-style="'left:1320px;top:2080px;position:absolute;width:50%;absolute;font-size:25px;'">
+							<span t-field="o.provider_bill_qualifier"/>
+							-
+							<span t-field="o.provider_bill_other_id"/>
+						</span>
+						<!-- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
+						<!-- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
+
+						<span t-set="counter"  t-value="1" />
+
+						<t t-foreach="clim_line" t-as="record">
+							<t t-if="counter == 1">
+								<span t-field="o.service_date" t-options="{'format':'MM'}" t-att-style="'left:75px;top:1500px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-field="o.service_date" t-options="{'format':'dd'}" t-att-style="'left:140px;top:1500px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-field="o.service_date" t-options="{'format':'yy'}" t-att-style="'left:180px;top:1500px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-field="o.service_date" t-options="{'format':'MM'}" t-att-style="'left:260px;top:1500px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-field="o.service_date" t-options="{'format':'dd'}" t-att-style="'left:325px;top:1500px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-field="o.service_date" t-options="{'format':'yy'}" t-att-style="'left:365px;top:1500px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-field="record.place_of_service" t-att-style="'left:430px;top:1500px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<t t-if="record.emg_svc">
+									<span t-att-style="'left:495px;top:1500px;position:absolute;width:50%;absolute;font-size:24px;'"><i class="fa fa-check" aria-hidden="true"/></span>
+								</t>
+								<span t-field="record.procedure_code_id.name" t-att-style="'left:570px;top:1500px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-esc="', '.join(map(lambda x: x.name, record.spec_modifier_ids))" t-att-style="'left:693px;top:1500px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-esc="', '.join(map(lambda x: x.seq, record.diagnosis_code_sale_ids))" t-att-style="'left:960px;top:1500px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-esc="int(str(record.actual_retail).split('.')[0])" t-att-style="'left:1055px;top:1500px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-esc="int(str(record.actual_retail).split('.')[1])" t-att-style="'left:1180px;top:1500px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-field="record.quantity" t-att-style="'left:1235px;top:1500px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-field="record.epsdt" t-att-style="'left:1320px;top:1500px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+
+								<span t-field="o.rendering_provider_npi_id.npi" t-att-style="'left:1460px;top:1500px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-field="o.service_referring_provider" t-att-style="'left:1360px;top:1468px;position:absolute;width:50%;absolute;font-size:24px;'"/>-
+								<span t-field="o.service_qualifier_text" t-att-style="'left:1460px;top:1468px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+							</t>
+							<t t-if="counter == 2">
+								<span t-field="o.service_date" t-options="{'format':'MM'}" t-att-style="'left:75px;top:1570px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-field="o.service_date" t-options="{'format':'dd'}" t-att-style="'left:140px;top:1570px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-field="o.service_date" t-options="{'format':'yy'}" t-att-style="'left:180px;top:1570px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-field="o.service_date" t-options="{'format':'MM'}" t-att-style="'left:260px;top:1570px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-field="o.service_date" t-options="{'format':'dd'}" t-att-style="'left:325px;top:1570px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-field="o.service_date" t-options="{'format':'yy'}" t-att-style="'left:365px;top:1570px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-field="record.place_of_service" t-att-style="'left:430px;top:1570px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<t t-if="record.emg_svc">
+									<span t-att-style="'left:495px;top:1570px;position:absolute;width:50%;absolute;font-size:24px;'"><i class="fa fa-check" aria-hidden="true"/></span>
+								</t>
+								<span t-field="record.procedure_code_id.name" t-att-style="'left:570px;top:1570px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-esc="', '.join(map(lambda x: x.name, record.spec_modifier_ids))" t-att-style="'left:693px;top:1570px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-esc="', '.join(map(lambda x: x.seq, record.diagnosis_code_sale_ids))" t-att-style="'left:960px;top:1570px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-esc="int(str(record.actual_retail).split('.')[0])" t-att-style="'left:1055px;top:1570px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-esc="int(str(record.actual_retail).split('.')[1])" t-att-style="'left:1180px;top:1570px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-field="record.quantity" t-att-style="'left:1235px;top:1570px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-field="record.epsdt" t-att-style="'left:1320px;top:1570px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+
+								<span t-field="o.rendering_provider_npi_id.npi" t-att-style="'left:1460px;top:1570px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-field="o.service_referring_provider" t-att-style="'left:1360px;top:1538px;position:absolute;width:50%;absolute;font-size:24px;'"/>-
+								<span t-field="o.service_qualifier_text" t-att-style="'left:1460px;top:1538px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+							</t>
+							<t t-if="counter == 3">
+								<span t-field="o.service_date" t-options="{'format':'MM'}" t-att-style="'left:75px;top:1640px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-field="o.service_date" t-options="{'format':'dd'}" t-att-style="'left:140px;top:1640px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-field="o.service_date" t-options="{'format':'yy'}" t-att-style="'left:180px;top:1640px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-field="o.service_date" t-options="{'format':'MM'}" t-att-style="'left:260px;top:1640px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-field="o.service_date" t-options="{'format':'dd'}" t-att-style="'left:325px;top:1640px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-field="o.service_date" t-options="{'format':'yy'}" t-att-style="'left:365px;top:1640px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-field="record.place_of_service" t-att-style="'left:430px;top:1640px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<t t-if="record.emg_svc">
+									<span t-att-style="'left:495px;top:1640px;position:absolute;width:50%;absolute;font-size:24px;'"><i class="fa fa-check" aria-hidden="true"/></span>
+								</t>
+								<span t-field="record.procedure_code_id.name" t-att-style="'left:570px;top:1640px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-esc="', '.join(map(lambda x: x.name, record.spec_modifier_ids))" t-att-style="'left:693px;top:1640px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-esc="', '.join(map(lambda x: x.seq, record.diagnosis_code_sale_ids))" t-att-style="'left:960px;top:1640px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-esc="int(str(record.actual_retail).split('.')[0])" t-att-style="'left:1055px;top:1640px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-esc="int(str(record.actual_retail).split('.')[1])" t-att-style="'left:1180px;top:1640px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-field="record.quantity" t-att-style="'left:1235px;top:1640px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-field="record.epsdt" t-att-style="'left:1320px;top:1640px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+
+								<span t-field="o.rendering_provider_npi_id.npi" t-att-style="'left:1460px;top:1640px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-field="o.service_referring_provider" t-att-style="'left:1360px;top:1608px;position:absolute;width:50%;absolute;font-size:24px;'"/>-
+								<span t-field="o.service_qualifier_text" t-att-style="'left:1460px;top:1608px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+							</t>
+							<t t-if="counter == 4">
+								<span t-field="o.service_date" t-options="{'format':'MM'}" t-att-style="'left:75px;top:1710px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-field="o.service_date" t-options="{'format':'dd'}" t-att-style="'left:140px;top:1710px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-field="o.service_date" t-options="{'format':'yy'}" t-att-style="'left:180px;top:1710px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-field="o.service_date" t-options="{'format':'MM'}" t-att-style="'left:260px;top:1710px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-field="o.service_date" t-options="{'format':'dd'}" t-att-style="'left:325px;top:1710px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-field="o.service_date" t-options="{'format':'yy'}" t-att-style="'left:365px;top:1710px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-field="record.place_of_service" t-att-style="'left:430px;top:1710px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<t t-if="record.emg_svc">
+									<span t-att-style="'left:495px;top:1710px;position:absolute;width:50%;absolute;font-size:24px;'"><i class="fa fa-check" aria-hidden="true"/></span>
+								</t>
+								<span t-field="record.procedure_code_id.name" t-att-style="'left:570px;top:1710px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-esc="', '.join(map(lambda x: x.name, record.spec_modifier_ids))" t-att-style="'left:693px;top:1710px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-esc="', '.join(map(lambda x: x.seq, record.diagnosis_code_sale_ids))" t-att-style="'left:960px;top:1710px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-esc="int(str(record.actual_retail).split('.')[0])" t-att-style="'left:1055px;top:1710px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-esc="int(str(record.actual_retail).split('.')[1])" t-att-style="'left:1180px;top:1710px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-field="record.quantity" t-att-style="'left:1235px;top:1710px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-field="record.epsdt" t-att-style="'left:1320px;top:1710px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+
+								<span t-field="o.rendering_provider_npi_id.npi" t-att-style="'left:1460px;top:1710px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-field="o.service_referring_provider" t-att-style="'left:1360px;top:1678px;position:absolute;width:50%;absolute;font-size:24px;'"/>-
+								<span t-field="o.service_qualifier_text" t-att-style="'left:1460px;top:1678px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+							</t>
+							<t t-if="counter == 5">
+								<span t-field="o.service_date" t-options="{'format':'MM'}" t-att-style="'left:75px;top:1775px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-field="o.service_date" t-options="{'format':'dd'}" t-att-style="'left:140px;top:1775px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-field="o.service_date" t-options="{'format':'yy'}" t-att-style="'left:180px;top:1775px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-field="o.service_date" t-options="{'format':'MM'}" t-att-style="'left:260px;top:1775px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-field="o.service_date" t-options="{'format':'dd'}" t-att-style="'left:325px;top:1775px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-field="o.service_date" t-options="{'format':'yy'}" t-att-style="'left:365px;top:1775px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-field="record.place_of_service" t-att-style="'left:430px;top:1775px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<t t-if="record.emg_svc">
+									<span t-att-style="'left:495px;top:1775px;position:absolute;width:50%;absolute;font-size:24px;'"><i class="fa fa-check" aria-hidden="true"/></span>
+								</t>
+								<span t-field="record.procedure_code_id.name" t-att-style="'left:570px;top:1775px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-esc="', '.join(map(lambda x: x.name, record.spec_modifier_ids))" t-att-style="'left:693px;top:1775px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-esc="', '.join(map(lambda x: x.seq, record.diagnosis_code_sale_ids))" t-att-style="'left:960px;top:1775px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-esc="int(str(record.actual_retail).split('.')[0])" t-att-style="'left:1055px;top:1775px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-esc="int(str(record.actual_retail).split('.')[1])" t-att-style="'left:1180px;top:1775px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-field="record.quantity" t-att-style="'left:1235px;top:1775px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-field="record.epsdt" t-att-style="'left:1320px;top:1775px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+
+								<span t-field="o.rendering_provider_npi_id.npi" t-att-style="'left:1460px;top:1775px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-field="o.service_referring_provider" t-att-style="'left:1360px;top:1743px;position:absolute;width:50%;absolute;font-size:24px;'"/>-
+								<span t-field="o.service_qualifier_text" t-att-style="'left:1460px;top:1743px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+							</t>
+							<t t-if="counter == 6">
+								<span t-field="o.service_date" t-options="{'format':'MM'}" t-att-style="'left:75px;top:1841px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-field="o.service_date" t-options="{'format':'dd'}" t-att-style="'left:140px;top:1841px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-field="o.service_date" t-options="{'format':'yy'}" t-att-style="'left:180px;top:1841px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-field="o.service_date" t-options="{'format':'MM'}" t-att-style="'left:260px;top:1841px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-field="o.service_date" t-options="{'format':'dd'}" t-att-style="'left:325px;top:1841px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-field="o.service_date" t-options="{'format':'yy'}" t-att-style="'left:365px;top:1841px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-field="record.place_of_service" t-att-style="'left:430px;top:1841px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<t t-if="record.emg_svc">
+									<span t-att-style="'left:495px;top:1841px;position:absolute;width:50%;absolute;font-size:24px;'"><i class="fa fa-check" aria-hidden="true"/></span>
+								</t>
+								<span t-field="record.procedure_code_id.name" t-att-style="'left:570px;top:1841px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-esc="', '.join(map(lambda x: x.name, record.spec_modifier_ids))" t-att-style="'left:693px;top:1841px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-esc="', '.join(map(lambda x: x.seq, record.diagnosis_code_sale_ids))" t-att-style="'left:960px;top:1841px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-esc="int(str(record.actual_retail).split('.')[0])" t-att-style="'left:1055px;top:1841px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-esc="int(str(record.actual_retail).split('.')[1])" t-att-style="'left:1180px;top:1841px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-field="record.quantity" t-att-style="'left:1235px;top:1841px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-field="record.epsdt" t-att-style="'left:1320px;top:1841px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+
+								<span t-field="o.rendering_provider_npi_id.npi" t-att-style="'left:1460px;top:1841px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+								<span t-field="o.service_referring_provider" t-att-style="'left:1360px;top:1809px;position:absolute;width:50%;absolute;font-size:24px;'"/>-
+								<span t-field="o.service_qualifier_text" t-att-style="'left:1460px;top:1809px;position:absolute;width:50%;absolute;font-size:24px;'"/>
+							</t>
+
+							<t t-set="counter" t-value="counter+1" />
+						</t>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>
